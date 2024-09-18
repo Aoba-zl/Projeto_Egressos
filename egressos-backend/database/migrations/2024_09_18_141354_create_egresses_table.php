@@ -15,12 +15,17 @@ return new class extends Migration
     {
         Schema::create('egresses', function (Blueprint $table) {
             $table->id();
-            $table->string('email')->unique();
-            $table->string('cpf')->unique();
-            $table->string('phone');
-            $table->timestamp('birthdate');
+            $table->string('user_email',255)->unique();
+            $table->char('cpf',11)->unique();
+            $table->string('phone',12);
+            $table->date('birthdate');
             $table->enum('status', [0,1, 2])->default(0);
             $table->timestamps();
+
+            $table->foreign('user_email') // Definindo chave estrangeira para 'user_email'
+            ->references('email') // Referenciando o campo 'email'
+            ->on('users') // Na tabela 'users'
+            ->onDelete('cascade'); // Exclui os registros vinculados se o usuário for deletado
         });
     }
 

@@ -17,7 +17,7 @@ class Egress extends Model
         'cpf',
         'phone',
         'birthdate',
-        'email',
+        'user_email',
         'status'
     ];
         /**
@@ -26,6 +26,11 @@ class Egress extends Model
      * @var array
      */
     protected $casts = [
-        'birthdate' => 'datetime',
+        'birthdate' => 'date',
     ];
+
+    public function usuario()
+    {
+        return $this->belongsTo(Usuario::class, 'user_email', 'email');
+    }
 }

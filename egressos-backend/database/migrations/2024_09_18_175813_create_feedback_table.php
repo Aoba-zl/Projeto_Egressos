@@ -13,12 +13,15 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('users', function (Blueprint $table) {
-            $table->string('name',100);
-            $table->string('email',255)->primary();
-            $table->enum('type_account', [0, 1])->default(0);
-            $table->string('password',72);
+        Schema::create('feedback', function (Blueprint $table) {
+            $table->unsignedBigInteger('id_profile');
+            $table->text('comment');
             $table->timestamps();
+
+            $table->foreign('id_profile')
+            ->references('id')
+            ->on('egresses')
+            ->onDelete('cascade');
         });
     }
 
@@ -29,6 +32,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('feedback');
     }
 };

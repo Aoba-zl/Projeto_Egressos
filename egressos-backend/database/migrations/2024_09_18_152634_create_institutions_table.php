@@ -15,10 +15,18 @@ return new class extends Migration
     {
         Schema::create('institutions', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('id_address');
+            $table->text('name');
             $table->timestamps();
-        });
+
+                        // Definindo 'id_address' como unsignedBigInteger
+                        $table->unsignedBigInteger('id_address');            
+                        // Definindo a chave estrangeira 'id_address' que referencia 'id' da tabela 'addresses'
+                        $table->foreign('id_address')
+                              ->references('id')
+                              ->on('addresses')
+                              ->onDelete('cascade'); // Exclui registros vinculados quando o endereço é deletado
+                    });
+
     }
 
     /**

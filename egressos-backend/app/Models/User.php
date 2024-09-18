@@ -32,5 +32,8 @@ class User extends Authenticatable
     protected $hidden = [
         'password'
     ];
-
+    public function profilesEgresses()
+    {
+        return $this->hasMany(Egress::class, 'user_email', 'email');
+    }
 }
