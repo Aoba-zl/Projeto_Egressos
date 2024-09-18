@@ -14,7 +14,6 @@ class Egress extends Model
      * @var array
      */
     protected $fillable = [
-        'name',
         'cpf',
         'phone',
         'birthdate',
