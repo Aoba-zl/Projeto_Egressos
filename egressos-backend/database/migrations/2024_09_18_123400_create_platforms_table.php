@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('platforms', function (Blueprint $table) {
-            $table->id();
+            $table->bigInteger('id')->unsigned(); // Alterado para integer() em vez de id()
             $table->string('name');
             $table->timestamps();
         });

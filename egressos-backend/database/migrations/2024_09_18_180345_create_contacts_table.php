@@ -1,4 +1,5 @@
 <?php
+
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -14,8 +15,8 @@ return new class extends Migration
     {
         Schema::create('contacts', function (Blueprint $table) {
             // Chaves primárias compostas
-            $table->bigInteger('id_profile')->unsigned();
-            $table->integer('id_platform')->unsigned();
+            $table->unsignedBigInteger('id_profile'); // Certifique-se de que esta é unsignedBigInteger
+            $table->unsignedBigInteger('id_platform'); // Altere para unsignedBigInteger
 
             // Campo de contato
             $table->string('contato', 255);
