@@ -1,0 +1,47 @@
+@charset "UTF-8";
+
+@media only screen and (max-width: 768px) {
+    section{
+        min-height: 30vh;
+    }
+
+    #carouselExampleIndicators img{
+        max-height: 30vh;
+    }
+
+    #sec_numeros p{
+        text-align: center;
+    }
+
+    #tituloEgressos{
+        font-size: 1.5em;
+    }
+
+    .event-card{
+        width: 85vw;
+    }
+}
+
+@media only screen and (max-width: 768px) and (max-height:500px){
+   
+}
+
+@media only screen and (max-width: 992px) and (min-width:768px){
+    section{
+        min-height: var(--section-height);
+    }
+
+    #sec_numeros{
+        min-height: 30vh;
+    }
+}
+
+@media only screen and (min-width: 993px) {
+    section{
+        min-height: var(--section-height);
+    }
+
+    #sec_numeros{
+        min-height: 30vh;
+    }
+} 
