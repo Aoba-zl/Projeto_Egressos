@@ -17,4 +17,11 @@ class Feedback extends Model
         'id_egress',
         'comment',
     ];
+
+        // Relacionamento com Perfil_Egresso
+        public function perfilEgresso()
+        {
+            return $this->belongsTo(Egress::class, 'id_egress');
+        }
+        
 }

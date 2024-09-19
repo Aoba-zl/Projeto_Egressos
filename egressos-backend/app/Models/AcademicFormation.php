@@ -8,11 +8,11 @@ class FormacaoAcademica extends Model
 {
     protected $table = 'academic_formation';
 
-    protected $primaryKey = ['id_profile', 'id_institution', 'id_cours'];
+    protected $primaryKey = ['id_egress', 'id_institution', 'id_cours'];
     public $incrementing = false;
 
     protected $fillable = [
-        'id_profile',
+        'id_egress',
         'id_institution',
         'id_course',
         'begin_year',
@@ -23,7 +23,7 @@ class FormacaoAcademica extends Model
     // Relacionamento com Perfil_Egresso
     public function perfilEgresso()
     {
-        return $this->belongsTo(Egress::class, 'id_profile');
+        return $this->belongsTo(Egress::class, 'id_egress');
     }
 
     // Relacionamento com Instituicao

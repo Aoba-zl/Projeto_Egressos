@@ -17,4 +17,9 @@ class Institution extends Model
         'name',
         'id_address',
     ];
+        // Relacionamento com Perfil_Egresso
+        public function endereco()
+        {
+            return $this->belongsTo(Address::class, 'id_address');
+        }
 }
