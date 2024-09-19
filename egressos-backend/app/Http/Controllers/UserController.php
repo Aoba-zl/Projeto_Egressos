@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use App\Http\Requests\StoreUserRequest;
 
 class UserController extends Controller
 {
@@ -25,23 +26,37 @@ class UserController extends Controller
     }
 
     // Criar um novo usuário
-    public function store(Request $request)
+    public function store(StoreUserRequest $request)
     {
-        $validatedData = $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:8',
-            'type_account' => 'required'
-        ]);
+      dd($request);
+        $typeAccount = $request->input('type_account');
+        $typeAccountLabel = '';
 
+        switch ($typeAccount) {
+            case '0':
+                $typeAccountLabel = 'Egresso'; // 0 -> Egresso
+                break;
+            case '1':
+                $typeAccountLabel = 'Admin'; // 1 -> Admin
+                break;
+            case '2':
+                $typeAccountLabel = 'Moderador'; // 2 -> Moderador
+                break;
+        }
+
+        // Criação do usuário
         $user = User::create([
-            'name' => $validatedData['name'],
-            'email' => $validatedData['email'],
-            'password' => bcrypt($validatedData['password']),
-            'type_account' => $validatedData['type_account']
+            'name' => $request->input('name'),
+            'email' => $request->input('email'),
+            'password' => bcrypt($request->input('password')),
+            'type_account' => $typeAccount,
         ]);
 
-        return response()->json($user, 201);
+        // Resposta JSON
+        return response()->json([
+            'user' => $user,
+            'type_account_label' => $typeAccountLabel,
+        ], 201);
     }
 
     // Atualizar um usuário existente
