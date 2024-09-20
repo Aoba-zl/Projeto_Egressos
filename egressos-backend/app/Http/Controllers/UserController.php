@@ -28,7 +28,7 @@ class UserController extends Controller
     // Criar um novo usuário
     public function store(StoreUserRequest $request)
     {
-      dd($request);
+
         $typeAccount = $request->input('type_account');
         $typeAccountLabel = '';
 

@@ -19,5 +19,5 @@ use App\Http\Controllers\UserController;
 //     return $request->user();
 // });
 
-Route::post('/new-user', [UserController::class, 'store']) ->name('user.store');;
+Route::post('new-user', [UserController::class, 'store']);
 
