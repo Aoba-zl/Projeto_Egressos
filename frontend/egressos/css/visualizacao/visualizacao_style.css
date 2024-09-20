@@ -31,14 +31,9 @@ main{
 
 /* --------------------------------*/
 /* ------------ Dados ------------*/
-#aluno-dados > div{
-    margin-bottom: 30px;
-}
-
 #aluno-nome-completo{
     text-transform: capitalize;
     font-size: 1.5em;
-    margin-bottom: 10px;
 }
 
 .aux-label{
@@ -46,6 +41,7 @@ main{
     font-size: 1.2em;
     display: block;
     margin-bottom: 5px;
+    margin-top: 30px;
 }
 
 #aluno-curso > *{
