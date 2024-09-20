@@ -1,0 +1,75 @@
+
+main{
+    padding: 1em;
+}
+/* ------------ Profile ------------*/
+.icon-social{
+    width: 30px;
+    height: 30px;
+}
+
+#divImgPerfil img{
+    width: 20vw;
+    height: 20vw;
+    margin-bottom: 1em;
+    border-radius: 10px;
+}
+
+#divContatos{
+    align-items: center;
+    padding-left: 1em;
+}
+
+#divContatos *{
+    margin-bottom: 5px;
+}
+
+#perfilName{
+    font-size: 3em;
+    margin-bottom: 1em;
+}
+
+/* --------------------------------*/
+/* ------------ Dados ------------*/
+#aluno-dados > div{
+    margin-bottom: 30px;
+}
+
+#aluno-nome-completo{
+    text-transform: capitalize;
+    font-size: 1.5em;
+    margin-bottom: 10px;
+}
+
+.aux-label{
+    text-decoration: underline;
+    font-size: 1.2em;
+    display: block;
+    margin-bottom: 5px;
+}
+
+#aluno-curso > *{
+    display: block;
+}
+
+#txtFeedback{
+    width: 100%;
+    min-height: 10vh;
+    resize: none;
+    border-style: dashed;
+}
+
+/* --------------------------------*/
+/* ------------ Experiencias ------------*/
+.exp{
+    border: 1px solid black;
+    border-radius: 10px;
+    padding: 1em 2em;
+    text-align: center;
+    margin-bottom: 5px;
+    
+}
+
+#exps-academicas{
+    margin-bottom: 4em;
+}

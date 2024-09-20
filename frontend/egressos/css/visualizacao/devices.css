@@ -1,0 +1,45 @@
+@charset "UTF-8";
+
+@media only screen and (max-width: 768px) {
+    #divImgPerfil img{
+        width: 92vw;
+        height: 90vw;
+        margin-bottom: 1em;
+        border-radius: 10px;
+    }
+
+    #divContatos{
+        padding-left: 0em;
+    }
+
+    #divContatos > *{
+        display: inline-block;
+        margin:5px;
+    }
+}
+
+@media only screen and (max-width: 768px) and (max-height:500px){
+   
+}
+
+@media only screen and (max-width: 992px) and (min-width:768px){
+    #divImgPerfil img{
+        width: 92vw;
+        height: 90vw;
+        margin-bottom: 1em;
+        border-radius: 10px;
+    }
+
+    #divContatos{
+        padding-left: 0em;
+    }
+
+    #divContatos > *{
+        display: inline-block;
+        margin:5px;
+    }
+}
+
+@media only screen and (min-width: 993px) {
+    
+} 

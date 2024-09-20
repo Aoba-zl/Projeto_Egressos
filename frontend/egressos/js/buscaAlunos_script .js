@@ -8,3 +8,8 @@ window.onload = function () {
 function init(){
 
 }
+
+document.getElementById("divCardsAluno").addEventListener("click",(e)=>{
+    let id = e.target.children[0].innerHTML;
+    window.location.href = "./visualizarPerfil.html?profile="+id;
+});
