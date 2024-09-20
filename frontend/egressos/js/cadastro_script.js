@@ -8,3 +8,14 @@ window.onload = function () {
 function init(){
 
 }
+
+document.getElementById("btnContinueCad").addEventListener("click",()=>{
+    let cb = document.getElementById("cbAgreement");
+    if(cb.checked == true){
+        alert("Prosseguir");
+    }else{
+        cb.parentNode.classList.add("mark-red");
+    }
+
+    
+});

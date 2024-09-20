@@ -1,1 +1,9 @@
+.mark-red{
+    border: 2px solid red;
+    border-radius: 10px;
+}
 
+.mark-red::after{
+    content: "<br>**Você precisa aceitar os termos de uso";
+    color: red;
+}
