@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Course;
 use Illuminate\Http\Request;
 
 class CourseController extends Controller
@@ -11,7 +12,8 @@ class CourseController extends Controller
      */
     public function index()
     {
-        var_dump("Implemente-me"); // TODO: Implementar Controle CourseController
+        $courses = Course::select('id','name','type_formation')->paginate(50);
+        return response()->json($courses);
     }
 
     /**
@@ -19,7 +21,18 @@ class CourseController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        
+        $request->validate([
+            "name" => "required|string"
+            ,"type_formation" => "required|string"
+        ]);
+        
+        $storedCourse = Course::create([
+            'name' => $request->name 
+            ,'type_formation' => $request->type_formation
+        ]);
+
+        return response()->json($storedCourse);
     }
 
     /**
@@ -33,16 +46,34 @@ class CourseController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request)
     {
-        //
+        $request->validate([
+            "id"=>"required|integer|exists:courses,id"
+            ,"name" => "required|string"
+            ,"type_formation" => "required|string"
+        ]);
+
+        $courseToUpdate = Course::find($request->id);
+        $courseToUpdate->name = $request->name;
+        $courseToUpdate->type_formation = $request->type_formation;
+        $courseToUpdate->save();
+
+        return response()->json($courseToUpdate);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Request $request)
     {
-        //
+        $request->validate([
+            "id"=>"required|integer|exists:courses,id"
+        ]);
+
+        $courseToDelete = Course::find($request->id);
+        $courseToDelete->delete();
+
+        return response()->json(['message' => 'Course deleted','platform' => $courseToDelete]);
     }
 }
