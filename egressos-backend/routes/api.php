@@ -20,6 +20,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 //-------------------- Platform -----------------------------------
+//                      !! Travar para apenas admin dps
 Route::get('/platform',[PlatformController::class,'index'])->name('platform.index');
 Route::post('/platform',[PlatformController::class,'store'])->name('platform.store');
 Route::put('/platform',[PlatformController::class,'update'])->name('platform.update');
