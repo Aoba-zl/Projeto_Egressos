@@ -1,1 +1,32 @@
+textarea{
+    width: 100%;
+    min-height: 15vh;
+    resize: none;    
+}
 
+#perfilName > span{
+    font-size: 2em;
+}
+
+#lblModerador{
+    text-decoration: underline;
+    font-style: italic;
+}
+
+#lblRejeitado{
+
+}
+
+#lblRejeitado::before{
+    content: '*';
+    color: red;
+}
+
+.titulo-area{
+    font-size: 1.5em;
+    font-weight: bold;
+}
+
+.dados > div > div{
+    margin-bottom: 20px;
+}

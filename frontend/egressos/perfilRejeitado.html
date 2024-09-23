@@ -20,41 +20,44 @@
     <header id="header">       
     
     </header>
-    <main>
+    <main class="p-3">
         <div id="perfilName" class="text-center">
             <span>Perfil de Fulano</span>
-            <p>Seu perfil foi rejeitado</p>
+            <p id="lblRejeitado">Seu perfil foi rejeitado</p>
         </div>
-        <div class="row">
-            <div id="aluno-dados" class="col-6">
+        <div class="row dados">
+            <div id="aluno-dados" class="col-sm-12 col-md-6">
                 <div class="data-group">
-                    <p>Dados Pessoais</p>          
-                    <textarea name="txtDadosPessoais" id="txtDadosPessoais">
+                    <p class="titulo-area">Dados Pessoais</p>          
+                    <textarea name="txtDadosPessoais" id="txtDadosPessoais" disabled>
 
                     </textarea>
                 </div>
 
                 <div class="data-group">
-                    <p>Dados Acadêmicos</p>          
-                    <textarea name="txtDadosAcademicos" id="txtDadosAcademicos">
+                    <p class="titulo-area">Dados Acadêmicos</p>          
+                    <textarea name="txtDadosAcademicos" id="txtDadosAcademicos" disabled>
 
                     </textarea>
                 </div>
 
                 <div class="data-group">
-                    <p>Dados Profissionais</p>          
-                    <textarea name="txtDadosProfissionais" id="txtDadosProfissionais">
+                    <p class="titulo-area">Dados Profissionais</p>          
+                    <textarea name="txtDadosProfissionais" id="txtDadosProfissionais" disabled>
 
                     </textarea>
                 </div>
             </div>
-            <div class="col-6">
-                <div class="data-moderador"></div>
-                    <p>Comentário do Moderador</p>          
-                    <textarea name="txtModFeedback" id="txtModFeedback">
+            <div class="col-sm-12 col-md-6">
+                <div class="data-moderador">
+                    <p class="titulo-area" id="lblModerador">Comentário do Moderador</p>          
+                    <textarea name="txtModFeedback" id="txtModFeedback" disabled>
 
                     </textarea>
                 </div>
+            </div>
+            <div class="col-12 text-center">
+                <button type="button" class="btn btn-warning">Editar Dados</button>
             </div>
         </div>
     </main>
@@ -66,7 +69,7 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-    <script type="module" src="./js/visualizacao_script.js"></script>
+    <script type="module" src="./js/rejeicao_script.js"></script>
     
 </body>
 </html>
