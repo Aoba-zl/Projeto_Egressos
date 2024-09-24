@@ -14,9 +14,10 @@ return new class extends Migration
     public function up()
     {
         Schema::create('users', function (Blueprint $table) {
+            $table->id();
             $table->string('name',100);
-            $table->string('email',255)->primary();
-            $table->enum('type_account', [0, 1])->default(0);
+            $table->string('email',255);
+            $table->enum('type_account', [0, 1, 2])->default(0);
             $table->string('password',72);
             $table->timestamps();
         });
