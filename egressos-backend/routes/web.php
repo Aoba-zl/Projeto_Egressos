@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
 use App\Http\Controllers\HomeController;
 
 use App\Http\Controllers\UserController;
@@ -142,4 +141,5 @@ Route::put('/professionalprofiles/{professionalprofile}', [ProfessionalProfileCo
         ->name('professionalprofile.update');
 Route::delete('/professionalprofiles/{professionalprofile}', [ProfessionalProfileController::class , 'destroy'])
         ->name('professionalprofile.destroy');
+
 

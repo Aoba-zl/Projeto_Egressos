@@ -4,6 +4,7 @@ use App\Http\Controllers\CourseController;
 use App\Http\Controllers\PlatformController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,9 +17,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
+// Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+//     return $request->user();
+// });
+
 
 //-------------------- Platform -----------------------------------
 //                      !! Travar para apenas admin dps
@@ -33,3 +35,5 @@ Route::post('/course',[CourseController::class,'store'])->name('course.store');
 Route::put('/course',[CourseController::class,'update'])->name('course.update');
 Route::delete('/course',[CourseController::class,'destroy'])->name('course.delete');
 //-----------------------------------------------------------------
+Route::post('new-user', [UserController::class, 'store']);
+
