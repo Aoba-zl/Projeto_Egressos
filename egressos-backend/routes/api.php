@@ -3,6 +3,7 @@
 use App\Http\Controllers\PlatformController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,3 +27,5 @@ Route::post('/platform',[PlatformController::class,'store'])->name('platform.sto
 Route::put('/platform',[PlatformController::class,'update'])->name('platform.update');
 Route::delete('/platform',[PlatformController::class,'destroy'])->name('platform.destroy');
 //-----------------------------------------------------------------
+
+Route::post('new-user', [UserController::class, 'store']);
