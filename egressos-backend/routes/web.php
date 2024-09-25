@@ -71,7 +71,7 @@ Route::delete('/companies/{company}', [CompanyController::class , 'destroy'])
         ->name('company.destroy');
 
 
-Route::get('/contacts', [ContactController::class , 'index'])
+Route::get('/contacts/{contact}', [ContactController::class , 'index'])
         ->name('contact.index');
 Route::get('/contacts/{contact}', [ContactController::class , 'show'])
         ->name('contact.show');
