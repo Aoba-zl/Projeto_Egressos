@@ -15,17 +15,17 @@ return new class extends Migration
     {
         Schema::create('assessments', function (Blueprint $table) {
             // Definindo as colunas
-            $table->string('email_moderator_admi', 255);
+            $table->unsignedBigInteger('id_moderator_admi');
             $table->unsignedBigInteger('id_egress');
             $table->text('comment');
             $table->timestamps();
 
             // Definindo chave primária composta (PK)
-            $table->primary(['email_moderator_admi', 'id_egress']);
+            $table->primary(['id_moderator_admi', 'id_egress']);
 
             // Definindo chave estrangeira para 'email_moderador_admi' referenciando 'email' da tabela 'users'
-            $table->foreign('email_moderator_admi')
-                  ->references('email')
+            $table->foreign('id_moderator_admi')
+                  ->references('id')
                   ->on('users')
                   ->onDelete('cascade');
 

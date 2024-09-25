@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('professional_profile', function (Blueprint $table) {
-            $table->integer('id_company')->unsigned();
+            $table->unsignedBigInteger('id_company')->unsigned();
             $table->unsignedBigInteger('id_egress')->unsigned();
             $table->date('initial_date');
             $table->date('final_date')->nullable();
