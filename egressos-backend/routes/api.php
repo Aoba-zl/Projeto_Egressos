@@ -22,8 +22,10 @@ use App\Http\Controllers\UserController;
 
 //-------------------- Company ------------------------------------
 Route::get('/company',[CompanyController::class,'index'])->name('company.index');
+Route::get('/company/{id}',[CompanyController::class,'show'])->name('company.show');
 Route::post('/company',[CompanyController::class,'store'])->name('company.store');
 Route::put('/company',[CompanyController::class,'update'])->name('company.update');
+Route::delete('/company',[CompanyController::class,'destroy'])->name('company.destroy');
 //-----------------------------------------------------------------
 Route::post('new-user', [UserController::class, 'store']);
 

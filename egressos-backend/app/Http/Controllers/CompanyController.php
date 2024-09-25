@@ -25,7 +25,7 @@ class CompanyController extends Controller
     {
         $request->validate([
             "name" => "required|string"
-            ,"email" => "required|string|email"
+            ,"email" => "required|string|email|unique:companies|max:255"
             ,"phone" => "required|string"
             ,"address.cep" => "required|string|min:8|max:8"
             ,"address.num_porta" => "required|numeric"
@@ -50,7 +50,8 @@ class CompanyController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $company = Company::find($id);
+        return response()->json($company);
     }
 
     /**
@@ -60,9 +61,9 @@ class CompanyController extends Controller
     public function update(Request $request)
     {
         $request->validate([
-            "id" => "required|numeric"
+            "id" => "required|numeric|exists:companies,id"
             ,"name" => "required|string"
-            ,"email" => "required|string|email"
+            ,"email" => "required|string|email|max:255"
             ,"phone" => "required|string"
             ,"address.cep" => "required|string|min:8|max:8"
             ,"address.num_porta" => "required|numeric"
@@ -85,8 +86,14 @@ class CompanyController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Request $request)
     {
-        //
+        $request->validate([
+            'id' => 'required|numeric|exists:companies,id'
+        ]);
+
+        $companyToDelete = Company::find($request->id);
+        $companyToDelete->delete();
+        return response()->json(['message' => 'Company deleted with success','company' => $companyToDelete]);
     }
 }
