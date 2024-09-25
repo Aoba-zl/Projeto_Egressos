@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Address;
+use App\Models\Institution;
 use Illuminate\Http\Request;
 
 class InstitutionController extends Controller
@@ -11,7 +13,8 @@ class InstitutionController extends Controller
      */
     public function index()
     {
-        var_dump("Implemente-me"); // TODO: Implementar Controle InstitutionController
+        $institutions = Institution::paginate(50);
+        return response()->json($institutions);
     }
 
     /**
@@ -19,7 +22,20 @@ class InstitutionController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            "name" => "required|string"
+            ,"address.cep" => "required|string|min:8|max:8"
+            ,"address.num_porta" => "required|numeric"
+        ]);
+
+        $address = Address::saveAddress($request);
+
+        $storedInstitution = Institution::create([
+            "name" => $request->name 
+            ,"id_address" => $address->id
+        ]);
+
+        return response()->json(["message" => "Institution created with success", "institution" => $storedInstitution]);
     }
 
     /**
@@ -33,16 +49,37 @@ class InstitutionController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request)
     {
-        //
+        $request->validate([
+            "id" => "required|numeric|exists:institutions,id"
+            ,"name" => "required|string"
+            ,"address.cep" => "required|string|min:8|max:8"
+            ,"address.num_porta" => "required|numeric"
+        ]);
+
+        $address = Address::saveAddress($request);
+
+        $institutionToUpdate = Institution::find($request->id);
+        $institutionToUpdate->name = $request->name;
+        $institutionToUpdate->id_address = $address->id;
+        $institutionToUpdate->save();
+
+        return response()->json(["message" => "Institution updated with success", "institution" => $institutionToUpdate]);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Request $request)
     {
-        //
+        $request->validate([
+            "id" => "required|numeric|exists:institutions,id"
+        ]);
+
+        $institutionToDelete = Institution::find($request->id);
+        $institutionToDelete->delete();
+
+        return response()->json(["message" => "Institution deleted with success", "institution" => $institutionToDelete]);
     }
 }

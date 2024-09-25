@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CompanyController;
+use App\Http\Controllers\InstitutionController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
@@ -26,6 +27,12 @@ Route::get('/company/{id}',[CompanyController::class,'show'])->name('company.sho
 Route::post('/company',[CompanyController::class,'store'])->name('company.store');
 Route::put('/company',[CompanyController::class,'update'])->name('company.update');
 Route::delete('/company',[CompanyController::class,'destroy'])->name('company.destroy');
+//-----------------------------------------------------------------
+//-------------------- Instituicao --------------------------------
+Route::get('/institution',[InstitutionController::class,'index'])->name('institution.index');
+Route::post('/institution',[InstitutionController::class,'store'])->name('institution.store');
+Route::put('/institution',[InstitutionController::class,'update'])->name('institution.update');
+Route::delete('/institution',[InstitutionController::class,'destroy'])->name('institution.delete');
 //-----------------------------------------------------------------
 Route::post('new-user', [UserController::class, 'store']);
 
