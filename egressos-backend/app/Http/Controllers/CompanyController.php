@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Address;
 use App\Models\Company;
+use Exception;
 use Illuminate\Http\Request;
 
 class CompanyController extends Controller
@@ -25,7 +26,7 @@ class CompanyController extends Controller
     {
         $request->validate([
             "name" => "required|string"
-            ,"email" => "required|string|email|unique:companies|max:255"
+            ,"email" => "required|email"
             ,"phone" => "required|string"
             ,"address.cep" => "required|string|min:8|max:8"
             ,"address.num_porta" => "required|numeric"
@@ -34,13 +35,20 @@ class CompanyController extends Controller
 
         $address = Address::saveAddress($request);
 
-        $storedCompany = Company::create([
-            "name" => $request->name 
-            , "email" => $request->email 
-            , "phone" => $request->phone 
-            , "site" => $request->site 
-            , "id_address" => $address->id
-        ]);
+        try{
+            $storedCompany = Company::create([
+                "name" => $request->name 
+                , "email" => $request->email 
+                , "phone" => $request->phone 
+                , "site" => $request->site 
+                , "id_address" => $address->id
+            ]);
+        }catch(Exception $e){
+            if($e->errorInfo[0] == 23000){
+                return response()->json(["message"=>"This email has already been taken"],400);
+            }
+            return response()->json($e);
+        }
 
         return response()->json($storedCompany);
     }

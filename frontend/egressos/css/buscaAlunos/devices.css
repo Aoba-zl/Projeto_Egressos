@@ -1,0 +1,32 @@
+@charset "UTF-8";
+
+@media only screen and (max-width: 768px) {
+    #txtSearchAluno{
+        width: 55vw;
+    }
+
+    .aluno-card{
+        width: 87vw;
+    }
+
+    .img-aluno-card img{
+        width: 20vw;
+        height: 20vw;
+    }
+}
+
+@media only screen and (max-width: 768px) and (max-height:500px){
+   
+}
+
+@media only screen and (max-width: 992px) and (min-width:768px){
+    .aluno-card{
+        width: 43vw;
+    }
+}
+
+@media only screen and (min-width: 993px) and  (max-width: 1281px){
+    .aluno-card{
+        width: 44vw;
+    }
+} 

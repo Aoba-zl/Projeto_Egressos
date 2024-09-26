@@ -1,0 +1,73 @@
+.form-select{
+    display: inline;
+    width: auto;
+}
+
+.form-control{
+    display: inline;
+    width: auto;
+}
+
+#selectCurso{
+    width: 20vw;
+}
+
+#buscaDeAlunos > div{
+    width: 100vw;
+    align-content: center;
+    text-align: center;
+}
+
+#txtSearchAluno{
+    width: 65vw;
+}
+
+#btnBuscaAlunos{
+    transform: translateY(-2px);
+}
+
+#divCardsAluno{
+    width: 95vw;
+    margin: auto;
+}
+
+/* -------- CARDS -------- */
+.aluno-card{
+    display: inline-block;
+    width: 45vw;
+    border: 2px solid black;
+    border-radius: 10px;
+    padding: 1em;
+    margin: 1em;
+    cursor: pointer;
+    transition: transform ease .5s;
+}
+
+.aluno-card:hover{
+    transform: scale(1.03);
+}
+
+.img-aluno-card img{
+    width: 100%;
+    height: 100%;
+    border-radius: 5px;
+}
+
+.aluno-card *{
+    pointer-events: none;
+}
+
+.aluno-nome{
+    display: block;
+    font-size: 1.5em;
+}
+
+.aluno-exp-atual{
+    display: block;
+    font-size: 1em;
+    color: grey;
+}
+
+.aluno-feedback{
+    text-align: justify;
+}
