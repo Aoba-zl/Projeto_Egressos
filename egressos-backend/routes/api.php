@@ -21,7 +21,6 @@ use App\Http\Controllers\UserController;
 //     return $request->user();
 // });
 
-
 //-------------------- Platform -----------------------------------
 //                      !! Travar para apenas admin dps
 Route::get('/platform',[PlatformController::class,'index'])->name('platform.index');
@@ -29,11 +28,13 @@ Route::post('/platform',[PlatformController::class,'store'])->name('platform.sto
 Route::put('/platform',[PlatformController::class,'update'])->name('platform.update');
 Route::delete('/platform',[PlatformController::class,'destroy'])->name('platform.destroy');
 //-----------------------------------------------------------------
+
 //-------------------- Courses -----------------------------------
 Route::get('/course',[CourseController::class,'index'])->name('course.index');
 Route::post('/course',[CourseController::class,'store'])->name('course.store');
 Route::put('/course',[CourseController::class,'update'])->name('course.update');
 Route::delete('/course',[CourseController::class,'destroy'])->name('course.delete');
 //-----------------------------------------------------------------
+
 Route::post('new-user', [UserController::class, 'store']);
 
