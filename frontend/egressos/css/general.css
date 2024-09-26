@@ -1,0 +1,36 @@
+:root{
+
+    --section-height: 30vh;
+    --primary-text:2em;
+    --secondary-text:1.5em;
+    --terciary-text:1em;
+}
+
+*{
+    box-sizing: border-box;
+}
+
+body{
+    padding: 0;
+    margin: 0;
+    overflow-x: hidden;
+}
+
+.btn-light{
+    border: 2px solid black;
+}
+
+/* ------- HEADER ------------- */
+#logoFatec{
+    width: 100px;
+    height: 40px;
+    margin-left: 1em;
+    display: block;
+}
+
+#tituloEgressos{
+    font-size: var(--primary-text);
+    
+}
+
+/* ---------------------------- */
