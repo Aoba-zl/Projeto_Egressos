@@ -20,17 +20,13 @@ class CourseController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
-    {
-        
+    {        
         $request->validate([
             "name" => "required|string"
             ,"type_formation" => "required|string"
         ]);
         
-        $storedCourse = Course::create([
-            'name' => $request->name 
-            ,'type_formation' => $request->type_formation
-        ]);
+        $storedCourse = Course::checkAndSaveCourse($request);
 
         return response()->json($storedCourse);
     }
