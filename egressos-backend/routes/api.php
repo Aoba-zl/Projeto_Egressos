@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CourseController;
 use App\Http\Controllers\PlatformController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -26,6 +27,13 @@ Route::get('/platform',[PlatformController::class,'index'])->name('platform.inde
 Route::post('/platform',[PlatformController::class,'store'])->name('platform.store');
 Route::put('/platform',[PlatformController::class,'update'])->name('platform.update');
 Route::delete('/platform',[PlatformController::class,'destroy'])->name('platform.destroy');
+//-----------------------------------------------------------------
+
+//-------------------- Courses -----------------------------------
+Route::get('/course',[CourseController::class,'index'])->name('course.index');
+Route::post('/course',[CourseController::class,'store'])->name('course.store');
+Route::put('/course',[CourseController::class,'update'])->name('course.update');
+Route::delete('/course',[CourseController::class,'destroy'])->name('course.delete');
 //-----------------------------------------------------------------
 
 Route::post('new-user', [UserController::class, 'store']);
