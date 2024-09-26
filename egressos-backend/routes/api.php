@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PlatformController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
@@ -18,6 +19,14 @@ use App\Http\Controllers\UserController;
 // Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 //     return $request->user();
 // });
+
+//-------------------- Platform -----------------------------------
+//                      !! Travar para apenas admin dps
+Route::get('/platform',[PlatformController::class,'index'])->name('platform.index');
+Route::post('/platform',[PlatformController::class,'store'])->name('platform.store');
+Route::put('/platform',[PlatformController::class,'update'])->name('platform.update');
+Route::delete('/platform',[PlatformController::class,'destroy'])->name('platform.destroy');
+//-----------------------------------------------------------------
 
 Route::post('new-user', [UserController::class, 'store']);
 
