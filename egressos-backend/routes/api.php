@@ -18,9 +18,10 @@ use App\Http\Controllers\UserController;
 |
 */
 
-// Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-//     return $request->user();
-// });
+Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+    return $request->user();
+});
+
 
 //-------------------- Company ------------------------------------
 Route::get('/company',[CompanyController::class,'index'])->name('company.index');
@@ -36,7 +37,6 @@ Route::post('/platform',[PlatformController::class,'store'])->name('platform.sto
 Route::put('/platform',[PlatformController::class,'update'])->name('platform.update');
 Route::delete('/platform',[PlatformController::class,'destroy'])->name('platform.destroy');
 //-----------------------------------------------------------------
-
 //-------------------- Courses -----------------------------------
 Route::get('/course',[CourseController::class,'index'])->name('course.index');
 Route::post('/course',[CourseController::class,'store'])->name('course.store');
@@ -45,4 +45,4 @@ Route::delete('/course',[CourseController::class,'destroy'])->name('course.delet
 //-----------------------------------------------------------------
 
 Route::post('new-user', [UserController::class, 'store']);
-
+Route::post('new-user', [UserController::class, 'store']);
