@@ -9,3 +9,25 @@
     display: block;
     color: red;
 }
+
+/* Cadastro pt 2 */
+
+#divLoadProfilePhoto{
+    border: 2px solid black;
+    border-radius: 10px;
+    width: 150px;
+    height: 150px;
+    margin: auto;
+    display: block;
+}
+
+#divCbFone{
+    padding-left: 1em;
+}
+
+.info-area{
+    min-width: 100%;
+    min-height: 10vh;
+    margin-bottom: 2em;
+    border-radius: 10px;
+}
