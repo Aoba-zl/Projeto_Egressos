@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Platform;
-use Exception;
 use Illuminate\Http\Request;
 
 class PlatformController extends Controller

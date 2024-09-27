@@ -22,18 +22,7 @@ class InstitutionController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            "name" => "required|string"
-            ,"address.cep" => "required|string|min:8|max:8"
-            ,"address.num_porta" => "required|numeric"
-        ]);
-
-        $address = Address::saveAddress($request);
-
-        $storedInstitution = Institution::create([
-            "name" => $request->name 
-            ,"id_address" => $address->id
-        ]);
+        $storedInstitution = Institution::checkAndSaveInstitution($request);
 
         return response()->json(["message" => "Institution created with success", "institution" => $storedInstitution]);
     }
