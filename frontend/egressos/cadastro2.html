@@ -19,7 +19,7 @@
 </head>
 <body>
     <header id="header"></header>
-    <div class="modal" tabindex="-1" role="dialog">
+    <div id="cad-modal" class="modal modal-lg" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -66,7 +66,7 @@
                         </div>
                         <div class="form-group mb-3 ">
                             <label for="txtDtNasc">Data Nascimento:</label>
-                            <input type="text" class="form-control" id="txtDtNasc" placeholder="Digite sua Data de Nascimento">
+                            <input type="date" class="form-control" id="txtDtNasc" placeholder="Digite sua Data de Nascimento">
                         </div>
                     </form>
                 </div>
@@ -77,7 +77,7 @@
 
                 </div>   
                 <div class="col-12 text-center">
-                    <button type="button" class="btn btn-outline-success btn-lg" id="btnAddContato">
+                    <button type="button" class="btn btn-outline-primary btn-lg" id="btnAddContato">
                         Adicionar contato
                     </button>
                 </div>      
@@ -101,14 +101,14 @@
 
                     </div>   
                     <div class="col-12 text-center">
-                        <button type="button" class="btn btn-outline-primary btn-lg" id="btnAddAcadExp">
+                        <button type="button" class="btn btn-outline-primary btn-lg" id="btnAddProfissionalExp">
                             Adicionar Experiência Profissional
                         </button>
                     </div>  
                 </div>
             </div>
             <div class="text-end">
-                <button type="button" class="btn btn-success btn-lg" id="btnContinuarCadastro">
+                <button type="button" class="btn btn-success btn-lg mb-5" id="btnContinuarCadastro">
                     Continuar
                 </button>
             </div>

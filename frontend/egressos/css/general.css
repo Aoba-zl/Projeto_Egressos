@@ -34,3 +34,17 @@ body{
 }
 
 /* ---------------------------- */
+.close{
+    margin-left: auto !important;
+    font-weight: bold;
+    border: 0px;
+    font-size: 1.1em;
+    border-radius: 5px;
+    width: 2rem;
+    height: 2rem;
+}
+
+.close:hover{
+    background-color: lightgrey;
+    color: red;
+}
