@@ -18,6 +18,11 @@ document.getElementById("btnAddProfissionalExp").addEventListener("click",()=>{
     abrirModalCadExpProfissional();
 });
 
+document.getElementById("inputImagemPerfil").addEventListener("change",(e)=>{
+    let imgPerfil = document.getElementById("exbImagemPerfil");
+    imgPerfil.setAttribute("src",URL.createObjectURL(e.target.files[0]));
+});
+
 //-------------- Functions -----------------------------
 function init(){
 
