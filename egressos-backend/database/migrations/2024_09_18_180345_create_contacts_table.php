@@ -14,15 +14,15 @@ return new class extends Migration
     public function up()
     {
         Schema::create('contacts', function (Blueprint $table) {
-            // Chaves primárias compostas
+            // Chave primária
+            $table->id();
+
+            // Chaves estrengeiras
             $table->unsignedBigInteger('id_profile'); // Certifique-se de que esta é unsignedBigInteger
             $table->unsignedBigInteger('id_platform'); // Altere para unsignedBigInteger
 
             // Campo de contato
             $table->string('contato', 255);
-
-            // Definindo as chaves primárias compostas
-            $table->primary(['id_profile', 'id_platform']);
 
             // Definindo as chaves estrangeiras
             $table->foreign('id_profile')->references('id')->on('egresses')->onDelete('cascade');
