@@ -57,21 +57,12 @@ function abrirModalCadContato(){
 
     form.appendChild(divContatoSelect);
 
-    let divContatoLink = document.createElement("div");
-    divContatoLink.setAttribute("class","mt-3");
+    let divContatoLink =  criarCampoDeTexto(
+                            "LinkContato",
+                            "Cole o link para a sua rede social aqui",
+                            "Cole o link da sua rede social no campo abaixo: "
+                          );
 
-    let lblLink = document.createElement("label");
-    lblLink.setAttribute("for","txtLinkContato");
-    lblLink.innerHTML = "Cole o link da sua rede social no campo abaixo: ";
-
-    let linkContato = document.createElement("input");
-    linkContato.setAttribute('id',"txtLinkContato")
-    linkContato.setAttribute('type',"text")
-    linkContato.setAttribute('class',"form-control")
-    linkContato.setAttribute('placeholder',"Cole o link para a sua rede social aqui")
-
-    divContatoLink.appendChild(lblLink);
-    divContatoLink.appendChild(linkContato);
     form.appendChild(divContatoLink);
     
     modalBody.innerHTML = "";
@@ -103,7 +94,6 @@ function abrirModalCadContato(){
     exibirModal();
 }
 
-
 function abrirModalCadExpAcademica(){
     let modalTitle = document.getElementById("modal-title");
     let modalBody = document.getElementById("modal-body");
@@ -117,44 +107,35 @@ function abrirModalCadExpAcademica(){
     frm.setAttribute("autocomplete","off");
     frm.setAttribute("class","frmCadExp");
 
-    let divInputInstituicao = document.createElement("div");
+    let divInputInstituicao = criarCampoDeTexto(
+      "Instituicao"
+      ,"Digite o nome da instituição"
+      ,"Digite o nome da Instituição que você estudou:"
+    )
     divInputInstituicao.classList.add("autocomplete");
 
-    let lblInstituicao = document.createElement("label");
-    lblInstituicao.setAttribute("for","txtInstituicao");
-    lblInstituicao.innerHTML = "Digite o nome da Instituição que você estudou: ";
-
-    let txtInstituicao = document.createElement("input");
-    txtInstituicao.setAttribute("id","txtInstituicao");
-    txtInstituicao.setAttribute("type","text");
-    txtInstituicao.setAttribute("class","form-control");
-    txtInstituicao.setAttribute("placeholder","Digite o nome da instituição");
+    let txtInstituicao = divInputInstituicao.querySelector("#txtInstituicao");
 
     txtInstituicao.addEventListener("focus",()=>{
         autoCompleteInstituicao(txtInstituicao);
     });
 
-    divInputInstituicao.append(lblInstituicao,txtInstituicao);
     frm.appendChild(divInputInstituicao);
 
-    let divInputCurso = document.createElement("div");
+    let divInputCurso = criarCampoDeTexto
+    (
+      "Curso"
+      ,"Digite o nome do curso"
+      ,"Digite o curso que você concluiu: "
+    );
     divInputCurso.classList.add("autocomplete");
 
-    let lblCurso = document.createElement("label");
-    lblCurso.setAttribute("for","txtCurso");
-    lblCurso.innerHTML = "Digite o curso que você concluiu: "
-
-    let txtCurso = document.createElement("input");
-    txtCurso.setAttribute("id","txtCurso");
-    txtCurso.setAttribute("type","text");
-    txtCurso.setAttribute("class","form-control");
-    txtCurso.setAttribute("placeholder","Digite o nome do curso");
+    let txtCurso = divInputCurso.querySelector("#txtCurso");
 
     txtCurso.addEventListener("focus",() => {
         autoCompleteCurso(txtCurso);
     });
 
-    divInputCurso.append(lblCurso,txtCurso);
     frm.appendChild(divInputCurso);
 
     // ------------------------
@@ -233,7 +214,121 @@ function abrirModalCadExpProfissional(){
     
     // ------------------- BODY ----------------------
     modalBody.innerHTML = "";
+    let form = document.createElement("form");
 
+    let headerEmpresa = document.createElement("h2");
+    headerEmpresa.innerHTML = "Empresa";
+    form.append(headerEmpresa,document.createElement("hr"));
+
+    let divInputEmpresa = criarCampoDeTexto
+    (
+      "Empresa"
+      ,"Digite o nome da Empresa"
+      ,"Empresa que você trabalha ou trabalhou:"
+    );
+
+    divInputEmpresa.classList.add("autocomplete");
+
+    let txtEmpresa = divInputEmpresa.querySelector("#txtEmpresa");
+
+    txtEmpresa.addEventListener("focus",()=>
+    {
+      autoCompleteEmpresa(txtEmpresa);
+    });
+
+    form.appendChild(divInputEmpresa);
+
+    let divTelefoneEmpresa = criarCampoDeTexto
+    (
+      "Telefone"
+      ,"(11) 1234-5678"
+      ,"Digite o telefone da empresa: "
+    );
+
+    form.appendChild(divTelefoneEmpresa);
+
+    let divEmailEmpresa = criarCampoDeTexto
+    (
+      "Email"
+      ,"Digite o email da empresa"
+      ,"Email da empresa: "
+    );
+
+    form.appendChild(divEmailEmpresa);
+
+    let divSiteEmpresa = criarCampoDeTexto
+    (
+      "Site"
+      ,"Digite o Site da empresa"
+      ,"Site da Empresa: "
+    )
+
+    form.appendChild(divSiteEmpresa);
+
+    let divCepEmpresa = criarCampoDeTexto
+    (
+      "CEP"
+      ,"Digite o CEP"
+      ,"CEP do Logradouro(Rua) da empresa:"
+    )
+
+    form.appendChild(divCepEmpresa);
+
+    let divNumPorta = criarCampoDeTexto
+    (
+      "NumPorta"
+      ,"Digite o numero de porta da empresa (numero da rua)"
+      ,"Número de porta da empresa (numero da rua):"
+    );
+
+    form.appendChild(divNumPorta);
+    
+    let headerSuaExp = document.createElement("h2");
+    headerSuaExp.innerHTML = "Sua Experiência"
+
+    form.append(
+        document.createElement("br"),
+        headerSuaExp,
+        document.createElement("hr")
+      );
+
+    let divAtuacao = criarCampoDeTexto
+    (
+      "AreaAtuacao"
+      ,"Digite a área de Atuação"
+      ,"Área de atuação: "
+    );
+    form.appendChild(divAtuacao);
+
+    let divAnoInicio = criarCampoDeTexto
+    (
+      "AnoInicio"
+      ,"2015"
+      ,"Ano de Início:"
+    );
+
+    let txtAnoInicio = divAnoInicio.querySelector("#txtAnoInicio");
+    txtAnoInicio.setAttribute("type","number");
+    txtAnoInicio.setAttribute("value",DATE.getFullYear()-5);
+
+    form.appendChild(divAnoInicio);
+
+    let divAnoFim = criarCampoDeTexto
+    (
+      "AnoFim"
+      ,"2015"
+      ,"Ano de Fim:"
+    );
+
+    let txtAnoFim = divAnoFim.querySelector("#txtAnoFim");
+    txtAnoFim.setAttribute("type","number");
+    txtAnoFim.setAttribute("value",DATE.getFullYear());
+
+    form.appendChild(divAnoFim); 
+
+    
+
+    modalBody.appendChild(form);
     // ------------------- FOOTER ----------------------
     modalFooter.innerHTML = "";
 
@@ -280,6 +375,23 @@ function exibirModal(){
     bootstrapModal.show(); 
 } 
 
+function criarCampoDeTexto(name,placeholder,labelText){
+  let div = document.createElement('div');
+
+  let label = document.createElement("label");
+  label.setAttribute("for","txt"+name);
+  label.innerHTML = labelText;
+
+  let field = document.createElement("input");
+  field.setAttribute('id',"txt"+name);
+  field.setAttribute('type',"text");
+  field.setAttribute('class',"form-control");
+  field.setAttribute('placeholder',placeholder);
+  
+  div.append(label,field);
+  
+  return div;
+}
 //-----------------------------------------
 function autoCompleteInstituicao(txtInstituicao){
     let instituicoes = ["FATEC-ZL","FATEC-SP","FATEC-FRV","USP","ITA","UNICAMP"]
@@ -291,6 +403,12 @@ function autoCompleteCurso(txtCurso) {
     let cursos = ['ADS','DSM','ADM','COMEX','RH'];
 
     autocomplete(txtCurso,cursos);
+}
+
+function autoCompleteEmpresa(txtEmpresa){
+  let empresas = ['TOTVS','IBM','GOOGLE','MICROSOFT','AVANADE','IFOOD','NUBANK','BRADESCO','MERCADO LIVRE'];
+
+  autocomplete(txtEmpresa,empresas);
 }
 // -------------------- @W3SCHOOLS ----------------------
 function autocomplete(inp, arr) {

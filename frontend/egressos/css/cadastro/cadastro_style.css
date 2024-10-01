@@ -11,6 +11,12 @@
 }
 
 /* Cadastro pt 2 */
+h2{
+    margin-top: 0px !important;
+}
+form > *{
+    margin-top: 1em;
+}
 #divLoadProfilePhoto > *{
     position: absolute;
 }
@@ -21,8 +27,6 @@
 }
 
 #lblProfile{
-    width: 100%;
-    height: 100%;
     font-size: 2em;
 }
 
