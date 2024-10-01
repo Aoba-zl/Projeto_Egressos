@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Platform;
-use Exception;
 use Illuminate\Http\Request;
 
 class PlatformController extends Controller
@@ -23,7 +22,7 @@ class PlatformController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-          'name' => 'required|string'
+             'name' => 'required|string'
         ]);
 
         $stored = Platform::checkAndSavePlatform($request);
