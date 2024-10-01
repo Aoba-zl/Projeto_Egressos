@@ -4,6 +4,7 @@ use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\InstitutionController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\PlatformController;
+
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 
@@ -45,6 +46,7 @@ Route::put('/course',[CourseController::class,'update'])->name('course.update');
 Route::delete('/course',[CourseController::class,'destroy'])->name('course.delete');
 //-----------------------------------------------------------------
 //----------------------- USERS -----------------------------------
+Route::post('login',[UserController::class,'login']);
 Route::post('/new-user', [UserController::class, 'store']);
 
 /*
