@@ -11,7 +11,8 @@ class FeedbackController extends Controller
      */
     public function index()
     {
-        var_dump("Implemente-me"); // TODO: Implementar Controle FeedbackController
+        $feedbacks = Feedback::select('id','id_profile','comment')->paginate(50);
+        return response()->json( $feedbacks );
     }
 
     /**
@@ -19,7 +20,14 @@ class FeedbackController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            "id_profile" => "required|integer"
+            ,"comment" => "required|string"
+        ]);
+        
+        $storedFeedback = Feedback::checkAndSaveFeedback($request);
+
+        return response()->json($storedFeedback);
     }
 
     /**
@@ -27,15 +35,30 @@ class FeedbackController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $feedback = Feedback::select('id','id_profile','comment')->where("id",$id);
+        return response()->json( $feedback );
+       
     }
     
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, string $idFeedback)
     {
         //
+
+        $feedback = Feedback::find($idFeedback);
+        if ($feedback) {
+            $validatedData = $request->validate([
+                'comment' => 'sometimes|string|max:255',
+            ]);
+
+            $feedback->update($validatedData);
+
+            return response()->json("Feedback atualizado com sucesso!",$feedback);
+        }
+
+        return response()->json(['message' => 'Feedback não encontrado'], 404);
     }
 
     /**
@@ -44,5 +67,6 @@ class FeedbackController extends Controller
     public function destroy(string $id)
     {
         //
+
     }
 }

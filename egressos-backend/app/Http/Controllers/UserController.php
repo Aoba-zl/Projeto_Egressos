@@ -24,7 +24,7 @@ class UserController extends Controller
         if ($user) {
             return response()->json($user);
         }
-        return response()->json(['message' => 'User not found'], 404);
+        return response()->json(['message' => 'Usuário não encontrado'], 404);
     }
     public function login(Request $request)
     {
@@ -106,7 +106,7 @@ class UserController extends Controller
             return response()->json($user);
         }
 
-        return response()->json(['message' => 'User not found'], 404);
+        return response()->json(['message' => 'Usuário não encontrado'], 404);
     }
 
     // Deletar um usuário
@@ -116,9 +116,9 @@ class UserController extends Controller
 
         if ($user) {
             $user->delete();
-            return response()->json(['message' => 'User deleted successfully']);
+            return response()->json(['message' => 'Usuário deletado com sucesso!']);
         }
 
-        return response()->json(['message' => 'User not found'], 404);
+        return response()->json(['message' => 'Usuário não encontrado'], 404);
     }
 }
