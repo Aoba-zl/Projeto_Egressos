@@ -50,9 +50,18 @@ Route::post('/course',[CourseController::class,'store'])->name('course.store');
 Route::put('/course',[CourseController::class,'update'])->name('course.update');
 Route::delete('/course',[CourseController::class,'destroy'])->name('course.delete');
 //-----------------------------------------------------------------
+//------------------------Contact----------------------------------
+Route::get('/contact',[ContactController::class,'index']);
+Route::post('/contact',[ContactController::class,'store']);
+Route::put('/contact',[ContactController::class,'update']);
+Route::delete('/contact',[ContactController::class,'destroy']);
+
+//-----------------------------------------------------------------
 //----------------------- USERS -----------------------------------
 Route::post('login',[UserController::class,'login']);
 Route::post('/new-user', [UserController::class, 'store']);
+Route::put('/user/{id}', [UserController::class, 'update']);
+
 
 /*
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
