@@ -17,18 +17,6 @@ h2{
 form > *{
     margin-top: 1em;
 }
-#divLoadProfilePhoto > *{
-    position: absolute;
-}
-
-#inputImagemPerfil{
-    display: none;
-    height: 100%;
-}
-
-#lblProfile{
-    font-size: 2em;
-}
 
 #divLoadProfilePhoto{
     border: 2px solid black;
@@ -38,6 +26,14 @@ form > *{
     margin: auto;
     display: block;
 }
+
+#divAnoFim > label::after{
+    content: '* caso essa experiência seja a atual, deixe o campo vazio';
+    display: block;
+    margin-left: 1em;
+    color: gray;
+}
+
 
 #divCbFone{
     padding-left: 1em;

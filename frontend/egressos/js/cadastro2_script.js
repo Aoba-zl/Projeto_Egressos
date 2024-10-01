@@ -303,7 +303,7 @@ function abrirModalCadExpProfissional(){
     let divAnoInicio = criarCampoDeTexto
     (
       "AnoInicio"
-      ,"2015"
+      ,""
       ,"Ano de Início:"
     );
 
@@ -316,9 +316,10 @@ function abrirModalCadExpProfissional(){
     let divAnoFim = criarCampoDeTexto
     (
       "AnoFim"
-      ,"2015"
+      ,""
       ,"Ano de Fim:"
     );
+    divAnoFim.setAttribute('id',"divAnoFim");
 
     let txtAnoFim = divAnoFim.querySelector("#txtAnoFim");
     txtAnoFim.setAttribute("type","number");
