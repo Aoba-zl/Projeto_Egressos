@@ -21,7 +21,7 @@ use App\Http\Controllers\UserController;
 //-----------------------------------------------------------------
 //----------------------- FEEDBACK -----------------------------------
 Route::get('/feedback',[FeedbackController::class,'index'])->name('feedback.index');
-Route::post('/new-feedback',[FeedbackController::class,'store'])->name('feedback.store');
+Route::post('/feedback',[FeedbackController::class,'store'])->name('feedback.store');
 Route::get('/feedback/{id}',[FeedbackController::class,'show'])->name('feedback.show');
 Route::put('/feedback',[InstitutionController::class,'update'])->name('feedback.update');
 //-------------------- Company ------------------------------------
