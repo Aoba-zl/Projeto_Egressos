@@ -31,6 +31,6 @@ class Egress extends Model
 
     public function usuario()
     {
-        return $this->belongsTo(Usuario::class, 'user_email', 'email');
+        return $this->belongsTo(User::class, 'user_email', 'email');
     }
 }
