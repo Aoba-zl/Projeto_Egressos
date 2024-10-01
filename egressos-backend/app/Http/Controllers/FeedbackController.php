@@ -43,11 +43,11 @@ class FeedbackController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $idFeedback)
+    public function update(Request $request)
     {
         //
 
-        $feedback = Feedback::find($idFeedback);
+        $feedback = Feedback::find($request->id);
         if ($feedback) {
             $validatedData = $request->validate([
                 'comment' => 'sometimes|string|max:255',
