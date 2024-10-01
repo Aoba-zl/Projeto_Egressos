@@ -4,7 +4,7 @@ use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\InstitutionController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\PlatformController;
-
+use App\Http\Controllers\FeedbackController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 
@@ -18,12 +18,19 @@ use App\Http\Controllers\UserController;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+
+//-----------------------------------------------------------------
+//----------------------- Academic Formation ----------------------
+Route::post('/acad-formation',[AcademicFormationController::class,'store']);
+Route::get('/acad-formation',[AcademicFormationController::class,'index']);
+Route::get('/acad-formation/{id}',[AcademicFormationController::class,'show']);
+
 //-----------------------------------------------------------------
 //----------------------- FEEDBACK -----------------------------------
 Route::get('/feedback',[FeedbackController::class,'index'])->name('feedback.index');
 Route::post('/feedback',[FeedbackController::class,'store'])->name('feedback.store');
 Route::get('/feedback/{id}',[FeedbackController::class,'show'])->name('feedback.show');
-Route::put('/feedback',[InstitutionController::class,'update'])->name('feedback.update');
+Route::put('/feedback',[FeedbackController::class,'update'])->name('feedback.update');
 //-------------------- Company ------------------------------------
 Route::get('/company',[CompanyController::class,'index'])->name('company.index');
 Route::get('/company/{id}',[CompanyController::class,'show'])->name('company.show');

@@ -48,7 +48,8 @@ class AcademicFormationController extends Controller
     public function show(string $id)
     {
         //
-        $acadFormation = AcademicFormation::select('id','id_profile','id_institution','id_course','begin_year','end_year','period')->where("id",$id);
+        $acadFormation = AcademicFormation::select('id','id_profile','id_institution','id_course',
+        'begin_year','end_year','period')->where("id",$id);
         return response()->json($acadFormation );
        
     }
