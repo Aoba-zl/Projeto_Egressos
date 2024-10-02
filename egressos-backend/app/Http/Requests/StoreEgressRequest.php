@@ -24,7 +24,7 @@ class StoreEgressRequest extends FormRequest
         return [
             'cpf' => ['required', 'digits:11'],
             'phone' => ['required', 'digits:11'],
-            'birthdate' => ['required', 'date'],
+            'birthdate' => ['required', 'date', 'before:today', 'after:01/01/1900'],
             'status' => ['required', 'in:0,1,2,3'],
         ];
     }
@@ -34,22 +34,15 @@ class StoreEgressRequest extends FormRequest
      */
     public function messages()
     {
-        // TODO: Customizar mensagens
         return [
-            'cpf.required' => 'PLACE',
-            'cpf.digits' => 'PLACE',
-            'phone.required' => 'PLACE',
-            'phone.digits' => 'PLACE',
-            'birthdate.required' => 'PLACE',
-            'birthdate.date' => 'PLACE',
-            'status.required' => 'PLACE',
-            'status.in' => 'PLACE',
+            'cpf.required' => 'O CPF é obrigatório.',
+            'cpf.digits' => 'O CPF deve conter 11 dígitos',
+            'phone.required' => 'O número de telefone é obrigatório.',
+            'phone.digits' => 'O número de telefone deve conter 11 dígitos',
+            'birthdate.required' => 'A data de nascimento é obrigatório.',
+            'birthdate.date' => 'A data de nascimento deve ser uma data válida',
+            'status.required' => 'O status é obrigatório.',
+            'status.in' => 'O status deve ser 0, 1, 2 ou 3',
         ];
     }
 }
-
-/*
-46927243828
-11912341234
-
-*/

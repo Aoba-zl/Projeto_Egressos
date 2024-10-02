@@ -7,6 +7,7 @@ use App\Models\Contact;
 use App\Models\Egress;
 use App\Models\ProfessionalProfile;
 use App\Http\Controllers\UserController;
+use App\Http\Requests\StoreEgressRequest;
 use App\Http\Requests\StoreUserRequest;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -33,7 +34,7 @@ class EgressController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreEgressRequest $request)
     {
         $userController = new UserController;
         $contactController = new ContactController;
@@ -41,7 +42,7 @@ class EgressController extends Controller
         $professionalProfileController = new ProfessionalProfileController;
 
 
-        $user = $this->getUser($userController->store(
+        $user = $this->validateUser($userController->store(
             new StoreUserRequest($request->only(['name', 'email', 'password', 'type_account']))
         ));
 
@@ -80,7 +81,7 @@ class EgressController extends Controller
         return response()->json($egress);
     }
 
-    private function getUser(JsonResponse $userJson)
+    private function validateUser(JsonResponse $userJson)
     {
         $user = $userJson->original['user'];
         // TODO: Validar
