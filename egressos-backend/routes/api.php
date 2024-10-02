@@ -18,7 +18,12 @@ use App\Http\Controllers\UserController;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-
+//-----------------------------------------------------------------
+//----------------------- FEEDBACK -----------------------------------
+Route::get('/feedback',[FeedbackController::class,'index'])->name('feedback.index');
+Route::post('/feedback',[FeedbackController::class,'store'])->name('feedback.store');
+Route::get('/feedback/{id}',[FeedbackController::class,'show'])->name('feedback.show');
+Route::put('/feedback',[InstitutionController::class,'update'])->name('feedback.update');
 //-------------------- Company ------------------------------------
 Route::get('/company',[CompanyController::class,'index'])->name('company.index');
 Route::get('/company/{id}',[CompanyController::class,'show'])->name('company.show');
