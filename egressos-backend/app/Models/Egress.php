@@ -14,10 +14,10 @@ class Egress extends Model
      * @var array
      */
     protected $fillable = [
+        'user_id',
         'cpf',
         'phone',
         'birthdate',
-        'user_email',
         'status'
     ];
         /**
