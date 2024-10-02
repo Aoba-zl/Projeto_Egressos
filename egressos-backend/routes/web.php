@@ -35,6 +35,18 @@ Route::delete('/users/{user}', [UserController::class , 'destroy'])
         ->name('user.destroy');
 
 
+Route::get('/egresses', [EgressController::class , 'index'])
+    ->name('egress.index');
+Route::get('/egresses/{egress}', [EgressController::class , 'show'])
+    ->name('egress.show');
+Route::post('/egresses', [EgressController::class , 'store'])
+    ->name('egress.store');
+Route::put('/egresses/{egress}', [EgressController::class , 'update'])
+    ->name('egress.update');
+Route::delete('/egresses/{egress}', [EgressController::class , 'destroy'])
+    ->name('egress.destroy');
+
+
 Route::get('/academicformations', [AcademicFormationController::class , 'index'])
         ->name('academicformation.index');
 Route::get('/academicformations/{academicformation}', [AcademicFormationController::class , 'show'])

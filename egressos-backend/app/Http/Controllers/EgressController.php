@@ -2,6 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\AcademicFormation;
+use App\Models\Contact;
+use App\Models\Egress;
+use App\Models\ProfessionalProfile;
+use App\Http\Controllers\UserController;
+use App\Http\Requests\StoreUserRequest;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class EgressController extends Controller
@@ -11,7 +18,8 @@ class EgressController extends Controller
      */
     public function index()
     {
-        //
+        $egresses = Egress::all();
+        return response()->json($egresses);
     }
 
     /**
@@ -27,7 +35,56 @@ class EgressController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $userController = new UserController;
+        $contactController = new ContactController;
+        $academicFormationController = new AcademicFormationController;
+        $professionalProfileController = new ProfessionalProfileController;
+
+
+        $user = $this->getUser($userController->store(
+            new StoreUserRequest($request->only(['name', 'email', 'password', 'type_account']))
+        ));
+
+        $egress = Egress::create([
+            'user_id' => $user->id,
+            'cpf' => $request->input('cpf'),
+            'phone' => $request->input('phone'),
+            'birthdate' => $request->input('birthdate'),
+            'status' => "0"
+        ]);
+
+        /*
+        foreach ($request->contats as $contactData)
+            // TODO: Validar
+            $contact = $contactController->store(
+                new Request($contactData)
+            );
+        */
+
+        /*
+        foreach ($request->academic_formation as $academicFormationData)
+            // TODO: Validar
+            $academicFormation = $academicFormationController->store(
+                new Request($academicFormationData)
+            );
+        */
+
+        /*
+        foreach ($request->professional_profile as $professionalProfileData)
+            // TODO: Validar
+            $professionalProfile = $professionalProfileController->store(
+                new Request($professionalProfileData)
+            );
+        */
+
+        return response()->json($egress);
+    }
+
+    private function getUser(JsonResponse $userJson)
+    {
+        $user = $userJson->original['user'];
+        // TODO: Validar
+        return $user;
     }
 
     /**
@@ -35,7 +92,8 @@ class EgressController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $egress = Egress::where('id', $id)->get();
+        return response()->json($egress);
     }
 
     /**
