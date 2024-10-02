@@ -14,8 +14,13 @@
 h2{
     margin-top: 0px !important;
 }
+
 form > *{
     margin-top: 1em;
+}
+
+#inputImagemPerfil{
+    display: none;
 }
 
 #divLoadProfilePhoto{
@@ -50,6 +55,27 @@ form > *{
     margin-bottom: 1.5rem;
 }
 
+.user-contact-item{
+    border: 1px solid black;
+    border-radius: 10px;
+    margin-bottom: .2em;
+    padding: .2em;
+}
+
+.user-contact-item > *{
+    display: block;
+    text-align: center;
+}
+
+.user-contact-item:first-child{
+    text-transform: capitalize;
+}
+
+.btn-remove-item{
+    color: red;
+    float: right;
+    transform: translate(-10px,-150%);
+}
 /* ---- Style para Autocomplete -----*/
 
 .autocomplete {

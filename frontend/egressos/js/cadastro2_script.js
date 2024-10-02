@@ -23,9 +23,16 @@ document.getElementById("inputImagemPerfil").addEventListener("change",(e)=>{
     imgPerfil.setAttribute("src",URL.createObjectURL(e.target.files[0]));
 });
 
+
+
 //-------------- Functions -----------------------------
 function init(){
+    let user = JSON.parse(getCookie("user"));
+    console.log(user);
+    let txtName = document.getElementById("txtName");
 
+    txtName.value = user.user.name;
+    txtName.setAttribute("disabled","true");
 }
 
 function abrirModalCadContato(){
@@ -75,10 +82,11 @@ function abrirModalCadContato(){
     btnAdicionar.setAttribute("type","button");
     btnAdicionar.setAttribute("class","btn btn-success");
     btnAdicionar.setAttribute("id","btnAdicionarContato");
+    btnAdicionar.setAttribute("data-dismiss","modal");
     btnAdicionar.innerHTML = "Adicionar"
 
     btnAdicionar.addEventListener("click",()=>{
-        alert("Adicionando ...........");
+        adicionarContato();
     });
 
     let btnFechar = document.createElement("button");
@@ -186,10 +194,11 @@ function abrirModalCadExpAcademica(){
     btnAdicionar.setAttribute("type","button");
     btnAdicionar.setAttribute("class","btn btn-success");
     btnAdicionar.setAttribute("id","btnAdicionarFormacao");
+    btnAdicionar.setAttribute("data-dismiss","modal");
     btnAdicionar.innerHTML = "Adicionar";
 
     btnAdicionar.addEventListener("click",()=>{
-        alert("Adicionando Formacao...........");
+        adicionarExpAcad();
     });
 
     let btnFechar = document.createElement("button");
@@ -338,9 +347,10 @@ function abrirModalCadExpProfissional(){
     btnAdicionar.setAttribute("class","btn btn-success");
     btnAdicionar.setAttribute("id","btnAdicionarExpProfissional");
     btnAdicionar.innerHTML = "Adicionar";
+    btnAdicionar.setAttribute("data-dismiss","modal");
 
     btnAdicionar.addEventListener("click",()=>{
-        alert("Adicionando Experiência Profissional...........");
+        adicionarExpProfissional();
     });
 
     let btnFechar = document.createElement("button");
@@ -355,10 +365,71 @@ function abrirModalCadExpProfissional(){
     exibirModal();
 }
 
+function adicionarContato(){
+  let plataforma = document.getElementById("slcPlatforma").value;
+  let contato = document.getElementById("txtLinkContato").value;
+
+  let cont = new Object();
+  cont.plataforma = plataforma;
+  cont.contato = contato;
+  
+  criarExibicaoContato(cont);
+}
+
+function criarExibicaoContato(contato){
+    let divContatos = document.getElementById("user-contacts");
+
+    let divNovoContato = document.createElement("div");
+    divNovoContato.setAttribute("id",contato.plataforma+"_"+
+      divContatos.childElementCount);
+    divNovoContato.classList.add("user-contact-item");
+
+    let spanPlataform = document.createElement("span");
+    let spanContato = document.createElement("span");
+
+    spanPlataform.innerHTML = contato.plataforma;
+    spanContato.innerHTML = contato.contato;
+
+    let lblExcluir = document.createElement("label");
+    lblExcluir.innerHTML = "X"
+    lblExcluir.classList.add("btn-remove-item");
+    lblExcluir.addEventListener('click',(e)=>{
+      apagarContatoDaTela(e);
+    });
+    
+    divNovoContato.append(spanPlataform,spanContato,lblExcluir);
+    divContatos.appendChild(divNovoContato);
+}
+
+function apagarContatoDaTela(e){
+  console.log(e.target);
+}
+
+function adicionarExpAcad(){
+  alert("acad exp ...")
+}
+
+function adicionarExpProfissional(){
+  alert("prof exp ...")  
+}
+
 function preencherSelectPlataforma(select){
     select.appendChild(criarOption(0,"Escolha uma Plataforma: "));
 
-    // Adicionar mais com um loop
+    $.ajax({
+      url : serverUrl+"platform",
+      contentType: "application/json",
+      type : "get",
+      data : ""
+    })
+    .done(function(msg){
+        msg.forEach(element => {
+          select.appendChild(criarOption(element.name,element.name));
+        });
+    })
+    .fail(function(jqXHR, textStatus, msg){
+        console.log(msg);
+    });
 
     return select;
 }
@@ -507,4 +578,24 @@ function autocomplete(inp, arr) {
   document.addEventListener("click", function (e) {
       closeAllLists(e.target);
   });
+}
+
+/*  ============== COOKIES ==================    */
+function setCookie(name,value){
+  let maxAgeSeconds = 604800;
+document.cookie = name+ "=" + value + ";SameSite=None; Secure; max-age="+maxAgeSeconds;
+}
+
+function deleteCookie(name){
+document.cookie = name+ "=" + value + ";SameSite=None; Secure; max-age="+-700;
+}
+
+//W3Schools
+function getCookie(name) {
+let cookie = {};
+document.cookie.split(';').forEach(function(el) {
+  let [key,value] = el.split('=');
+  cookie[key.trim()] = value;
+})
+return cookie[name];
 }
