@@ -3,7 +3,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class ProfissionalProfile extends Model
+class ProfessionalProfile extends Model
 {
     protected $table = 'professional_profile';
 
