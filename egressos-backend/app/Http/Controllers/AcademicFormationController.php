@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\AcademicFormation;
 use Illuminate\Http\Request;
 
 class AcademicFormationController extends Controller
@@ -22,9 +23,9 @@ class AcademicFormationController extends Controller
     {
         //
         $request->validate([
-            'id_profile' => 'required|exists:platforms,id',
-            'id_institution' => 'required|exists:egresses,id',
-            'id_course' => 'required|exists:course,id',
+            'id_profile' => 'required|exists:egresses,id',
+            'id_institution' => 'required|exists:institutions,id',
+            'id_course' => 'required|exists:courses,id',
             'begin_year' => 'required|integer',
             'end_year' => 'integer',
             'period' => 'required|string|max:255',
@@ -51,7 +52,7 @@ class AcademicFormationController extends Controller
         $acadFormation = AcademicFormation::select('id','id_profile','id_institution','id_course',
         'begin_year','end_year','period')->where("id",$id);
         return response()->json($acadFormation );
-       
+
     }
 
     /**
