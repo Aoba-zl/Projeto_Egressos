@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Models\Egress;
 use Illuminate\Http\Request;
 
 class EgressController extends Controller
@@ -12,6 +12,8 @@ class EgressController extends Controller
     public function index()
     {
         //
+        $egresses = Egress::select('*')->paginate(4);
+        return response()->json($egresses);
     }
 
     /**

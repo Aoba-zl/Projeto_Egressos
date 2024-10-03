@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Models\Feedback;
 
 use Illuminate\Http\Request;
 
@@ -25,7 +26,7 @@ class FeedbackController extends Controller
             ,"comment" => "required|string"
         ]);
         
-        $storedFeedback = Feedback::checkAndSaveFeedback($request);
+        $storedFeedback = Feedback::create($request);
 
         return response()->json($storedFeedback);
     }

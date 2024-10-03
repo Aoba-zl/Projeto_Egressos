@@ -4,7 +4,8 @@ use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\InstitutionController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\PlatformController;
-
+use App\Http\Controllers\EgressController;
+use App\Http\Controllers\FeedbackController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 
@@ -18,6 +19,9 @@ use App\Http\Controllers\UserController;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+//-----------------------------------------------------------------
+//----------------------- EGRESS -----------------------------------
+Route::get('egresses',[EgressController::class,'index']);
 //-----------------------------------------------------------------
 //----------------------- FEEDBACK -----------------------------------
 Route::get('/feedback',[FeedbackController::class,'index'])->name('feedback.index');
