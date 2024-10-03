@@ -85,8 +85,6 @@ Route::delete('/companies/{company}', [CompanyController::class , 'destroy'])
 
 Route::get('/contacts/{contact}', [ContactController::class , 'index'])
         ->name('contact.index');
-Route::get('/contacts/{contact}', [ContactController::class , 'show'])
-        ->name('contact.show');
 Route::post('/contacts', [ContactController::class , 'store'])
         ->name('contact.store');
 Route::put('/contacts/{contact}', [ContactController::class , 'update'])
