@@ -27,7 +27,7 @@ class ContactController extends Controller
         $request->validate([
             'id_platform' => 'required|exists:platforms,id',
             'id_profile' => 'required|exists:egresses,id',
-            'contact' => 'required|string|unique:contacts, contact'
+            'contact' => 'required|string|unique:contacts,contact'
         ]);
 
         $stored = Contact::create([
@@ -47,7 +47,7 @@ class ContactController extends Controller
         $request->validate([
             'id_platform' => 'required|exists:platforms,id',
             'id_profile' => 'required|exists:egresses,id',
-            'contact' => 'required|string|unique:contacts, contact'
+            'contact' => 'required|string|unique:contacts,contact'
         ]);
 
         $contact = Contact::find($request->contact);
