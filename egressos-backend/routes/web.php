@@ -44,7 +44,7 @@ Route::post('/egresses', [EgressController::class , 'store'])
 Route::put('/egresses/{egress}', [EgressController::class , 'update'])
     ->name('egress.update');
 Route::delete('/egresses/{egress}', [EgressController::class , 'destroy'])
-    ->name('egress.destroy');
+    ->name('egress.disable');
 
 
 Route::get('/academicformations', [AcademicFormationController::class , 'index'])
