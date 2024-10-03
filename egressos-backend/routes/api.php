@@ -4,6 +4,7 @@ use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\InstitutionController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\PlatformController;
+use App\Http\Controllers\FeedbackController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 
@@ -18,6 +19,18 @@ use App\Http\Controllers\UserController;
 |
 */
 
+//-----------------------------------------------------------------
+//----------------------- Academic Formation ----------------------
+Route::post('/acad-formation',[AcademicFormationController::class,'store']);
+Route::get('/acad-formation',[AcademicFormationController::class,'index']);
+Route::get('/acad-formation/{id}',[AcademicFormationController::class,'show']);
+
+//-----------------------------------------------------------------
+//----------------------- FEEDBACK -----------------------------------
+Route::get('/feedback',[FeedbackController::class,'index'])->name('feedback.index');
+Route::post('/feedback',[FeedbackController::class,'store'])->name('feedback.store');
+Route::get('/feedback/{id}',[FeedbackController::class,'show'])->name('feedback.show');
+Route::put('/feedback',[FeedbackController::class,'update'])->name('feedback.update');
 //-------------------- Company ------------------------------------
 Route::get('/company',[CompanyController::class,'index'])->name('company.index');
 Route::get('/company/{id}',[CompanyController::class,'show'])->name('company.show');
@@ -44,8 +57,18 @@ Route::post('/course',[CourseController::class,'store'])->name('course.store');
 Route::put('/course',[CourseController::class,'update'])->name('course.update');
 Route::delete('/course',[CourseController::class,'destroy'])->name('course.delete');
 //-----------------------------------------------------------------
+//------------------------Contact----------------------------------
+Route::get('/contact',[ContactController::class,'index']);
+Route::post('/contact',[ContactController::class,'store']);
+Route::put('/contact',[ContactController::class,'update']);
+Route::delete('/contact',[ContactController::class,'destroy']);
+
+//-----------------------------------------------------------------
 //----------------------- USERS -----------------------------------
+Route::post('login',[UserController::class,'login']);
 Route::post('/new-user', [UserController::class, 'store']);
+Route::put('/user/{id}', [UserController::class, 'update']);
+
 
 /*
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {

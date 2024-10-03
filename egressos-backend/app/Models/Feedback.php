@@ -14,14 +14,14 @@ class Feedback extends Model
      * @var array
      */
     protected $fillable = [
-        'id_egress',
+        'id_profile',
         'comment',
     ];
 
         // Relacionamento com Perfil_Egresso
         public function perfilEgresso()
         {
-            return $this->belongsTo(Egress::class, 'id_egress');
+            return $this->belongsTo(Egress::class, 'id_profile');
         }
         
 }
