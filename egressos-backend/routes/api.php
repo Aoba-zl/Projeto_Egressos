@@ -1,6 +1,9 @@
 <?php
 
+use App\Http\Controllers\AcademicFormationController;
 use App\Http\Controllers\CompanyController;
+use App\Http\Controllers\ContactController;
+use App\Http\Controllers\EgressController;
 use App\Http\Controllers\InstitutionController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\PlatformController;
@@ -69,6 +72,12 @@ Route::post('login',[UserController::class,'login']);
 Route::post('/new-user', [UserController::class, 'store']);
 Route::put('/user/{id}', [UserController::class, 'update']);
 
+//-----------------------------------------------------------------
+//----------------------- EGRESSES -----------------------------------
+Route::get('/egresses', [EgressController::class , 'index']);;
+Route::post('/egresses', [EgressController::class , 'store']);
+Route::put('/egresses/{egress}', [EgressController::class , 'update']);
+Route::delete('/egresses/{egress}', [EgressController::class , 'disable']);
 
 /*
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
