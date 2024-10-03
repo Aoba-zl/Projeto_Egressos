@@ -33,6 +33,9 @@ body{
     
 }
 
+#btnEntrar{
+    transform: translateX(-.5rem);
+}
 /* ---------------------------- */
 .close{
     margin-left: auto !important;
