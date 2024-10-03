@@ -22,10 +22,9 @@ class StoreEgressRequest extends FormRequest
     public function rules()
     {
         return [
-            'cpf' => ['required', 'digits:11'],
+            'cpf' => ['required', 'cpf', 'digits:11', 'unique:egresses,cpf'],
             'phone' => ['required', 'digits:11'],
-            'birthdate' => ['required', 'date', 'before:today', 'after:01/01/1900'],
-            'status' => ['required', 'in:0,1,2,3'],
+            'birthdate' => ['required', 'date', 'before:01-01-' . now()->year, 'after:01/01/1900']
         ];
     }
 
@@ -36,13 +35,17 @@ class StoreEgressRequest extends FormRequest
     {
         return [
             'cpf.required' => 'O CPF é obrigatório.',
-            'cpf.digits' => 'O CPF deve conter 11 dígitos',
-            'phone.required' => 'O número de telefone é obrigatório.',
-            'phone.digits' => 'O número de telefone deve conter 11 dígitos',
-            'birthdate.required' => 'A data de nascimento é obrigatório.',
-            'birthdate.date' => 'A data de nascimento deve ser uma data válida',
+            'cpf.cpf' => 'O CPF deve ser válido.',
+            'cpf.digits' => 'O CPF deve conter 11 dígitos.',
+            'cpf.unique' => 'CPF já cadastrado.',
+            'phone.required' => 'O número de telefone é obrigatório..',
+            'phone.digits' => 'O número de telefone deve conter 11 dígitos.',
+            'birthdate.required' => 'A data de nascimento é obrigatório..',
+            'birthdate.date' => 'A data de nascimento deve ser uma data válida.',
+            'birthdate.before' => 'A data de nascimento .',
+            'birthdate.after' => 'Data de nascimento inválida.',
             'status.required' => 'O status é obrigatório.',
-            'status.in' => 'O status deve ser 0, 1, 2 ou 3',
+            'status.in' => 'O status deve ser 0, 1, 2 ou 3.',
         ];
     }
 }
