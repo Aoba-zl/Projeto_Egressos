@@ -12,7 +12,7 @@ class AcademicFormation extends Model
     public $incrementing = false;
 
     protected $fillable = [
-        'id_egress',
+        'id_profile',
         'id_institution',
         'id_course',
         'begin_year',
