@@ -65,13 +65,18 @@ class EgressController extends Controller
                 ])
             );
 
-        /*
         foreach ($request->academic_formation as $academicFormationData)
             // TODO: Validar se realmente criou
             $academicFormation = $academicFormationController->store(
-                new Request($academicFormationData)
+                new Request([
+                    'id_profile' => $egress->id,
+                    'id_institution' => $academicFormationData['institution'],
+                    'id_course' => $academicFormationData['course'],
+                    'begin_year' => $academicFormationData['begin_year'],
+                    'end_year' => $academicFormationData['end_year'],
+                    'period' => $academicFormationData['period'],
+                ])
             );
-        */
 
         /*
         foreach ($request->professional_profile as $professionalProfileData)
@@ -81,15 +86,19 @@ class EgressController extends Controller
             );
         */
 
-        return response()->json($egress);
+        return response()->json([
+            'Message' => 'Egresso cadastrado com sucesso!',
+            'Egress' => $egress,
+        ]);
     }
 
     /*
      * Validate that the request meet all classes
-     * // TODO: Gambiarra
+     * // TODO: Gambiarra pra criar nenhuma entrada no banco
      */
     private function validateRequest(Request $request)
     {
+        // user
         $request->validate([
             'name' => ['required', 'string', 'max:255', 'regex:/^[a-zA-ZÀ-ú\s]+$/'],
             'email' => 'required|string|email|max:255|unique:users',
@@ -97,15 +106,26 @@ class EgressController extends Controller
             'type_account' => 'required|in:0,1,2',
         ]);
 
+        // egress
         $request->validate([
             'cpf' => ['required', 'cpf', 'digits:11', 'unique:egresses,cpf'],
             'phone' => ['required', 'digits:11'],
             'birthdate' => ['required', 'date', 'before:01-01-' . now()->year, 'after:01/01/1900']
         ]);
 
+        // contact
         $request->validate([
             'contacts.*.platform' => 'required|exists:platforms,id',
             'contacts.*.contact' => 'required|string|unique:contacts,contact'
+        ]);
+
+        // academic formation
+        $request->validate([
+            'academic_formation.*.institution' => 'required|exists:institutions,id',
+            'academic_formation.*.course' => 'required|exists:courses,id',
+            'academic_formation.*.begin_year' => 'required|integer',
+            'academic_formation.*.end_year' => 'integer',
+            'academic_formation.*.period' => 'required|string|max:255',
         ]);
     }
 
