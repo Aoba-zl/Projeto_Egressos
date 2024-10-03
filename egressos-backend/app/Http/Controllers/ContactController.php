@@ -35,6 +35,7 @@ class ContactController extends Controller
             'id_profile' => $request->id_profile,
             'contact' => $request->contact
         ]);
+    
 
         return response()->json($stored);
     }
