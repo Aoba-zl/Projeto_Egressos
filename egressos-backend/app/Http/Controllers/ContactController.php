@@ -35,7 +35,7 @@ class ContactController extends Controller
             'id_profile' => $request->id_profile,
             'contact' => $request->contact
         ]);
-    
+
 
         return response()->json($stored);
     }
@@ -43,15 +43,19 @@ class ContactController extends Controller
     /**
      * Update the contact in storage.
      */
-    public function update(Request $request)
+    public function update(string $id, Request $request)
     {
+        $contact = Contact::find($id);
+
+        if (!$contact)
+            return response()->json(['message' => 'Contact not found'], 404);
+
         $request->validate([
             'id_platform' => 'required|exists:platforms,id',
             'id_profile' => 'required|exists:egresses,id',
             'contact' => 'required|string|unique:contacts,contact'
         ]);
 
-        $contact = Contact::find($request->contact);
         $contact->contact = $request->contact;
         if (!$contact->save())
             return response()->json(['message' => 'Contact update failed'], 500);
@@ -63,15 +67,13 @@ class ContactController extends Controller
      * Remove the specified contact from storage.
      * In this case contact can be really deleted from storage.
      */
-    public function destroy(Request $request)
+    public function destroy(string $id)
     {
-        $request->validate([
-            'id_platform' => 'required|exists:platforms,id',
-            'id_profile' => 'required|exists:egresses,id',
-            'contact' => 'required|string|unique:contacts, contact'
-        ]);
+        $contact = Contact::find($id);
 
-        $contact = Contact::find($request->contact);
+        if (!$contact) {
+            return response()->json(['message' => 'Contact not found'], 404);
+        }
 
         if (!$contact->delete())
             return response()->json(['message' => 'Contact delete failed'], 500);
