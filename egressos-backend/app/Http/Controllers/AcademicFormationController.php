@@ -11,7 +11,8 @@ class AcademicFormationController extends Controller
      */
     public function index()
     {
-        var_dump("Implemente-me"); // TODO: Implementar Controle AcademicFormationController
+        $acadFormations = AcademicFormation::paginate(50);
+        return response()->json($acadFormations);
     }
 
     /**
@@ -20,6 +21,25 @@ class AcademicFormationController extends Controller
     public function store(Request $request)
     {
         //
+        $request->validate([
+            'id_profile' => 'required|exists:platforms,id',
+            'id_institution' => 'required|exists:egresses,id',
+            'id_course' => 'required|exists:course,id',
+            'begin_year' => 'required|integer',
+            'end_year' => 'integer',
+            'period' => 'required|string|max:255',
+        ]);
+
+        $acadFormation = AcademicFormation::create([
+            'id_profile' => $request->id_profile,
+            'id_institution' => $request->id_institution,
+            'id_course' => $request->id_course,
+            'begin_year' => $request->begin_year,
+            'end_year' => $request->end_year,
+            'period' => $request->period,
+        ]);
+
+        return response()->json($acadFormation);
     }
 
     /**
@@ -28,6 +48,10 @@ class AcademicFormationController extends Controller
     public function show(string $id)
     {
         //
+        $acadFormation = AcademicFormation::select('id','id_profile','id_institution','id_course',
+        'begin_year','end_year','period')->where("id",$id);
+        return response()->json($acadFormation );
+       
     }
 
     /**

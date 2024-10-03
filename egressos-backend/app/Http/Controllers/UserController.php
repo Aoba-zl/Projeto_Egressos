@@ -87,7 +87,7 @@ class UserController extends Controller
     }
 
     // Atualizar um usuário existente
-    public function update(Request $request, $id)
+    public function update(StoreUserRequest  $request,$id)
     {
         $user = User::find($id);
 
@@ -96,6 +96,7 @@ class UserController extends Controller
                 'name' => 'sometimes|string|max:255',
                 'email' => 'sometimes|string|email|max:255|unique:users,email,' . $user->id,
                 'password' => 'sometimes|string|min:8',
+                'type_account' => 'sometimes|integer'
             ]);
 
             if (isset($validatedData['password'])) {
