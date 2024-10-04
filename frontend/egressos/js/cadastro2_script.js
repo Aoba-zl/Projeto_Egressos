@@ -23,25 +23,42 @@ document.getElementById("inputImagemPerfil").addEventListener("change",(e)=>{
     imgPerfil.setAttribute("src",URL.createObjectURL(e.target.files[0]));
 });
 
+document.getElementById("txtFone").addEventListener("focus",()=>{
+  $('#txtFone').mask('(00) 00000-0000');
+});
 
+document.getElementById("txtFone").addEventListener("change",()=>{
+  
+  if(document.getElementById("txtFone").value.length > 14){
+    $('#txtFone').mask('(00) 00000-0000');
+  }else{
+    $('#txtFone').mask('(00) 0000-0000');
+  }
 
+});
 //-------------- Functions -----------------------------
 function init(){
     let user = getCookie("user");
     if(user != undefined){
       user = JSON.parse(user);
-      let txtName = document.getElementById("txtName");
+      if(user.user.id != undefined && user.user.id != ""){
+        let txtName = document.getElementById("txtName");
 
-      txtName.value = user.user.name;
-      txtName.setAttribute("disabled","true");
+        txtName.value = user.user.name;
+        txtName.setAttribute("disabled","true");
+      }else{
+        window.location.href = "./cadastro.html";
+      }
     }else{
-      window.location.href = "./cadastro.html"
+      window.location.href = "./cadastro.html";
     }
+
+    // formatar campos
+    $('#txtCPF').mask('000.000.000-00');
 }
 
 function getUserId(){
   let user = JSON.parse(getCookie("user"));
-  console.log(user);
   return user.user.id;
 }
 
@@ -92,7 +109,6 @@ function abrirModalCadContato(){
     btnAdicionar.setAttribute("type","button");
     btnAdicionar.setAttribute("class","btn btn-success");
     btnAdicionar.setAttribute("id","btnAdicionarContato");
-    btnAdicionar.setAttribute("data-dismiss","modal");
     btnAdicionar.innerHTML = "Adicionar"
 
     btnAdicionar.addEventListener("click",()=>{
@@ -169,7 +185,7 @@ function abrirModalCadExpAcademica(){
     slcPeriodo.setAttribute("id","slcPeriodo");
 
     slcPeriodo.append(
-        criarOption(0,"Escolha um Período")
+        criarOption(0,"Escolha um Período: ")
         ,criarOption(1,"Matutino")
         ,criarOption(2,"Vespertino")
         ,criarOption(3,"Noturno")
@@ -204,7 +220,6 @@ function abrirModalCadExpAcademica(){
     btnAdicionar.setAttribute("type","button");
     btnAdicionar.setAttribute("class","btn btn-success");
     btnAdicionar.setAttribute("id","btnAdicionarFormacao");
-    btnAdicionar.setAttribute("data-dismiss","modal");
     btnAdicionar.innerHTML = "Adicionar";
 
     btnAdicionar.addEventListener("click",()=>{
@@ -264,6 +279,20 @@ function abrirModalCadExpProfissional(){
       ,"Digite o telefone da empresa: "
     );
 
+    let txtTelefone = divTelefoneEmpresa.querySelector("#txtTelefone");
+
+    txtTelefone.addEventListener("focus",()=>{
+      $('#txtTelefone').mask('(00) 00000-0000');
+    });
+
+    txtTelefone.addEventListener("change",()=>{  
+      if(document.getElementById("txtTelefone").value.length > 14){
+        $('#txtTelefone').mask('(00) 00000-0000');
+      }else{
+        $('#txtTelefone').mask('(00) 0000-0000');
+      }    
+    });
+
     form.appendChild(divTelefoneEmpresa);
 
     let divEmailEmpresa = criarCampoDeTexto
@@ -291,6 +320,11 @@ function abrirModalCadExpProfissional(){
       ,"CEP do Logradouro(Rua) da empresa:"
     )
 
+    let cep = divCepEmpresa.querySelector("#txtCEP");
+    cep.addEventListener("focus",()=>{
+      $('#txtCEP').mask('00000-000');
+    });    
+    
     form.appendChild(divCepEmpresa);
 
     let divNumPorta = criarCampoDeTexto
@@ -299,6 +333,15 @@ function abrirModalCadExpProfissional(){
       ,"Digite o numero de porta da empresa (numero da rua)"
       ,"Número de porta da empresa (numero da rua):"
     );
+    let num = divNumPorta.querySelector("#txtNumPorta");
+    num.setAttribute("type","number");
+    num.setAttribute("min","0");
+    num.setAttribute("step","1");
+    
+    num.addEventListener("keyup",()=>{
+      let value = num.value;
+
+    });
 
     form.appendChild(divNumPorta);
     
@@ -357,7 +400,6 @@ function abrirModalCadExpProfissional(){
     btnAdicionar.setAttribute("class","btn btn-success");
     btnAdicionar.setAttribute("id","btnAdicionarExpProfissional");
     btnAdicionar.innerHTML = "Adicionar";
-    btnAdicionar.setAttribute("data-dismiss","modal");
 
     btnAdicionar.addEventListener("click",()=>{
         adicionarExpProfissional();
@@ -382,56 +424,18 @@ function adicionarContato(){
 
   let contato = document.getElementById("txtLinkContato").value;
 
-  let cont = new Object();
-  cont.id = plataformaId;
-  cont.plataform = plataforma;
-  cont.contact = contato;
-  cont.id_egress = getUserId();
-  
-  criarExibicaoContato(cont);
-}
-
-function getSelectText(selectId){
-  let select = document.getElementById(selectId);
-  let index = select.selectedIndex;
-  return select.options[index].text;
-}
-
-function criarExibicaoContato(contato){
-    let divContatos = document.getElementById("user-contacts");
-
-    let divNovoContato = document.createElement("div");
-    divNovoContato.setAttribute("id",contato.plataform+"_"+
-      divContatos.childElementCount);
-    divNovoContato.classList.add("user-contact-item");
-
-    let spanId = document.createElement("span");
-    let spanPlataform = document.createElement("span");
-    let spanContato = document.createElement("span");
-
-    spanId.classList.add("d-none");
-
-    spanId.innerHTML = contato.id;
-    spanPlataform.innerHTML = contato.plataform;
-    spanContato.innerHTML = contato.contact;
-
-    let lblExcluir = document.createElement("label");
-    lblExcluir.innerHTML = "X"
-    lblExcluir.classList.add("btn-remove-item");
-    lblExcluir.addEventListener('click',(e)=>{
-      apagarDaTela(e);
-    });
-
-    let spanData = document.createElement("span");
-    spanData.classList.add("d-none");
-    spanData.innerHTML = JSON.stringify(contato);
+  if(plataformaId != 0 && contato != "" && contato != " "){
+    let cont = new Object();
+    cont.id = plataformaId;
+    cont.plataform = plataforma;
+    cont.contact = contato;
+    cont.id_egress = getUserId();
     
-    divNovoContato.append(spanId,spanPlataform,spanContato,lblExcluir,spanData);
-    divContatos.appendChild(divNovoContato);
-}
-
-function apagarDaTela(e){
-  console.log(e.target.parentNode.remove());
+    criarExibicaoContato(cont);
+    closeModal();
+  }else{
+    alert("Preencha os dados");
+  }
 }
 
 function adicionarExpAcad(){
@@ -440,14 +444,177 @@ function adicionarExpAcad(){
   let periodo = getSelectText("slcPeriodo");
   let ano = document.getElementById("txtAnoFormacao").value;
 
-  let acadExp = new Object();
-  acadExp.institution = instituicao;
-  acadExp.course = curso;
-  acadExp.period= periodo;
-  acadExp.end_year = ano;
-  acadExp.id_egress = getUserId();
+  console.log(periodo)
+  if(instituicao != "" && instituicao != " "
+      && curso != "" && curso != " "
+        && periodo != "Escolha um Período:"
+  ){
+    let acadExp = new Object();
+    acadExp.institution = instituicao;
+    acadExp.course = curso;
+    acadExp.period= periodo;
+    acadExp.end_year = ano;
+    acadExp.id_egress = getUserId();
 
-  criarExibicaoAcadExp(acadExp);
+    criarExibicaoAcadExp(acadExp);
+    closeModal();
+  }else{
+    alert("Preencha os campos acima");
+  }
+}
+
+function adicionarExpProfissional(){
+  let nomeEmpresa = document.getElementById("txtEmpresa").value; 
+  let telefoneEmpresa = document.getElementById("txtTelefone").value; 
+  let emailEmpresa = document.getElementById("txtEmail").value;  
+  let siteEmpresa = document.getElementById("txtSite").value;   
+  let cepEmpresa = document.getElementById("txtCEP").value;
+  let numPorta = document.getElementById("txtNumPorta").valueAsNumber;
+
+  let areaAtuacao = document.getElementById("txtAreaAtuacao").value;
+  let anoInicio = document.getElementById("txtAnoInicio").valueAsNumber;
+  let anoFim = document.getElementById("txtAnoFim").valueAsNumber;
+  let anoFimTxt = document.getElementById("txtAnoFim").value;
+
+  let nomeOk = (nomeEmpresa != "" && nomeEmpresa != " ");
+  let telefoneLimpo = limparTelefone(telefoneEmpresa); 
+  let telefoneOK = (telefoneLimpo.length>9);
+  let emailOk = (emailEmpresa.includes('@') && emailEmpresa.includes('.'));
+  let siteOk = (siteEmpresa.includes("."));
+  let cepOk = (limparCEP(cepEmpresa).length == 8);
+  let numPortaOk = (Number.isInteger(numPorta));
+  let areaOK = (areaAtuacao != "" && areaAtuacao != " ");
+  let inicioOk = (Number.isInteger(anoInicio));
+  let fimOk = (Number.isInteger(anoFim) || (anoFimTxt == "" 
+                || anoFimTxt == " "));
+
+  console.log(anoFim);
+
+  if(nomeOk && telefoneOK && emailOk 
+      && siteOk && cepOk && numPortaOk
+        &&areaOK && inicioOk && fimOk){
+
+    let empresa = new Object();
+    empresa.name = nomeEmpresa;
+    empresa.phone = limparTelefone(telefoneEmpresa);
+    empresa.email = emailEmpresa;
+    empresa.site = siteEmpresa;
+    
+    let address = new Object();
+    
+    address.cep = limparCEP(cepEmpresa);
+    address.num_porta = numPorta;
+
+    empresa.address = address;
+
+    let expProfissional = new Object();
+    expProfissional.empresa = empresa;
+    expProfissional.areaAtuacao = areaAtuacao;
+    expProfissional.anoInicio = anoInicio;
+    expProfissional.anoFim = anoFim;
+    expProfissional.id_egress = getUserId();
+
+    criarExibicaoProfExp(expProfissional);
+    closeModal();
+  }else{
+    alert("Preencha os dados acima");
+  }
+}
+
+function limparTelefone(telefone){
+  console.log(telefone);
+  telefone = telefone.replace(" ","");
+  telefone = telefone.replace("-","");
+  telefone = telefone.replace("(","");
+  telefone = telefone.replace(")","");
+
+  console.log(telefone);
+  return telefone;
+}
+
+function limparCEP(cep) {
+  cep = cep.replace(" ","");
+  cep = cep.replace("-","");
+  return cep;
+}
+
+function getSelectText(selectId){
+  let select = document.getElementById(selectId);
+  let index = select.selectedIndex;
+  return select.options[index].text;
+}
+
+function apagarDaTela(e){
+  e.target.parentNode.remove();
+}
+
+function criarExibicaoProfExp(experienciaProfissional){
+  let div = document.createElement("div");
+  div.classList.add("user-prof-exp-item");
+
+  let spanEmpresa = document.createElement("span");
+  let spanCargo = document.createElement("span");
+  let spanAnoInicio = document.createElement("span");
+  let spanAnoFim = document.createElement("span");
+
+  spanEmpresa.innerHTML = experienciaProfissional.empresa.name;
+  spanCargo.innerHTML = experienciaProfissional.areaAtuacao;
+  spanAnoInicio.innerHTML = experienciaProfissional.anoInicio;
+  
+  console.log(experienciaProfissional.anoFim);
+  if(!isNaN(experienciaProfissional.anoFim)){
+    spanAnoFim.innerHTML = experienciaProfissional.anoFim;
+  }else{
+    spanAnoFim.innerHTML = "Atual";
+  }
+
+  let spanData = document.createElement("span");
+  spanData.classList.add("d-none");
+  spanData.innerHTML = JSON.stringify(experienciaProfissional);
+
+  let lblExcluir = document.createElement("label");
+  lblExcluir.innerHTML = "X"
+  lblExcluir.classList.add("btn-remove-item-exp");
+  lblExcluir.addEventListener('click',(e)=>{
+    apagarDaTela(e);
+  });
+
+  div.append(spanEmpresa,spanCargo,spanAnoInicio,spanAnoFim,lblExcluir,spanData);
+
+  document.getElementById("user-profission-exp").appendChild(div);
+}
+
+function criarExibicaoContato(contato){
+  let divContatos = document.getElementById("user-contacts");
+
+  let divNovoContato = document.createElement("div");
+  divNovoContato.setAttribute("id",contato.plataform+"_"+
+    divContatos.childElementCount);
+  divNovoContato.classList.add("user-contact-item");
+
+  let spanId = document.createElement("span");
+  let spanPlataform = document.createElement("span");
+  let spanContato = document.createElement("span");
+
+  spanId.classList.add("d-none");
+
+  spanId.innerHTML = contato.id;
+  spanPlataform.innerHTML = contato.plataform;
+  spanContato.innerHTML = contato.contact;
+
+  let lblExcluir = document.createElement("label");
+  lblExcluir.innerHTML = "X"
+  lblExcluir.classList.add("btn-remove-item");
+  lblExcluir.addEventListener('click',(e)=>{
+    apagarDaTela(e);
+  });
+
+  let spanData = document.createElement("span");
+  spanData.classList.add("d-none");
+  spanData.innerHTML = JSON.stringify(contato);
+  
+  divNovoContato.append(spanId,spanPlataform,spanContato,lblExcluir,spanData);
+  divContatos.appendChild(divNovoContato);
 }
 
 function criarExibicaoAcadExp(experienciaAcademica){
@@ -481,71 +648,6 @@ function criarExibicaoAcadExp(experienciaAcademica){
   document.getElementById("user-academic-exp").appendChild(div);
 }
 
-function adicionarExpProfissional(){
-  let nomeEmpresa = document.getElementById("txtEmpresa").value; 
-  let telefoneEmpresa = document.getElementById("txtTelefone").value; 
-  let emailEmpresa = document.getElementById("txtEmail").value;  
-  let siteEmpresa = document.getElementById("txtSite").value;   
-  let cepEmpresa = document.getElementById("txtCEP").value;
-  let numPorta = document.getElementById("txtNumPorta").value;
-
-  let areaAtuacao = document.getElementById("txtAreaAtuacao").value;
-  let anoInicio = document.getElementById("txtAnoInicio").value;
-  let anoFim = document.getElementById("txtAnoFim").value;
-
-  let empresa = new Object();
-  empresa.name = nomeEmpresa;
-  empresa.phone = telefoneEmpresa;
-  empresa.email = emailEmpresa;
-  empresa.site = siteEmpresa;
-  
-  let address = new Object();
-  
-  address.cep = cepEmpresa;
-  address.num_porta = numPorta;
-
-  empresa.address = address;
-
-  let expProfissional = new Object();
-  expProfissional.empresa = empresa;
-  expProfissional.areaAtuacao = areaAtuacao;
-  expProfissional.anoInicio = anoInicio;
-  expProfissional.anoFim = anoFim;
-  expProfissional.id_egress = getUserId();
-
-  criarExibicaoProfExp(expProfissional);
-}
-
-function criarExibicaoProfExp(experienciaProfissional){
-  let div = document.createElement("div");
-  div.classList.add("user-prof-exp-item");
-
-  let spanEmpresa = document.createElement("span");
-  let spanCargo = document.createElement("span");
-  let spanAnoInicio = document.createElement("span");
-  let spanAnoFim = document.createElement("span");
-
-  spanEmpresa.innerHTML = experienciaProfissional.empresa.name;
-  spanCargo.innerHTML = experienciaProfissional.areaAtuacao;
-  spanAnoInicio.innerHTML = experienciaProfissional.anoInicio;
-  spanAnoFim.innerHTML = experienciaProfissional.anoFim;
-
-  let spanData = document.createElement("span");
-  spanData.classList.add("d-none");
-  spanData.innerHTML = JSON.stringify(experienciaProfissional);
-
-  let lblExcluir = document.createElement("label");
-  lblExcluir.innerHTML = "X"
-  lblExcluir.classList.add("btn-remove-item-exp");
-  lblExcluir.addEventListener('click',(e)=>{
-    apagarDaTela(e);
-  });
-
-  div.append(spanEmpresa,spanCargo,spanAnoInicio,spanAnoFim,lblExcluir,spanData);
-
-  document.getElementById("user-profission-exp").appendChild(div);
-}
-
 function preencherSelectPlataforma(select){
     select.appendChild(criarOption(0,"Escolha uma Plataforma: "));
 
@@ -575,10 +677,12 @@ function criarOption(value,desc){
 }
 
 function exibirModal(){
-    let modal = document.getElementById("cad-modal");
-    let bootstrapModal = new bootstrap.Modal(modal);
-    bootstrapModal.show(); 
+  $('#cad-modal').modal('show');
 } 
+
+function closeModal() {
+  $('#cad-modal').modal('hide');
+}
 
 function criarCampoDeTexto(name,placeholder,labelText){
   let div = document.createElement('div');
