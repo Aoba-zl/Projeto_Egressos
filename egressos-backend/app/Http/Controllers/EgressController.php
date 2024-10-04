@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Models\Egress;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class EgressController extends Controller
 {
@@ -11,9 +12,10 @@ class EgressController extends Controller
      */
     public function index()
     {
-        //
-        $egresses = Egress::select('*')->paginate(4);
-        return response()->json($egresses);
+        // Chama o método na model Egress para buscar os dados com joins
+        $results = Egress::getEgressWithCompanyAndFeedback(4); // Paginação de 4 registros por página
+
+        return response()->json($results);
     }
 
     /**

@@ -5,7 +5,9 @@ use App\Http\Controllers\InstitutionController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\PlatformController;
 use App\Http\Controllers\EgressController;
+use App\Http\Controllers\AcademicFormationController;
 use App\Http\Controllers\FeedbackController;
+use App\Http\Controllers\ContactController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 
