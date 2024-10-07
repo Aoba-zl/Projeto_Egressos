@@ -63,7 +63,6 @@ function init(){
 
 function getUserId(){
   let user = JSON.parse(getStorage("user"));
-  console.log(user);
   return user.user.id;
 }
 
@@ -780,6 +779,7 @@ function saveUserContactsAndExperience(){
   let telefone = limparTelefone(document.getElementById("txtFone").value);
   let isTelefonePublico = document.getElementById("cbFonePublico").checked;
   let dataNasc = document.getElementById("txtDtNasc").value;
+  let feedBack = document.getElementById("txtFeedback").value;
 
   let egress = new Object();
   egress.cpf = cpf;
@@ -790,11 +790,34 @@ function saveUserContactsAndExperience(){
   egress.academic_formation = JSON.parse("["+acadExperiences+"]");
   egress.professional_profile = JSON.parse("["+profExperiences+"]");
   egress.user = getUser();
+  
+  let cpfOk = cpf.length > 10;
+  let foneOk = telefone.length > 8;
+  let dataNOk = dataNasc.length > 8;
+  let feedBackOk = feedBack.trim().length > 2;
 
-  console.log(JSON.stringify(egress));
+  if(cpfOk && foneOk && dataNOk && feedBackOk){
+    console.log(JSON.stringify(egress));
+  
+    sendFeedback(feedBack.trim());
+  }else{
+    if(!cpf || !foneOk || !dataNOk){
+      alert("Preencha seus dados !");
+    }else{
+      alert("Escreva um feedback");
+    }
+  }
+  
+}
 
-  let feedBack = document.getElementById("txtFeedback").value;
-  console.log(feedBack);
+function sendFeedback(feedBack){
+  let obj = new Object();
+  let userId = getUserId();
+
+  obj.id_profile = userId;
+  obj.comment = feedBack;
+
+  console.log(obj);
 }
 
 function getDivData(divId) {

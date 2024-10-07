@@ -45,11 +45,14 @@
         <div class="row p-4">
             <div class="col-sm-12 col-lg-3 data-section">
                 <div id="divLoadProfilePhoto" class="mb-4">
-                    <label for="inputImagemPerfil" id="lblProfile">
-                        <span> + </span>
-                    </label>
-                    <input type="file" id="inputImagemPerfil" accept="image/*">
-                    <img src="" alt="Foto de perfil" id="exbImagemPerfil" style="max-width: 100%;max-height: 100%;">
+                    <div class="profile-pic">
+                        <label class="-label" for="inputImagemPerfil">
+                          <span class="glyphicon glyphicon-camera"></span>
+                          <span>Mudar Imagem</span>
+                        </label>
+                        <input type="file" id="inputImagemPerfil"/>
+                        <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png" id="exbImagemPerfil" width="200" />
+                      </div>
                 </div>
                 <div id="divFormDadosBasicos">
                     <form action="">
@@ -88,7 +91,7 @@
                         Adicionar contato
                     </button>
                 </div>   
-                <div class="col-12 mt-5">
+                <div class="col-12 mt-5 margin-top">
                     <h2>Escreva seu Feedback!</h2>
                     <textarea id="txtFeedback">
 

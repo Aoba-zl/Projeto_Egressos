@@ -19,19 +19,6 @@ form > *{
     margin-top: 1em;
 }
 
-#inputImagemPerfil{
-    display: none;
-}
-
-#divLoadProfilePhoto{
-    border: 2px solid black;
-    border-radius: 10px;
-    width: 150px;
-    height: 150px;
-    margin: auto;
-    display: block;
-}
-
 #divAnoFim > label::after{
     content: '* caso essa experiência seja a atual, deixe o campo vazio';
     display: block;
@@ -86,6 +73,7 @@ form > *{
 .user-acad-exp-item > *:nth-child(4):after{
     content: none;
 }
+
 .user-acad-exp-item > *:nth-child(5):after{
     content: none;
 }
@@ -101,12 +89,15 @@ form > *{
 .user-prof-exp-item>:nth-child(1)::after{
     content: ", ";
 }
+
 .user-prof-exp-item>:nth-child(2)::after{
     content: ", ";
 }
+
 .user-prof-exp-item>:nth-child(3)::after{
     content: " - ";
 }
+
 .btn-remove-item{
     color: red;
     float: right;
@@ -118,6 +109,71 @@ form > *{
     float: right;
     transform: translateX(-10px);
 }
+
+.margin-top{
+    margin-top: 6rem !important;
+}
+
+#txtFeedback{
+    width: 100%;
+    height: 100px;
+    resize: none;
+    border-radius: 5px;
+}
+/* ---- CODEPEN.IO ----- */
+/* https://codepen.io/azazy/pen/EgdXxG */
+#divLoadProfilePhoto{
+    width: 150px;
+    height: 150px;
+    margin: auto;
+    display: flex;
+    overflow: hidden;
+}
+
+.profile-pic {
+    color: transparent;
+    transition: all 0.3s ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    transition: all 0.3s ease;
+  }
+
+  .profile-pic input {
+    display: none;
+  }
+
+  .profile-pic img {
+    position: absolute;
+    object-fit: cover;
+    width: 150px;
+    height: 150px;
+    box-shadow: 0 0 10px 0 rgba(255, 255, 255, 0.35);
+    z-index: 0;
+  }
+
+  .profile-pic .-label {
+    cursor: pointer;
+    height: 165px;
+    width: 165px;
+  }
+
+  .profile-pic:hover .-label {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.8);
+    z-index: 10000;
+    color: #fafafa;
+    transition: background-color 0.2s ease-in-out;
+    margin-bottom: 0;
+  }
+  .profile-pic span {
+    display: inline-flex;
+    padding: 0.2em;
+    height: 2em;
+  }
 /* ---- Style para Autocomplete -----*/
 
 .autocomplete {
@@ -168,10 +224,4 @@ form > *{
     /*when navigating through the items using the arrow keys:*/
     background-color: DodgerBlue !important;
     color: #ffffff;
-}
-
-#txtFeedback{
-    width: 100%;
-    height: 100px;
-    resize: none;
 }
