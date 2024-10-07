@@ -65,4 +65,11 @@ class EgressController extends Controller
     {
         //
     }
+    public function searchByName(Request $request)
+    {
+        $name = $request->input('name');
+        $egresses = Egress::getEgressByName($name);
+
+        return response()->json($egresses);
+    }
 }

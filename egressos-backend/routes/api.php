@@ -31,6 +31,8 @@ Route::get('/acad-formation/{id}',[AcademicFormationController::class,'show']);
 //-----------------------------------------------------------------
 //----------------------- EGRESS -----------------------------------
 Route::get('egresses',[EgressController::class,'index']);
+Route::get('egresses', [EgressController::class, 'searchByName']);
+
 //-----------------------------------------------------------------
 //----------------------- FEEDBACK -----------------------------------
 Route::get('/feedback',[FeedbackController::class,'index'])->name('feedback.index');
