@@ -36,9 +36,13 @@ document.getElementById("txtFone").addEventListener("change",()=>{
   }
 
 });
+
+document.getElementById("btnContinuarCadastro").addEventListener("click",()=>{
+    saveUserContactsAndExperience();
+});
 //-------------- Functions -----------------------------
 function init(){
-    let user = getCookie("user");
+    let user = getStorage("user");
     if(user != undefined){
       user = JSON.parse(user);
       if(user.user.id != undefined && user.user.id != ""){
@@ -58,8 +62,13 @@ function init(){
 }
 
 function getUserId(){
-  let user = JSON.parse(getCookie("user"));
+  let user = JSON.parse(getStorage("user"));
+  console.log(user);
   return user.user.id;
+}
+
+function getUser(){
+  return JSON.parse(getStorage("user"));
 }
 
 function abrirModalCadContato(){
@@ -456,7 +465,6 @@ function adicionarExpAcad(){
   let ano = document.getElementById("txtAnoFormacao").value;
   let anoInicio = document.getElementById("txtAnoInicioFormacao").value;
 
-  console.log(periodo)
   if(instituicao != "" && instituicao != " "
       && curso != "" && curso != " "
         && periodo != "Escolha um Período:"
@@ -501,8 +509,6 @@ function adicionarExpProfissional(){
   let fimOk = (Number.isInteger(anoFim) || (anoFimTxt == "" 
                 || anoFimTxt == " "));
 
-  console.log(anoFim);
-
   if(nomeOk && telefoneOK && emailOk 
       && siteOk && cepOk && numPortaOk
         &&areaOK && inicioOk && fimOk){
@@ -545,13 +551,11 @@ function adicionarExpProfissional(){
 }
 
 function limparTelefone(telefone){
-  console.log(telefone);
   telefone = telefone.replace(" ","");
   telefone = telefone.replace("-","");
   telefone = telefone.replace("(","");
   telefone = telefone.replace(")","");
 
-  console.log(telefone);
   return telefone;
 }
 
@@ -559,6 +563,14 @@ function limparCEP(cep) {
   cep = cep.replace(" ","");
   cep = cep.replace("-","");
   return cep;
+}
+
+function limparCPF(cpf) {
+  cpf = cpf.replace(".","");
+  cpf = cpf.replace(" ","");
+  cpf = cpf.replace("-","");
+  cpf = cpf.replace(".","");
+  return cpf;
 }
 
 function getSelectText(selectId){
@@ -584,7 +596,6 @@ function criarExibicaoProfExp(experienciaProfissional){
   spanCargo.innerHTML = experienciaProfissional.areaAtuacao;
   spanAnoInicio.innerHTML = experienciaProfissional.anoInicio;
   
-  console.log(experienciaProfissional.anoFim);
   if(!isNaN(experienciaProfissional.anoFim)){
     spanAnoFim.innerHTML = experienciaProfissional.anoFim;
   }else{
@@ -759,6 +770,42 @@ function criarCampoDeTexto(name,placeholder,labelText){
   
   return div;
 }
+//----------------------- SAVE -----------------------------
+function saveUserContactsAndExperience(){
+  let contacts = getDivData("user-contacts");
+  let acadExperiences = getDivData("user-academic-exp");
+  let profExperiences = getDivData("user-profission-exp");
+
+  let cpf = limparCPF(document.getElementById("txtCPF").value);
+  let telefone = limparTelefone(document.getElementById("txtFone").value);
+  let isTelefonePublico = document.getElementById("cbFonePublico").checked;
+  let dataNasc = document.getElementById("txtDtNasc").value;
+
+  let egress = new Object();
+  egress.cpf = cpf;
+  egress.phone = telefone;
+  egress.birthdate = dataNasc;
+  egress.isPhonePublic = isTelefonePublico;
+  egress.contacts = JSON.parse("["+contacts+"]");
+  egress.academic_formation = JSON.parse("["+acadExperiences+"]");
+  egress.professional_profile = JSON.parse("["+profExperiences+"]");
+  egress.user = getUser();
+
+  console.log(JSON.stringify(egress));
+}
+
+function getDivData(divId) {
+  let divData = document.getElementById(divId);
+  let data = "";
+
+  for (let i = 0; i < divData.children.length; i++) {
+    data += divData.children[i].lastChild.innerHTML; 
+    data += ",";   
+  }
+
+  data = data.slice(0,-1);
+  return data;
+}
 //-----------------------------------------
 function autoCompleteInstituicao(txtInstituicao){
     let instituicoes = ["FATEC-ZL","FATEC-SP","FATEC-FRV","USP","ITA","UNICAMP"]
@@ -875,22 +922,15 @@ function autocomplete(inp, arr) {
   });
 }
 
-/*  ============== COOKIES ==================    */
-function setCookie(name,value){
-  let maxAgeSeconds = 604800;
-document.cookie = name+ "=" + value + ";SameSite=None; Secure; max-age="+maxAgeSeconds;
+/*  ============== SESSION ==================    */
+function setStorage(name,value){
+  sessionStorage.setItem(name,value);
 }
 
-function deleteCookie(name){
-document.cookie = name+ "=" + value + ";SameSite=None; Secure; max-age="+-700;
+function deleteStorage(name){
+  sessionStorage.removeItem(name);
 }
 
-//W3Schools
-function getCookie(name) {
-let cookie = {};
-document.cookie.split(';').forEach(function(el) {
-  let [key,value] = el.split('=');
-  cookie[key.trim()] = value;
-})
-return cookie[name];
+function getStorage(name) {
+  return sessionStorage.getItem(name);
 }

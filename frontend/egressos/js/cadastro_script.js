@@ -70,7 +70,7 @@ function sendUser(user,method,endpoint){
     })
     .done(function(msg){
         console.log(msg);
-        setCookie("user",JSON.stringify(msg));
+        setStorage("user",JSON.stringify(msg));
         window.location.href = "./cadastro2.html";
     })
     .fail(function(jqXHR, textStatus, msg){
@@ -78,22 +78,15 @@ function sendUser(user,method,endpoint){
     });
 }
 
-/*  ============== COOKIES ==================    */
-function setCookie(name,value){
-    let maxAgeSeconds = 604800;
-	document.cookie = name+ "=" + value + ";SameSite=None; Secure; max-age="+maxAgeSeconds;
+/*  ============== SESSION ==================    */
+function setStorage(name,value){
+    sessionStorage.setItem(name,value);
 }
 
-function deleteCookie(name){
-  document.cookie = name+ "=" + value + ";SameSite=None; Secure; max-age="+-700;
+function deleteStorage(name){
+    sessionStorage.removeItem(name);
 }
 
-//W3Schools
-function getCookie(name) {
-  let cookie = {};
-  document.cookie.split(';').forEach(function(el) {
-    let [key,value] = el.split('=');
-    cookie[key.trim()] = value;
-  })
-  return cookie[name];
+function getStorage(name) {
+    return sessionStorage.getItem(name);
 }
