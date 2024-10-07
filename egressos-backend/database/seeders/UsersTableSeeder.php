@@ -26,6 +26,30 @@ class UsersTableSeeder extends Seeder
                 'password' => Hash::make('password123'),
                 'created_at' => now(),
                 'updated_at' => now(),
+            ],
+            [
+                'name' => 'Joan Smith',
+                'email' => 'joan@example.com',
+                'type_account' => 1,
+                'password' => Hash::make('password123'),
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'name' => 'Jonah Smith',
+                'email' => 'jonah@example.com',
+                'type_account' => 1,
+                'password' => Hash::make('password123'),
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'name' => 'Moe Smith',
+                'email' => 'moe@example.com',
+                'type_account' => 1,
+                'password' => Hash::make('password123'),
+                'created_at' => now(),
+                'updated_at' => now(),
             ]
         ]);
     }
