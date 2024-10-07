@@ -792,6 +792,9 @@ function saveUserContactsAndExperience(){
   egress.user = getUser();
 
   console.log(JSON.stringify(egress));
+
+  let feedBack = document.getElementById("txtFeedback").value;
+  console.log(feedBack);
 }
 
 function getDivData(divId) {
