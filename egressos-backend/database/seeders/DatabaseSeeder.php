@@ -16,10 +16,10 @@ class DatabaseSeeder extends Seeder
         $this->call([
             UsersTableSeeder::class,
             AddressesTableSeeder::class,
-            CompaniesTableSeeder::class,
-            EgressesTableSeeder::class,
-            ProfessionalProfileTableSeeder::class,
-            FeedbackTableSeeder::class,
+           // CompaniesTableSeeder::class,
+         //   EgressesTableSeeder::class,
+           // ProfessionalProfileTableSeeder::class,
+         //   FeedbackTableSeeder::class,
         ]);
     }
 }
