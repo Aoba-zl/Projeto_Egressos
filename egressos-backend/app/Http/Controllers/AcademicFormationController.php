@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreAcademicFormationRequest;
 use App\Models\AcademicFormation;
 use Illuminate\Http\Request;
-
+use App\Models\AcademicFormation;
 class AcademicFormationController extends Controller
 {
     /**

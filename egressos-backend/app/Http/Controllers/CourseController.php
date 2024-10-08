@@ -12,7 +12,7 @@ class CourseController extends Controller
      */
     public function index()
     {
-        $courses = Course::select('id','name','type_formation')->paginate(50);
+        $courses = Course::select('id','name','type_formation')->paginate(10);
         return response()->json($courses);
     }
 
