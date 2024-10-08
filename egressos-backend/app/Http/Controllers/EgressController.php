@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreAcademicFormationRequest;
 use App\Models\Egress;
 use App\Http\Requests\StoreEgressRequest;
+use App\Http\Requests\StoreProfessionalProfileRequest;
 use App\Http\Requests\StoreUserRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -42,20 +43,20 @@ class EgressController extends Controller
 
         // TODO: Validar se realmente criou
         $egress = Egress::create([
-            'user_id' => $user->id,
-            'cpf' => $request->input('cpf'),
-            'phone' => $request->input('phone'),
+            'user_id'   => $user->id,
+            'cpf'       => $request->input('cpf'),
+            'phone'     => $request->input('phone'),
             'birthdate' => $request->input('birthdate'),
-            'status' => "0"
+            'status'    => "0"
         ]);
 
         foreach ($request->contacts as $contactData)
             // TODO: Validar se realmente criou
             (new ContactController)->store(
                 new Request([
-                    'id_profile' => $egress->id,
+                    'id_profile'  => $egress     ->id           ,
                     'id_platform' => $contactData['id_platform'],
-                    'contact' => $contactData['contact'],
+                    'contact'     => $contactData['contact']    ,
                 ])
             );
 
@@ -63,22 +64,30 @@ class EgressController extends Controller
             // TODO: Validar se realmente criou
             (new AcademicFormationController)->store(
                 new StoreAcademicFormationRequest([
-                    'id_profile' => $egress->id,
+                    'id_profile'     => $egress               ->id              ,
                     'id_institution' => $academicFormationData['id_institution'],
-                    'id_course' => $academicFormationData['id_course'],
-                    'begin_year' => $academicFormationData['begin_year'],
-                    'end_year' => $academicFormationData['end_year'],
-                    'period' => $academicFormationData['period'],
+                    'id_course'      => $academicFormationData['id_course']     ,
+                    'begin_year'     => $academicFormationData['begin_year']    ,
+                    'end_year'       => $academicFormationData['end_year']      ,
+                    'period'         => $academicFormationData['period']
                 ])
             );
 
-        /*
         foreach ($request->professional_profile as $professionalProfileData)
             // TODO: Validar se realmente criou
             (new ProfessionalProfileController)->store(
-                new Request($professionalProfileData)
+                new StoreProfessionalProfileRequest([
+                    'id_profile'    => $egress                  ->id            ,
+                    'begin_year'    => $professionalProfileData['begin_year']   ,
+                    'end_year'      => $professionalProfileData['end_year']     ,
+                    'area_activity' => $professionalProfileData['area_activity'],
+                    'name'          => $professionalProfileData['name']         ,
+                    'phone'         => $professionalProfileData['phone']        ,
+                    'site'           => $professionalProfileData['site']          ,
+                    'email'         => $professionalProfileData['email']        ,
+                    'address'       => $professionalProfileData['address']
+                ])
             );
-        */
 
         return response()->json([
             'Message' => 'Egresso cadastrado com sucesso!',
@@ -88,30 +97,21 @@ class EgressController extends Controller
 
     /*
      * Validate that the request meet all classes
-     * // TODO: Gambiarra pra criar nenhuma entrada no banco
      */
     private function validateRequest(Request $request)
     {
         $request->validate((new StoreUserRequest())->rules());
         $request->validate((new StoreEgressRequest())->rules());
 
-        /*
-         * TODO: Validar contato.
-         * se a plataforma não existir tem q ser criada. no momento ela é chumbada no banco
-         * garantir que o contato é unique. mas tem q existir um egresso pra isso....
+        $request->validate([
+            'contacts.*.contact' => 'required|string|unique:contacts,contact'
+        ]);
 
-        foreach ($request->contacts as $contactData)
-            Validator::make($contactData, (new StoreContactRequest())->rules())->validate();
-
-         */
-
-        /*
-         * No momento as instituições são chumbadas.
-         */
         foreach ($request->academic_formation as $academicFormationData)
             Validator::make($academicFormationData, (new StoreAcademicFormationRequest())->rules())->validate();
 
-        // TODO: foreach ($request->professional_profile as $professionalProfileData)
+        foreach ($request->professional_profile as $professionalProfileData)
+            Validator::make($professionalProfileData, (new StoreProfessionalProfileRequest())->rules())->validate();
 
     }
 

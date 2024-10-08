@@ -24,8 +24,6 @@ class StoreAcademicFormationRequest extends FormRequest
     public function rules()
     {
         return [
-            'id_institution' => 'required|exists:institutions,id',
-            'id_course' => 'required|exists:courses,id',
             'begin_year' => 'required|integer',
             'end_year' => 'integer',
             'period' => 'required|string|max:255',
