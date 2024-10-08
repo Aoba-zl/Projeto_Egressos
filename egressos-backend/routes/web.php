@@ -18,8 +18,6 @@ use App\Http\Controllers\ProfessionalProfileController;
 
 Route::get('/', [HomeController::class , 'index'])->name('home');
 
-Route::resource('graduates', EgressController::class);
-
 Route::resource('assessments', AssessmentController::class);
 
 
@@ -141,13 +139,13 @@ Route::delete('/platforms/{platform}', [PlatformController::class , 'destroy'])
         ->name('platform.destroy');
 
 
-Route::get('/professionalprofiles', [ProfessionalProfileController::class , 'index'])
+Route::get('/professionalprofiles/{egress}', [ProfessionalProfileController::class , 'index'])
         ->name('professionalprofile.index');
 Route::get('/professionalprofiles/{professionalprofile}', [ProfessionalProfileController::class , 'show'])
         ->name('professionalprofile.show');
 Route::post('/professionalprofiles', [ProfessionalProfileController::class , 'store'])
         ->name('professionalprofile.store');
-Route::put('/professionalprofiles/{professionalprofile}', [ProfessionalProfileController::class , 'update'])
+Route::put('/professionalprofiles', [ProfessionalProfileController::class , 'update'])
         ->name('professionalprofile.update');
 Route::delete('/professionalprofiles/{professionalprofile}', [ProfessionalProfileController::class , 'destroy'])
         ->name('professionalprofile.destroy');
