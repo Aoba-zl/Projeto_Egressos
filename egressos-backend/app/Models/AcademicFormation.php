@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class FormacaoAcademica extends Model
+class AcademicFormation extends Model
 {
     protected $table = 'academic_formation';
 
@@ -12,7 +12,7 @@ class FormacaoAcademica extends Model
     public $incrementing = false;
 
     protected $fillable = [
-        'id_egress',
+        'id_profile',
         'id_institution',
         'id_course',
         'begin_year',

@@ -22,7 +22,7 @@ return new class extends Migration
             $table->unsignedBigInteger('id_platform'); // Altere para unsignedBigInteger
 
             // Campo de contato
-            $table->string('contato', 255);
+            $table->string('contact', 255);
 
             // Definindo as chaves estrangeiras
             $table->foreign('id_profile')->references('id')->on('egresses')->onDelete('cascade');

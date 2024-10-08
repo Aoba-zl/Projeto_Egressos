@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreAcademicFormationRequest;
+use App\Models\AcademicFormation;
 use Illuminate\Http\Request;
 use App\Models\AcademicFormation;
 class AcademicFormationController extends Controller
@@ -18,18 +20,8 @@ class AcademicFormationController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreAcademicFormationRequest $request)
     {
-        //
-        $request->validate([
-            'id_profile' => 'required|exists:platforms,id',
-            'id_institution' => 'required|exists:egresses,id',
-            'id_course' => 'required|exists:course,id',
-            'begin_year' => 'required|integer',
-            'end_year' => 'integer',
-            'period' => 'required|string|max:255',
-        ]);
-
         $acadFormation = AcademicFormation::create([
             'id_profile' => $request->id_profile,
             'id_institution' => $request->id_institution,
@@ -51,7 +43,7 @@ class AcademicFormationController extends Controller
         $acadFormation = AcademicFormation::select('id','id_profile','id_institution','id_course',
         'begin_year','end_year','period')->where("id",$id);
         return response()->json($acadFormation );
-       
+
     }
 
     /**

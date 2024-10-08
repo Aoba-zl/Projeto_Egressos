@@ -14,7 +14,7 @@ class Contact extends Model
      * @var array
      */
     protected $fillable = [
-        'id_egress',
+        'id_profile',
         'id_platform',
         'contact'
     ];

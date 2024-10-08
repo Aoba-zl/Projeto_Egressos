@@ -18,8 +18,6 @@ use App\Http\Controllers\ProfessionalProfileController;
 
 Route::get('/', [HomeController::class , 'index'])->name('home');
 
-Route::resource('graduates', EgressController::class);
-
 Route::resource('assessments', AssessmentController::class);
 
 
@@ -33,6 +31,18 @@ Route::put('/users/{user}', [UserController::class , 'update'])
         ->name('user.update');
 Route::delete('/users/{user}', [UserController::class , 'destroy'])
         ->name('user.destroy');
+
+
+Route::get('/egresses', [EgressController::class , 'index'])
+    ->name('egress.index');
+Route::get('/egresses/{egress}', [EgressController::class , 'show'])
+    ->name('egress.show');
+Route::post('/egresses', [EgressController::class , 'store'])
+    ->name('egress.store');
+Route::put('/egresses/{egress}', [EgressController::class , 'update'])
+    ->name('egress.update');
+Route::delete('/egresses/{egress}', [EgressController::class , 'destroy'])
+    ->name('egress.disable');
 
 
 Route::get('/academicformations', [AcademicFormationController::class , 'index'])
@@ -73,8 +83,6 @@ Route::delete('/companies/{company}', [CompanyController::class , 'destroy'])
 
 Route::get('/contacts/{contact}', [ContactController::class , 'index'])
         ->name('contact.index');
-Route::get('/contacts/{contact}', [ContactController::class , 'show'])
-        ->name('contact.show');
 Route::post('/contacts', [ContactController::class , 'store'])
         ->name('contact.store');
 Route::put('/contacts/{contact}', [ContactController::class , 'update'])
@@ -131,13 +139,13 @@ Route::delete('/platforms/{platform}', [PlatformController::class , 'destroy'])
         ->name('platform.destroy');
 
 
-Route::get('/professionalprofiles', [ProfessionalProfileController::class , 'index'])
+Route::get('/professionalprofiles/{egress}', [ProfessionalProfileController::class , 'index'])
         ->name('professionalprofile.index');
 Route::get('/professionalprofiles/{professionalprofile}', [ProfessionalProfileController::class , 'show'])
         ->name('professionalprofile.show');
 Route::post('/professionalprofiles', [ProfessionalProfileController::class , 'store'])
         ->name('professionalprofile.store');
-Route::put('/professionalprofiles/{professionalprofile}', [ProfessionalProfileController::class , 'update'])
+Route::put('/professionalprofiles', [ProfessionalProfileController::class , 'update'])
         ->name('professionalprofile.update');
 Route::delete('/professionalprofiles/{professionalprofile}', [ProfessionalProfileController::class , 'destroy'])
         ->name('professionalprofile.destroy');
