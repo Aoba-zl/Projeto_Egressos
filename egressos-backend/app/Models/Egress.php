@@ -43,7 +43,7 @@ class Egress extends Model
      * @param int $perPage
      * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
      */
-    public static function getEgressWithCompanyAndFeedback()
+    public static function getEgressWithCompanyAndFeedback($limit)
     {
         return DB::table('users')
             ->join('egresses', 'egresses.user_id', '=', 'users.id')
@@ -57,8 +57,9 @@ class Egress extends Model
                 'companies.name as company_name',
                 'feedback.comment as feedback_comment'
             )
-            ->get(); // Paginação com 4 registros por página (ou customizável)
+            ->paginate($limit); // Pagina automaticamente conforme o limite informado
     }
+    
 
     /**
      * Método para buscar egressos pelo nome do usuário.

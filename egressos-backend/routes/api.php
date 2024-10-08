@@ -30,7 +30,7 @@ Route::get('/acad-formation/{id}',[AcademicFormationController::class,'show']);
 
 //-----------------------------------------------------------------
 //----------------------- EGRESS -----------------------------------
-Route::get('egresses',[EgressController::class,'index']);
+Route::get('all-egresses',[EgressController::class,'index']);
 Route::get('egresses', [EgressController::class, 'searchByName']);
 
 //-----------------------------------------------------------------
