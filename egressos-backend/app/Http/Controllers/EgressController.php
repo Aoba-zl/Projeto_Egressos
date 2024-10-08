@@ -7,6 +7,9 @@ use App\Models\Egress;
 use App\Http\Requests\StoreEgressRequest;
 use App\Http\Requests\StoreProfessionalProfileRequest;
 use App\Http\Requests\StoreUserRequest;
+use App\Models\Course;
+use App\Models\Institution;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
@@ -86,14 +89,27 @@ class EgressController extends Controller
      */
     public function store(Request $request) // TODO: StoreEgressRequest valida, mas é preciso resolver as validações.
     {
-        $this->validateRequest($request);
+        $request->validate([
+            'user.user.id' => 'required|integer|exists:users,id'
+            ,'cpf' => 'required|string|min:11|max:11'
+            ,'phone' => 'required|string|min:8'
+            ,'birthdate' => 'required|string|min:8'
+        ]);
+
+        $user = User::find($request->user['user']['id']);
 
         // TODO: Validar se realmente criou
+        /*
         $user = (new UserController())->store(
             new StoreUserRequest($request->only(['name', 'email', 'password', 'type_account']))
         )->original['user'];
-
+        */
+        
         // TODO: Validar se realmente criou
+        
+        DB::table('egresses')
+            ->where('user_id',$user->id)
+            ->delete();
         $egress = Egress::create([
             'user_id'   => $user->id,
             'cpf'       => $request->input('cpf'),
@@ -101,35 +117,51 @@ class EgressController extends Controller
             'birthdate' => $request->input('birthdate'),
             'status'    => "0"
         ]);
-
+        
+        DB::table('contacts')
+            ->where('id_profile',$egress->id)
+            ->delete();
         foreach ($request->contacts as $contactData)
             // TODO: Validar se realmente criou
             (new ContactController)->store(
                 new Request([
-                    'id_profile'  => $egress     ->id           ,
+                    'id_profile'  => $egress->id,
                     'id_platform' => $contactData['id_platform'],
-                    'contact'     => $contactData['contact']    ,
+                    'contact'     => $contactData['contact'],
                 ])
             );
 
+        DB::table('academic_formation')
+            ->where('id_profile',$egress->id)
+            ->delete();
         foreach ($request->academic_formation as $academicFormationData)
             // TODO: Validar se realmente criou
+            
+            $institution = 
+                Institution::checkAndSave($academicFormationData['institution']);
+            
+
+            $course = Course::checkAndSave($academicFormationData['course'],$academicFormationData['type_formation']);
+
             (new AcademicFormationController)->store(
                 new StoreAcademicFormationRequest([
-                    'id_profile'     => $egress               ->id              ,
-                    'id_institution' => $academicFormationData['id_institution'],
-                    'id_course'      => $academicFormationData['id_course']     ,
-                    'begin_year'     => $academicFormationData['begin_year']    ,
+                    'id_profile'     => $egress->id
+                    ,'id_institution' => $institution->id
+                    ,'id_course'      => $course->id
+                    ,'begin_year'     => $academicFormationData['begin_year']    ,
                     'end_year'       => $academicFormationData['end_year']      ,
                     'period'         => $academicFormationData['period']
                 ])
             );
-
+            
+        DB::table('professional_profile')
+            ->where('id_egress',$egress->id)
+            ->delete();
         foreach ($request->professional_profile as $professionalProfileData)
             // TODO: Validar se realmente criou
             (new ProfessionalProfileController)->store(
                 new StoreProfessionalProfileRequest([
-                    'id_profile'    => $egress                  ->id            ,
+                    'id_profile'    => $egress->id,
                     'begin_year'    => $professionalProfileData['begin_year']   ,
                     'end_year'      => $professionalProfileData['end_year']     ,
                     'area_activity' => $professionalProfileData['area_activity'],
