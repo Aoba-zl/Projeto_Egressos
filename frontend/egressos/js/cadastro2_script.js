@@ -179,7 +179,30 @@ function abrirModalCadExpAcademica(){
     });
 
     frm.appendChild(divInputCurso);
+    //-------------------------
+    let divSelectTipoFormacao = document.createElement("div");
 
+    let lblTipoFormacao = document.createElement("label");
+    lblTipoFormacao.setAttribute("for","slcTipoFormacao");
+    lblTipoFormacao.innerHTML = "Escolha o tipo de formaçao do seu curso: ";
+
+    
+    let slcTipoFormacao = document.createElement("select");
+    slcTipoFormacao.classList.add("form-select");
+    slcTipoFormacao.setAttribute("id","slcTipoFormacao");
+
+    slcTipoFormacao.append(
+        criarOption(0,"Escolha uma Formação: ")
+        ,criarOption(1,"Tecnólogo")
+        ,criarOption(2,"Bacharelado")
+        ,criarOption(3,"Mestrado")
+        ,criarOption(4,"Doutorado")
+		    ,criarOption(5,"MBA")
+		    ,criarOption(6,"Pós Doutorado")
+    );
+
+    divSelectTipoFormacao.append(lblTipoFormacao,slcTipoFormacao);
+    frm.appendChild(divSelectTipoFormacao);
     // ------------------------
     let divSelectPeriodo = document.createElement("div");
 
@@ -445,10 +468,10 @@ function adicionarContato(){
 
   if(plataformaId != 0 && contato != "" && contato != " "){
     let cont = new Object();
-    cont.plataform_name = plataforma;
-    cont.plataform = plataformaId;
+    cont.name_plataform = plataforma;
+    cont.id_platform = plataformaId;
     cont.contact = contato;
-    cont.id_egress = getUserId();
+    cont.id_profile = getUserId();
     
     criarExibicaoContato(cont);
     closeModal();
@@ -461,6 +484,7 @@ function adicionarExpAcad(){
   let instituicao = document.getElementById("txtInstituicao").value;
   let curso = document.getElementById("txtCurso").value;
   let periodo = getSelectText("slcPeriodo");
+  let tipoFormacao = getSelectText("slcTipoFormacao");
   let ano = document.getElementById("txtAnoFormacao").value;
   let anoInicio = document.getElementById("txtAnoInicioFormacao").value;
 
@@ -471,10 +495,11 @@ function adicionarExpAcad(){
     let acadExp = new Object();
     acadExp.institution = instituicao;
     acadExp.course = curso;
-    acadExp.period= periodo;
+    acadExp.period = periodo;
     acadExp.begin_year = anoInicio;
     acadExp.end_year = ano;
-    acadExp.id_egress = getUserId();
+    acadExp.id_profile = getUserId();
+    acadExp.type_formation = tipoFormacao;
 
     criarExibicaoAcadExp(acadExp);
     closeModal();
@@ -529,20 +554,20 @@ function adicionarExpProfissional(){
 
     let expProfissional = new Object();
     //expProfissional.empresa = empresa;
-    expProfissional.area_atuacao = areaAtuacao;
-    expProfissional.ano_ingresso = anoInicio;
-    expProfissional.ano_saida = anoFim;
+    expProfissional.area_activity = areaAtuacao;
+    expProfissional.begin_year = anoInicio;
+    expProfissional.end_year = anoFim;
     expProfissional.id_egress = getUserId();
     
     //-----------------------
-    expProfissional.nome = nomeEmpresa;
-    expProfissional.telefone = limparTelefone(telefoneEmpresa);
+    expProfissional.name = nomeEmpresa;
+    expProfissional.phone = limparTelefone(telefoneEmpresa);
     expProfissional.email = emailEmpresa;
     expProfissional.site = siteEmpresa;
-    expProfissional.endereco = address;
+    expProfissional.address = address;
     //-----------------------
 
-    criarExibicaoProfExpB(expProfissional);
+    criarExibicaoProfExp(expProfissional);
     closeModal();
   }else{
     alert("Preencha os dados acima");
@@ -591,47 +616,12 @@ function criarExibicaoProfExp(experienciaProfissional){
   let spanAnoInicio = document.createElement("span");
   let spanAnoFim = document.createElement("span");
 
-  spanEmpresa.innerHTML = experienciaProfissional.empresa.name;
-  spanCargo.innerHTML = experienciaProfissional.areaAtuacao;
-  spanAnoInicio.innerHTML = experienciaProfissional.anoInicio;
+  spanEmpresa.innerHTML = experienciaProfissional.name;
+  spanCargo.innerHTML = experienciaProfissional.phone;
+  spanAnoInicio.innerHTML = experienciaProfissional.begin_year;
   
-  if(!isNaN(experienciaProfissional.anoFim)){
-    spanAnoFim.innerHTML = experienciaProfissional.anoFim;
-  }else{
-    spanAnoFim.innerHTML = "Atual";
-  }
-
-  let spanData = document.createElement("span");
-  spanData.classList.add("d-none");
-  spanData.innerHTML = JSON.stringify(experienciaProfissional);
-
-  let lblExcluir = document.createElement("label");
-  lblExcluir.innerHTML = "X"
-  lblExcluir.classList.add("btn-remove-item-exp");
-  lblExcluir.addEventListener('click',(e)=>{
-    apagarDaTela(e);
-  });
-
-  div.append(spanEmpresa,spanCargo,spanAnoInicio,spanAnoFim,lblExcluir,spanData);
-
-  document.getElementById("user-profission-exp").appendChild(div);
-}
-
-function criarExibicaoProfExpB(experienciaProfissional){
-  let div = document.createElement("div");
-  div.classList.add("user-prof-exp-item");
-
-  let spanEmpresa = document.createElement("span");
-  let spanCargo = document.createElement("span");
-  let spanAnoInicio = document.createElement("span");
-  let spanAnoFim = document.createElement("span");
-
-  spanEmpresa.innerHTML = experienciaProfissional.nome;
-  spanCargo.innerHTML = experienciaProfissional.telefone;
-  spanAnoInicio.innerHTML = experienciaProfissional.ano_ingresso;
-  
-  if(!isNaN(experienciaProfissional.ano_saida)){
-    spanAnoFim.innerHTML = experienciaProfissional.ano_saida;
+  if(!isNaN(experienciaProfissional.end_year)){
+    spanAnoFim.innerHTML = experienciaProfissional.end_year;
   }else{
     spanAnoFim.innerHTML = "Atual";
   }
@@ -656,7 +646,7 @@ function criarExibicaoContato(contato){
   let divContatos = document.getElementById("user-contacts");
 
   let divNovoContato = document.createElement("div");
-  divNovoContato.setAttribute("id",contato.plataform_name+"_"+
+  divNovoContato.setAttribute("id",contato.name_plataform+"_"+
     divContatos.childElementCount);
   divNovoContato.classList.add("user-contact-item");
 
@@ -666,8 +656,8 @@ function criarExibicaoContato(contato){
 
   spanId.classList.add("d-none");
 
-  spanId.innerHTML = contato.id;
-  spanPlataform.innerHTML = contato.plataform_name;
+  spanId.innerHTML = contato.id_platform;
+  spanPlataform.innerHTML = contato.name_plataform;
   spanContato.innerHTML = contato.contact;
 
   let lblExcluir = document.createElement("label");
@@ -796,8 +786,23 @@ function saveUserContactsAndExperience(){
   let dataNOk = dataNasc.length > 8;
   let feedBackOk = feedBack.trim().length > 2;
 
-  if(cpfOk && foneOk && dataNOk && feedBackOk){
-    console.log(JSON.stringify(egress));
+  if(cpfOk && foneOk && dataNOk && feedBackOk){    
+    let endpoint = serverUrl + "egresses"; 
+
+    $.ajax({
+        url : endpoint,
+        contentType: "application/json",
+        type : "POST",
+        data : JSON.stringify(egress)
+    })
+    .done(function(msg){
+        console.log(msg);
+        setStorage("egress",JSON.stringify(msg.Egress));
+        window.location.href = "./visualizarPerfil.html?profile="+getUserId();
+    })
+    .fail(function(jqXHR, textStatus, msg){
+        console.log(msg);
+    });
   
     sendFeedback(feedBack.trim());
   }else{
@@ -817,7 +822,21 @@ function sendFeedback(feedBack){
   obj.id_profile = userId;
   obj.comment = feedBack;
 
-  console.log(obj);
+  let endpoint = serverUrl + "feedback";
+
+  $.ajax({
+      url : endpoint,
+      contentType: "application/json",
+      type : "POST",
+      data : JSON.stringify(obj)
+  })
+  .done(function(msg){
+      console.log(msg);
+      window.location.href = "./visualizarPerfil.html?profile="+getUserId();
+  })
+  .fail(function(jqXHR, textStatus, msg){
+      console.log(msg);
+  });
 }
 
 function getDivData(divId) {
