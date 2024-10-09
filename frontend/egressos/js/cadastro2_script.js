@@ -760,7 +760,7 @@ function criarCampoDeTexto(name,placeholder,labelText){
   return div;
 }
 //----------------------- SAVE -----------------------------
-function saveUserContactsAndExperience(){
+async function saveUserContactsAndExperience(){
   let contacts = getDivData("user-contacts");
   let acadExperiences = getDivData("user-academic-exp");
   let profExperiences = getDivData("user-profission-exp");
@@ -789,7 +789,7 @@ function saveUserContactsAndExperience(){
   if(cpfOk && foneOk && dataNOk && feedBackOk){    
     let endpoint = serverUrl + "egresses"; 
 
-    $.ajax({
+    await $.ajax({
         url : endpoint,
         contentType: "application/json",
         type : "POST",
@@ -798,7 +798,6 @@ function saveUserContactsAndExperience(){
     .done(function(msg){
         console.log(msg);
         setStorage("egress",JSON.stringify(msg.Egress));
-        window.location.href = "./visualizarPerfil.html?profile="+getUserId();
     })
     .fail(function(jqXHR, textStatus, msg){
         console.log(msg);
