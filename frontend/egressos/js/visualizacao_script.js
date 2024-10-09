@@ -41,6 +41,37 @@ async function init(){
                 cursoAno.innerHTML = "Concluiu em "+element.end_year
             }
         });
+
+        let jobAtual = document.getElementById("aluno-trabalho-atual");
+        msg.professional_experience.forEach(element => {
+            if(element.final_date == null){
+                jobAtual.innerHTML = element.name + ", " 
+                    + element.area + ", "
+                    + "desde " + element.initial_date 
+            }
+        });
+
+        let feedback = document.getElementById("txtFeedback");
+        feedback.value = msg.feedback.comment;
+
+        let outrasExpsAcad = document.getElementById("exps-academicas");
+        msg.academic_formation.forEach(element => {
+            outrasExpsAcad.appendChild(criarExibicaoAcadExp(element));       
+        });
+
+        let outrasExpsProf = document.getElementById("exps-profissionais");
+        msg.professional_experience.forEach(element => {
+            if(element.final_date != null){
+                outrasExpsProf.appendChild(criarExibicaoProfExp(element));       
+            }
+        });
+
+        let contatos = document.getElementById("divContatos");
+        contatos.innerHTML = "";
+
+        msg.contacts.forEach(element => {
+            contatos.appendChild(criarExibicaoContato(element));
+        });
     })
     .fail(function(jqXHR, textStatus, msg){
         console.log(msg);
@@ -61,33 +92,82 @@ function criarExibicaoProfExp(experienciaProfissional){
     let spanAnoFim = document.createElement("span");
 
     spanEmpresa.innerHTML = experienciaProfissional.name;
-    spanCargo.innerHTML = experienciaProfissional.phone;
-    spanAnoInicio.innerHTML = experienciaProfissional.begin_year;
+    spanCargo.innerHTML = experienciaProfissional.area;
+    spanAnoInicio.innerHTML = experienciaProfissional.initial_date;
 
-    if(!isNaN(experienciaProfissional.end_year)){
-        spanAnoFim.innerHTML = experienciaProfissional.end_year;
+    if(!isNaN(experienciaProfissional.final_date)){
+        spanAnoFim.innerHTML = experienciaProfissional.final_date;
     }else{
         spanAnoFim.innerHTML = "Atual";
     }
 
-    let spanData = document.createElement("span");
-    spanData.classList.add("d-none");
-    spanData.innerHTML = JSON.stringify(experienciaProfissional);
+    div.append(spanEmpresa,spanCargo,spanAnoInicio,spanAnoFim);
 
-    let lblExcluir = document.createElement("label");
-    lblExcluir.innerHTML = "X"
-    lblExcluir.classList.add("btn-remove-item-exp");
-    lblExcluir.addEventListener('click',(e)=>{
-        apagarDaTela(e);
-    });
-
-    div.append(spanEmpresa,spanCargo,spanAnoInicio,spanAnoFim,lblExcluir,spanData);
-
-    document.getElementById("exps-profissionais").appendChild(div);
+    return div;
 }
 
 function criarExibicaoContato(contato){
+    /**
+     <div class="aluno-contato">
+                        <img class="icon-social" src="https://img.icons8.com/?size=100&id=118490&format=png&color=000000" alt="">
+                        <a href=""><span>Facebook</span></a>
+                    </div>
+     */
+
+    let div = document.createElement("div");
+    div.classList.add("aluno-contato");
+
+    let img = document.createElement('img');
+    img.classList.add('icon-social');
+
+    let link = document.createElement('a');
+    link.setAttribute("target","_blank");
+    link.setAttribute("href",contato.contact);
+    link.setAttribute("rel","external");
+
+    switch (contato.name.toUpperCase()) {
+        case "EMAIL":
+            img.setAttribute('alt','ícone do email');
+            img.setAttribute('src','./img/social-media-icons/email.svg');
+            link.setAttribute('title','Endereço de email do egresso');
+            break;
+        case "FACEBOOK":
+            img.setAttribute('alt','ícone do facebook');
+            img.setAttribute('src','./img/social-media-icons/facebook.svg');
+            link.setAttribute('title','Facebook do egresso');
+            break;
+        case "GITHUB":
+            img.setAttribute('alt','ícone do github');
+            img.setAttribute('src','./img/social-media-icons/github.svg');
+            link.setAttribute('title','Facebook do egresso');
+            break;
+        case "INSTAGRAM":
+            img.setAttribute('alt','ícone do instagram');
+            img.setAttribute('src','./img/social-media-icons/instagram.svg');
+            link.setAttribute('title','Instagram do egresso');
+            break;
+        case "LINKEDIN":
+            img.setAttribute('alt','ícone do linkedin');
+            img.setAttribute('src','./img/social-media-icons/linkedin.svg');
+            link.setAttribute('title','Linkedin do egresso');
+            break;
+        case "YOUTUBE":
+            img.setAttribute('alt','ícone do youtube');
+            img.setAttribute('src','./img/social-media-icons/youtube.svg');
+            link.setAttribute('title','Canal do youtube do egresso');
+            break;
     
+        default:
+            img.setAttribute('alt','ícone de link');
+            img.setAttribute('src','./img/social-media-icons/link.svg');
+            link.setAttribute('title','contato do egresso');
+            break;
+    }
+
+    link.appendChild(img);
+    div.appendChild(link);
+
+    return div;
 }
 
 function criarExibicaoAcadExp(experienciaAcademica){
@@ -100,23 +180,12 @@ function criarExibicaoAcadExp(experienciaAcademica){
     spanPeriodo.classList.add("d-none");
     let spanAno = document.createElement("span");
 
-    spanInst.innerHTML = experienciaAcademica.institution;
-    spanCurso.innerHTML = experienciaAcademica.course;
+    spanInst.innerHTML = experienciaAcademica.institution_name;
+    spanCurso.innerHTML = experienciaAcademica.course_name;
     spanPeriodo.innerHTML = experienciaAcademica.period;
     spanAno.innerHTML = experienciaAcademica.end_year;
 
-    let lblExcluir = document.createElement("label");
-    lblExcluir.innerHTML = "X"
-    lblExcluir.classList.add("btn-remove-item-exp");
-    lblExcluir.addEventListener('click',(e)=>{
-        apagarDaTela(e);
-    });
+    div.append(spanInst,spanCurso,spanPeriodo,spanAno);
 
-    let lblData = document.createElement("label");
-    lblData.classList.add("d-none");
-    lblData.innerHTML = JSON.stringify(experienciaAcademica);
-
-    div.append(spanInst,spanCurso,spanPeriodo,spanAno,lblExcluir,lblData);
-
-    document.getElementById("exps-academicas").appendChild(div);
+    return div;
 }
