@@ -7,5 +7,5 @@ window.onload = function () {
 
 function init(){
     const profileId = new URLSearchParams(window.location.search).get('profile');
-    console.log("id = "+profileId);
+
 }
