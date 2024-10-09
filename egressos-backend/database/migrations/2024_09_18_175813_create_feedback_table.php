@@ -20,7 +20,7 @@ return new class extends Migration
             $table->timestamps();
 
             $table->foreign('id_profile')
-            ->references('id')
+            ->references('user_id')
             ->on('egresses')
             ->onDelete('cascade');
         });

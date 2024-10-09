@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('egresses', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('user_id')->unique();
             $table->char('cpf',11)->unique();
             $table->string('phone',12);
             $table->date('birthdate');

@@ -22,7 +22,7 @@ class FeedbackController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            "id_profile" => "required|integer|exists:egresses,id"
+            "id_profile" => "required|integer|exists:egresses,user_id"
             ,"comment" => "required|string"
         ]);
         

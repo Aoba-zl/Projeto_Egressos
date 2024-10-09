@@ -204,7 +204,7 @@ class EgressController extends Controller
      */
     public function show(string $id)
     {
-        $egress = Egress::where('id', $id)->get();
+        $egress = Egress::getEgressWithCompanyAndFeedbackById($id);
         return response()->json($egress);
     }
 
