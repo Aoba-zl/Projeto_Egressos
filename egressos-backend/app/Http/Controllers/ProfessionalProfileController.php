@@ -76,6 +76,14 @@ class ProfessionalProfileController extends Controller
             'id_company' => 'required',
         ]);
 
+        $profile = ProfessionalProfile::where('id_egress', $request->id_profile)
+            ->where('id_company', $request->id_company)->first();
+
+        if ($profile == null)
+            return response()->json([
+                'message' => 'Professional profile not found',
+            ], 404);
+
         ProfessionalProfile::where('id_egress', $request->id_profile)
                                 ->where('id_company', $request->id_company)->delete();
 
