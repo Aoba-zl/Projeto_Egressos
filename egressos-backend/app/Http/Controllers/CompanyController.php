@@ -26,7 +26,7 @@ class CompanyController extends Controller
     {
         $request->validate([
             "name" => "required|string"
-            ,"email" => "required|email"
+            ,"email" => "required|email|unique:companies,email"
             ,"phone" => "required|string"
             ,"address.cep" => "required|string|min:8|max:8"
             ,"address.num_porta" => "required|numeric"
@@ -37,10 +37,10 @@ class CompanyController extends Controller
 
         try{
             $storedCompany = Company::create([
-                "name" => $request->name 
-                , "email" => $request->email 
-                , "phone" => $request->phone 
-                , "site" => $request->site 
+                "name" => $request->name
+                , "email" => $request->email
+                , "phone" => $request->phone
+                , "site" => $request->site
                 , "id_address" => $address->id
             ]);
         }catch(Exception $e){
