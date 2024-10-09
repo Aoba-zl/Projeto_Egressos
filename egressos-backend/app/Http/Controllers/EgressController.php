@@ -18,60 +18,16 @@ class EgressController extends Controller
      */
     public function index(Request $request)
     {
-        $limit = $request->input('limit', 4);  // Quantidade de itens por página, por padrão 4
-        $page = $request->input('page', 1);    // Página atual, por padrão 1
 
-        // Chama o método no model para buscar todos os dados
-        $results = Egress::getEgressWithCompanyAndFeedback();
-
-        // Converte o resultado para array usando json_encode/json_decode
-        $resultsArray = json_decode(json_encode($results), true);
-
-        // Aplica a lógica de paginação manualmente
-        $offset = ($page - 1) * $limit;
-        $paginatedData = array_slice($resultsArray, $offset, $limit);
-
-        // Cria a resposta paginada manualmente
-        $total = count($resultsArray);
-        $response = [
-            'current_page' => $page,
-            'data' => $paginatedData,
-            'first_page_url' => url('/api/egresses?page=1'),
-            'from' => $offset + 1,
-            'last_page' => ceil($total / $limit),
-            'last_page_url' => url('/api/egresses?page=' . ceil($total / $limit)),
-            'links' => [
-                [
-                    'url' => $page > 1 ? url('/api/egresses?page=' . ($page - 1)) : null,
-                    'label' => '&laquo; Previous',
-                    'active' => false,
-                ],
-                [
-                    'url' => url('/api/egresses?page=' . $page),
-                    'label' => (string) $page,
-                    'active' => true,
-                ],
-                [
-                    'url' => $page < ceil($total / $limit) ? url('/api/egresses?page=' . ($page + 1)) : null,
-                    'label' => 'Next &raquo;',
-                    'active' => false,
-                ],
-            ],
-            'next_page_url' => $page < ceil($total / $limit) ? url('/api/egresses?page=' . ($page + 1)) : null,
-            'path' => url('/api/egresses'),
-            'per_page' => $limit,
-            'prev_page_url' => $page > 1 ? url('/api/egresses?page=' . ($page - 1)) : null,
-            'to' => $offset + count($paginatedData),
-            'total' => $total,
-        ];
-
+        // Define o limite e a página de forma opcional (padrão: 4 itens por página)
+        $limit = $request->input('limit', 4);
+    
+        // Chama o método no model para buscar os dados paginados
+        $results = Egress::getEgressWithCompanyAndFeedback($limit);
+    
         // Retorna a resposta paginada em formato JSON
-        return response()->json($response);
+        return response()->json($results);
     }
-
-
-
-
 
     /**
      * Show the form for creating a new resource.
