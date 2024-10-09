@@ -67,10 +67,16 @@ class Egress extends Model
             ->where('user_id',$id)
             ->first();
 
-        $egressContacts = Contact::select('*')->where('id_profile',$id)->get();
+        $egressContacts = Contact::select('*')
+            ->join('platforms', 'contacts.id_platform', '=', 'platforms.id')
+            ->where('id_profile',$egress->id)
+            ->get();
         $egress->contacts = $egressContacts;
 
-        $egressFeedback = Feedback::select('*')->where('id_profile',$id)->first();
+        $egressFeedback = Feedback::select('*')
+            ->where('id_profile',$egress->id)
+            ->first();
+
         $egress->feedback = $egressFeedback;
 
         $egressExpAcad = AcademicFormation::
@@ -85,32 +91,16 @@ class Egress extends Model
                 )
             ->join('institutions', 'academic_formation.id_institution', '=', 'institutions.id')
             ->join('courses', 'academic_formation.id_course', '=', 'courses.id')
-            ->where('id_profile',$id)->get();
+            ->where('id_profile',$egress->id)->get();
         $egress->academic_formation = $egressExpAcad;
 
         $egressExpProf = ProfessionalProfile::select('*')
             ->join('companies', 'companies.id', '=', 'professional_profile.id_company')
-            ->where('id_egress',$id)
+            ->where('id_egress',$egress->id)
             ->get();
         $egress->professional_experience = $egressExpProf;
 
         return $egress;
-        /*
-        return DB::table('users')
-            ->join('egresses', 'egresses.user_id', '=', 'users.id')
-            ->join('professional_profile', 'professional_profile.id_egress', '=', 'egresses.id')
-            ->join('companies', 'companies.id', '=', 'professional_profile.id_company')
-            ->join('addresses', 'addresses.id', '=', 'companies.id_address')
-            ->leftJoin('feedback', 'feedback.id_profile', '=', 'egresses.id')
-            ->select(
-                'users.id as user_id',
-                'users.name as user_name',
-                'companies.name as company_name',
-                'feedback.comment as feedback_comment'
-            )
-            ->where('user_id',$id)
-            ->first();
-        */
     }
 
     /**
