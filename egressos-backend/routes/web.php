@@ -147,7 +147,7 @@ Route::post('/professionalprofiles', [ProfessionalProfileController::class , 'st
         ->name('professionalprofile.store');
 Route::put('/professionalprofiles', [ProfessionalProfileController::class , 'update'])
         ->name('professionalprofile.update');
-Route::delete('/professionalprofiles/{professionalprofile}', [ProfessionalProfileController::class , 'destroy'])
+Route::delete('/professionalprofiles', [ProfessionalProfileController::class , 'destroy'])
         ->name('professionalprofile.destroy');
 
 
