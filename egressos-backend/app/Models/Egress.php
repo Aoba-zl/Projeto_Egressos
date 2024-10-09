@@ -62,7 +62,13 @@ class Egress extends Model
 
     public static function getEgressWithCompanyAndFeedbackById($id)
     {
-        $egress = Egress::select('*')
+        $egress = Egress::select(
+            'egresses.id'
+            ,'egresses.birthdate'
+            ,'users.id AS user_id'
+            ,'users.email'
+            ,'users.name'
+            )
             ->join('users', 'users.id', '=', 'egresses.user_id')
             ->where('user_id',$id)
             ->first();
