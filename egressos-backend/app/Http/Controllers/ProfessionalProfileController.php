@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreProfessionalProfileRequest;
+use App\Http\Requests\StoreUserRequest;
 use App\Models\Address;
 use App\Models\Company;
 use App\Models\ProfessionalProfile;
@@ -47,16 +48,39 @@ class ProfessionalProfileController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(StoreProfessionalProfileRequest $request)
     {
-        //
+        $request->validate([
+            'id_profile' => 'required',
+            'id_company' => 'required',
+        ]);
+
+        $this->destroy(
+            new Request($request->json()->all())
+        );
+        $new_profile = $this->store($request)->original;
+
+        return response()->json([
+            'message' => 'Professional profile updated successfully',
+            'professional_profile' => $new_profile,
+        ]);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Request $request)
     {
-        //
+        $request->validate([
+            'id_profile' => 'required',
+            'id_company' => 'required',
+        ]);
+
+        ProfessionalProfile::where('id_egress', $request->id_profile)
+                                ->where('id_company', $request->id_company)->delete();
+
+        return response()->json([
+            'message' => 'Professional profile successfully deleted',
+        ]);
     }
 }
