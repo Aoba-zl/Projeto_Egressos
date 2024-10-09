@@ -66,6 +66,11 @@ function getUserId(){
   return user.user.id;
 }
 
+function getEgressId(){
+  let egress = JSON.parse(getStorage("egress"));
+  return egress.id;
+}
+
 function getUser(){
   return JSON.parse(getStorage("user"));
 }
@@ -816,7 +821,7 @@ async function saveUserContactsAndExperience(){
 
 function sendFeedback(feedBack){
   let obj = new Object();
-  let userId = getUserId();
+  let userId = getEgressId();
 
   obj.id_profile = userId;
   obj.comment = feedBack;

@@ -53,6 +53,7 @@ async function init(){
 
         let feedback = document.getElementById("txtFeedback");
         feedback.value = msg.feedback.comment;
+        feedback.setAttribute("disabled","true");
 
         let outrasExpsAcad = document.getElementById("exps-academicas");
         msg.academic_formation.forEach(element => {
