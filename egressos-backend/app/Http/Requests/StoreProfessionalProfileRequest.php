@@ -29,7 +29,7 @@ class StoreProfessionalProfileRequest extends FormRequest
             'begin_year'        => ['required', 'date', 'before:01-01-' . now()->year, 'after:01/01/1900'],
             'end_year'          => ['nullable', 'date', 'before:01-01-' . now()->year, 'after:01/01/1900'],
             'phone'             => ['nullable', 'digits:11'],
-            'email'             => ['nullable', 'email'],
+            'email'             => ['nullable', 'email', 'unique:companies,email'],
             'site'               => ['nullable', 'string'],
             'address.cep'       => ['nullable', 'digits:8'],
             'address.num_porta' => ['nullable', 'integer']
