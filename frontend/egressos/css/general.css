@@ -4,6 +4,14 @@
     --primary-text:2em;
     --secondary-text:1.5em;
     --terciary-text:1em;
+
+    --color-1:#881717;
+    --color-2:#5E1F1F;
+    --color-3:#B30000;
+    --color-4:#331A1A;
+    --color-5:#332222;
+    
+    --black:#000000;
 }
 
 *{
@@ -20,6 +28,11 @@ body{
     border: 2px solid black;
 }
 
+footer{
+    background-color: #ffffff;
+    margin-bottom: 0;
+    padding: 1rem 0rem;
+}
 /* ------- HEADER ------------- */
 #logoFatec{
     width: 87px;

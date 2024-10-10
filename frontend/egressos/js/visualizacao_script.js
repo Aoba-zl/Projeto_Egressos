@@ -15,9 +15,7 @@ async function init(){
         type : "get",
         data : ""
     })
-    .done(function(msg){
-        console.log(msg);
-        
+    .done(function(msg){        
         let title = document.getElementById("perfilName");
         title.innerHTML = "Perfil de "+(msg.name.split(" ")[0]);
         

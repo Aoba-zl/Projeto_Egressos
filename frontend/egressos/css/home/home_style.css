@@ -1,15 +1,17 @@
 section{
     width: 100vw;
-    margin-bottom: 1em;
-    border-width: 2px 0px;
-    border-color: black;
-    border-style: solid;
+    margin-top: .5em;
+    margin-bottom: .5em;
+    background-color: #ffffff;
 }
 
 p{
     text-align: justify;
 }
 
+body{
+    background: linear-gradient(90deg,var(--color-1) 60%,var(--color-4));
+}
 /* ------- section apresentacao ------------- */
 .carousel-inner{
     padding: 1em;
