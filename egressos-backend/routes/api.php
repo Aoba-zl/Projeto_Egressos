@@ -27,6 +27,7 @@ use App\Http\Controllers\UserController;
 Route::post('/acad-formation',[AcademicFormationController::class,'store']);
 Route::get('/acad-formation',[AcademicFormationController::class,'index']);
 Route::get('/acad-formation/{id}',[AcademicFormationController::class,'show']);
+Route::put('/acad-formation/{id}',[AcademicFormationController::class,'update']);
 
 //-----------------------------------------------------------------
 //----------------------- EGRESSES -----------------------------------

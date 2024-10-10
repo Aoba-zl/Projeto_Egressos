@@ -7,5 +7,12 @@ window.onload = function () {
 
 function init(){
     const profileId = new URLSearchParams(window.location.search).get('profile');
+    
+    setTimeout(() => {
+        let btnEntrar=document.getElementById("btnEntrar");
+        btnEntrar.classList.add("d-none");
+        console.log(btnEntrar);
+    }, 100);
+   
 
 }

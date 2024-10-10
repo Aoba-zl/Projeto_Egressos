@@ -6,7 +6,13 @@ window.onload = function () {
 }
 
 function init(){
-
+    setTimeout(() => {
+        let btnEntrar=document.getElementById("btnEntrar");
+        btnEntrar.classList.add("d-none");
+        
+    }, 100);
+   
+    
 }
 
 document.getElementById('entrar').addEventListener('click', async function () {
