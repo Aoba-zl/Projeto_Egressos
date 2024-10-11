@@ -42,4 +42,22 @@ class Course extends Model
         return $repeated;
     }
 
+    public static function checkAndSave($name,$type_formation){
+        $repeated = Course::select('*')
+        ->where('name',$name)
+        ->where('type_formation',$type_formation)
+        ->first();
+
+        if($repeated == null){
+            $storedCourse = Course::create([
+                'name' => $name 
+                ,'type_formation' => $type_formation
+            ]);
+
+            return $storedCourse;
+        }
+
+        return $repeated;
+    }
+
 }
