@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreAcademicFormationRequest;
 use App\Models\AcademicFormation;
 use Illuminate\Http\Request;
-use App\Models\AcademicFormation;
 class AcademicFormationController extends Controller
 {
     /**
@@ -22,10 +21,18 @@ class AcademicFormationController extends Controller
      */
     public function store(StoreAcademicFormationRequest $request)
     {
+        $id_institution = (new InstitutionController())->store(
+            new Request($request->all()['institution'])
+        )->original['institution']->id;
+
+        $id_course = (new CourseController())->store(
+            new Request($request->all()['course'])
+        )->original->id;
+
         $acadFormation = AcademicFormation::create([
             'id_profile' => $request->id_profile,
-            'id_institution' => $request->id_institution,
-            'id_course' => $request->id_course,
+            'id_institution' => $id_institution,
+            'id_course' => $id_course,
             'begin_year' => $request->begin_year,
             'end_year' => $request->end_year,
             'period' => $request->period,
