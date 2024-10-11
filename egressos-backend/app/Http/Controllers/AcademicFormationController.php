@@ -59,6 +59,18 @@ class AcademicFormationController extends Controller
     public function update(Request $request, string $id)
     {
         //
+        $formationToUpdate = AcademicFormation::find($id);
+    
+        $formationToUpdate->id_profile = $request->id_profile;
+        $formationToUpdate->id_institution = $request->id_institution;
+        $formationToUpdate->id_course = $request->id_course;
+        $formationToUpdate->begin_year = $request->begin_year;
+        $formationToUpdate->end_year = $request->end_year;
+        $formationToUpdate->period = $request->period;
+
+        $formationToUpdate->save();
+
+        return response()->json($formationToUpdate);
     }
 
     /**
