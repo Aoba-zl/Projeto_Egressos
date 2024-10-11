@@ -46,4 +46,22 @@ class Institution extends Model
 
         return $repeated;
     }
+
+    public static function checkAndSave($name){
+        $address = 1;
+
+        $repeated = Institution::select("*")
+                        ->where('name',$name)->first();
+
+        if($repeated == null){
+            $storedInstitution = Institution::create([
+                "name" => $name 
+                ,"id_address" => $address
+            ]);
+
+            return $storedInstitution;
+        }
+
+        return $repeated;
+    }
 }
