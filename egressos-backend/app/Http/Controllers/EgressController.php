@@ -21,10 +21,10 @@ class EgressController extends Controller
 
         // Define o limite e a página de forma opcional (padrão: 4 itens por página)
         $limit = $request->input('limit', 4);
-    
+
         // Chama o método no model para buscar os dados paginados
         $results = Egress::getEgressWithCompanyAndFeedback($limit);
-    
+
         // Retorna a resposta paginada em formato JSON
         return response()->json($results);
     }
@@ -46,7 +46,7 @@ class EgressController extends Controller
 
         // TODO: Validar se realmente criou
         $user = (new UserController())->store(
-            new StoreUserRequest($request->only(['name', 'email', 'password', 'type_account']))
+            new StoreUserRequest($request->json()->all()['user'])
         )->original['user'];
 
         // TODO: Validar se realmente criou
@@ -73,8 +73,8 @@ class EgressController extends Controller
             (new AcademicFormationController)->store(
                 new StoreAcademicFormationRequest([
                     'id_profile'     => $egress               ->id              ,
-                    'id_institution' => $academicFormationData['id_institution'],
-                    'id_course'      => $academicFormationData['id_course']     ,
+                    'institution'    => $academicFormationData['institution'],
+                    'course'         => $academicFormationData['course']     ,
                     'begin_year'     => $academicFormationData['begin_year']    ,
                     'end_year'       => $academicFormationData['end_year']      ,
                     'period'         => $academicFormationData['period']
@@ -108,16 +108,18 @@ class EgressController extends Controller
      */
     private function validateRequest(Request $request)
     {
-        $request->validate((new StoreUserRequest())->rules());
+        Validator::make($request->user, (new StoreUserRequest())->rules())->validate();
         $request->validate((new StoreEgressRequest())->rules());
 
         $request->validate([
             'contacts.*.contact' => 'required|string|unique:contacts,contact'
         ]);
 
+        // TODO: Diferenciar a principal das demais
         foreach ($request->academic_formation as $academicFormationData)
             Validator::make($academicFormationData, (new StoreAcademicFormationRequest())->rules())->validate();
 
+        // TODO: Diferenciar a principal das demais
         foreach ($request->professional_profile as $professionalProfileData)
             Validator::make($professionalProfileData, (new StoreProfessionalProfileRequest())->rules())->validate();
 
