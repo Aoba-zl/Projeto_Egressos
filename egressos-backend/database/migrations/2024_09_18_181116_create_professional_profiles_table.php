@@ -16,8 +16,8 @@ return new class extends Migration
         Schema::create('professional_profile', function (Blueprint $table) {
             $table->unsignedBigInteger('id_company')->unsigned();
             $table->unsignedBigInteger('id_egress')->unsigned();
-            $table->integer('initial_date');
-            $table->integer('final_date')->nullable();
+            $table->date('initial_date');
+            $table->date('final_date')->nullable();
             $table->string('area', 255);
 
             // Chave primária composta

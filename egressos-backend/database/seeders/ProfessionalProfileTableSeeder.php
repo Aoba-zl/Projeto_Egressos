@@ -12,7 +12,7 @@ class ProfessionalProfileTableSeeder extends Seeder
         DB::table('professional_profile')->insert([
             [
                 'id_company' => 1,
-                'id_egress' => 26,
+                'id_egress' => 1,
                 'initial_date' => '2020-01-01',
                 'final_date' => null,
                 'area' => 'Software Development',
@@ -21,7 +21,7 @@ class ProfessionalProfileTableSeeder extends Seeder
             ],
             [
                 'id_company' => 2,
-                'id_egress' => 27,
+                'id_egress' => 2,
                 'initial_date' => '2021-01-01',
                 'final_date' => '2023-01-01',
                 'area' => 'Project Management',
@@ -30,7 +30,7 @@ class ProfessionalProfileTableSeeder extends Seeder
             ],
             [
                 'id_company' => 2,
-                'id_egress' => 28,
+                'id_egress' => 3,
                 'initial_date' => '2021-01-01',
                 'final_date' => '2023-01-01',
                 'area' => 'Project Management',
@@ -39,7 +39,7 @@ class ProfessionalProfileTableSeeder extends Seeder
             ],
             [
                 'id_company' => 2,
-                'id_egress' => 29,
+                'id_egress' => 4,
                 'initial_date' => '2021-01-01',
                 'final_date' => '2023-01-01',
                 'area' => 'Project Management',
