@@ -110,6 +110,24 @@ class Egress extends Model
         return $egress;
     }
 
+    public static function getRandom()
+    {
+        $egresses = User::inRandomOrder()
+        ->join('egresses', 'egresses.user_id', '=', 'users.id')
+            ->join('academic_formation', 'academic_formation.id_profile', '=', 'egresses.id')
+            ->join('courses', 'courses.id', '=', 'academic_formation.id_course')
+            ->leftJoin('feedback', 'feedback.id_profile', '=', 'egresses.id')
+            ->select(
+                'users.id as user_id',
+                'users.name as user_name',
+                'courses.name as course_name',
+                'feedback.comment as feedback_comment'
+            )
+            ->limit(3)
+            ->get();
+            return $egresses;
+    }
+
     /**
      * Método para buscar egressos pelo nome do usuário.
      *
