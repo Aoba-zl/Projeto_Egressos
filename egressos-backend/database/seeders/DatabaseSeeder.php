@@ -16,12 +16,18 @@ class DatabaseSeeder extends Seeder
         $this->call([
             UsersTableSeeder::class
             ,AddressesTableSeeder::class
-           // CompaniesTableSeeder::class,
-         //   EgressesTableSeeder::class,
-           // ProfessionalProfileTableSeeder::class,
-         //   FeedbackTableSeeder::class,
-         ,PlatformSeeder::class
-         ,InstitutionSeeder::class
+            // CompaniesTableSeeder::class,
+            // EgressesTableSeeder::class,
+            // ProfessionalProfileTableSeeder::class,
+            // FeedbackTableSeeder::class,
+            ,PlatformSeeder::class
+            ,InstitutionSeeder::class
+            //  UsersTableSeeder::class,
+            //  AddressesTableSeeder::class,
+            //  CompaniesTableSeeder::class,
+            //  EgressesTableSeeder::class,
+            ,ProfessionalProfileTableSeeder::class
+            ,FeedbackTableSeeder::class
         ]);
     }
 }

@@ -10,28 +10,28 @@ class FeedbackTableSeeder extends Seeder
     public function run()
     {
         DB::table('feedback')->insert([
-            // [
-            //     'id_profile' => 1,
-            //     'comment' => 'Great work environment, learned a lot!',
-            //     'created_at' => now(),
-            //     'updated_at' => now(),
-            // ],
-            // [
-            //     'id_profile' => 2,
-            //     'comment' => 'Challenging projects, excellent team.',
-            //     'created_at' => now(),
-            //     'updated_at' => now(),
-            // ]
-            // ,
             [
-                'id_profile' => 3,
+                'id_profile' => 26,
+                'comment' => 'Great work environment, learned a lot!',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'id_profile' => 27,
                 'comment' => 'Challenging projects, excellent team.',
                 'created_at' => now(),
                 'updated_at' => now(),
             ]
             ,
             [
-                'id_profile' => 4,
+                'id_profile' => 28,
+                'comment' => 'Challenging projects, excellent team.',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]
+            ,
+            [
+                'id_profile' => 29,
                 'comment' => 'Challenging projects, excellent team.',
                 'created_at' => now(),
                 'updated_at' => now(),

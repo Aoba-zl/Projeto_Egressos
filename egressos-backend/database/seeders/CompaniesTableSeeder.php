@@ -12,7 +12,7 @@ class CompaniesTableSeeder extends Seeder
         DB::table('companies')->insert([
             [
                 'name' => 'Tech Solutions',
-                'email' => 'info@techsolutions.com',
+                'email' => 'info2@techsolutions.com',
                 'phone' => '1234567890',
                 'site' => 'www.techsolutions.com',
                 'id_address' => 1,
@@ -21,7 +21,7 @@ class CompaniesTableSeeder extends Seeder
             ],
             [
                 'name' => 'Business Corp',
-                'email' => 'contact@businesscorp.com',
+                'email' => 'contact2@businesscorp.com',
                 'phone' => '0987654321',
                 'site' => 'www.businesscorp.com',
                 'id_address' => 2,

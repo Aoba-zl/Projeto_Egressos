@@ -21,60 +21,16 @@ class EgressController extends Controller
      */
     public function index(Request $request)
     {
-        $limit = $request->input('limit', 4);  // Quantidade de itens por página, por padrão 4
-        $page = $request->input('page', 1);    // Página atual, por padrão 1
 
-        // Chama o método no model para buscar todos os dados
-        $results = Egress::getEgressWithCompanyAndFeedback();
+        // Define o limite e a página de forma opcional (padrão: 4 itens por página)
+        $limit = $request->input('limit', 4);
 
-        // Converte o resultado para array usando json_encode/json_decode
-        $resultsArray = json_decode(json_encode($results), true);
-
-        // Aplica a lógica de paginação manualmente
-        $offset = ($page - 1) * $limit;
-        $paginatedData = array_slice($resultsArray, $offset, $limit);
-
-        // Cria a resposta paginada manualmente
-        $total = count($resultsArray);
-        $response = [
-            'current_page' => $page,
-            'data' => $paginatedData,
-            'first_page_url' => url('/api/egresses?page=1'),
-            'from' => $offset + 1,
-            'last_page' => ceil($total / $limit),
-            'last_page_url' => url('/api/egresses?page=' . ceil($total / $limit)),
-            'links' => [
-                [
-                    'url' => $page > 1 ? url('/api/egresses?page=' . ($page - 1)) : null,
-                    'label' => '&laquo; Previous',
-                    'active' => false,
-                ],
-                [
-                    'url' => url('/api/egresses?page=' . $page),
-                    'label' => (string) $page,
-                    'active' => true,
-                ],
-                [
-                    'url' => $page < ceil($total / $limit) ? url('/api/egresses?page=' . ($page + 1)) : null,
-                    'label' => 'Next &raquo;',
-                    'active' => false,
-                ],
-            ],
-            'next_page_url' => $page < ceil($total / $limit) ? url('/api/egresses?page=' . ($page + 1)) : null,
-            'path' => url('/api/egresses'),
-            'per_page' => $limit,
-            'prev_page_url' => $page > 1 ? url('/api/egresses?page=' . ($page - 1)) : null,
-            'to' => $offset + count($paginatedData),
-            'total' => $total,
-        ];
+        // Chama o método no model para buscar os dados paginados
+        $results = Egress::getEgressWithCompanyAndFeedback($limit);
 
         // Retorna a resposta paginada em formato JSON
-        return response()->json($response);
+        return response()->json($results);
     }
-
-
-
-
 
     /**
      * Show the form for creating a new resource.
@@ -101,7 +57,7 @@ class EgressController extends Controller
         // TODO: Validar se realmente criou
         /*
         $user = (new UserController())->store(
-            new StoreUserRequest($request->only(['name', 'email', 'password', 'type_account']))
+            new StoreUserRequest($request->json()->all()['user'])
         )->original['user'];
         */
         
@@ -145,11 +101,11 @@ class EgressController extends Controller
 
             (new AcademicFormationController)->store(
                 new StoreAcademicFormationRequest([
-                    'id_profile'     => $egress->id
-                    ,'id_institution' => $institution->id
-                    ,'id_course'      => $course->id
-                    ,'begin_year'     => $academicFormationData['begin_year']    ,
-                    'end_year'       => $academicFormationData['end_year']      ,
+                    'id_profile'     => $egress->id,
+                    'institution'    => $academicFormationData['institution'],
+                    'course'         => $academicFormationData['course'],
+                    'begin_year'     => $academicFormationData['begin_year'],
+                    'end_year'       => $academicFormationData['end_year'],
                     'period'         => $academicFormationData['period']
                 ])
             );
@@ -184,16 +140,18 @@ class EgressController extends Controller
      */
     private function validateRequest(Request $request)
     {
-        $request->validate((new StoreUserRequest())->rules());
+        Validator::make($request->user, (new StoreUserRequest())->rules())->validate();
         $request->validate((new StoreEgressRequest())->rules());
 
         $request->validate([
             'contacts.*.contact' => 'required|string|unique:contacts,contact'
         ]);
 
+        // TODO: Diferenciar a principal das demais
         foreach ($request->academic_formation as $academicFormationData)
             Validator::make($academicFormationData, (new StoreAcademicFormationRequest())->rules())->validate();
 
+        // TODO: Diferenciar a principal das demais
         foreach ($request->professional_profile as $professionalProfileData)
             Validator::make($professionalProfileData, (new StoreProfessionalProfileRequest())->rules())->validate();
 

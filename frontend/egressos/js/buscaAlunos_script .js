@@ -8,30 +8,27 @@ window.onload = function () {
 function init(){
 
 }
-let currentPage = 1;
-const limit = 1; // Quantidade de egressos por página
+var currentPage = 1;
+let currentButtonGroup = 1; // Controla o grupo atual de botões de paginação
+let totalPages = 0; // Variável global para armazenar o total de páginas
+var limit = 4; // Quantidade de egressos por página
+const buttonsPerPage = 5; // Quantos botões serão exibidos por grupo
+var totalItems=0
 
 async function fetchEgresses(page = 1, limit = 1) {
     try {
-        // Fazendo a requisição para o endpoint com paginação
-        const response = await fetch(`http://localhost:8000/api/egresses?page=${page}&limit=${limit}`);
+        const response = await fetch(`http://localhost:8000/api/all-egresses?page=${page}&limit=${limit}`);
         
-        // Verifica se a requisição foi bem-sucedida
         if (!response.ok) {
             throw new Error('Erro ao buscar egressos');
         }
 
-        // Parseia a resposta como JSON
         const result = await response.json();
-
-        // Pega o array "data" e informações de paginação da resposta
+        
         const egresses = result.data;
-        const totalItems = result.total; // Supondo que sua API retorne o total de egressos
+        totalItems = result.total;
 
-        // Renderizando os egressos no HTML
         renderEgresses(egresses);
-
-        // Renderizando a paginação
         renderPagination(totalItems, page, limit);
         
     } catch (error) {
@@ -39,7 +36,6 @@ async function fetchEgresses(page = 1, limit = 1) {
     }
 }
 
-// Função para renderizar os egressos no HTML
 function renderEgresses(egresses) {
     const egressContainer = document.getElementById('egress-list');
     egressContainer.innerHTML = '';
@@ -69,31 +65,61 @@ function renderEgresses(egresses) {
     });
 }
 
-// Função para renderizar os botões de paginação
 function renderPagination(totalItems, currentPage, limit) {
-    const totalPages = Math.ceil(totalItems / limit);
+    totalPages = Math.ceil(totalItems / limit); // Armazena o total de páginas globalmente
     const paginationContainer = document.getElementById('pagination');
-
-    // Limpa a paginação anterior
+    
     paginationContainer.innerHTML = '';
+    
+    const totalButtonGroups = Math.ceil(totalPages / buttonsPerPage); // Quantos grupos de botões existem
+    const startPage = (currentButtonGroup - 1) * buttonsPerPage + 1; // Primeira página do grupo atual
+    const endPage = Math.min(startPage + buttonsPerPage - 1, totalPages); // Última página do grupo atual
 
-    // Cria os botões de página
-    for (let i = 1; i <= totalPages; i++) {
+    for (let i = startPage; i <= endPage; i++) {
         const pageButton = document.createElement('button');
         pageButton.innerText = i;
         pageButton.classList.add('page-btn');
         if (i === currentPage) {
-            pageButton.classList.add('active'); // Destaca a página atual
+            pageButton.classList.add('active');
         }
         pageButton.addEventListener('click', () => {
             fetchEgresses(i, limit);
         });
         paginationContainer.appendChild(pageButton);
     }
+
+    // Atualizar visibilidade dos ícones de navegação
+    document.getElementById('leftIcon').style.visibility = currentButtonGroup > 1 ? 'visible' : 'hidden';
+    document.getElementById('rightIcon').style.visibility = currentButtonGroup < totalButtonGroups ? 'visible' : 'hidden';
 }
 
-// Chamando a função para buscar e renderizar os egressos na página inicial
-fetchEgresses(currentPage, limit);
+// Função para mover para o próximo grupo de botões
+function nextButtonGroup() {
+    const totalButtonGroups = Math.ceil(totalPages / buttonsPerPage);
+    if (currentButtonGroup < totalButtonGroups) {
+        currentButtonGroup++;
+        renderPagination(totalItems, currentPage, limit);
+    }
+}
+
+// Função para mover para o grupo anterior de botões
+function previousButtonGroup() {
+    if (currentButtonGroup > 1) {
+        currentButtonGroup--;
+        renderPagination(totalItems, currentPage, limit);
+    }
+}
+
+// Adicionando eventos aos ícones de navegação
+    document.getElementById('rightIcon').addEventListener('click', () => nextButtonGroup());
+    document.getElementById('leftIcon').addEventListener('click', previousButtonGroup);
+
+    // Chamando a função para buscar e renderizar os egressos na página inicial
+    fetchEgresses(currentPage, limit);
+
+
+
+
 
 //Get by name
 document.getElementById('btnBuscaAlunos').addEventListener('click', function() {
@@ -115,10 +141,23 @@ document.getElementById('btnBuscaAlunos').addEventListener('click', function() {
             return response.json();
         })
         .then(data => {
-            // Chama a função para renderizar os egressos
-            renderEgresses(data.data);
+            const egresses = data.data;
+
+            // Verifica se a lista de egressos está vazia
+            if (egresses.length === 0) {
+                // Exibe a mensagem de que o egresso não foi encontrado
+                document.getElementById('egress-list').innerHTML = `
+                    <div class="egresso-nao-encontrado text-center m-5 h1">
+                        Egresso não encontrado :(
+                    </div>
+                `;
+            } else {
+                // Chama a função para renderizar os egressos encontrados
+                renderEgresses(egresses);
+            }
         })
         .catch(error => {
             console.error('Erro:', error);
         });
 });
+

@@ -10,27 +10,18 @@ class ProfessionalProfileTableSeeder extends Seeder
     public function run()
     {
         DB::table('professional_profile')->insert([
-            // [
-            //     'id_company' => 1,
-            //     'id_egress' => 1,
-            //     'initial_date' => '2020-01-01',
-            //     'final_date' => null,
-            //     'area' => 'Software Development',
-            //     'created_at' => now(),
-            //     'updated_at' => now(),
-            // ],
-            // [
-            //     'id_company' => 2,
-            //     'id_egress' => 2,
-            //     'initial_date' => '2021-01-01',
-            //     'final_date' => '2023-01-01',
-            //     'area' => 'Project Management',
-            //     'created_at' => now(),
-            //     'updated_at' => now(),
-            // ],
+            [
+                'id_company' => 1,
+                'id_egress' => 26,
+                'initial_date' => '2020-01-01',
+                'final_date' => null,
+                'area' => 'Software Development',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
             [
                 'id_company' => 2,
-                'id_egress' => 3,
+                'id_egress' => 27,
                 'initial_date' => '2021-01-01',
                 'final_date' => '2023-01-01',
                 'area' => 'Project Management',
@@ -39,7 +30,16 @@ class ProfessionalProfileTableSeeder extends Seeder
             ],
             [
                 'id_company' => 2,
-                'id_egress' => 4,
+                'id_egress' => 28,
+                'initial_date' => '2021-01-01',
+                'final_date' => '2023-01-01',
+                'area' => 'Project Management',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'id_company' => 2,
+                'id_egress' => 29,
                 'initial_date' => '2021-01-01',
                 'final_date' => '2023-01-01',
                 'area' => 'Project Management',
