@@ -41,9 +41,15 @@ document.getElementById('entrar').addEventListener('click', async function () {
         const data = await response.json();
 
         if (response.ok) {
+            // Armazenar o token no localStorage
+          
+            
+            localStorage.setItem('token', data.access_token);
+            localStorage.setItem('user',JSON.stringify(data.user));
+
             // Login successful
             showAlert('Login realizado com sucesso!', 'alert-success');
-            window.location.href = "./visualizarPerfil.html?profile="+data.user.id;
+            window.location.href = "./visualizarPerfil.html?profile=" + data.user.id;
         } else {
             // Login failed, show error message from the API
             showAlert(data.message || 'Falha ao realizar login', 'alert-danger');

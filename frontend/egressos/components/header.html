@@ -1,5 +1,5 @@
 <nav class="navbar navbar-light bg-light justify-content-between">
-
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=logout" />
         <div>
             <!-- Image and text -->
             <a class="navbar-brand" href="./">
@@ -13,18 +13,18 @@
     <div id="divLogin">
         <a href="./login.html"><button type="button" class="btn btn-light" id="btnEntrar">Entrar</button></a>
         <div class="btn-group" id="btnLoged">
-            <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              Action
+            <button type="button" id="profileButton" class="btn btn-outline-dark dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+           Action
             </button>
             <div class="dropdown-menu">
-              <a class="dropdown-item" href="#">Action</a>
-              <a class="dropdown-item" href="#">Another action</a>
-              <a class="dropdown-item" href="#">Something else here</a>
+              <a class="dropdown-item" href="#" id="myProfile">Meu Perfil</a>
               <div class="dropdown-divider"></div>
-              <a class="dropdown-item" href="#">Separated link</a>
+              <a id="sair" class="dropdown-item" href="#">Sair <span class="material-symbols-outlined">
+                logout
+                </span></a>
             </div>
           </div>
     </div>
-    <script type="module" src="./header.js"></script>
+    <script type="module" src="./components/header.js"></script>
 
 </nav>
