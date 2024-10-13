@@ -41,9 +41,10 @@ footer{
     display: block;
 }
 
+
 #tituloEgressos{
     font-size: var(--primary-text);
-    
+    transform: translateX(-50%);
 }
 
 #btnEntrar{

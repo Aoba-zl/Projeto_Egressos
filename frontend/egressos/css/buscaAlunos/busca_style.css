@@ -18,6 +18,14 @@
     text-align: center;
 }
 
+#divPaginacao > *{
+display: inline-block;
+cursor: pointer;
+}
+#divPaginacao{
+display: flex;
+justify-content: center;
+}
 #txtSearchAluno{
     width: 65vw;
 }
