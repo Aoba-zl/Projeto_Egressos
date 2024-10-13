@@ -29,7 +29,8 @@ document.getElementById("btnContinueCad").addEventListener("click",()=>{
                 user.type_account = "0";
 
                 console.log(JSON.stringify(user));
-                sendUser(user,"POST","new-user");
+                setStorage("user",JSON.stringify(user));
+                window.location.href = "./cadastro2.html"
             }else{
                 if(!nameOk){
                     alert("Digite o seu nome");
@@ -57,25 +58,6 @@ document.getElementById("btnContinueCad").addEventListener("click",()=>{
 
 function getValueByID(field){
     return document.getElementById(field).value;
-}
-
-function sendUser(user,method,endpoint){
-    endpoint = serverUrl + endpoint; 
-
-    $.ajax({
-        url : endpoint,
-        contentType: "application/json",
-        type : method,
-        data : JSON.stringify(user)
-    })
-    .done(function(msg){
-        console.log(msg);
-        setStorage("user",JSON.stringify(msg));
-        window.location.href = "./cadastro2.html";
-    })
-    .fail(function(jqXHR, textStatus, msg){
-        console.log(msg);
-    });
 }
 
 /*  ============== SESSION ==================    */

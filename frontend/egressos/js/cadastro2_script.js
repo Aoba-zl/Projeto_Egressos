@@ -45,10 +45,10 @@ function init(){
     let user = getStorage("user");
     if(user != undefined){
       user = JSON.parse(user);
-      if(user.user.id != undefined && user.user.id != ""){
+      if(user.email != undefined && user.email != ""){
         let txtName = document.getElementById("txtName");
 
-        txtName.value = user.user.name;
+        txtName.value = user.name;
         txtName.setAttribute("disabled","true");
       }else{
         window.location.href = "./cadastro.html";
@@ -238,23 +238,21 @@ function abrirModalCadExpAcademica(){
 
     txtAnoInicio.setAttribute("type","number");
     txtAnoInicio.setAttribute("class","form-control");
-    txtAnoInicio.setAttribute("placeholder","");
-    txtAnoInicio.setAttribute("min","1800");
     txtAnoInicio.setAttribute("value",DATE.getFullYear()-5);
+    txtAnoInicio.setAttribute("min",1800);
 
     let divAnoFormacao = document.createElement("div");
 
     let lblAnoFormacao = document.createElement("label");
     lblAnoFormacao.setAttribute("for","txtAnoFormacao");
-    lblAnoFormacao.innerHTML = "Digite o ano em que você se formou: ";
+    lblAnoFormacao.innerHTML = "Selecione a data aproximada em que você se formou: ";
 
     let txtAnoFormacao = document.createElement("input");
     txtAnoFormacao.setAttribute("id","txtAnoFormacao");
     txtAnoFormacao.setAttribute("type","number");
     txtAnoFormacao.setAttribute("class","form-control");
-    txtAnoFormacao.setAttribute("placeholder","2024");
-    txtAnoFormacao.setAttribute("min","1800");
     txtAnoFormacao.setAttribute("value",DATE.getFullYear());
+    txtAnoFormacao.setAttribute("min",1800);
 
     divAnoFormacao.append(lblAnoFormacao,txtAnoFormacao);
     frm.append(divAnoInicio,divAnoFormacao);
@@ -413,12 +411,11 @@ function abrirModalCadExpProfissional(){
     (
       "AnoInicio"
       ,""
-      ,"Ano de Início:"
+      ,"Data aproximada de Início: "
     );
 
     let txtAnoInicio = divAnoInicio.querySelector("#txtAnoInicio");
-    txtAnoInicio.setAttribute("type","number");
-    txtAnoInicio.setAttribute("value",DATE.getFullYear()-5);
+    txtAnoInicio.setAttribute("type","date");
 
     form.appendChild(divAnoInicio);
 
@@ -426,13 +423,12 @@ function abrirModalCadExpProfissional(){
     (
       "AnoFim"
       ,""
-      ,"Ano de Fim:"
+      ,"Data aproximada de Fim: "
     );
     divAnoFim.setAttribute('id',"divAnoFim");
 
     let txtAnoFim = divAnoFim.querySelector("#txtAnoFim");
-    txtAnoFim.setAttribute("type","number");
-    txtAnoFim.setAttribute("value",DATE.getFullYear());
+    txtAnoFim.setAttribute("type","date");
 
     form.appendChild(divAnoFim); 
 
@@ -473,10 +469,9 @@ function adicionarContato(){
 
   if(plataformaId != 0 && contato != "" && contato != " "){
     let cont = new Object();
-    cont.name_plataform = plataforma;
+    cont.plataform_name = plataforma;
     cont.id_platform = plataformaId;
     cont.contact = contato;
-    cont.id_profile = getUserId();
     
     criarExibicaoContato(cont);
     closeModal();
@@ -498,13 +493,26 @@ function adicionarExpAcad(){
         && periodo != "Escolha um Período:"
   ){
     let acadExp = new Object();
-    acadExp.institution = instituicao;
-    acadExp.course = curso;
-    acadExp.period = periodo;
+    
+    let institution = new Object();
+    institution.name = instituicao;
+
+    let address = new Object();
+    address.cep = '00000000';
+    address.num_porta = '0';
+    institution.address = address;
+
+    acadExp.institution = institution;
+
+    let course = new Object();
+    course.name = curso;
+    course.type_formation = tipoFormacao;
+    
+    acadExp.course = course;
+
     acadExp.begin_year = anoInicio;
     acadExp.end_year = ano;
-    acadExp.id_profile = getUserId();
-    acadExp.type_formation = tipoFormacao;
+    acadExp.period = periodo;
 
     criarExibicaoAcadExp(acadExp);
     closeModal();
@@ -522,8 +530,8 @@ function adicionarExpProfissional(){
   let numPorta = document.getElementById("txtNumPorta").valueAsNumber;
 
   let areaAtuacao = document.getElementById("txtAreaAtuacao").value;
-  let anoInicio = document.getElementById("txtAnoInicio").valueAsNumber;
-  let anoFim = document.getElementById("txtAnoFim").valueAsNumber;
+  let anoInicio = document.getElementById("txtAnoInicio").value;
+  let anoFim = document.getElementById("txtAnoFim").value;
   let anoFimTxt = document.getElementById("txtAnoFim").value;
 
   let nomeOk = (nomeEmpresa != "" && nomeEmpresa != " ");
@@ -534,9 +542,8 @@ function adicionarExpProfissional(){
   let cepOk = (limparCEP(cepEmpresa).length == 8);
   let numPortaOk = (Number.isInteger(numPorta));
   let areaOK = (areaAtuacao != "" && areaAtuacao != " ");
-  let inicioOk = (Number.isInteger(anoInicio));
-  let fimOk = (Number.isInteger(anoFim) || (anoFimTxt == "" 
-                || anoFimTxt == " "));
+  let inicioOk = (anoInicio != " ");
+  let fimOk = (true);
 
   if(nomeOk && telefoneOK && emailOk 
       && siteOk && cepOk && numPortaOk
@@ -562,7 +569,6 @@ function adicionarExpProfissional(){
     expProfissional.area_activity = areaAtuacao;
     expProfissional.begin_year = anoInicio;
     expProfissional.end_year = anoFim;
-    expProfissional.id_egress = getUserId();
     
     //-----------------------
     expProfissional.name = nomeEmpresa;
@@ -622,10 +628,12 @@ function criarExibicaoProfExp(experienciaProfissional){
   let spanAnoFim = document.createElement("span");
 
   spanEmpresa.innerHTML = experienciaProfissional.name;
-  spanCargo.innerHTML = experienciaProfissional.phone;
-  spanAnoInicio.innerHTML = experienciaProfissional.begin_year;
+  spanCargo.innerHTML = experienciaProfissional.area_activity;
+  let dataInicio = new Date(experienciaProfissional.begin_year)
+  spanAnoInicio.innerHTML = dataInicio.getFullYear();
   
-  if(!isNaN(experienciaProfissional.end_year)){
+  if(experienciaProfissional.end_year != "" 
+      && experienciaProfissional.end_year != " "){
     spanAnoFim.innerHTML = experienciaProfissional.end_year;
   }else{
     spanAnoFim.innerHTML = "Atual";
@@ -651,7 +659,7 @@ function criarExibicaoContato(contato){
   let divContatos = document.getElementById("user-contacts");
 
   let divNovoContato = document.createElement("div");
-  divNovoContato.setAttribute("id",contato.name_plataform+"_"+
+  divNovoContato.setAttribute("id",contato.plataform_name+"_"+
     divContatos.childElementCount);
   divNovoContato.classList.add("user-contact-item");
 
@@ -662,7 +670,7 @@ function criarExibicaoContato(contato){
   spanId.classList.add("d-none");
 
   spanId.innerHTML = contato.id_platform;
-  spanPlataform.innerHTML = contato.name_plataform;
+  spanPlataform.innerHTML = contato.plataform_name;
   spanContato.innerHTML = contato.contact;
 
   let lblExcluir = document.createElement("label");
@@ -686,13 +694,10 @@ function criarExibicaoAcadExp(experienciaAcademica){
 
   let spanInst = document.createElement("span");
   let spanCurso = document.createElement("span");
-  let spanPeriodo = document.createElement("span");
-  spanPeriodo.classList.add("d-none");
   let spanAno = document.createElement("span");
 
-  spanInst.innerHTML = experienciaAcademica.institution;
-  spanCurso.innerHTML = experienciaAcademica.course;
-  spanPeriodo.innerHTML = experienciaAcademica.period;
+  spanInst.innerHTML = experienciaAcademica.institution.name;
+  spanCurso.innerHTML = experienciaAcademica.course.name;
   spanAno.innerHTML = experienciaAcademica.end_year;
 
   let lblExcluir = document.createElement("label");
@@ -706,7 +711,7 @@ function criarExibicaoAcadExp(experienciaAcademica){
   lblData.classList.add("d-none");
   lblData.innerHTML = JSON.stringify(experienciaAcademica);
   
-  div.append(spanInst,spanCurso,spanPeriodo,spanAno,lblExcluir,lblData);
+  div.append(spanInst,spanCurso,spanAno,lblExcluir,lblData);
 
   document.getElementById("user-academic-exp").appendChild(div);
 }
@@ -717,7 +722,7 @@ function preencherSelectPlataforma(select){
     $.ajax({
       url : serverUrl+"platform",
       contentType: "application/json",
-      type : "get",
+      method : "get",
       data : ""
     })
     .done(function(msg){
@@ -779,12 +784,15 @@ async function saveUserContactsAndExperience(){
   let egress = new Object();
   egress.cpf = cpf;
   egress.phone = telefone;
-  egress.birthdate = dataNasc;
   egress.isPhonePublic = isTelefonePublico;
+  egress.birthdate = dataNasc;
+  egress.feedback = feedBack.trim();
+  egress.user = getUser();
   egress.contacts = JSON.parse("["+contacts+"]");
   egress.academic_formation = JSON.parse("["+acadExperiences+"]");
   egress.professional_profile = JSON.parse("["+profExperiences+"]");
-  egress.user = getUser();
+  
+  
   
   let cpfOk = cpf.length > 10;
   let foneOk = telefone.length > 8;
@@ -792,55 +800,31 @@ async function saveUserContactsAndExperience(){
   let feedBackOk = feedBack.trim().length > 2;
 
   if(cpfOk && foneOk && dataNOk && feedBackOk){    
-    let endpoint = serverUrl + "egresses"; 
+    let endpoint = serverUrl + "egresses";
 
     await $.ajax({
         url : endpoint,
         contentType: "application/json",
-        type : "POST",
+        method : "POST",
         data : JSON.stringify(egress)
     })
     .done(function(msg){
         console.log(msg);
-        setStorage("egress",JSON.stringify(msg.Egress));
+        setStorage("egress",JSON.stringify(msg.egress));
+        deleteStorage("user");
+        window.location.href = "./visualizarPerfil.html?profile="
+            + msg.egress.user_id;
     })
     .fail(function(jqXHR, textStatus, msg){
         console.log(msg);
     });
-  
-    sendFeedback(feedBack.trim());
   }else{
     if(!cpf || !foneOk || !dataNOk){
       alert("Preencha seus dados !");
     }else{
       alert("Escreva um feedback");
     }
-  }
-  
-}
-
-function sendFeedback(feedBack){
-  let obj = new Object();
-  let userId = getEgressId();
-
-  obj.id_profile = userId;
-  obj.comment = feedBack;
-
-  let endpoint = serverUrl + "feedback";
-
-  $.ajax({
-      url : endpoint,
-      contentType: "application/json",
-      type : "POST",
-      data : JSON.stringify(obj)
-  })
-  .done(function(msg){
-      console.log(msg);
-      window.location.href = "./visualizarPerfil.html?profile="+getUserId();
-  })
-  .fail(function(jqXHR, textStatus, msg){
-      console.log(msg);
-  });
+  }  
 }
 
 function getDivData(divId) {
@@ -869,7 +853,7 @@ function autoCompleteCurso(txtCurso) {
 }
 
 function autoCompleteEmpresa(txtEmpresa){
-  let empresas = ['TOTVS','IBM','GOOGLE','MICROSOFT','AVANADE','IFOOD','NUBANK','BRADESCO','MERCADO LIVRE'];
+  let empresas = ['TOTVS','IBM','GOOGLE','MICROSOFT','IFOOD','NUBANK','BRADESCO','MERCADO LIVRE'];
 
   autocomplete(txtEmpresa,empresas);
 }

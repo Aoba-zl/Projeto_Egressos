@@ -70,11 +70,11 @@ form > *{
     content: ", ";
 }
 
-.user-acad-exp-item > *:nth-child(4):after{
+.user-acad-exp-item > *:nth-child(3):after{
     content: none;
 }
 
-.user-acad-exp-item > *:nth-child(5):after{
+.user-acad-exp-item > *:nth-child(4):after{
     content: none;
 }
 

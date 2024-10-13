@@ -15,7 +15,7 @@ async function init(){
         type : "get",
         data : ""
     })
-    .done(function(msg){        
+    .done(function(msg){       
         let title = document.getElementById("perfilName");
         title.innerHTML = "Perfil de "+(msg.name.split(" ")[0]);
         
@@ -43,9 +43,10 @@ async function init(){
         let jobAtual = document.getElementById("aluno-trabalho-atual");
         msg.professional_experience.forEach(element => {
             if(element.final_date == null){
+                let dataIni = new Date(element.initial_date );
                 jobAtual.innerHTML = element.name + ", " 
                     + element.area + ", "
-                    + "desde " + element.initial_date 
+                    + "desde " + dataIni.getFullYear();
             }
         });
 
