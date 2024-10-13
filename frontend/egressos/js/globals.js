@@ -11,5 +11,19 @@ async function generateHash(value) {
     const hashHex = hashArray
       .map((b) => b.toString(16).padStart(2, "0"))
       .join(""); // convert bytes to hex string
+
     return hashHex;
+}
+
+/*  ============== SESSION ==================    */
+function setStorage(name,value){
+  sessionStorage.setItem(name,value);
+}
+
+function deleteStorage(name){
+  sessionStorage.removeItem(name);
+}
+
+function getStorage(name) {
+  return sessionStorage.getItem(name);
 }

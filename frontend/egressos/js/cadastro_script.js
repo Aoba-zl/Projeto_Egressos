@@ -3,7 +3,7 @@ window.onload = function () {
     $("#footer").load("./components/footer.html");
 }
 
-document.getElementById("btnContinueCad").addEventListener("click",()=>{
+document.getElementById("btnContinueCad").addEventListener("click",async ()=>{
     let cb = document.getElementById("cbAgreement");
     if(cb.checked == true){
         let user = new Object();
@@ -25,7 +25,7 @@ document.getElementById("btnContinueCad").addEventListener("click",()=>{
 
                 user.name = name;
                 user.email = email;
-                user.password = (password);
+                user.password = await generateHash(password);
                 user.type_account = "0";
 
                 console.log(JSON.stringify(user));
@@ -58,17 +58,4 @@ document.getElementById("btnContinueCad").addEventListener("click",()=>{
 
 function getValueByID(field){
     return document.getElementById(field).value;
-}
-
-/*  ============== SESSION ==================    */
-function setStorage(name,value){
-    sessionStorage.setItem(name,value);
-}
-
-function deleteStorage(name){
-    sessionStorage.removeItem(name);
-}
-
-function getStorage(name) {
-    return sessionStorage.getItem(name);
 }

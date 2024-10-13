@@ -954,16 +954,3 @@ function autocomplete(inp, arr) {
       closeAllLists(e.target);
   });
 }
-
-/*  ============== SESSION ==================    */
-function setStorage(name,value){
-  sessionStorage.setItem(name,value);
-}
-
-function deleteStorage(name){
-  sessionStorage.removeItem(name);
-}
-
-function getStorage(name) {
-  return sessionStorage.getItem(name);
-}
