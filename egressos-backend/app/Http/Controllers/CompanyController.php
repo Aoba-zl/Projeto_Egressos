@@ -104,4 +104,13 @@ class CompanyController extends Controller
         $companyToDelete->delete();
         return response()->json(['message' => 'Company deleted with success','company' => $companyToDelete]);
     }
+    public function searchByName(Request $request)
+    {
+    
+        // Chama o método searchByName da model Course
+        $company = Company::searchByName($request);
+
+        // Retorna a resposta em formato JSON
+        return response()->json($company);
+    }
 }

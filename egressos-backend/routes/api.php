@@ -46,11 +46,13 @@ Route::post('/feedback',[FeedbackController::class,'store'])->name('feedback.sto
 Route::get('/feedback/{id}',[FeedbackController::class,'show'])->name('feedback.show');
 Route::put('/feedback',[FeedbackController::class,'update'])->name('feedback.update');
 //-------------------- Company ------------------------------------
+Route::get('/company/search', [CompanyController::class, 'searchByName']);
 Route::get('/company',[CompanyController::class,'index'])->name('company.index');
 Route::get('/company/{id}',[CompanyController::class,'show'])->name('company.show');
 Route::post('/company',[CompanyController::class,'store'])->name('company.store');
 Route::put('/company',[CompanyController::class,'update'])->name('company.update');
 Route::delete('/company',[CompanyController::class,'destroy'])->name('company.destroy');
+
 //-----------------------------------------------------------------
 //-------------------- Instituicao --------------------------------
 Route::get('/institution',[InstitutionController::class,'index'])->name('institution.index');
