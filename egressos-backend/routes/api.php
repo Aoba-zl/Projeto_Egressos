@@ -34,6 +34,7 @@ Route::put('/acad-formation/{id}',[AcademicFormationController::class,'update'])
 Route::get('all-egresses',[EgressController::class,'index']);
 Route::get('egresses', [EgressController::class, 'searchByName']);
 Route::get('egresses/{id}', [EgressController::class, 'show']);
+Route::get('egresses-random', [EgressController::class, 'getRandom']);
 
 Route::get('/egresses', [EgressController::class , 'index']);;
 Route::post('/egresses', [EgressController::class , 'store']);
