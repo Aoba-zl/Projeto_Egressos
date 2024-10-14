@@ -9,3 +9,219 @@
     display: block;
     color: red;
 }
+
+/* Cadastro pt 2 */
+h2{
+    margin-top: 0px !important;
+}
+
+form > *{
+    margin-top: 1em;
+}
+
+#divAnoFim > label::after{
+    content: '* caso essa experiência seja a atual, deixe o campo vazio';
+    display: block;
+    margin-left: 1em;
+    color: gray;
+}
+
+
+#divCbFone{
+    padding-left: 1em;
+}
+
+.info-area{
+    min-width: 100%;
+    min-height: 10vh;
+    margin-bottom: 2em;
+    border-radius: 10px;
+}
+
+.frmCadExp > div{
+    margin-bottom: 1.5rem;
+}
+
+.user-contact-item{
+    border: 1px solid black;
+    border-radius: 10px;
+    margin-bottom: .2em;
+    padding: .2em;
+}
+
+.user-contact-item > *{
+    display: block;
+    text-align: center;
+}
+
+.user-contact-item:first-child{
+    text-transform: capitalize;
+}
+
+.user-acad-exp-item{
+    border: 1px solid black;
+    padding: .3em;
+    border-radius: 10px;
+    text-align: center;
+    margin-bottom: .3em;
+}
+
+.user-acad-exp-item > *::after{
+    content: ", ";
+}
+
+.user-acad-exp-item > *:nth-child(3):after{
+    content: none;
+}
+
+.user-acad-exp-item > *:nth-child(4):after{
+    content: none;
+}
+
+.user-prof-exp-item{
+    border: 1px solid black;
+    padding: .3em;
+    border-radius: 10px;
+    text-align: center;
+    margin-bottom: .3em;
+}
+
+.user-prof-exp-item>:nth-child(1)::after{
+    content: ", ";
+}
+
+.user-prof-exp-item>:nth-child(2)::after{
+    content: ", ";
+}
+
+.user-prof-exp-item>:nth-child(3)::after{
+    content: " - ";
+}
+
+.btn-remove-item{
+    color: red;
+    float: right;
+    transform: translate(-10px,-150%);
+}
+
+.btn-remove-item-exp{
+    color: red;
+    float: right;
+    transform: translateX(-10px);
+}
+
+.margin-top{
+    margin-top: 6rem !important;
+}
+
+#txtFeedback{
+    width: 100%;
+    height: 100px;
+    resize: none;
+    border-radius: 5px;
+}
+/* ---- CODEPEN.IO ----- */
+/* https://codepen.io/azazy/pen/EgdXxG */
+#divLoadProfilePhoto{
+    width: 150px;
+    height: 150px;
+    margin: auto;
+    display: flex;
+    overflow: hidden;
+}
+
+.profile-pic {
+    color: transparent;
+    transition: all 0.3s ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    transition: all 0.3s ease;
+  }
+
+  .profile-pic input {
+    display: none;
+  }
+
+  .profile-pic img {
+    position: absolute;
+    object-fit: cover;
+    width: 150px;
+    height: 150px;
+    box-shadow: 0 0 10px 0 rgba(255, 255, 255, 0.35);
+    z-index: 0;
+  }
+
+  .profile-pic .-label {
+    cursor: pointer;
+    height: 165px;
+    width: 165px;
+  }
+
+  .profile-pic:hover .-label {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.8);
+    z-index: 10000;
+    color: #fafafa;
+    transition: background-color 0.2s ease-in-out;
+    margin-bottom: 0;
+  }
+  .profile-pic span {
+    display: inline-flex;
+    padding: 0.2em;
+    height: 2em;
+  }
+/* ---- Style para Autocomplete -----*/
+
+.autocomplete {
+    /*the container must be positioned relative:*/
+    position: relative;
+    display: block;
+}
+
+.autocomplete input{
+    border: 1px solid transparent;
+    background-color: #f1f1f1;
+    padding: 10px;
+    font-size: 16px;
+}
+
+.autocomplete input[type=text] {
+    background-color: #f1f1f1;
+    width: 100%;
+}
+
+.autocomplete input[type=submit] {
+    background-color: DodgerBlue;
+    color: #fff;
+}
+
+.autocomplete-items {
+    position: absolute;
+    border: 1px solid #d4d4d4;
+    border-bottom: none;
+    border-top: none;
+    z-index: 99;
+    /*position the autocomplete items to be the same width as the container:*/
+    top: 100%;
+    left: 0;
+    right: 0;
+    }
+    .autocomplete-items div {
+    padding: 10px;
+    cursor: pointer;
+    background-color: #fff;
+    border-bottom: 1px solid #d4d4d4;
+    }
+    .autocomplete-items div:hover {
+    /*when hovering an item:*/
+    background-color: #e9e9e9;
+    }
+    .autocomplete-active {
+    /*when navigating through the items using the arrow keys:*/
+    background-color: DodgerBlue !important;
+    color: #ffffff;
+}

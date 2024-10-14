@@ -17,11 +17,12 @@ main{
 
 #divContatos{
     align-items: center;
-    padding-left: 1em;
 }
 
 #divContatos *{
-    margin-bottom: 5px;
+    margin-right: 5px;
+    margin-bottom: 10px;
+    display: inline-block;
 }
 
 #perfilName{
@@ -68,4 +69,48 @@ main{
 
 #exps-academicas{
     margin-bottom: 4em;
+}
+
+.user-acad-exp-item{
+    border: 1px solid black;
+    padding: .3em;
+    border-radius: 10px;
+    text-align: center;
+    margin-bottom: .3em;
+}
+
+.user-acad-exp-item > *::after{
+    content: ", ";
+}
+
+.user-acad-exp-item > *:nth-child(4):after{
+    content: none;
+}
+
+.user-acad-exp-item > *:nth-child(5):after{
+    content: none;
+}
+
+.user-prof-exp-item{
+    border: 1px solid black;
+    padding: .3em;
+    border-radius: 10px;
+    text-align: center;
+    margin-bottom: .3em;
+}
+
+.user-prof-exp-item>:nth-child(1)::after{
+    content: ", ";
+}
+
+.user-prof-exp-item>:nth-child(2)::after{
+    content: ", ";
+}
+
+.user-prof-exp-item>:nth-child(3)::before{
+    content: " de ";
+}
+
+.user-prof-exp-item>:nth-child(3)::after{
+    content: " a ";
 }
