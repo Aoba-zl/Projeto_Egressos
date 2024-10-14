@@ -71,4 +71,12 @@ class InstitutionController extends Controller
 
         return response()->json(["message" => "Institution deleted with success", "institution" => $institutionToDelete]);
     }
+    public function searchByName(Request $request)
+    {
+        // Chama o método searchByName da model Course
+        $institutions = Institution::searchByName($request);
+
+        // Retorna a resposta em formato JSON
+        return response()->json($institutions);
+    }
 }

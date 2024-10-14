@@ -64,4 +64,19 @@ class Institution extends Model
 
         return $repeated;
     }
+    public static function searchByName(Request $request)
+    {
+        // Captura o parâmetro 'name' da requisição
+        $name = $request->input('name');
+
+        // Faz a consulta ao banco de dados com ou sem o filtro por nome
+        $courses = Institution::select('id', 'name', 'id_address')
+            ->when($name, function ($query, $name) {
+                return $query->where('name', 'like', '%' . $name . '%');
+            })
+            ->paginate(10); // Paginação com 10 resultados por página
+
+        // Retorna a resposta em formato JSON
+        return response()->json($courses);
+    }
 }

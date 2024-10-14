@@ -57,6 +57,7 @@ Route::get('/institution',[InstitutionController::class,'index'])->name('institu
 Route::post('/institution',[InstitutionController::class,'store'])->name('institution.store');
 Route::put('/institution',[InstitutionController::class,'update'])->name('institution.update');
 Route::delete('/institution',[InstitutionController::class,'destroy'])->name('institution.delete');
+Route::get('/institution/search', [InstitutionController::class, 'searchByName']);
 //-----------------------------------------------------------------
 //-------------------- Platform -----------------------------------
 //                      !! Travar para apenas admin dps
