@@ -72,4 +72,12 @@ class CourseController extends Controller
 
         return response()->json(['message' => 'Course deleted','platform' => $courseToDelete]);
     }
+    public function searchByName(Request $request)
+    {
+        // Chama o método searchByName da model Course
+        $courses = Course::searchByName($request);
+
+        // Retorna a resposta em formato JSON
+        return response()->json($courses);
+    }
 }

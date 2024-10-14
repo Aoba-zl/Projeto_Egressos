@@ -70,6 +70,8 @@ Route::get('/course',[CourseController::class,'index'])->name('course.index');
 Route::post('/course',[CourseController::class,'store'])->name('course.store');
 Route::put('/course',[CourseController::class,'update'])->name('course.update');
 Route::delete('/course',[CourseController::class,'destroy'])->name('course.delete');
+Route::get('/course/search', [CourseController::class, 'searchByName']);
+
 //-----------------------------------------------------------------
 //------------------------Contact----------------------------------
 Route::get('/contact',[ContactController::class,'index']);
