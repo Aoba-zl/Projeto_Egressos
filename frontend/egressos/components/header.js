@@ -1,12 +1,12 @@
 window.onload = function () {
     init();
 }
-var user = localStorage.getItem('user')
+var user = sessionStorage.getItem('user')
 var userData= JSON.parse(user)
 function init() {
    
 
-    let token =  localStorage.getItem('token')
+    let token =  sessionStorage.getItem('token')
     let btnLoged = document.getElementById("btnLoged")
     let btnEntrar=document.getElementById("btnEntrar");
 
@@ -27,7 +27,7 @@ function isLoged() {
     const publicPages = ['/', '/cadastro.html', '/login.html'];
     const currentPath = window.location.pathname;
 
-    let token = localStorage.getItem('token');
+    let token = sessionStorage.getItem('token');
 
     // Redireciona para a página de login se o token não estiver presente
     // e a página atual não estiver na lista de páginas públicas
@@ -36,8 +36,8 @@ function isLoged() {
     }
 }
     document.getElementById('sair').addEventListener('click',async function () {
-        localStorage.removeItem("token")
-        localStorage.removeItem('user');
+        sessionStorage.removeItem("token")
+        sessionStorage.removeItem('user');
         if (window.location.pathname == '/' ) {
             window.location.reload()
         }else{

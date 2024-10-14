@@ -41,11 +41,11 @@ document.getElementById('entrar').addEventListener('click', async function () {
         const data = await response.json();
 
         if (response.ok) {
-            // Armazenar o token no localStorage
+            // Armazenar o token no sessionStorage
           
             
-            localStorage.setItem('token', data.access_token);
-            localStorage.setItem('user',JSON.stringify(data.user));
+            sessionStorage.setItem('token', data.access_token);
+            sessionStorage.setItem('user',JSON.stringify(data.user));
 
             // Login successful
             showAlert('Login realizado com sucesso!', 'alert-success');

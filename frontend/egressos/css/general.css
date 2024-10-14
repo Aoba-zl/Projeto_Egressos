@@ -46,7 +46,12 @@ footer{
     font-size: var(--primary-text);
     transform: translateX(-50%);
 }
-
+#sair{
+    color: red;
+}
+#sair > span{
+    transform: translateY(5px);
+}
 /* ---------------------------- */
 
 #divLogin{
