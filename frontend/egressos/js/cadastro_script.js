@@ -15,8 +15,10 @@ document.getElementById("btnContinueCad").addEventListener("click",async ()=>{
 
         let nameOk = (name != "" && name != " ");
         let emailOk = (email.includes("@") && email.includes("."));
-        let senhaOk = (password.length > 7);
-
+        let regex = 
+           /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[$*&@#])[0-9a-zA-Z$*&@#]{8,}$/;
+        let senhaOk = (regex.test(password));
+        
         console.log(nameOk +" - "+ emailOk +" - "+ senhaOk)
         if(password === cpassword){
             if(nameOk && emailOk && senhaOk){
@@ -41,7 +43,9 @@ document.getElementById("btnContinueCad").addEventListener("click",async ()=>{
                 }
 
                 if(!senhaOk){
-                    alert("A senha deve ter no mínimo 8 caracteres");
+                    alert("A senha deve ter no mínimo 8 caracteres,"
+                        +" com letras maiúsculas, minúsculas e números"
+                    );
                 }
             }
         }else{

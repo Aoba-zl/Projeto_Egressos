@@ -2,6 +2,7 @@ import { EventoController } from "./libs/eventos/controller/EventoController.js"
 import { Card } from "./libs/eventos/model/Card.js";
 
 var lastColor = 0;
+var count = 1;
 
 window.onload = function () {
     $("#header").load("./components/header.html");
@@ -30,6 +31,7 @@ function criarCards(eventos){
 
 function loadDepoimentos() {
     let divDepoimentos= document.getElementById("divDepoimentos");
+    count = 1
     $.ajax({
         url : serverUrl+"egresses-random",
         contentType: "application/json",
@@ -63,7 +65,11 @@ function createCardDepoimento(depoimento) {
     row1.classList.add("row");
 
     let col1 = document.createElement("div");
-    col1.setAttribute("class","col-sm-12 col-md-4");
+    col1.setAttribute("class","col-sm-12 col-md-4 p-3");
+
+    if(count%2 === 0){
+        col1.classList.add("col-push-md-4");
+    }
 
     let row2 = document.createElement("div");
     row2.classList.add("row");
@@ -75,10 +81,10 @@ function createCardDepoimento(depoimento) {
     let img = document.createElement("img");
     img.setAttribute("alt","imagem Aluno");
     img.setAttribute("class","imgPerfil");
-    img.setAttribute("src","https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png");
+    img.setAttribute("src","./img/profile_picture.png");
 
     let nomeAluno = document.createElement("p");
-    nomeAluno.setAttribute("class","nomeAluno text-center");
+    nomeAluno.setAttribute("class","nomeAluno text-center mt-2");
     nomeAluno.innerHTML = depoimento.user_name;
 
     let cursoAluno = document.createElement("p");
@@ -88,11 +94,10 @@ function createCardDepoimento(depoimento) {
     col2.append(img,nomeAluno,cursoAluno);
     row2.appendChild(col2);
     col1.appendChild(row2);
-    row1.appendChild(col1);
     //----------------------------------------------------
 
     let col10 = document.createElement("div");
-    col10.setAttribute("class","col-sm-12 col-md-7 p-3");
+    col10.setAttribute("class","col-sm-12 col-md-8 align-middle p-3");
 
     let row20 = document.createElement("div");
     row20.setAttribute("class","row");
@@ -104,9 +109,16 @@ function createCardDepoimento(depoimento) {
     row20.appendChild(depAluno);
     col10.appendChild(row20);
 
-    row1.appendChild(col10);
+    if(count%2 === 0){
+        row1.appendChild(col10);
+        row1.appendChild(col1);
+    }else{
+        row1.appendChild(col1);
+        row1.appendChild(col10);
+    }   
 
     divCard.appendChild(row1);
     //----------------------------------------------------
+    count++;
     return divCard;
 }
