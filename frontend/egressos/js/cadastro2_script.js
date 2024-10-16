@@ -163,8 +163,12 @@ function abrirModalCadExpAcademica(){
 
     let txtInstituicao = divInputInstituicao.querySelector("#txtInstituicao");
 
-    txtInstituicao.addEventListener("focus",()=>{
-        autoCompleteInstituicao(txtInstituicao);
+    txtInstituicao.addEventListener("keyup",()=>{
+      if (txtInstituicao.value.length >= 2) {
+        console.log(txtInstituicao.value.length );
+        
+      getNamesToAutocomplete('institution',txtInstituicao)
+      }
     });
 
     frm.appendChild(divInputInstituicao);
@@ -179,9 +183,12 @@ function abrirModalCadExpAcademica(){
 
     let txtCurso = divInputCurso.querySelector("#txtCurso");
 
-    txtCurso.addEventListener("focus",() => {
-        autoCompleteCurso(txtCurso);
+    txtCurso.addEventListener("keyup",() => {
+      if (txtCurso.value.length >= 2) {
+      getNamesToAutocomplete('course',txtCurso)
+      }
     });
+
 
     frm.appendChild(divInputCurso);
     //-------------------------
@@ -310,9 +317,12 @@ function abrirModalCadExpProfissional(){
 
     let txtEmpresa = divInputEmpresa.querySelector("#txtEmpresa");
 
-    txtEmpresa.addEventListener("focus",()=>
+    txtEmpresa.addEventListener("keyup",()=>
     {
-      autoCompleteEmpresa(txtEmpresa);
+      if (txtEmpresa.value.length >= 2) {
+        getNamesToAutocomplete('company',txtEmpresa)
+      }
+
     });
 
     form.appendChild(divInputEmpresa);
@@ -840,23 +850,23 @@ function getDivData(divId) {
   return data;
 }
 //-----------------------------------------
-function autoCompleteInstituicao(txtInstituicao){
-    let instituicoes = ["FATEC-ZL","FATEC-SP","FATEC-FRV","USP","ITA","UNICAMP"]
+// function autoCompleteInstituicao(txtInstituicao){
+//     let instituicoes = ["FATEC-ZL","FATEC-SP","FATEC-FRV","USP","ITA","UNICAMP"]
 
-    autocomplete(txtInstituicao,instituicoes);
-}
+//     autocomplete(txtInstituicao,instituicoes);
+// }
 
-function autoCompleteCurso(txtCurso) {
-    let cursos = ['ADS','DSM','ADM','COMEX','RH'];
+// function autoCompleteCurso(txtCurso) {
+//     let cursos = ['ADS','DSM','ADM','COMEX','RH'];
 
-    autocomplete(txtCurso,cursos);
-}
+//     autocomplete(txtCurso,cursos);
+// }
 
-function autoCompleteEmpresa(txtEmpresa){
-  let empresas = ['TOTVS','IBM','GOOGLE','MICROSOFT','IFOOD','NUBANK','BRADESCO','MERCADO LIVRE'];
+// function autoCompleteEmpresa(txtEmpresa){
+//   let empresas = ['TOTVS','IBM','GOOGLE','MICROSOFT','IFOOD','NUBANK','BRADESCO','MERCADO LIVRE'];
 
-  autocomplete(txtEmpresa,empresas);
-}
+//   autocomplete(txtEmpresa,empresas);
+// }
 // -------------------- @W3SCHOOLS ----------------------
 function autocomplete(inp, arr) {
     /*the autocomplete function takes two arguments,
@@ -953,4 +963,23 @@ function autocomplete(inp, arr) {
   document.addEventListener("click", function (e) {
       closeAllLists(e.target);
   });
+}
+
+async function getNamesToAutocomplete(entity,field) {
+  try {
+    const response = await fetch(`${serverUrl}${entity}/search?name=${field.value}`);
+    
+    if (!response.ok) {
+        throw new Error('Erro ao buscar cursos');
+    }
+
+    const result = await response.json();
+    
+    const names = result.original.data.map((item)=>item.name);
+    
+    autocomplete(field,names)
+    
+} catch (error) {
+    console.error('Erro:', error);
+}
 }

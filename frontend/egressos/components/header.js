@@ -24,7 +24,7 @@ function init() {
 init()
 
 function isLoged() {
-    const publicPages = ['/', '/cadastro.html', '/login.html'];
+    const publicPages = ['/', '/cadastro.html', '/login.html','/cadastro2.html'];
     const currentPath = window.location.pathname;
 
     let token = sessionStorage.getItem('token');
