@@ -80,7 +80,6 @@ async function saveUserContactsAndExperience(){
   if(cpfOk && foneOk && dataNOk && feedBackOk){    
     let endpoint = serverUrl + "egresses";
 
-    console.log(JSON.stringify(egress));
     let cursos = JSON.stringify(egress.academic_formation);
     if((cursos.includes("FATEC-ZL"))){
       await $.ajax({
@@ -91,7 +90,6 @@ async function saveUserContactsAndExperience(){
           data : JSON.stringify(egress)
       })
       .done(async function(msg){
-          console.log(msg);
           setStorage("egress",JSON.stringify(msg.egress));
           let user = getUser();
 
@@ -103,7 +101,6 @@ async function saveUserContactsAndExperience(){
             data : JSON.stringify(user)
           })
           .done(function(msg){
-              console.log(msg);
               deleteStorage("user");
 
               sessionStorage.setItem('token', msg.access_token);
