@@ -55,6 +55,17 @@ footer{
     font-size: var(--primary-text);
     transform: translateX(-50%);
 }
+#sair{
+    color: red;
+}
+#sair > span{
+    transform: translateY(5px);
+}
+/* ---------------------------- */
+
+#divLogin{
+    margin-right: 100px;
+}
 
 #btnEntrar{
     transform: translateX(-.5rem);
@@ -73,4 +84,5 @@ footer{
 .close:hover{
     background-color: lightgrey;
     color: red;
+
 }
