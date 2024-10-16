@@ -156,6 +156,11 @@ function criarExibicaoContato(contato){
             img.setAttribute('src','./img/social-media-icons/youtube.svg');
             link.setAttribute('title','Canal do youtube do egresso');
             break;
+        case "X":
+            img.setAttribute('alt','ícone do x');
+            img.setAttribute('src','./img/social-media-icons/x.svg');
+            link.setAttribute('title','X do egresso');
+            break;
     
         default:
             img.setAttribute('alt','ícone de link');

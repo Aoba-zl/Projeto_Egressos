@@ -802,29 +802,39 @@ async function saveUserContactsAndExperience(){
   if(cpfOk && foneOk && dataNOk && feedBackOk){    
     let endpoint = serverUrl + "egresses";
 
-    await $.ajax({
-        url : endpoint,
-        contentType: "application/json",
-        method : "POST",
-        data : JSON.stringify(egress)
-    })
-    .done(function(msg){
+    console.log(JSON.stringify(egress));
+    let cursos = JSON.stringify(egress.academic_formation);
+    if((cursos.includes("FATEC-ZL"))){
+      await $.ajax({
+          url : endpoint,
+          dataType: "json",
+          contentType: "application/json",
+          method : "POST",
+          data : JSON.stringify(egress)
+      })
+      .done(function(msg){
+          console.log(msg);
+          setStorage("egress",JSON.stringify(msg.egress));
+          deleteStorage("user");
+          window.location.href = "./visualizarPerfil.html?profile="
+              + msg.egress.user_id;
+      })
+      .fail(function(jqXHR, textStatus, msg){
+        console.log(jqXHR);
+        console.log(textStatus);  
         console.log(msg);
-        setStorage("egress",JSON.stringify(msg.egress));
-        deleteStorage("user");
-        window.location.href = "./visualizarPerfil.html?profile="
-            + msg.egress.user_id;
-    })
-    .fail(function(jqXHR, textStatus, msg){
-        console.log(msg);
-    });
+        alert(JSON.parse(jqXHR.responseText).message);
+      });
+    }else{
+      alert("Você deve possuir uma formação na FATEC-ZL");
+    }
   }else{
     if(!cpf || !foneOk || !dataNOk){
       alert("Preencha seus dados !");
     }else{
       alert("Escreva um feedback");
     }
-  }  
+  } 
 }
 
 function getDivData(divId) {
