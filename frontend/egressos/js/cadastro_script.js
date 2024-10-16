@@ -19,7 +19,6 @@ document.getElementById("btnContinueCad").addEventListener("click",async ()=>{
            /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[$*&@#])[0-9a-zA-Z$*&@#]{8,}$/;
         let senhaOk = (regex.test(password));
         
-        console.log(nameOk +" - "+ emailOk +" - "+ senhaOk)
         if(password === cpassword){
             if(nameOk && emailOk && senhaOk){
             
@@ -30,7 +29,6 @@ document.getElementById("btnContinueCad").addEventListener("click",async ()=>{
                 user.password = await generateHash(password);
                 user.type_account = "0";
 
-                console.log(JSON.stringify(user));
                 setStorage("user",JSON.stringify(user));
                 window.location.href = "./cadastro2.html"
             }else{

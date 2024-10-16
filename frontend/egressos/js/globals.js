@@ -1,4 +1,5 @@
 const serverUrl = "http://localhost:8000/api/";
+const DATE = new Date();
 
 // consultar mdn docs
 async function generateHash(value) {
@@ -15,6 +16,87 @@ async function generateHash(value) {
     return hashHex;
 }
 
+/*  ============== USER ==================    */
+function getUserId(){
+  let user = JSON.parse(getStorage("user"));
+  return user.user.id;
+}
+
+function getEgressId(){
+  let egress = JSON.parse(getStorage("egress"));
+  return egress.id;
+}
+
+function getUser(){
+  return JSON.parse(getStorage("user"));
+}
+
+/*  ============== FORMS ==================    */
+function criarCampoDeTexto(name,placeholder,labelText){
+  let div = document.createElement('div');
+
+  let label = document.createElement("label");
+  label.setAttribute("for","txt"+name);
+  label.innerHTML = labelText;
+
+  let field = document.createElement("input");
+  field.setAttribute('id',"txt"+name);
+  field.setAttribute('type',"text");
+  field.setAttribute('class',"form-control");
+  field.setAttribute('placeholder',placeholder);
+  
+  div.append(label,field);
+  
+  return div;
+}
+
+function limparTelefone(telefone){
+  telefone = telefone.replace(" ","");
+  telefone = telefone.replace("-","");
+  telefone = telefone.replace("(","");
+  telefone = telefone.replace(")","");
+
+  return telefone;
+}
+
+function limparCEP(cep) {
+  cep = cep.replace(" ","");
+  cep = cep.replace("-","");
+  return cep;
+}
+
+function limparCPF(cpf) {
+  cpf = cpf.replace(".","");
+  cpf = cpf.replace(" ","");
+  cpf = cpf.replace("-","");
+  cpf = cpf.replace(".","");
+  return cpf;
+}
+
+function getSelectText(selectId){
+  let select = document.getElementById(selectId);
+  let index = select.selectedIndex;
+  return select.options[index].text;
+}
+
+function criarOption(value,desc){
+  let opt = document.createElement("option");
+  opt.setAttribute("value",value);
+  opt.innerHTML = desc;
+  return opt;
+}
+
+function apagarDaTela(e){
+  e.target.parentNode.remove();
+}
+//----------------------- MODAL -----------------------------
+function exibirModal(modalId){
+  $(modalId).modal('show');
+} 
+
+function closeModal(modalId) {
+  $(modalId).modal('hide');
+}
 /*  ============== SESSION ==================    */
 function setStorage(name,value){
   sessionStorage.setItem(name,value);
@@ -26,4 +108,24 @@ function deleteStorage(name){
 
 function getStorage(name) {
   return sessionStorage.getItem(name);
+}
+
+/*  ============== AUTOCOMPLETE FIELDS ==================    */
+async function getNamesToAutocomplete(entity,field) {
+  try {
+    const response = await fetch(`${serverUrl}${entity}/search?name=${field.value}`);
+    
+    if (!response.ok) {
+        throw new Error('Erro ao buscar cursos');
+    }
+
+    const result = await response.json();
+    
+    const names = result.original.data.map((item)=>item.name);
+    
+    autocomplete(field,names)
+    
+} catch (error) {
+    console.error('Erro:', error);
+}
 }

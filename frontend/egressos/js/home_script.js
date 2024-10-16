@@ -39,13 +39,12 @@ function loadDepoimentos() {
         data : ""
       })
       .done(function(msg){
-        console.log(msg);
         msg.forEach(element => {
             divDepoimentos.appendChild(createCardDepoimento(element));
         });
       })
       .fail(function(jqXHR, textStatus, msg){
-          console.log(msg);
+          console.log(jqXHR);
       });
 }
 
@@ -109,13 +108,12 @@ function createCardDepoimento(depoimento) {
     row20.appendChild(depAluno);
     col10.appendChild(row20);
 
+    row1.appendChild(col1);
+    row1.appendChild(col10);
+    
     if(count%2 === 0){
-        row1.appendChild(col10);
-        row1.appendChild(col1);
-    }else{
-        row1.appendChild(col1);
-        row1.appendChild(col10);
-    }   
+        //TODO: logica para inverter ordem dos depoimentos pares
+    }
 
     divCard.appendChild(row1);
     //----------------------------------------------------
