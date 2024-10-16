@@ -1,28 +1,30 @@
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=logout" />
 <nav class="navbar navbar-light bg-light justify-content-between">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=logout" />
-        <div>
-            <!-- Image and text -->
-            <a class="navbar-brand" href="./">
-            <img src="./img/logoFatec.png" id="logoFatec" class="d-inline-block align-top" alt="">
-            </a>
-        </div>
-        <div>
-            <p id="tituloEgressos">Egressos</p>
-        </div>
+    <div>
+        <!-- Image and text -->
+        <a class="navbar-brand" href="./" aria-label="voltar para a home">
+        <img src="./img/logoFatec.png" id="logoFatec" class="d-inline-block align-top" alt="">
+        </a>
+    </div>
+    <div id="tituloEgressos">
+        <span>Egressos</span>
+    </div>
     <div id="divLogin">
-        <a href="./login.html"><button type="button" class="btn btn-light" id="btnEntrar">Entrar</button></a>
+        <a href="./login.html" class="btn btn-light" id="btnEntrar">
+            Entrar
+        </a>
         <div class="btn-group" id="btnLoged">
             <button type="button" id="profileButton" class="btn btn-outline-dark dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-           Action
+        Action
             </button>
             <div class="dropdown-menu">
-              <a class="dropdown-item" href="#" id="myProfile">Meu Perfil</a>
-              <div class="dropdown-divider"></div>
-              <a id="sair" class="dropdown-item" href="#">Sair <span class="material-symbols-outlined">
+            <a class="dropdown-item" href="#" id="myProfile">Meu Perfil</a>
+            <div class="dropdown-divider"></div>
+            <a id="sair" class="dropdown-item" href="#">Sair <span class="material-symbols-outlined">
                 logout
                 </span></a>
             </div>
-          </div>
+        </div>
     </div>
     <script type="module" src="./components/header.js"></script>
 </nav>

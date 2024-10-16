@@ -24,8 +24,9 @@ function init() {
 init()
 
 function isLoged() {
-    const publicPages = ['/', '/cadastro.html', '/login.html','/cadastro2.html'];
-    const currentPath = window.location.pathname;
+    const publicPages = ['/', '/cadastro.html', '/login.html','/cadastro2.html','/visualizarPerfil.html','/buscaDeAlunos.html'];
+    let currentPath = window.location.pathname;
+    currentPath = currentPath.replace("/projeto_egressos/frontend/egressos","");
 
     let token = sessionStorage.getItem('token');
 
@@ -38,13 +39,15 @@ function isLoged() {
     document.getElementById('sair').addEventListener('click',async function () {
         sessionStorage.removeItem("token")
         sessionStorage.removeItem('user');
+        sessionStorage.removeItem('egress');
         if (window.location.pathname == '/' ) {
             window.location.reload()
         }else{
             window.location.href = 'login.html';
         }
        
-    })
+    });
+
     document.getElementById('myProfile').addEventListener('click',async function () {
         window.location.href = "./visualizarPerfil.html?profile=" + userData.id;
     })
@@ -52,5 +55,3 @@ function isLoged() {
 setTimeout(() => {
     isLoged()
 }, 1000);
-
-  

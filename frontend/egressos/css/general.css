@@ -33,6 +33,10 @@ body{
     overflow-x: hidden;
 }
 
+nav > *{
+    width: fit-content;
+}
+
 .btn-light{
     border: 2px solid black;
 }
@@ -46,15 +50,20 @@ footer{
 #logoFatec{
     width: 87px;
     height: 50px;
-    margin-left: 1em;
-    display: block;
+    margin-left:1em;
+    display: inline-block;
 }
 
 
 #tituloEgressos{
     font-size: var(--primary-text);
-    transform: translateX(-50%);
+    display: inline-block;
 }
+
+#divLogin{
+    display: inline-block;
+}
+
 #sair{
     color: red;
 }
@@ -62,11 +71,6 @@ footer{
     transform: translateY(5px);
 }
 /* ---------------------------- */
-
-#divLogin{
-    margin-right: 100px;
-}
-
 #btnEntrar{
     transform: translateX(-.5rem);
 }

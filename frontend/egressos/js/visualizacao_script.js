@@ -74,7 +74,7 @@ async function init(){
         });
     })
     .fail(function(jqXHR, textStatus, msg){
-        console.log(msg);
+        console.log(jqXHR);
     });
 }
 
@@ -198,5 +198,4 @@ function criarExibicaoAcadExp(experienciaAcademica){
 setTimeout(() => {
     let btnEntrar=document.getElementById("btnEntrar");
     btnEntrar.classList.add("d-none");
-    console.log(btnEntrar);
-}, 100);
+}, 200);
