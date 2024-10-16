@@ -59,6 +59,45 @@ body{
     outline-offset: 3px;
 }
 
+.depoimento-theme-0{
+    background-color: var(--quad-1);
+    color: white;
+}
+
+.depoimento-theme-1{
+    background-color: var(--quad-2);
+    color: white;
+}
+
+.depoimento-theme-2{
+    background-color: var(--quad-3);
+    color: white;
+}
+
+.depoimento-theme-3{
+    background-color: var(--quad-4);
+    color: white;
+}
+
+.depoimento-theme-4{
+    background-color: var(--quad-5);
+    color: white;
+}
+
+.depoimento-theme-5{
+    background-color: var(--quad-6);
+    color: white;
+}
+
+.depoimento-theme-6{
+    background-color: var(--quad-7);
+    color: white;
+}
+
+.depoimento-theme-7{
+    background-color: var(--quad-8);
+    color: white;
+}
 /* ---------------------------- */
 
 /* ------- section eventos ------------- */

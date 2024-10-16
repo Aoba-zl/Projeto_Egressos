@@ -23,6 +23,8 @@ class DatabaseSeeder extends Seeder
             ,PlatformSeeder::class
             ,InstitutionSeeder::class
             ,FeedbackTableSeeder::class
+            ,CoursesSeeder::class
+            ,AcademicFormationSeeder::class
         ]);
     }
 }
