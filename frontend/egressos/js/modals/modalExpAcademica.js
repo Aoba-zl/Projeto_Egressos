@@ -25,10 +25,8 @@ function abrirModalCadExpAcademica(){
     let txtInstituicao = divInputInstituicao.querySelector("#txtInstituicao");
 
     txtInstituicao.addEventListener("keyup",()=>{
-      if (txtInstituicao.value.length >= 2) {
-        console.log(txtInstituicao.value.length );
-        
-      getNamesToAutocomplete('institution',txtInstituicao)
+      if (txtInstituicao.value.length >= 2) {  
+        getNamesToAutocomplete('institution',txtInstituicao);
       }
     });
 

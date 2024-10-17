@@ -34,7 +34,7 @@ async function init(){
         let cursoAno = document.getElementById("aluno-curso-conclusao");
 
         msg.academic_formation.forEach(element => {
-            if(element.institution_name == "FATEC-ZL"){
+            if(element.institution_name.includes("FATEC-ZL")){
                 curso.innerHTML = element.course_name;
                 cursoAno.innerHTML = "Concluiu em "+element.end_year
             }
@@ -93,10 +93,12 @@ function criarExibicaoProfExp(experienciaProfissional){
 
     spanEmpresa.innerHTML = experienciaProfissional.name;
     spanCargo.innerHTML = experienciaProfissional.area;
-    spanAnoInicio.innerHTML = experienciaProfissional.initial_date;
+    let dtInicio = new Date(experienciaProfissional.initial_date);
+    spanAnoInicio.innerHTML = dtInicio.getFullYear();
 
-    if(!isNaN(experienciaProfissional.final_date)){
-        spanAnoFim.innerHTML = experienciaProfissional.final_date;
+    if(experienciaProfissional.final_date != null){
+        let dtFim = new Date(experienciaProfissional.final_date);
+        spanAnoFim.innerHTML = dtFim.getFullYear();
     }else{
         spanAnoFim.innerHTML = "Atual";
     }

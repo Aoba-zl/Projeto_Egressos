@@ -131,8 +131,11 @@ function preencherSelectPlataforma(select){
       data : ""
     })
     .done(function(msg){
+        let contatos = document.getElementById("user-contacts").innerHTML;
         msg.forEach(element => {
-          select.appendChild(criarOption(element.id,element.name));
+            if(!contatos.includes(element.name)){
+                select.appendChild(criarOption(element.id,element.name));
+            }
         });
     })
     .fail(function(jqXHR, textStatus, msg){
