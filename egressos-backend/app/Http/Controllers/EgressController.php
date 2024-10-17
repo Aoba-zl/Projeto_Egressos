@@ -205,4 +205,10 @@ class EgressController extends Controller
         $egresses = Egress::getRandom();
         return response()->json($egresses);
     }
+    public function getEgressesUnderAnalysis(Request $request){
+        $perPage = $request->input('limit', 4);
+        $egresses = Egress::getEgressesUnderAnalysis($perPage);
+      
+        return response()->json($egresses);
+    }
 }
