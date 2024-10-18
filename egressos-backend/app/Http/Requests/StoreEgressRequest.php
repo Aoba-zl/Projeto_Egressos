@@ -22,12 +22,14 @@ class StoreEgressRequest extends FormRequest
     public function rules()
     {
         return [
+            'image' => ['required', 'image', 'mimes:jpeg,png,jpg', 'max:2048'],
             'cpf' => ['required', 'cpf', 'digits:11', 'unique:egresses,cpf'],
             'phone' => ['required', 'digits:11'],
             'birthdate' => ['required', 'date', 'before:01-01-' . now()->year, 'after:01/01/1900'],
             'contacts'             => ['required', 'array', 'max:3'],
             'academic_formation'   => ['required', 'array', 'max:3'],
             'professional_profile' => ['required', 'array', 'max:3'],
+            'feedback' => ['required', 'string']
         ];
     }
 
