@@ -128,6 +128,9 @@ function abrirModalCadExpProfissional(){
     divInputEmpresa.classList.add("autocomplete");
 
     let txtEmpresa = divInputEmpresa.querySelector("#txtEmpresa");
+    txtEmpresa.addEventListener("change",()=>{
+      loadCompanyData();
+    });
 
     txtEmpresa.addEventListener("keyup",()=>
     {
@@ -280,4 +283,79 @@ function abrirModalCadExpProfissional(){
 
     modalFooter.append(btnAdicionar,btnFechar);
     exibirModal('#cad-modal');
+}
+
+async function loadCompanyData() {
+  let companyName = document.getElementById("txtEmpresa");
+
+  let fone = document.getElementById("txtTelefone");
+  let mail = document.getElementById("txtEmail");
+  let site = document.getElementById("txtSite");
+  let cep= document.getElementById("txtCEP");
+  let number = document.getElementById("txtNumPorta");
+
+  setTimeout(()=>{},100);
+  await $.ajax({
+    url : serverUrl+"company/search?name="+companyName.value,
+    dataType: "json",
+    contentType: "application/json",
+    method : "get"
+  })
+  .done(async function(msg){
+    if(msg.original.data[0] != null && msg.original.data[0] != undefined){
+      if(companyName.value.includes(msg.original.data[0].name)){
+        fone.removeAttribute("disabled");
+        mail.removeAttribute("disabled");
+        site.removeAttribute("disabled");
+
+        fone.value = msg.original.data[0].phone;        
+        mail.value = msg.original.data[0].email;
+        site.value = msg.original.data[0].site;
+
+        fone.setAttribute("disabled",true);
+        mail.setAttribute("disabled",true);
+        site.setAttribute("disabled",true);
+
+        await $.ajax({
+          url : serverUrl+"address/"+msg.original.data[0].id_address,
+          dataType: "json",
+          contentType: "application/json",
+          method : "get"
+        })
+        .done(function(msg){          
+          cep.removeAttribute("disabled");
+          number.removeAttribute("disabled");
+
+          cep.value = msg.cep;          
+          number.value = msg.num_porta;
+
+          cep.setAttribute("disabled",true);
+          number.setAttribute("disabled",true);
+        }).fail(function(jqXHR, textStatus, msg){
+          console.log(jqXHR);
+        });
+      }else{        
+        clearFields();
+      }
+    }else{      
+      clearFields();
+    }
+  })
+  .fail(function(jqXHR, textStatus, msg){
+    console.log(jqXHR);
+  });
+
+  function clearFields(params) {
+    fone.value = "";
+    mail.value = "";
+    site.value = "";
+    cep.value = "";
+    number.value = "";
+
+    fone.removeAttribute("disabled");
+    mail.removeAttribute("disabled");
+    site.removeAttribute("disabled");
+    cep.removeAttribute("disabled");
+    number.removeAttribute("disabled");
+  }
 }

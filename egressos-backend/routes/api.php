@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AcademicFormationController;
+use App\Http\Controllers\AddressController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\EgressController;
@@ -90,7 +91,8 @@ Route::post('/new-user', [UserController::class, 'store']);
 Route::put('/user/{id}', [UserController::class, 'update']);
 
 //-----------------------------------------------------------------
-
+//----------------------- ADDRESSES -------------------------------
+Route::get('/address/{id}',[AddressController::class,'show']);
 
 /*
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
