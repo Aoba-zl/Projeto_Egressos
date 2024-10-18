@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('egresses', function (Blueprint $table) {
             $table->id();
+            $table->string('imagePath',255);
             $table->unsignedBigInteger('user_id');
             $table->char('cpf',11)->unique();
             $table->string('phone',12);
