@@ -78,10 +78,6 @@ async function init(){
     });
 }
 
-function displayEgressData(egress) {
-    
-}
-
 function criarExibicaoProfExp(experienciaProfissional){
     let div = document.createElement("div");
     div.classList.add("user-prof-exp-item");
@@ -109,13 +105,6 @@ function criarExibicaoProfExp(experienciaProfissional){
 }
 
 function criarExibicaoContato(contato){
-    /**
-     <div class="aluno-contato">
-        <img class="icon-social" src="https://img.icons8.com/?size=100&id=118490&format=png&color=000000" alt="">
-        <a href=""><span>Facebook</span></a>
-    </div>
-     */
-
     let div = document.createElement("div");
     div.classList.add("aluno-contato");
 
@@ -131,6 +120,7 @@ function criarExibicaoContato(contato){
         case "EMAIL":
             img.setAttribute('alt','ícone do email');
             img.setAttribute('src','./img/social-media-icons/email.svg');
+            link.setAttribute("href","mailto:"+contato.contact);
             link.setAttribute('title','Endereço de email do egresso');
             break;
         case "FACEBOOK":

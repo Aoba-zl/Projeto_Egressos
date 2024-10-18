@@ -294,9 +294,9 @@ async function loadCompanyData() {
   let cep= document.getElementById("txtCEP");
   let number = document.getElementById("txtNumPorta");
 
-  setTimeout(()=>{},100);
+  let vl = companyName.value.slice(0,-1);
   await $.ajax({
-    url : serverUrl+"company/search?name="+companyName.value,
+    url : serverUrl+"company/search?name="+vl,
     dataType: "json",
     contentType: "application/json",
     method : "get"
