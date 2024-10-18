@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
+use League\Flysystem\UrlGeneration\PublicUrlGenerator;
 
 class Egress extends Model
 {
@@ -55,8 +56,6 @@ class Egress extends Model
             'status'     => "0"
         ]);
 
-        $new_egress->imagePath = Storage::url($image_path);
-
         return $new_egress;
     }
 
@@ -88,6 +87,7 @@ class Egress extends Model
     {
         $egress = Egress::select(
             'egresses.id'
+            ,'egresses.imagePath'
             ,'egresses.birthdate'
             ,'users.id AS user_id'
             ,'users.email'
