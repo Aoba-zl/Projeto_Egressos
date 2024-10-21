@@ -26,6 +26,7 @@ class UserController extends Controller
         }
         return response()->json(['message' => 'Usuário não encontrado'], 404);
     }
+    
     public function login(Request $request)
     {
         // Validar os dados de entrada

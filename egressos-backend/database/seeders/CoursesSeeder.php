@@ -16,20 +16,26 @@ class CoursesSeeder extends Seeder
     {
         DB::table('courses')->insert([
             [
-                'name' => 'ADS',
+                'name' => '[ADS] Análise e Desenvolvimento de Sistemas',
                 'type_formation' => 'Tecnólogo',
                 'created_at' => now(),
                 'updated_at' => now(),
             ]
             ,[
-                'name' => 'RH',
+                'name' => '[ADM] Administração',
                 'type_formation' => 'Tecnólogo',
                 'created_at' => now(),
                 'updated_at' => now(),
             ]
             ,[
-                'name' => 'COMEX',
+                'name' => '[COMEX] Comércio Exterior',
                 'type_formation' => 'Tecnólogo',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]
+            ,[
+                'name' => '[CC] Ciências Contábeis',
+                'type_formation' => 'Bacharelado',
                 'created_at' => now(),
                 'updated_at' => now(),
             ]

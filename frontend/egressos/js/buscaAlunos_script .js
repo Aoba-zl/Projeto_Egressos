@@ -5,6 +5,7 @@ window.onload = function () {
     init();
 }
 
+
 function init(){
 
 }
@@ -42,8 +43,11 @@ function renderEgresses(egresses) {
 
     egresses.forEach(egress => {
         const egressElement = document.createElement('div');
-        egressElement.classList.add('aluno-card');
-
+        egressContainer.addEventListener("click",()=>{
+            window.location.href = "./visualizarPerfil.html?profile="
+                    +egress.user_id;
+        });
+        egressElement.classList.add('aluno-card');        
         egressElement.innerHTML = `
             <span class="d-none">${egress.user_id}</span>
             <div class="row">
