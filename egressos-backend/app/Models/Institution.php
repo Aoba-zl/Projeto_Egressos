@@ -70,10 +70,11 @@ class Institution extends Model
         $name = $request->input('name');
 
         // Faz a consulta ao banco de dados com ou sem o filtro por nome
-        $courses = Institution::select('id', 'name', 'id_address')
+        $courses = Institution::select('name')
             ->when($name, function ($query, $name) {
                 return $query->where('name', 'like', '%' . $name . '%');
             })
+            ->groupBy('name')
             ->paginate(10); // Paginação com 10 resultados por página
 
         // Retorna a resposta em formato JSON

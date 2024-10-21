@@ -108,7 +108,7 @@ function abrirModalCadExpProfissional(){
     let modalBody = document.getElementById("modal-body");
     let modalFooter = document.getElementById("modal-footer");
 
-    modalTitle.innerHTML = "Adicionar Experiência Profissional";
+    modalTitle.innerHTML = "Adicionar Experiência Profissional"; 
     
     // ------------------- BODY ----------------------
     modalBody.innerHTML = "";
@@ -133,11 +133,8 @@ function abrirModalCadExpProfissional(){
     });
 
     txtEmpresa.addEventListener("keyup",()=>
-    {
-      if (txtEmpresa.value.length >= 2) {
-        getNamesToAutocomplete('company',txtEmpresa)
-      }
-
+    {      
+      getNamesToAutocomplete('company',txtEmpresa);
     });
 
     form.appendChild(divInputEmpresa);

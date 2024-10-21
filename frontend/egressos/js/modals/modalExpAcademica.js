@@ -25,9 +25,8 @@ function abrirModalCadExpAcademica(){
     let txtInstituicao = divInputInstituicao.querySelector("#txtInstituicao");
 
     txtInstituicao.addEventListener("keyup",()=>{
-      if (txtInstituicao.value.length >= 2) {  
-        getNamesToAutocomplete('institution',txtInstituicao);
-      }
+      
+    getNamesToAutocomplete('institution',txtInstituicao);      
     });
 
     frm.appendChild(divInputInstituicao);
@@ -42,10 +41,8 @@ function abrirModalCadExpAcademica(){
 
     let txtCurso = divInputCurso.querySelector("#txtCurso");
 
-    txtCurso.addEventListener("keyup",() => {
-      if (txtCurso.value.length >= 2) {
+    txtCurso.addEventListener("keyup",() => {      
       getNamesToAutocomplete('course',txtCurso)
-      }
     });
 
 
