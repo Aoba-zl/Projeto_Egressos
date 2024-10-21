@@ -18,17 +18,19 @@ function abrirModalCadExpAcademica(){
     let divInputInstituicao = criarCampoDeTexto(
       "Instituicao"
       ,"Digite o nome da instituição"
-      ,"Digite o nome da Instituição que você estudou:"
+      ,"Curso realizado em: "
     )
     divInputInstituicao.classList.add("autocomplete");
 
     let txtInstituicao = divInputInstituicao.querySelector("#txtInstituicao");
 
-    txtInstituicao.addEventListener("keyup",()=>{
-      
-    getNamesToAutocomplete('institution',txtInstituicao);      
+    txtInstituicao.value = "[FATEC-ZL] Faculdade de Tecnologia da Zona Leste";
+    txtInstituicao.setAttribute("disabled",true);
+    /*
+    txtInstituicao.addEventListener("keyup",()=>{      
+        getNamesToAutocomplete('institution',txtInstituicao);      
     });
-
+    */
     frm.appendChild(divInputInstituicao);
 
     let divInputCurso = criarCampoDeTexto

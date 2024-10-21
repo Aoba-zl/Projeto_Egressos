@@ -37,6 +37,7 @@ function criarCampoDeTexto(name,placeholder,labelText){
 
   let label = document.createElement("label");
   label.setAttribute("for","txt"+name);
+  label.setAttribute("id","lblForTxt"+name);
   label.innerHTML = labelText;
 
   let field = document.createElement("input");

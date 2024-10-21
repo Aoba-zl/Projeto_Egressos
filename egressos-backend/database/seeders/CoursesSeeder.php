@@ -22,7 +22,7 @@ class CoursesSeeder extends Seeder
                 'updated_at' => now(),
             ]
             ,[
-                'name' => '[ADM] Administração',
+                'name' => '[DPP] Desenvolvimento de Produtos Plásticos',
                 'type_formation' => 'Tecnólogo',
                 'created_at' => now(),
                 'updated_at' => now(),
@@ -34,8 +34,14 @@ class CoursesSeeder extends Seeder
                 'updated_at' => now(),
             ]
             ,[
-                'name' => '[CC] Ciências Contábeis',
-                'type_formation' => 'Bacharelado',
+                'name' => '[DSM] Desenvolvimento de Software Multiplataforma',
+                'type_formation' => 'Tecnólogo',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]
+            ,[
+                'name' => '[RH] Gestão de Recursos Humanos',
+                'type_formation' => 'Tecnólogo',
                 'created_at' => now(),
                 'updated_at' => now(),
             ]
