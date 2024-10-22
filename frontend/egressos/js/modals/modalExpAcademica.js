@@ -167,8 +167,8 @@ function adicionarExpAcad(){
         institution.name = instituicao;
 
         let address = new Object();
-        address.cep = '00000000';
-        address.num_porta = '0';
+        address.cep = '03694000';
+        address.num_porta = '2983';
         institution.address = address;
 
         acadExp.institution = institution;

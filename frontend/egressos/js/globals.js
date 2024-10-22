@@ -1,6 +1,18 @@
-const serverUrl = "http://localhost:8000/api/";
+const baseURL = "http://localhost:8000/"
+const serverUrl = baseURL + "api/";
 const DATE = new Date();
 
+getCsrfToken();
+async function getCsrfToken() {
+  if(getCookie('XSRF-TOKEN') == undefined){
+    await fetch(baseURL + 'sanctum/csrf-cookie', {
+      method: 'GET',
+      credentials: 'include'
+    });
+  }
+
+  return getCookie('XSRF-TOKEN');
+}
 // consultar mdn docs
 async function generateHash(value) {
     value+="portalDeEgressosFatecZlSalt";
@@ -129,4 +141,23 @@ async function getNamesToAutocomplete(entity,field) {
 } catch (error) {
     console.error('Erro:', error);
 }
+}
+
+/*  ============== COOKIE ==================    */
+//W3Schools
+function getCookie(name) {
+  let cookie = {};
+  document.cookie.split(';').forEach(function(el) {
+    let [key,value] = el.split('=');
+    cookie[key.trim()] = value;
+  })
+  return cookie[name];
+}
+
+function deleteCookie(name){
+  setCookie(name,"",-700)
+}
+
+function setCookie(name,value,maxAgeSeconds){
+	document.cookie = name+ "=" + value + ";SameSite=None; Secure; max-age="+maxAgeSeconds;
 }
