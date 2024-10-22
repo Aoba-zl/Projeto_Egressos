@@ -44,31 +44,20 @@ class EgressController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request) // TODO: StoreEgressRequest valida, mas é preciso resolver as validações.
+    public function store(Request $request)
     {
-        $request->validate([
-            'user.name' => 'required|string'
-            ,'user.email' => 'required|string|email|unique:users,email'
-            ,'user.password' => 'required|string'
-            ,'cpf' => 'required|string|min:11|max:11'           
-            ,'phone' => 'required|string|min:8'
-            ,'birthdate' => 'required|string|min:8'
-        ]);
+        // Valida todos os dados antes de criar qualquer entrada no banco
+        $this->validateRequest($request);
 
-        // TODO: Validar se realmente criou        
+        // TODO: Validar se realmente criou
         $user = (new UserController())->store(
-            new StoreUserRequest($request->json()->all()['user'])
+            new StoreUserRequest($request->all()['user'])
         )->original['user'];
-        
-        // TODO: Validar se realmente criou        
-        $egress = Egress::create([
-            'user_id'   => $user->id,
-            'cpf'       => $request->input('cpf'),
-            'phone'     => $request->input('phone'),
-            'birthdate' => $request->input('birthdate'),
-            'status'    => "0"
-        ]);
-        
+
+        // TODO: Validar se realmente criou
+        // responsabilidade de armazenar os dados do egresso passados para model.
+        $egress = Egress::saveEgress($request, $user->id);
+
         foreach ($request->contacts as $contactData)
             // TODO: Validar se realmente criou
             (new ContactController)->store(
@@ -91,7 +80,7 @@ class EgressController extends Controller
                     'period'         => $academicFormationData['period']
                 ])
             );
-        
+
         foreach ($request->professional_profile as $professionalProfileData)
             // TODO: Validar se realmente criou
             (new ProfessionalProfileController)->store(
@@ -174,7 +163,7 @@ class EgressController extends Controller
             ->where('user_id',$user->id)
             ->delete();
 
-        
+
         DB::table('academic_formation')
             ->where('id_profile',$egress->id)
             ->delete();

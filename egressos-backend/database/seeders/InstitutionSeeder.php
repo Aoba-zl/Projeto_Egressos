@@ -22,6 +22,38 @@ class InstitutionSeeder extends Seeder
                 'created_at' => now(),
                 'updated_at' => now(),
             ]
+            ,[
+                'name' => '[FATEC-SP] Faculdade de Tecnologia de São Paulo',
+                'id_address' => 3,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]
+            ,[
+                'name' => '[FATEC-OU] Faculdade de Tecnologia de Ourinhos',
+                'id_address' => 4,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]
+            ,[
+                'name' => '[USP] Universidade de São Paulo',
+                'id_address' => 5,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]
+            ,[
+                'name' => '[FATEC-SO] Faculdade de Tecnologia de Sorocaba',
+                'id_address' => 6,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]
+            ,[
+                'name' => '[UNIP-SP] Universidade Paulista',
+                'id_address' => 7,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]
+
+            
         ]);
     }
 }

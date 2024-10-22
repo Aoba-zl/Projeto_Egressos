@@ -60,6 +60,11 @@ function createCardDepoimento(depoimento) {
     let divCard = document.createElement("div");
     divCard.setAttribute("class","depoimento-card p-4 depoimento-theme-"+rand);
 
+    divCard.addEventListener("click",()=>{
+        window.location.href = "./visualizarPerfil.html?profile="
+        +depoimento.user_id;
+    });
+
     let row1 = document.createElement("div");
     row1.classList.add("row");
 
