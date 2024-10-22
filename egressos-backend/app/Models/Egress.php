@@ -43,13 +43,13 @@ class Egress extends Model
 
     public static function saveEgress(Request $request, $user_id)
     {
-        $image_name = rand(0, 9999999999) . $request->file('image')->getClientOriginalName();
-        $image_path = $request->file('image')->storeAs('uploads', $image_name);
+        //$image_name = rand(0, 9999999999) . $request->file('image')->getClientOriginalName();
+        //$image_path = $request->file('image')->storeAs('uploads', $image_name);
 
 
         $new_egress = Egress::create([
             'user_id'    => $user_id,
-            'imagePath'  => $image_path,
+            'imagePath'  => "",//$image_path,
             'cpf'        => $request->input('cpf'),
             'phone'      => $request->input('phone'),
             'birthdate'  => $request->input('birthdate'),
@@ -175,6 +175,7 @@ class Egress extends Model
             ->where('users.name', 'LIKE', '%' . $name . '%') // Busca pelo nome, utilizando LIKE para parcial match
             ->paginate($perPage); // Paginação com 4 registros por página (ou customizável)
     }
+
     public static function getEgressesUnderAnalysis($perPage){
         return DB::table('egresses')->where('egresses.status','0')->paginate($perPage);
     }

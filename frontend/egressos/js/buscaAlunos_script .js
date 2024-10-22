@@ -5,10 +5,10 @@ window.onload = function () {
     init();
 }
 
-
 function init(){
 
 }
+
 var currentPage = 1;
 let currentButtonGroup = 1; // Controla o grupo atual de botões de paginação
 let totalPages = 0; // Variável global para armazenar o total de páginas
