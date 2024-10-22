@@ -48,7 +48,7 @@ class EgressController extends Controller
     {
         $request->validate([
             'user.name' => 'required|string'
-            ,'user.email' => 'required|string|email'
+            ,'user.email' => 'required|string|email|unique:users,email'
             ,'user.password' => 'required|string'
             ,'cpf' => 'required|string|min:11|max:11'           
             ,'phone' => 'required|string|min:8'

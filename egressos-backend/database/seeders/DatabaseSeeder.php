@@ -17,7 +17,6 @@ class DatabaseSeeder extends Seeder
             UsersTableSeeder::class
             ,AddressesTableSeeder::class
             ,CompaniesTableSeeder::class
-            ,UsersTableSeeder::class
             ,EgressesTableSeeder::class
             ,ProfessionalProfileTableSeeder::class
             ,PlatformSeeder::class
