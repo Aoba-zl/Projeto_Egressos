@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('platforms', function (Blueprint $table) {
-            $table->bigIncrements('id'); // Alterado para biginteger() em vez de id()
+            $table->bigIncrements('id');
             $table->string('name');
             $table->timestamps();
         });

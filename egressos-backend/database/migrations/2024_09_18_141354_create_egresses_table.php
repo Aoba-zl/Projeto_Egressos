@@ -23,9 +23,9 @@ return new class extends Migration
             $table->enum('status', [0,1, 2])->default(0);
             $table->timestamps();
 
-            $table->foreign('user_id') // Definindo chave estrangeira para 'user_email'
-            ->references('id') // Referenciando o campo 'email'
-            ->on('users') // Na tabela 'users'
+            $table->foreign('user_id')
+            ->references('id')
+            ->on('users')
             ->onDelete('cascade'); // Exclui os registros vinculados se o usuário for deletado
         });
     }

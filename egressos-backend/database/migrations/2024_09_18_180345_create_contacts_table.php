@@ -17,10 +17,9 @@ return new class extends Migration
             // Chave primária
             $table->id();
 
-            // Chaves estrengeiras
-            $table->unsignedBigInteger('id_profile'); // Certifique-se de que esta é unsignedBigInteger
-            $table->unsignedBigInteger('id_platform'); // Altere para unsignedBigInteger
-
+            // Chaves estrangeiras
+            $table->unsignedBigInteger('id_profile');
+            $table->unsignedBigInteger('id_platform');
             // Campo de contato
             $table->string('contact', 255);
 

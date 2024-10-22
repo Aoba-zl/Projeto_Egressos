@@ -21,9 +21,6 @@ return new class extends Migration
             $table->date('final_date')->nullable();
             $table->string('area', 255);
 
-            // Chave primária composta
-            //$table->primary(['id','id_company', 'id_egress']);
-
             // Chaves estrangeiras
             $table->foreign('id_company')->references('id')->on('companies')->onDelete('cascade');
             $table->foreign('id_egress')->references('id')->on('egresses')->onDelete('cascade');
