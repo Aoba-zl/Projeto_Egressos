@@ -18,6 +18,9 @@ async function init(){
     .done(function(msg){       
         let title = document.getElementById("perfilName");
         title.innerHTML = "Perfil de "+(msg.name.split(" ")[0]);
+
+        let image = document.getElementById("divImgPerfil")
+        image.innerHTML = '<img src="'+ serverUrl +'storage/'+ msg.imagePath +'" alt="Foto do Perfil" srcset="">'
         
         let fullName = document.getElementById("aluno-nome-completo");
         fullName.innerHTML = msg.name;
@@ -34,7 +37,7 @@ async function init(){
         let cursoAno = document.getElementById("aluno-curso-conclusao");
 
         msg.academic_formation.forEach(element => {
-            if(element.institution_name == "FATEC-ZL"){
+            if(element.institution_name.includes("FATEC-ZL")){
                 curso.innerHTML = element.course_name;
                 cursoAno.innerHTML = "Concluiu em "+element.end_year
             }
@@ -78,10 +81,6 @@ async function init(){
     });
 }
 
-function displayEgressData(egress) {
-    
-}
-
 function criarExibicaoProfExp(experienciaProfissional){
     let div = document.createElement("div");
     div.classList.add("user-prof-exp-item");
@@ -93,10 +92,12 @@ function criarExibicaoProfExp(experienciaProfissional){
 
     spanEmpresa.innerHTML = experienciaProfissional.name;
     spanCargo.innerHTML = experienciaProfissional.area;
-    spanAnoInicio.innerHTML = experienciaProfissional.initial_date;
+    let dtInicio = new Date(experienciaProfissional.initial_date);
+    spanAnoInicio.innerHTML = dtInicio.getFullYear();
 
-    if(!isNaN(experienciaProfissional.final_date)){
-        spanAnoFim.innerHTML = experienciaProfissional.final_date;
+    if(experienciaProfissional.final_date != null){
+        let dtFim = new Date(experienciaProfissional.final_date);
+        spanAnoFim.innerHTML = dtFim.getFullYear();
     }else{
         spanAnoFim.innerHTML = "Atual";
     }
@@ -107,13 +108,6 @@ function criarExibicaoProfExp(experienciaProfissional){
 }
 
 function criarExibicaoContato(contato){
-    /**
-     <div class="aluno-contato">
-        <img class="icon-social" src="https://img.icons8.com/?size=100&id=118490&format=png&color=000000" alt="">
-        <a href=""><span>Facebook</span></a>
-    </div>
-     */
-
     let div = document.createElement("div");
     div.classList.add("aluno-contato");
 
@@ -129,6 +123,7 @@ function criarExibicaoContato(contato){
         case "EMAIL":
             img.setAttribute('alt','ícone do email');
             img.setAttribute('src','./img/social-media-icons/email.svg');
+            link.setAttribute("href","mailto:"+contato.contact);
             link.setAttribute('title','Endereço de email do egresso');
             break;
         case "FACEBOOK":

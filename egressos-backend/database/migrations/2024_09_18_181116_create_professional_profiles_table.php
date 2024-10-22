@@ -14,6 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('professional_profile', function (Blueprint $table) {
+            $table->id();
             $table->unsignedBigInteger('id_company')->unsigned();
             $table->unsignedBigInteger('id_egress')->unsigned();
             $table->date('initial_date');
@@ -21,7 +22,7 @@ return new class extends Migration
             $table->string('area', 255);
 
             // Chave primária composta
-            $table->primary(['id_company', 'id_egress']);
+            //$table->primary(['id','id_company', 'id_egress']);
 
             // Chaves estrangeiras
             $table->foreign('id_company')->references('id')->on('companies')->onDelete('cascade');

@@ -113,7 +113,18 @@ form > *{
 .btn-remove-item-exp{
     color: red;
     float: right;
-    transform: translateX(-10px);
+}
+
+.btn-remove-item:hover{
+    color: darkred;
+    background-color: lightgray;
+    cursor: pointer;
+}
+
+.btn-remove-item-exp:hover{
+    color: darkred;
+    background-color: lightgray;
+    cursor: pointer;
 }
 
 .margin-top{

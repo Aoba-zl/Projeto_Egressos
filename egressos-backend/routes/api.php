@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AcademicFormationController;
+use App\Http\Controllers\AddressController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\EgressController;
@@ -8,6 +9,7 @@ use App\Http\Controllers\InstitutionController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\PlatformController;
 use App\Http\Controllers\FeedbackController;
+use App\Http\Controllers\ImageController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 
@@ -42,6 +44,9 @@ Route::get('/egresses', [EgressController::class , 'index']);;
 Route::post('/egresses', [EgressController::class , 'store']);
 Route::put('/egresses/{egress}', [EgressController::class , 'update']);
 Route::delete('/egresses/{egress}', [EgressController::class , 'disable']);
+
+//---------------IMAGES---------------------------
+Route::get('/storage/uploads/{image_path}', [ImageController::class , 'image']);
 
 //-----------------------------------------------------------------
 //----------------------- FEEDBACK -----------------------------------
@@ -93,7 +98,8 @@ Route::post('/new-user', [UserController::class, 'store']);
 Route::put('/user/{id}', [UserController::class, 'update']);
 
 //-----------------------------------------------------------------
-
+//----------------------- ADDRESSES -------------------------------
+Route::get('/address/{id}',[AddressController::class,'show']);
 
 /*
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {

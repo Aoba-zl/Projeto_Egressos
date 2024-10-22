@@ -168,9 +168,11 @@ function getDivData(divId) {
 function autocomplete(inp, arr) {
   /*the autocomplete function takes two arguments,
   the text field element and an array of possible autocompleted values:*/
-  var currentFocus;
+  var currentFocus = 0;
   /*execute a function when someone writes in the text field:*/
-  inp.addEventListener("input", function(e) {
+  inp.addEventListener("input", input);
+  
+  function input(e) {
       var a, b, i, val = this.value;
       /*close any already open lists of autocompleted values*/
       closeAllLists();
@@ -185,7 +187,7 @@ function autocomplete(inp, arr) {
       /*for each item in the array...*/
       for (i = 0; i < arr.length; i++) {
         /*check if the item starts with the same letters as the text field value:*/
-        if (arr[i].substr(0, val.length).toUpperCase() == val.toUpperCase()) {
+        //if (arr[i].substr(0, val.length).toUpperCase() == val.toUpperCase()) {
           /*create a DIV element for each matching element:*/
           b = document.createElement("DIV");
           /*make the matching letters bold:*/
@@ -202,34 +204,38 @@ function autocomplete(inp, arr) {
               closeAllLists();
           });
           a.appendChild(b);
-        }
+        //}
       }
-  });
+  };
   /*execute a function presses a key on the keyboard:*/
-  inp.addEventListener("keydown", function(e) {
+/*
+    inp.addEventListener("keydown", keydown);
+    
+    function keydown(e) {
       var x = document.getElementById(this.id + "autocomplete-list");
       if (x) x = x.getElementsByTagName("div");
       if (e.keyCode == 40) {
-        /*If the arrow DOWN key is pressed,
-        increase the currentFocus variable:*/
+        //If the arrow DOWN key is pressed,
+        //increase the currentFocus variable:
         currentFocus++;
-        /*and and make the current item more visible:*/
+        //and and make the current item more visible:
         addActive(x);
       } else if (e.keyCode == 38) { //up
-        /*If the arrow UP key is pressed,
-        decrease the currentFocus variable:*/
+        //If the arrow UP key is pressed,
+        //decrease the currentFocus variable:
         currentFocus--;
-        /*and and make the current item more visible:*/
+        //and and make the current item more visible:
         addActive(x);
       } else if (e.keyCode == 13) {
-        /*If the ENTER key is pressed, prevent the form from being submitted,*/
+        //If the ENTER key is pressed, prevent the form from being submitted,
         e.preventDefault();
         if (currentFocus > -1) {
-          /*and simulate a click on the "active" item:*/
+          //and simulate a click on the "active" item:
           if (x) x[currentFocus].click();
         }
       }
-  });
+    };
+  */
   function addActive(x) {
     /*a function to classify an item as "active":*/
     if (!x) return false;
