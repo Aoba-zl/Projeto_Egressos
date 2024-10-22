@@ -46,12 +46,14 @@ class EgressController extends Controller
      */
     public function store(Request $request)
     {
+        // Decodifica o formdata
+        $request = $this->decodeEgressRequest($request);
         // Valida todos os dados antes de criar qualquer entrada no banco
         $this->validateRequest($request);
 
         // TODO: Validar se realmente criou
         $user = (new UserController())->store(
-            new StoreUserRequest($request->all()['user'])
+            new StoreUserRequest($request->user)
         )->original['user'];
 
         // TODO: Validar se realmente criou
@@ -128,6 +130,23 @@ class EgressController extends Controller
         foreach ($request->professional_profile as $professionalProfileData)
             Validator::make($professionalProfileData, (new StoreProfessionalProfileRequest())->rules())->validate();
 
+    }
+
+    private function decodeEgressRequest(Request $request)
+    {
+        $decoded_user       = json_decode($request->user, true);
+        $decoded_contacts   = json_decode($request->contacts, true);
+        $decoded_formations = json_decode($request->academic_formation, true);
+        $decoded_profiles   = json_decode($request->professional_profile, true);
+
+        $request->merge([
+            'user'                 => $decoded_user,
+            'contacts'             => $decoded_contacts,
+            'academic_formation'   => $decoded_formations,
+            'professional_profile' => $decoded_profiles,
+        ]);
+
+        return $request;
     }
 
     /**
