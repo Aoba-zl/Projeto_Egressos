@@ -12,6 +12,8 @@ use App\Http\Controllers\FeedbackController;
 use App\Http\Controllers\ImageController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\AssessmentController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -94,8 +96,12 @@ Route::post('/new-user', [UserController::class, 'store']);
 Route::put('/user/{id}', [UserController::class, 'update']);
 
 //-----------------------------------------------------------------
+//-------------------ASSESSMENT------------------------------------
+Route::post('saveAssessment',[AssessmentController::class,'store']);
+
 //----------------------- ADDRESSES -------------------------------
 Route::get('/address/{id}',[AddressController::class,'show']);
+
 
 /*
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {

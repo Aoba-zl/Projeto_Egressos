@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use App\Http\Requests\StoreAssessmentRequest;
+use App\Models\Assessment;
 class AssessmentController extends Controller
 {
     /**
@@ -25,9 +26,21 @@ class AssessmentController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store( StoreAssessmentRequest $request)
     {
-        //
+        $assessment=$request->assessment;
+        $status=$request->status;
+
+        if ($status==STATUS_REPROVED && $assessment['comment'] == '') {
+            return response()->json(['message' => 'Comentário deve ser obrigatório para reprovação'], 400);
+
+        }
+       
+
+        Assessment::saveAssessment($assessment,$status);
+        return response()->json([
+            'message' => 'Avaliação feita com sucesso!',
+        ]);
     }
 
     /**
