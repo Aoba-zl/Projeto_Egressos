@@ -29,10 +29,13 @@ class StoreUserRequest extends FormRequest
             'password' => [
                 'required',
                 'string',
-                'min:8', 
+                'min:8'
+                //comentado, pois o frontend está enviando a senha hasheada
+                /* 
                 'regex:/[A-Z]/',
                 'regex:/[0-9]/', 
                 'regex:/[@$!%*#?&]/', 
+                */
             ],
             'type_account' => 'required|in:0,1,2', // Garante que seja 0, 1 ou 2
         ];
