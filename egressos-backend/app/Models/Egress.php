@@ -43,13 +43,13 @@ class Egress extends Model
 
     public static function saveEgress(Request $request, $user_id)
     {
-        $image_name = rand(0, 9999999999) . $request->file('image')->getClientOriginalName();
-        $image_path = $request->file('image')->storeAs('uploads', $image_name);
+        //$image_name = rand(0, 9999999999) . $request->file('image')->getClientOriginalName();
+        //$image_path = $request->file('image')->storeAs('uploads', $image_name);
 
 
         $new_egress = Egress::create([
             'user_id'    => $user_id,
-            'imagePath'  => $image_path,
+            'imagePath'  => "",//$image_path,
             'cpf'        => $request->input('cpf'),
             'phone'      => $request->input('phone'),
             'birthdate'  => $request->input('birthdate'),
@@ -175,15 +175,20 @@ class Egress extends Model
             ->where('users.name', 'LIKE', '%' . $name . '%') // Busca pelo nome, utilizando LIKE para parcial match
             ->paginate($perPage); // Paginação com 4 registros por página (ou customizável)
     }
-        // Método para obter os egressos aprovados ou reprovados com base no status
-        public static function getApprovedReprovedEgresses($status)
-        {
-            return self::join('users as u', 'u.id', '=', 'egresses.user_id')
-                ->join('assessments', 'assessments.id_egress', '=', 'egresses.id')
-                ->join('users as us', 'us.id', '=', 'assessments.id_moderator_admi')
-                ->select('u.name as user_name', 'u.id as user_id', 'egresses.user_id as egress_id', 'us.name as moderator_name', 'egresses.status')
-                ->where('egresses.status', '=', $status)
-                ->whereNotIn('u.type_account', ['1', '2'])
-                ->get();
-        }
+
+    // Método para obter os egressos aprovados ou reprovados com base no status
+    public static function getApprovedReprovedEgresses($status)
+    {
+        return self::join('users as u', 'u.id', '=', 'egresses.user_id')
+            ->join('assessments', 'assessments.id_egress', '=', 'egresses.id')
+            ->join('users as us', 'us.id', '=', 'assessments.id_moderator_admi')
+            ->select('u.name as user_name', 'u.id as user_id', 'egresses.user_id as egress_id', 'us.name as moderator_name', 'egresses.status')
+            ->where('egresses.status', '=', $status)
+            ->whereNotIn('u.type_account', ['1', '2'])
+            ->get();
+    }
+
+    public static function getEgressesUnderAnalysis($perPage){
+        return DB::table('egresses')->where('egresses.status','0')->paginate($perPage);
+    }
 }

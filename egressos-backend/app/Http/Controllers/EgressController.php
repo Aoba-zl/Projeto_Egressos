@@ -182,6 +182,7 @@ class EgressController extends Controller
     {
         //
     }
+  
     public function searchByName(Request $request)
     {
         $name = $request->input('name');
@@ -194,6 +195,7 @@ class EgressController extends Controller
         $egresses = Egress::getRandom();
         return response()->json($egresses);
     }
+
     public function getAprovedReprovedEgresses(Request $request){
          // Captura o status do request
          $status = $request->input('status');
@@ -202,5 +204,12 @@ class EgressController extends Controller
          $egresses = Egress::getApprovedReprovedEgresses($status);
     
          return response()->json($egresses);
+    }
+
+    public function getEgressesUnderAnalysis(Request $request){
+        $perPage = $request->input('limit', 4);
+        $egresses = Egress::getEgressesUnderAnalysis($perPage);
+      
+        return response()->json($egresses);
     }
 }

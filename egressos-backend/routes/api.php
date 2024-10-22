@@ -12,6 +12,8 @@ use App\Http\Controllers\FeedbackController;
 use App\Http\Controllers\ImageController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\AssessmentController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -36,11 +38,10 @@ Route::put('/acad-formation/{id}',[AcademicFormationController::class,'update'])
 Route::get('egresses/aproved-reproved', [EgressController::class, 'getAprovedReprovedEgresses']);
 
 Route::get('all-egresses',[EgressController::class,'index']);
+Route::get('egresses/analysis',[EgressController::class,'getEgressesUnderAnalysis']);
 Route::get('egresses', [EgressController::class, 'searchByName']);
 Route::get('egresses/{id}', [EgressController::class, 'show']);
 Route::get('egresses-random', [EgressController::class, 'getRandom']);
-
-Route::get('/egresses', [EgressController::class , 'index']);;
 Route::post('/egresses', [EgressController::class , 'store']);
 Route::put('/egresses/{egress}', [EgressController::class , 'update']);
 Route::delete('/egresses/{egress}', [EgressController::class , 'disable']);
@@ -98,8 +99,12 @@ Route::post('/new-user', [UserController::class, 'store']);
 Route::put('/user/{id}', [UserController::class, 'update']);
 
 //-----------------------------------------------------------------
+//-------------------ASSESSMENT------------------------------------
+Route::post('saveAssessment',[AssessmentController::class,'store']);
+
 //----------------------- ADDRESSES -------------------------------
 Route::get('/address/{id}',[AddressController::class,'show']);
+
 
 /*
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {

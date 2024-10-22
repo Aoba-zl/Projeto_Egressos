@@ -15,13 +15,13 @@ async function init(){
         type : "get",
         data : ""
     })
-    .done(function(msg){       
-        let title = document.getElementById("perfilName");
-        title.innerHTML = "Perfil de "+(msg.name.split(" ")[0]);
-
+    .done(function(msg){
         let image = document.getElementById("divImgPerfil")
-        image.innerHTML = '<img src="'+ serverUrl +'storage/'+ msg.imagePath +'" alt="Foto do Perfil" srcset="">'
-        
+        console.log("img: "+msg.imagePath);
+        if(msg.imagePath!=" " && msg.imagePath!=""){
+            image.innerHTML = '<img src="'+ serverUrl +'storage/'+ msg.imagePath +'" alt="Foto do Perfil" srcset="">'
+        }
+
         let fullName = document.getElementById("aluno-nome-completo");
         fullName.innerHTML = msg.name;
         

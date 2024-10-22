@@ -29,10 +29,11 @@ function criarCards(eventos){
     });
 }
 
-function loadDepoimentos() {
+async function loadDepoimentos() {
     let divDepoimentos= document.getElementById("divDepoimentos");
     count = 1
     $.ajax({
+        //headers: {'X-CSRF-TOKEN': await getCsrfToken()},
         url : serverUrl+"egresses-random",
         contentType: "application/json",
         method : "get",
