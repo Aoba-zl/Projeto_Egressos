@@ -31,6 +31,8 @@ Route::put('/acad-formation/{id}',[AcademicFormationController::class,'update'])
 
 //-----------------------------------------------------------------
 //----------------------- EGRESSES -----------------------------------
+Route::get('egresses/aproved-reproved', [EgressController::class, 'getAprovedReprovedEgresses']);
+
 Route::get('all-egresses',[EgressController::class,'index']);
 Route::get('egresses', [EgressController::class, 'searchByName']);
 Route::get('egresses/{id}', [EgressController::class, 'show']);
@@ -40,6 +42,7 @@ Route::get('/egresses', [EgressController::class , 'index']);;
 Route::post('/egresses', [EgressController::class , 'store']);
 Route::put('/egresses/{egress}', [EgressController::class , 'update']);
 Route::delete('/egresses/{egress}', [EgressController::class , 'disable']);
+
 //-----------------------------------------------------------------
 //----------------------- FEEDBACK -----------------------------------
 Route::get('/feedback',[FeedbackController::class,'index'])->name('feedback.index');

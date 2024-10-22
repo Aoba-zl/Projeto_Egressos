@@ -205,4 +205,13 @@ class EgressController extends Controller
         $egresses = Egress::getRandom();
         return response()->json($egresses);
     }
+    public function getAprovedReprovedEgresses(Request $request){
+         // Captura o status do request
+         $status = $request->input('status');
+
+         // Chama o método na model Egress para obter os dados
+         $egresses = Egress::getApprovedReprovedEgresses($status);
+    
+         return response()->json($egresses);
+    }
 }
