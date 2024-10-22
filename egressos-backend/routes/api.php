@@ -36,11 +36,10 @@ Route::put('/acad-formation/{id}',[AcademicFormationController::class,'update'])
 //-----------------------------------------------------------------
 //----------------------- EGRESSES -----------------------------------
 Route::get('all-egresses',[EgressController::class,'index']);
+Route::get('egresses/analysis',[EgressController::class,'getEgressesUnderAnalysis']);
 Route::get('egresses', [EgressController::class, 'searchByName']);
 Route::get('egresses/{id}', [EgressController::class, 'show']);
 Route::get('egresses-random', [EgressController::class, 'getRandom']);
-
-Route::get('/egresses', [EgressController::class , 'index']);;
 Route::post('/egresses', [EgressController::class , 'store']);
 Route::put('/egresses/{egress}', [EgressController::class , 'update']);
 Route::delete('/egresses/{egress}', [EgressController::class , 'disable']);

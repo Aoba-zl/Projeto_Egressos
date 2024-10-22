@@ -175,5 +175,8 @@ class Egress extends Model
             ->where('users.name', 'LIKE', '%' . $name . '%') // Busca pelo nome, utilizando LIKE para parcial match
             ->paginate($perPage); // Paginação com 4 registros por página (ou customizável)
     }
-    
+
+    public static function getEgressesUnderAnalysis($perPage){
+        return DB::table('egresses')->where('egresses.status','0')->paginate($perPage);
+    }
 }
