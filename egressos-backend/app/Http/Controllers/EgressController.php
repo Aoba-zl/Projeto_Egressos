@@ -205,4 +205,5 @@ class EgressController extends Controller
         $egresses = Egress::getRandom();
         return response()->json($egresses);
     }
+   
 }

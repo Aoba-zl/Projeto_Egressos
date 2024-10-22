@@ -152,4 +152,5 @@ class Egress extends Model
             ->where('users.name', 'LIKE', '%' . $name . '%') // Busca pelo nome, utilizando LIKE para parcial match
             ->paginate($perPage); // Paginação com 4 registros por página (ou customizável)
     }
+    
 }

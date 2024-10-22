@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-
+use App\Models\Egress;
 class Assessment extends Model
 {
     use HasFactory;
@@ -14,7 +14,7 @@ class Assessment extends Model
      * @var array
      */
     protected $fillable = [
-        'email_moderator',
+        'id_moderator_admi',
         'id_egress',
         'comment',
     ];
@@ -22,5 +22,15 @@ class Assessment extends Model
         public function perfilEgresso()
         {
             return $this->belongsTo(Egress::class, 'id_egress');
+        }
+        public static function saveAssessment($assessment,$status){
+            Assessment::create([
+                "id_moderator_admi" => $assessment['id_moderator_admi']
+                , "id_egress" => $assessment['id_egress']
+                , "comment" => $assessment['comment']
+            ]);
+            Egress::where('id', $assessment['id_egress'])
+            ->update(['status' => $status]);
+      
         }
 }
