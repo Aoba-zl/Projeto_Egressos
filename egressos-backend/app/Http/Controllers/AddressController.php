@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Address;
 use Illuminate\Http\Request;
 
 class AddressController extends Controller
@@ -28,7 +29,8 @@ class AddressController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $address = Address::find($id);
+        return response()->json($address);
     }
 
     /**

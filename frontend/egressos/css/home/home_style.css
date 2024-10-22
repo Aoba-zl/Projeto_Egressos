@@ -59,6 +59,15 @@ body{
     outline-offset: 3px;
 }
 
+.depoimento-card{
+    cursor: pointer;
+    transition: transform .5s;
+}
+
+.depoimento-card:hover{
+    transform: scale(1.015);
+}
+
 .depoimento-theme-0{
     background-color: var(--quad-1);
     color: white;

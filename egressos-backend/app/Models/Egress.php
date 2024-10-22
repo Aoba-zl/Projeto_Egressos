@@ -4,7 +4,10 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
+use League\Flysystem\UrlGeneration\PublicUrlGenerator;
 
 class Egress extends Model
 {
@@ -17,6 +20,7 @@ class Egress extends Model
      */
     protected $fillable = [
         'user_id',
+        'imagePath',
         'cpf',
         'phone',
         'birthdate',
@@ -35,6 +39,24 @@ class Egress extends Model
     public function usuario()
     {
         return $this->belongsTo(User::class, 'user_email', 'email');
+    }
+
+    public static function saveEgress(Request $request, $user_id)
+    {
+        $image_name = rand(0, 9999999999) . $request->file('image')->getClientOriginalName();
+        $image_path = $request->file('image')->storeAs('uploads', $image_name);
+
+
+        $new_egress = Egress::create([
+            'user_id'    => $user_id,
+            'imagePath'  => $image_path,
+            'cpf'        => $request->input('cpf'),
+            'phone'      => $request->input('phone'),
+            'birthdate'  => $request->input('birthdate'),
+            'status'     => "0"
+        ]);
+
+        return $new_egress;
     }
 
     /**
@@ -59,12 +81,13 @@ class Egress extends Model
             )
             ->paginate($limit); // Pagina automaticamente conforme o limite informado
     }
-    
+
 
     public static function getEgressWithCompanyAndFeedbackById($id)
     {
         $egress = Egress::select(
             'egresses.id'
+            ,'egresses.imagePath'
             ,'egresses.birthdate'
             ,'users.id AS user_id'
             ,'users.email'
@@ -90,7 +113,7 @@ class Egress extends Model
             select(
                 'academic_formation.begin_year'
                 ,'academic_formation.end_year'
-                ,'academic_formation.period'                
+                ,'academic_formation.period'
                 ,'institutions.name as institution_name'
                 ,'academic_formation.id_course AS course_id'
                 ,'courses.name as course_name'

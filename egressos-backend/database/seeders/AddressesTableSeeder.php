@@ -22,6 +22,36 @@ class AddressesTableSeeder extends Seeder
                 'created_at' => now(),
                 'updated_at' => now(),
             ]
+            ,[
+                'cep' => '01101010',
+                'num_porta' => '615',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]
+            ,[
+                'cep' => '19910206',
+                'num_porta' => '1400',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]
+            ,[
+                'cep' => '05508220',
+                'num_porta' => '374',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]
+            ,[
+                'cep' => '18013280',
+                'num_porta' => '2015',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]
+            ,[
+                'cep' => '01311000',
+                'num_porta' => '900',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]
         ]);
     }
 }

@@ -1,1 +1,6 @@
-
+#imgLogin{
+    background-image: url("../../img/fatec_5.webp");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}

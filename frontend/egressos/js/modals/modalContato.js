@@ -75,7 +75,36 @@ function adicionarContato(){
 
     let contato = document.getElementById("txtLinkContato").value;
 
-    if(plataformaId != 0 && contato != "" && contato != " "){
+    let platformOK = false;
+
+    switch (plataforma.toUpperCase()) {
+        case "EMAIL":
+            platformOK = (contato.includes("@") && contato.includes("."));
+            break;
+        case "FACEBOOK":
+            platformOK = (contato.includes("https://www.facebook.com/"));
+            break;
+        case "GITHUB":
+            platformOK = (contato.includes("https://github.com/"));
+            break;
+        case "INSTAGRAM":
+            platformOK = (contato.includes("https://www.instagram.com/"));
+            break;
+        case "LINKEDIN":
+            platformOK = (contato.includes("https://www.linkedin.com/"));
+            break;
+        case "YOUTUBE":
+            platformOK = (contato.includes("https://www.youtube.com/"));
+            break;
+        case "X":
+            platformOK = (contato.includes("https://x.com/"));
+            break;    
+        default:
+            platformOK = true;
+            break;
+    }
+
+    if(plataformaId != 0 && contato != "" && contato != " " && platformOK){
         let cont = new Object();
         cont.plataform_name = plataforma;
         cont.id_platform = plataformaId;
@@ -84,7 +113,11 @@ function adicionarContato(){
         criarExibicaoContato(cont);
         closeModal('#cad-modal');
     }else{
-        alert("Preencha os dados");
+        if(platformOK){
+            alert("Preencha os dados");
+        }else{
+            alert("Coloque um link válido para a rede social");
+        }
     }
 }
 
@@ -131,8 +164,11 @@ function preencherSelectPlataforma(select){
       data : ""
     })
     .done(function(msg){
+        let contatos = document.getElementById("user-contacts").innerHTML;
         msg.forEach(element => {
-          select.appendChild(criarOption(element.id,element.name));
+            if(!contatos.includes(element.name)){
+                select.appendChild(criarOption(element.id,element.name));
+            }
         });
     })
     .fail(function(jqXHR, textStatus, msg){
