@@ -176,6 +176,18 @@ class Egress extends Model
             ->paginate($perPage); // Paginação com 4 registros por página (ou customizável)
     }
 
+    // Método para obter os egressos aprovados ou reprovados com base no status
+    public static function getApprovedReprovedEgresses($status)
+    {
+        return self::join('users as u', 'u.id', '=', 'egresses.user_id')
+            ->join('assessments', 'assessments.id_egress', '=', 'egresses.id')
+            ->join('users as us', 'us.id', '=', 'assessments.id_moderator_admi')
+            ->select('u.name as user_name', 'u.id as user_id', 'egresses.user_id as egress_id', 'us.name as moderator_name', 'egresses.status')
+            ->where('egresses.status', '=', $status)
+            ->whereNotIn('u.type_account', ['1', '2'])
+            ->get();
+    }
+
     public static function getEgressesUnderAnalysis($perPage){
         return DB::table('egresses')->where('egresses.status','0')->paginate($perPage);
     }
