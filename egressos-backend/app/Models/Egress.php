@@ -89,6 +89,8 @@ class Egress extends Model
             'egresses.id'
             ,'egresses.imagePath'
             ,'egresses.birthdate'
+            //,'egresses.phone'
+            //,'egresses.isPhonePublic'
             ,'users.id AS user_id'
             ,'users.email'
             ,'users.name'
