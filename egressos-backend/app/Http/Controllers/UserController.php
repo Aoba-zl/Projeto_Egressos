@@ -56,18 +56,17 @@ class UserController extends Controller
     // Criar um novo usuário
     public function store(StoreUserRequest $request)
     {
-
         $typeAccount = $request->input('type_account');
         $typeAccountLabel = '';
-
+        
         switch ($typeAccount) {
-            case '0':
+            case config('constants.TYPE_ACCOUNT_USER'):
                 $typeAccountLabel = 'Egresso'; // 0 -> Egresso
                 break;
-            case '1':
+            case config('constants.TYPE_ACCOUNT_ADMIN'):
                 $typeAccountLabel = 'Admin'; // 1 -> Admin
                 break;
-            case '2':
+            case config('constants.TYPE_ACCOUNT_MOD'):
                 $typeAccountLabel = 'Moderador'; // 2 -> Moderador
                 break;
         }
