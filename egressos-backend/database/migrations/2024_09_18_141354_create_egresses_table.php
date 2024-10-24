@@ -19,6 +19,7 @@ return new class extends Migration
             $table->unsignedBigInteger('user_id');
             $table->char('cpf',11)->unique();
             $table->string('phone',12);
+            $table->boolean('phone_is_public');
             $table->date('birthdate');
             $table->enum('status', [0,1, 2])->default(0);
             $table->timestamps();
