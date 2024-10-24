@@ -10,6 +10,10 @@ class ImageController extends Controller
     public function image($image_path){
         $path = storage_path('app/public/uploads/' . $image_path);
 
+        if (!File::exists($path)) {
+            $path = storage_path('app/public/uploads/NoImageFound.png');
+        }
+
         $file = File::get($path);
         $type = File::mimeType($path);
 

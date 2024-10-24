@@ -22,7 +22,7 @@ class StoreEgressRequest extends FormRequest
     public function rules()
     {
         return [
-            //'image' => ['required', 'image', 'mimes:jpeg,png,jpg', 'max:2048'],
+            'image' => ['required', 'image', 'mimes:jpeg,png,jpg', 'max:10240'],
             'cpf' => ['required', 'cpf', 'digits:11', 'unique:egresses,cpf'],
             'phone' => ['required', 'digits:11'],
             'birthdate' => ['required', 'date', 'before:01-01-' . now()->year, 'after:01/01/1900'],
@@ -39,6 +39,10 @@ class StoreEgressRequest extends FormRequest
     public function messages()
     {
         return [
+            'image.required' => 'A imagem é obrigatória',
+            'image.image' => 'A imagem deve ser válida',
+            'image.mimes' => 'A imagem deve ser jpeg, png ou jpg',
+            'image.max' => 'O tamanho máximo de uma imagem é de 10MB',
             'cpf.required' => 'O CPF é obrigatório.',
             'cpf.cpf' => 'O CPF deve ser válido.',
             'cpf.digits' => 'O CPF deve conter 11 dígitos.',
