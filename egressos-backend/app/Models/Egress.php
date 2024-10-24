@@ -79,6 +79,7 @@ class Egress extends Model
             ->select(
                 'users.id as user_id',
                 'users.name as user_name',
+                'egresses.imagePath as image_path',
                 'companies.name as company_name',
                 'feedback.comment as feedback_comment'
             )
@@ -146,6 +147,7 @@ class Egress extends Model
             ->select(
                 'users.id as user_id',
                 'users.name as user_name',
+                'egresses.imagePath as image_path',
                 'courses.name as course_name',
                 'feedback.comment as feedback_comment'
             )
