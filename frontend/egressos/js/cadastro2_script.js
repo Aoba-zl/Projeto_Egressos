@@ -74,16 +74,12 @@ async function saveUserContactsAndExperience(){
   form_data_egress.append('professional_profile', JSON.stringify(JSON.parse("["+profExperiences+"]")));
   form_data_egress.append('image', image_file);
   
-  form_data_egress.forEach((value, key) => {
-    console.log(`${key}: ${value}`);
-  });
-  
   let cpfOk = cpf.length > 10;
   let foneOk = telefone.length > 8;
   let dataNOk = dataNasc.length > 8;
   let feedBackOk = feedBack.trim().length > 2;
 
-  if(cpfOk && foneOk && dataNOk && feedBackOk){    
+  if(cpfOk && foneOk && dataNOk && feedBackOk && image_file){    
     let endpoint = serverUrl + "egresses";
 
     let cursos = JSON.stringify(academic_formation);
@@ -134,6 +130,8 @@ async function saveUserContactsAndExperience(){
   }else{
     if(!cpf || !foneOk || !dataNOk){
       alert("Preencha seus dados !");
+    } else if (!image_file){
+      alert("Escola uma imagem!")
     }else{
       alert("Escreva um feedback");
     }
