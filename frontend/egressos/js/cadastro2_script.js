@@ -58,19 +58,25 @@ async function saveUserContactsAndExperience(){
   let isTelefonePublico = document.getElementById("cbFonePublico").checked;
   let dataNasc = document.getElementById("txtDtNasc").value;
   let feedBack = document.getElementById("txtFeedback").value;
+  let academic_formation = JSON.parse("[" + acadExperiences + "]");
+  let image_file = document.getElementById('inputImagemPerfil').files[0];
 
-  let egress = new Object();
-  egress.cpf = cpf;
-  egress.phone = telefone;
-  egress.isPhonePublic = isTelefonePublico;
-  egress.birthdate = dataNasc;
-  egress.feedback = feedBack.trim();
-  egress.user = getUser();
-  egress.contacts = JSON.parse("["+contacts+"]");
-  egress.academic_formation = JSON.parse("["+acadExperiences+"]");
-  egress.professional_profile = JSON.parse("["+profExperiences+"]");
+
+  let form_data_egress = new FormData();
+  form_data_egress.append('cpf', cpf)
+  form_data_egress.append('phone', telefone);
+  form_data_egress.append('isPhonePublic', isTelefonePublico);
+  form_data_egress.append('birthdate', dataNasc);
+  form_data_egress.append('feedback', feedBack.trim());
+  form_data_egress.append('user', JSON.stringify(getUser()));  // Envia o objeto user como JSON
+  form_data_egress.append('contacts', JSON.stringify(JSON.parse("["+contacts+"]")));
+  form_data_egress.append('academic_formation', JSON.stringify(academic_formation));
+  form_data_egress.append('professional_profile', JSON.stringify(JSON.parse("["+profExperiences+"]")));
+  form_data_egress.append('image', image_file);
   
-  
+  form_data_egress.forEach((value, key) => {
+    console.log(`${key}: ${value}`);
+  });
   
   let cpfOk = cpf.length > 10;
   let foneOk = telefone.length > 8;
@@ -80,14 +86,15 @@ async function saveUserContactsAndExperience(){
   if(cpfOk && foneOk && dataNOk && feedBackOk){    
     let endpoint = serverUrl + "egresses";
 
-    let cursos = JSON.stringify(egress.academic_formation);
+    let cursos = JSON.stringify(academic_formation);
     if((cursos.includes("FATEC-ZL"))){
       await $.ajax({
           url : endpoint,
           dataType: "json",
-          contentType: "application/json",
+          processData: false,
+          contentType: false,
           method : "POST",
-          data : JSON.stringify(egress)
+          data : form_data_egress,
       })
       .done(async function(msg){
           setStorage("egress",JSON.stringify(msg.egress));
