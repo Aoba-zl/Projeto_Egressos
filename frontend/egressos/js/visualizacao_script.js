@@ -17,8 +17,8 @@ async function init(){
     })
     .done(function(msg){
         let image = document.getElementById("divImgPerfil")
-        if(msg.imagePath!=" " && msg.imagePath!=""){
-            let src = serverUrl +'storage/'+ msg.imagePath;
+        if(msg.image_path!=" " && msg.image_path!=""){
+            let src = serverUrl +'storage/'+ msg.image_path;
             image.innerHTML = `<img src="${src}" alt="Foto do Perfil" srcset="">`
         }
 
