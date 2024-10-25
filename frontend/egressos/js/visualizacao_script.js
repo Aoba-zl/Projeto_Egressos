@@ -156,7 +156,13 @@ function criarExibicaoContato(contato){
             img.setAttribute('src','./img/social-media-icons/x.svg');
             link.setAttribute('title','X do egresso');
             break;
-    
+        case "TELEFONE":
+            img.setAttribute('alt','ícone de telefone');
+            img.setAttribute('src','./img/social-media-icons/phone.svg');
+            let foneFormatado = contato.contact;
+            link.setAttribute("onclick","return false");
+            link.setAttribute('title','Telefone do egresso: '+foneFormatado);
+            break;
         default:
             img.setAttribute('alt','ícone de link');
             img.setAttribute('src','./img/social-media-icons/link.svg');
