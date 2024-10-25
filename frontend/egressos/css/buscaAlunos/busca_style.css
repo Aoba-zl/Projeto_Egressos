@@ -19,13 +19,13 @@
 }
 
 #divPaginacao > *{
-display: inline-block;
-cursor: pointer;
+    display: inline-block;
+    cursor: pointer;
 }
 
 #divPaginacao{
-display: flex;
-justify-content: center;
+    display: flex;
+    justify-content: center;
 }
 
 #txtSearchAluno{

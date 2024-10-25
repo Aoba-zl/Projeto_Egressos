@@ -1,7 +1,8 @@
 import { EventoController } from "./libs/eventos/controller/EventoController.js";
 import { Card } from "./libs/eventos/model/Card.js";
 
-var lastColor = 0;
+const qttThemes = 8;
+var lastColor = Math.floor(Math.random()*qttThemes);
 var count = 1;
 
 window.onload = function () {
@@ -53,7 +54,7 @@ function createCardDepoimento(depoimento) {
     let rand = lastColor;
 
     while(rand === lastColor){
-        rand = Math.floor(Math.random()*8);
+        rand = Math.floor(Math.random()*qttThemes);
     }
 
     lastColor = rand;

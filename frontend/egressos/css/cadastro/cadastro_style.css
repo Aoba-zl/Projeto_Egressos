@@ -25,6 +25,10 @@ form > *{
     margin-top: 1em;
 }
 
+#exbImagemPerfil{
+    transform: translateX(-7px);   
+}
+
 #divAnoFim > label::after{
     content: '* caso essa experiência seja a atual, deixe o campo vazio';
     display: block;

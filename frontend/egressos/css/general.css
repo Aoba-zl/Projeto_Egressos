@@ -13,14 +13,15 @@
     
     --black:#000000;
 
-    --quad-1:#1F255E;
-    --quad-2:#1F5E31;
-    --quad-3:#5E511F;
-    --quad-4:#5E1F1F;
+    --quad-1:#5E1F1F;
+    --quad-2:#43545C;
+
+    --quad-3:#1F5E31;
+    --quad-4:#1F255E;
     --quad-5:#B37777;
     --quad-6:#B3A677;
     --quad-7:#6f74ac;
-    --quad-8:#4B4D5E;
+    --quad-8:#5E511F;
 }
 
 *{
