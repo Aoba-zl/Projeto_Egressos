@@ -51,6 +51,7 @@ justify-content: center;
     margin: 1em;
     cursor: pointer;
     transition: transform ease .5s;
+    min-height: 300px;
 }
 
 .aluno-card > div > *{
@@ -64,7 +65,7 @@ justify-content: center;
 
 .aluno-card .aluno-feedback{
     overflow-y: auto;
-    max-height: 150px;
+    max-height: 170px;
     pointer-events: stroke;
 }
 

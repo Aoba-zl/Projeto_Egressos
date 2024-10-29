@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use League\Flysystem\UrlGeneration\PublicUrlGenerator;
+use stdClass;
 
 class Egress extends Model
 {
@@ -93,8 +94,8 @@ class Egress extends Model
             'egresses.id'
             ,'egresses.imagePath'
             ,'egresses.birthdate'
-            //,'egresses.phone'
-            //,'egresses.isPhonePublic'
+            ,'egresses.phone'
+            ,'egresses.phone_is_public'
             ,'users.id AS user_id'
             ,'users.email'
             ,'users.name'
@@ -108,6 +109,17 @@ class Egress extends Model
             ->where('id_profile',$egress->id)
             ->get();
         $egress->contacts = $egressContacts;
+        
+        if($egress->phone_is_public){
+            $egressPhone = new stdClass();
+            $egressPhone->name = "Telefone";
+            $egressPhone->contact = $egress->phone;
+
+            $egress->contacts->push($egressPhone);
+        }
+
+        unset($egress->phone);
+        unset($egress->phone_is_public);
 
         $egressFeedback = Feedback::select('*')
             ->where('id_profile',$egress->id)
