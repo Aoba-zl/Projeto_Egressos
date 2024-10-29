@@ -56,7 +56,7 @@ class Egress extends Model
             'phone'           => $request->input('phone'),
             'phone_is_public' => $isPhonePublic,
             'birthdate'       => $request->input('birthdate'),
-            'status'          => "0"
+            'status'          => config('constants.STATUS_IN_ANALISYS')
         ]);
 
         return $new_egress;
@@ -93,6 +93,8 @@ class Egress extends Model
             'egresses.id'
             ,'egresses.imagePath'
             ,'egresses.birthdate'
+            //,'egresses.phone'
+            //,'egresses.isPhonePublic'
             ,'users.id AS user_id'
             ,'users.email'
             ,'users.name'
