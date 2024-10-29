@@ -29,13 +29,11 @@ class AssessmentController extends Controller
     public function store( StoreAssessmentRequest $request)
     {
         $assessment=$request->assessment;
-        $status=$request->status;
+        $status = $request->status;
 
-        if ($status==STATUS_REPROVED && $assessment['comment'] == '') {
+        if ($status == config('constants.STATUS_REPROVED') && $assessment['comment'] == '') {
             return response()->json(['message' => 'Comentário deve ser obrigatório para reprovação'], 400);
-
-        }
-       
+        }       
 
         Assessment::saveAssessment($assessment,$status);
         return response()->json([

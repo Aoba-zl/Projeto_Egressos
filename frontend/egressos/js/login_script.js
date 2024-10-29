@@ -10,9 +10,7 @@ function init(){
         let btnEntrar=document.getElementById("btnEntrar");
         btnEntrar.classList.add("d-none");
         
-    }, 100);
-   
-    
+    }, 100);    
 }
 
 document.getElementById('entrar').addEventListener('click', async function () {
@@ -23,10 +21,10 @@ document.getElementById('entrar').addEventListener('click', async function () {
         showAlert('Por favor, preencha ambos os campos de email e senha.', 'alert-danger');
         return;
     }
-
+    
     const payload = {
         email: email,
-        password: password
+        password: await generateHash(password)
     };
 
     try {
@@ -42,8 +40,7 @@ document.getElementById('entrar').addEventListener('click', async function () {
 
         if (response.ok) {
             // Armazenar o token no sessionStorage
-          
-            
+
             sessionStorage.setItem('token', data.access_token);
             sessionStorage.setItem('user',JSON.stringify(data.user));
 

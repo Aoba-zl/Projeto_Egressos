@@ -64,7 +64,7 @@ form > *{
     text-align: center;
 }
 
-.user-contact-item:first-child{
+.user-contact-item >*:nth-child(2){
     text-transform: capitalize;
 }
 

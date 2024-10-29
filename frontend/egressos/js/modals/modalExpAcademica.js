@@ -26,11 +26,7 @@ function abrirModalCadExpAcademica(){
 
     txtInstituicao.value = "[FATEC-ZL] Faculdade de Tecnologia da Zona Leste";
     txtInstituicao.setAttribute("disabled",true);
-    /*
-    txtInstituicao.addEventListener("keyup",()=>{      
-        getNamesToAutocomplete('institution',txtInstituicao);      
-    });
-    */
+    
     frm.appendChild(divInputInstituicao);
 
     let divInputCurso = criarCampoDeTexto

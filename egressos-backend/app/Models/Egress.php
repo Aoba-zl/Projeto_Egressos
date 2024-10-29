@@ -57,7 +57,7 @@ class Egress extends Model
             'phone'           => $request->input('phone'),
             'phone_is_public' => $isPhonePublic,
             'birthdate'       => $request->input('birthdate'),
-            'status'          => "0"
+            'status'          => config('constants.STATUS_IN_ANALISYS')
         ]);
 
         return $new_egress;
