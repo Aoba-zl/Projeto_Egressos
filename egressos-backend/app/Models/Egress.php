@@ -84,6 +84,12 @@ class Egress extends Model
                 'companies.name as company_name',
                 'feedback.comment as feedback_comment'
             )
+            ->whereRaw('
+                professional_profile.initial_date in (
+                select distinct max(initial_date) maxD
+                from professional_profile 
+                group by id_egress)
+            ')
             ->paginate($limit); // Pagina automaticamente conforme o limite informado
     }
 
@@ -92,7 +98,7 @@ class Egress extends Model
     {
         $egress = Egress::select(
             'egresses.id'
-            ,'egresses.imagePath'
+            ,'egresses.imagePath as image_path'
             ,'egresses.birthdate'
             ,'egresses.phone'
             ,'egresses.phone_is_public'
@@ -165,6 +171,14 @@ class Egress extends Model
                 'courses.name as course_name',
                 'feedback.comment as feedback_comment'
             )
+            ->whereRaw(
+                '
+                    academic_formation.begin_year in (
+                    select distinct max(begin_year) maxD
+                    from academic_formation
+                    group by id_profile)
+                '
+            )
             ->limit(3)
             ->get();
             return $egresses;
@@ -186,12 +200,19 @@ class Egress extends Model
             ->join('addresses', 'addresses.id', '=', 'companies.id_address')
             ->leftJoin('feedback', 'feedback.id_profile', '=', 'egresses.id')
             ->select(
-                'users.id as user_id',
-                'users.name as user_name',
-                'companies.name as company_name',
-                'feedback.comment as feedback_comment'
+                'users.id as user_id'
+                ,'users.name as user_name'
+                ,'companies.name as company_name'
+                ,'feedback.comment as feedback_comment'
+                ,'egresses.imagePath as image_path'
             )
             ->where('users.name', 'LIKE', '%' . $name . '%') // Busca pelo nome, utilizando LIKE para parcial match
+            ->whereRaw('
+                professional_profile.initial_date in (
+                select distinct max(initial_date) maxD
+                from professional_profile 
+                group by id_egress)
+            ')
             ->paginate($perPage); // Paginação com 4 registros por página (ou customizável)
     }
 
