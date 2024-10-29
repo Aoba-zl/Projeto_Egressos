@@ -19,7 +19,8 @@ async function init(){
         let image = document.getElementById("divImgPerfil")
 
         if(msg.imagePath!=" " && msg.imagePath!=""){
-            image.innerHTML = '<img src="'+ serverUrl +'storage/'+ msg.imagePath +'" alt="Foto do Perfil" srcset="">'
+            let src = serverUrl +'storage/'+ msg.imagePath;
+            image.innerHTML = `<img src="${src}" alt="Foto do Perfil" srcset="">`
         }
 
         let fullName = document.getElementById("aluno-nome-completo");

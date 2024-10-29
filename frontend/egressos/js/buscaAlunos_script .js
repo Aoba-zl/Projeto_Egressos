@@ -18,7 +18,7 @@ var totalItems=0
 
 async function fetchEgresses(page = 1, limit = 1) {
     try {
-        const response = await fetch(`http://localhost:8000/api/all-egresses?page=${page}&limit=${limit}`);
+        const response = await fetch(`${serverUrl}all-egresses?page=${page}&limit=${limit}`);
         
         if (!response.ok) {
             throw new Error('Erro ao buscar egressos');
@@ -43,15 +43,19 @@ function renderEgresses(egresses) {
 
     egresses.forEach(egress => {
         const egressElement = document.createElement('div');
-        egressElement.addEventListener("click",()=>{
-            window.location.href = "./visualizarPerfil.html?profile="+egress.user_id;
+
+        let src = serverUrl +'storage/'+ egress.image_path;
+        egressContainer.addEventListener("click",()=>{
+            window.location.href = "./visualizarPerfil.html?profile="
+                    +egress.user_id;
         });
+        
         egressElement.classList.add('aluno-card');        
         egressElement.innerHTML = `
             <span class="d-none">${egress.user_id}</span>
             <div class="row">
                 <div class="col-4 img-aluno-card">
-                    <img src="https://cdn.pixabay.com/photo/2023/10/24/05/08/dog-8337394_1280.jpg" alt="foto do aluno">
+                    <img src="${src}" alt="foto do aluno">
                 </div>
                 <div class="col-8">
                     <p>
@@ -163,4 +167,3 @@ document.getElementById('btnBuscaAlunos').addEventListener('click', function() {
             console.error('Erro:', error);
         });
 });
-

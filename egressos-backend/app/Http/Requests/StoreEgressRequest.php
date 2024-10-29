@@ -51,7 +51,7 @@ class StoreEgressRequest extends FormRequest
             'phone.digits' => 'O número de telefone deve conter 11 dígitos.',
             'birthdate.required' => 'A data de nascimento é obrigatório..',
             'birthdate.date' => 'A data de nascimento deve ser uma data válida.',
-            'birthdate.before' => 'A data de nascimento .',
+            'birthdate.before' => 'A data de nascimento não deve ser desse ano.',
             'birthdate.after' => 'Data de nascimento inválida.',
             'status.required' => 'O status é obrigatório.',
             'status.in' => 'O status deve ser 0, 1, 2 ou 3.',

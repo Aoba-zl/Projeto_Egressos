@@ -23,6 +23,7 @@ class Egress extends Model
         'imagePath',
         'cpf',
         'phone',
+        'phone_is_public',
         'birthdate',
         'status'
     ];
@@ -46,14 +47,16 @@ class Egress extends Model
         $image_name = rand(0, 9999999999) . $request->file('image')->getClientOriginalName();
         $image_path = $request->file('image')->storeAs('uploads', $image_name);
 
+        $isPhonePublic = ($request->input('isPhonePublic') === 'true');
 
         $new_egress = Egress::create([
-            'user_id'    => $user_id,
-            'imagePath'  => $image_path,
-            'cpf'        => $request->input('cpf'),
-            'phone'      => $request->input('phone'),
-            'birthdate'  => $request->input('birthdate'),
-            'status'     => config('constants.STATUS_IN_ANALISYS')
+            'user_id'         => $user_id,
+            'imagePath'       => $image_path,
+            'cpf'             => $request->input('cpf'),
+            'phone'           => $request->input('phone'),
+            'phone_is_public' => $isPhonePublic,
+            'birthdate'       => $request->input('birthdate'),
+            'status'          => config('constants.STATUS_IN_ANALISYS')
         ]);
 
         return $new_egress;
@@ -76,6 +79,7 @@ class Egress extends Model
             ->select(
                 'users.id as user_id',
                 'users.name as user_name',
+                'egresses.imagePath as image_path',
                 'companies.name as company_name',
                 'feedback.comment as feedback_comment'
             )
@@ -145,6 +149,7 @@ class Egress extends Model
             ->select(
                 'users.id as user_id',
                 'users.name as user_name',
+                'egresses.imagePath as image_path',
                 'courses.name as course_name',
                 'feedback.comment as feedback_comment'
             )

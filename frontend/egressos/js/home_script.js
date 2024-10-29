@@ -84,9 +84,10 @@ function createCardDepoimento(depoimento) {
     col2.setAttribute("class","col-12 text-center");
 
     let img = document.createElement("img");
+    let src = serverUrl +'storage/'+ depoimento.image_path;
     img.setAttribute("alt","imagem Aluno");
     img.setAttribute("class","imgPerfil");
-    img.setAttribute("src","./img/profile_picture.png");
+    img.setAttribute("src",src);
 
     let nomeAluno = document.createElement("p");
     nomeAluno.setAttribute("class","nomeAluno text-center mt-2");
