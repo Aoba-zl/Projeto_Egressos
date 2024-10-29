@@ -43,11 +43,13 @@ function renderEgresses(egresses) {
 
     egresses.forEach(egress => {
         const egressElement = document.createElement('div');
+
         let src = serverUrl +'storage/'+ egress.image_path;
         egressContainer.addEventListener("click",()=>{
             window.location.href = "./visualizarPerfil.html?profile="
                     +egress.user_id;
         });
+        
         egressElement.classList.add('aluno-card');        
         egressElement.innerHTML = `
             <span class="d-none">${egress.user_id}</span>
@@ -165,4 +167,3 @@ document.getElementById('btnBuscaAlunos').addEventListener('click', function() {
             console.error('Erro:', error);
         });
 });
-
