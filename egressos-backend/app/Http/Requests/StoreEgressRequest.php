@@ -24,7 +24,7 @@ class StoreEgressRequest extends FormRequest
         return [
             'image' => ['required', 'image', 'mimes:jpeg,png,jpg', 'max:10240'],
             'cpf' => ['required', 'cpf', 'digits:11', 'unique:egresses,cpf'],
-            'phone' => ['required', 'digits:11'],
+            'phone' => ['required', 'string','min:10'],
             'birthdate' => ['required', 'date', 'before:01-01-' . now()->year, 'after:01/01/1900'],
             'contacts'             => ['required', 'array', 'max:3'],
             'academic_formation'   => ['required', 'array', 'max:3'],
