@@ -37,6 +37,11 @@ main{
     font-size: 2.5em;
 }
 
+#aluno-nome-completo > p{
+    text-transform: none;
+    font-size: .4em;
+}
+
 .aux-label{
     text-decoration: underline;
     font-size: 1.2em;

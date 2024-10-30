@@ -90,6 +90,7 @@ class Egress extends Model
                 from professional_profile 
                 group by id_egress)
             ')
+            ->where('egresses.status','1')
             ->paginate($limit); // Pagina automaticamente conforme o limite informado
     }
 
@@ -105,6 +106,7 @@ class Egress extends Model
             ,'users.id AS user_id'
             ,'users.email'
             ,'users.name'
+            ,'egresses.status as status'
             )
             ->join('users', 'users.id', '=', 'egresses.user_id')
             ->where('user_id',$id)
@@ -179,6 +181,7 @@ class Egress extends Model
                     group by id_profile)
                 '
             )
+            ->where('egresses.status','1')
             ->limit(3)
             ->get();
             return $egresses;
@@ -213,10 +216,30 @@ class Egress extends Model
                 from professional_profile 
                 group by id_egress)
             ')
+            ->where('egresses.status','1')
             ->paginate($perPage); // Paginação com 4 registros por página (ou customizável)
     }
 
     // Método para obter os egressos aprovados ou reprovados com base no status
+    public static function getApprovedReprovedEgresses($status)
+    {
+        return self::
+        select(
+            'egresses.id as id'
+            ,'egresses.imagepath as image_path'
+            ,'u.name as name'
+            ,'courses.name as course'
+            ,'egresses.status as status'
+        )
+        ->join('users as u', 'u.id', '=', 'egresses.user_id')
+        ->join('academic_formation','egresses.id','=','academic_formation.id_profile')
+        ->join('courses','courses.id','=','academic_formation.id_course')
+        ->where('egresses.status', '=', $status)
+        ->whereNotIn('u.type_account', ['1', '2'])
+        ->paginate();
+    }
+
+    /*
     public static function getApprovedReprovedEgresses($status)
     {
         return self::join('users as u', 'u.id', '=', 'egresses.user_id')
@@ -227,8 +250,21 @@ class Egress extends Model
             ->whereNotIn('u.type_account', ['1', '2'])
             ->get();
     }
+    */
 
     public static function getEgressesUnderAnalysis($perPage){
-        return DB::table('egresses')->where('egresses.status','0')->paginate($perPage);
+        return Egress::
+            select(
+                'egresses.id as id'
+                ,'egresses.imagepath as image_path'
+                ,'users.name as name'
+                ,'courses.name as course'
+                ,'egresses.status as status'
+            )
+            ->join('users','users.id','=','egresses.user_id')
+            ->join('academic_formation','egresses.id','=','academic_formation.id_profile')
+            ->join('courses','courses.id','=','academic_formation.id_course')
+            ->where('egresses.status','0')
+            ->paginate($perPage);
     }
 }

@@ -34,14 +34,14 @@
 .egrees-card{
     border: 2px solid black;
     border-radius: 5px;
-    width: 150px;
-    height: 270px;
+    width: 200px;
+    height: 320px;
     padding: .5em;
     transition: transform .3s ease;
     margin: 5px;
     display: inline-block;
     cursor: pointer;
-
+    overflow: hidden;
 }
 
 .egrees-card:hover{
@@ -50,6 +50,7 @@
 
 .egrees-card > img{
     width: 100%;
+    margin-bottom: 10px;
 }
 
 .egrees-card > span{
