@@ -1,0 +1,20 @@
+#aluno-nome-completo{
+    font-size: 1em;
+}
+
+.egresso-contato{
+    border: 1px solid black;
+    border-radius: 10px;
+    padding: .1em;
+    width: 20vw;
+}
+
+.egresso-contato > span{
+    display: block;
+    width: 100%;
+    text-align: center;
+}
+
+#aluno-dados > *{
+    margin-bottom: .7em;
+}

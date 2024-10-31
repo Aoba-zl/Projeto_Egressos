@@ -158,6 +158,12 @@ class EgressController extends Controller
         return response()->json($egress);
     }
 
+    public function showAdmin(string $id)
+    {
+        $egress = Egress::getEgressWithCompanyAndFeedbackByIdAdmin($id);
+        return response()->json($egress);
+    }
+
     /**
      * Show the form for editing the specified resource.
      */

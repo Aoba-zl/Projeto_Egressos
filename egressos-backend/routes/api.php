@@ -42,6 +42,7 @@ Route::get('egresses/analysis',[EgressController::class,'getEgressesUnderAnalysi
 Route::get('egresses', [EgressController::class, 'searchByName']);
 Route::get('egresses/searchwithstatus', [EgressController::class, 'searchByNameAndStatus']);
 Route::get('egresses/{id}', [EgressController::class, 'show']);
+Route::get('egresses/moderator/{id}', [EgressController::class, 'showAdmin']);
 Route::get('egresses-random', [EgressController::class, 'getRandom']);
 Route::post('/egresses', [EgressController::class , 'store']);
 Route::put('/egresses/{egress}', [EgressController::class , 'update']);

@@ -40,8 +40,7 @@ async function init(){
             if(msg.status == '0'){
                 status.setAttribute("style","color:orange;");
             }
-        }
-        
+        }        
         
         let idade = document.getElementById("aluno-idade");
         let now = new Date();

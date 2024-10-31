@@ -15,15 +15,68 @@
     <!-- CSS -->
     <link rel="stylesheet" href="./css/general.css">
     <link rel="stylesheet" href="./css/general_devices.css">
+    <link rel="stylesheet" href="./css/visualizacao/devices.css">
+    <link rel="stylesheet" href="./css/visualizacao/visualizacao_style.css">
     <link rel="stylesheet" href="./css/avaliacao/devices.css">
-    <link rel="stylesheet" href="./css/avaliacao/avaliacao.css">
+    <link rel="stylesheet" href="./css/avaliacao/avaliacao_style.css">
 </head>
 <body>
     <header id="header">
 
     </header>
     <main>
-        
+        <div class="row">
+            <div class="col-sm-12 col-lg-3">
+                <div id="divImgPerfil">
+                    <!-- imagem do egresso -->
+                    <img src="./img/profile_picture.png" alt="Foto do Perfil" srcset="">
+                </div>
+                <p class="mb-2">Contatos:</p>
+                <div id="divContatos">
+                  
+                </div>
+                <div class="mt-5" style="color: red;">
+                    <p>* Marque dados inválidos/irregulares</p>
+                    <p>* "Marcar todos" marca todos os dados como inválidos</p>
+                    <button type="button" style="width: 100%;" class="btn btn-outline-danger mt-3">
+                        Marcar Todos
+                    </button>
+                </div>
+            </div>
+            <div id="aluno-dados" class="col-sm-12 col-lg-5">
+                <div>
+                    <label for="aluno-nome-completo">Nome:</label>
+                    <input type="text" class="form-control" id="aluno-nome-completo">
+                </div>
+
+                <div>
+                    <label for="aluno-cpf">CPF:</label>
+                    <input type="text" class="form-control" id="aluno-cpf">
+                </div>
+
+                <div>
+                    <label for="aluno-data-nasc">Data Nascimento:</label>
+                    <input type="date" class="form-control" id="aluno-data-nasc">
+                </div>
+
+                <span class="aux-label">Feedback</span>
+                <div>
+                    <textarea name="txtFeedback" id="txtFeedback">
+                    </textarea>
+                </div>                
+            </div>
+            <div class="col-sm-12 col-lg-4">
+                <span class="aux-label">Perfil Acadêmico</span>
+                <div id="exps-academicas">
+                    
+                </div>
+
+                <span class="aux-label">Perfil Profissional</span>
+                <div id="exps-profissionais">
+                    
+                </div>
+            </div>
+        </div>
     </main>
     <footer id="footer">
 
@@ -36,6 +89,7 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
     <script type="module" src="./js/avaliacao.js"></script>
 </body>
 </html>

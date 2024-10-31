@@ -94,7 +94,6 @@ class Egress extends Model
             ->paginate($limit); // Pagina automaticamente conforme o limite informado
     }
 
-
     public static function getEgressWithCompanyAndFeedbackById($id)
     {
         $egress = Egress::select(
@@ -125,6 +124,70 @@ class Egress extends Model
 
             $egress->contacts->push($egressPhone);
         }
+
+        unset($egress->phone);
+        unset($egress->phone_is_public);
+
+        $egressFeedback = Feedback::select('*')
+            ->where('id_profile',$egress->id)
+            ->first();
+
+        $egress->feedback = $egressFeedback;
+
+        $egressExpAcad = AcademicFormation::
+            select(
+                'academic_formation.begin_year'
+                ,'academic_formation.end_year'
+                ,'academic_formation.period'
+                ,'institutions.name as institution_name'
+                ,'academic_formation.id_course AS course_id'
+                ,'courses.name as course_name'
+                ,'courses.type_formation as course_type_formation'
+                )
+            ->join('institutions', 'academic_formation.id_institution', '=', 'institutions.id')
+            ->join('courses', 'academic_formation.id_course', '=', 'courses.id')
+            ->where('id_profile',$egress->id)->get();
+        $egress->academic_formation = $egressExpAcad;
+
+        $egressExpProf = ProfessionalProfile::select('*')
+            ->join('companies', 'companies.id', '=', 'professional_profile.id_company')
+            ->where('id_egress',$egress->id)
+            ->get();
+        $egress->professional_experience = $egressExpProf;
+
+        return $egress;
+    }
+
+    public static function getEgressWithCompanyAndFeedbackByIdAdmin($id)
+    {
+        $egress = Egress::select(
+            'egresses.id'
+            ,'egresses.imagePath as image_path'
+            ,'egresses.birthdate'
+            ,'egresses.phone'
+            ,'egresses.cpf'
+            ,'egresses.phone_is_public'
+            ,'users.id AS user_id'
+            ,'users.email'
+            ,'users.name'
+            ,'egresses.status as status'
+            )
+            ->join('users', 'users.id', '=', 'egresses.user_id')
+            ->where('user_id',$id)
+            ->first();
+
+        $egressContacts = Contact::select('*')
+            ->join('platforms', 'contacts.id_platform', '=', 'platforms.id')
+            ->where('id_profile',$egress->id)
+            ->get();
+        $egress->contacts = $egressContacts;
+        
+        
+        $egressPhone = new stdClass();
+        $egressPhone->name = "Telefone";
+        $egressPhone->contact = $egress->phone;
+
+        $egress->contacts->push($egressPhone);
 
         unset($egress->phone);
         unset($egress->phone_is_public);
@@ -227,7 +290,7 @@ class Egress extends Model
             ->join('academic_formation','egresses.id','=','academic_formation.id_profile')
             ->join('courses','courses.id','=','academic_formation.id_course')         
             ->select(
-                'egresses.id as id'
+                'users.id as id'
                 ,'egresses.imagepath as image_path'
                 ,'users.name as name'
                 ,'courses.name as course'
@@ -243,7 +306,7 @@ class Egress extends Model
     {
         return self::
         select(
-            'egresses.id as id'
+            'users.id as id'
             ,'egresses.imagepath as image_path'
             ,'u.name as name'
             ,'courses.name as course'
@@ -274,7 +337,7 @@ class Egress extends Model
     public static function getEgressesUnderAnalysis($perPage){
         return Egress::
             select(
-                'egresses.id as id'
+                'users.id as id'
                 ,'egresses.imagepath as image_path'
                 ,'users.name as name'
                 ,'courses.name as course'
