@@ -210,6 +210,16 @@ class EgressController extends Controller
         return response()->json($egresses);
     }
 
+    public function searchByNameAndStatus(Request $request)
+    {
+        $name = $request->input('name');
+        $status = $request->input('status');
+        
+        $egresses = Egress::getEgressByNameAndStatus($name,$status);
+
+        return response()->json($egresses);
+    }
+
     public function getRandom(){
         $egresses = Egress::getRandom();
         return response()->json($egresses);

@@ -10,6 +10,32 @@ document.getElementById("slcFiltroStatus").addEventListener('change',()=>{
     loadEgresses(status);
 });
 
+document.getElementById("btnBuscaAlunos").addEventListener('click',async ()=>{
+    let status = document.getElementById("slcFiltroStatus").value;
+    let name = document.getElementById("txtSearchAluno").value;
+
+    const container = document.getElementById("card-list-container");
+    container.innerHTML = "";
+
+    let url = serverUrl + `egresses/searchwithstatus?name=${name}&status=${status}`;
+    await $.ajax({
+        url : url,
+        dataType: "json",
+        contentType: "application/json",
+        method : "GET",
+      })
+      .done(function(msg){
+          msg.data.forEach(element => {
+            container.appendChild(createEgressCard(element));
+          });
+      })
+      .fail(function(jqXHR, textStatus, msg){
+        console.log(jqXHR);
+        console.log(textStatus);  
+        console.log(msg);
+      });
+});
+
 function init(){
      loadEgresses();
 }

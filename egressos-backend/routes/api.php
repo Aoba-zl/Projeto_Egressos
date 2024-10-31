@@ -40,6 +40,7 @@ Route::get('egresses/aproved-reproved', [EgressController::class, 'getAprovedRep
 Route::get('all-egresses',[EgressController::class,'index']);
 Route::get('egresses/analysis',[EgressController::class,'getEgressesUnderAnalysis']);
 Route::get('egresses', [EgressController::class, 'searchByName']);
+Route::get('egresses/searchwithstatus', [EgressController::class, 'searchByNameAndStatus']);
 Route::get('egresses/{id}', [EgressController::class, 'show']);
 Route::get('egresses-random', [EgressController::class, 'getRandom']);
 Route::post('/egresses', [EgressController::class , 'store']);

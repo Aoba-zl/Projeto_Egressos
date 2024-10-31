@@ -220,6 +220,24 @@ class Egress extends Model
             ->paginate($perPage); // Paginação com 4 registros por página (ou customizável)
     }
 
+    public static function getEgressByNameAndStatus($name, $status, $perPage = 10)
+    {
+        return DB::table('users')
+            ->join('egresses', 'egresses.user_id', '=', 'users.id')
+            ->join('academic_formation','egresses.id','=','academic_formation.id_profile')
+            ->join('courses','courses.id','=','academic_formation.id_course')         
+            ->select(
+                'egresses.id as id'
+                ,'egresses.imagepath as image_path'
+                ,'users.name as name'
+                ,'courses.name as course'
+                ,'egresses.status as status'
+            )
+            ->where('users.name', 'LIKE', '%' . $name . '%') // Busca pelo nome, utilizando LIKE para parcial match
+            ->where('egresses.status',$status)
+            ->paginate($perPage); // Paginação com 4 registros por página (ou customizável)
+    }
+
     // Método para obter os egressos aprovados ou reprovados com base no status
     public static function getApprovedReprovedEgresses($status)
     {
@@ -236,6 +254,7 @@ class Egress extends Model
         ->join('courses','courses.id','=','academic_formation.id_course')
         ->where('egresses.status', '=', $status)
         ->whereNotIn('u.type_account', ['1', '2'])
+        ->orderBy('egresses.created_at','ASC')
         ->paginate();
     }
 
@@ -265,6 +284,7 @@ class Egress extends Model
             ->join('academic_formation','egresses.id','=','academic_formation.id_profile')
             ->join('courses','courses.id','=','academic_formation.id_course')
             ->where('egresses.status','0')
+            ->orderBy('egresses.created_at','ASC')
             ->paginate($perPage);
     }
 }
