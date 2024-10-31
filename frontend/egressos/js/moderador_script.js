@@ -78,6 +78,10 @@ function createEgressCard(egress){
     let card = document.createElement("div");
     card.setAttribute("class","egrees-card");
 
+    card.addEventListener("click",()=>{
+        window.location.href = "./avaliacao.html?egress=" + egress.id;
+    });
+
     let img = document.createElement("img");
     img.setAttribute("alt","imagem do perfil");
     

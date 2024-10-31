@@ -25,7 +25,7 @@ init()
 
 function isLoged() {
     const publicPages = ['/', '/cadastro.html', '/login.html','/cadastro2.html',
-        '/visualizarPerfil.html','/buscaDeAlunos.html','/homemoderador.html'];//remover homeMod
+        '/visualizarPerfil.html','/buscaDeAlunos.html','/homemoderador.html','/avaliacao.html'];//remover homeMod e avaliacao
     let currentPath = window.location.pathname;
     currentPath = currentPath.replace("/projeto_egressos/frontend/egressos","");
 
