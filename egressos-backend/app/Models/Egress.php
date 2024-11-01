@@ -306,7 +306,7 @@ class Egress extends Model
     {
         return self::
         select(
-            'users.id as id'
+            'u.id as id'
             ,'egresses.imagepath as image_path'
             ,'u.name as name'
             ,'courses.name as course'
@@ -318,7 +318,7 @@ class Egress extends Model
         ->where('egresses.status', '=', $status)
         ->whereNotIn('u.type_account', ['1', '2'])
         ->orderBy('egresses.created_at','ASC')
-        ->paginate();
+        ->paginate(20);
     }
 
     /*
@@ -348,6 +348,6 @@ class Egress extends Model
             ->join('courses','courses.id','=','academic_formation.id_course')
             ->where('egresses.status','0')
             ->orderBy('egresses.created_at','ASC')
-            ->paginate($perPage);
+            ->paginate(10);
     }
 }

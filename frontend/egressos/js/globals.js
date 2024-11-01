@@ -34,6 +34,11 @@ function getUserId(){
   return user.user.id;
 }
 
+function getUserIdPosLogin(){
+  let user = JSON.parse(getStorage("user"));
+  return user.user_id;
+}
+
 function getEgressId(){
   let egress = JSON.parse(getStorage("egress"));
   return egress.id;

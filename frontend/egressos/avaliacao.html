@@ -27,7 +27,7 @@
     <main>
         <div class="row">
             <div class="col-sm-12 col-lg-3">
-                <div id="divImgPerfil">
+                <div id="divImgPerfil" class="mb-3">
                     <!-- imagem do egresso -->
                     <img src="./img/profile_picture.png" alt="Foto do Perfil" srcset="">
                 </div>
@@ -38,29 +38,29 @@
                 <div class="mt-5" style="color: red;">
                     <p>* Marque dados inválidos/irregulares</p>
                     <p>* "Marcar todos" marca todos os dados como inválidos</p>
-                    <button type="button" style="width: 100%;" class="btn btn-outline-danger mt-3">
+                    <button id="btnMarcarTd" type="button" style="width: 100%;" class="btn btn-outline-danger mt-3">
                         Marcar Todos
                     </button>
                 </div>
             </div>
             <div id="aluno-dados" class="col-sm-12 col-lg-5">
-                <div>
+                <div class="div">
                     <label for="aluno-nome-completo">Nome:</label>
                     <input type="text" class="form-control" id="aluno-nome-completo">
                 </div>
 
-                <div>
+                <div class="div">
                     <label for="aluno-cpf">CPF:</label>
                     <input type="text" class="form-control" id="aluno-cpf">
                 </div>
 
-                <div>
+                <div class="div">
                     <label for="aluno-data-nasc">Data Nascimento:</label>
                     <input type="date" class="form-control" id="aluno-data-nasc">
                 </div>
 
                 <span class="aux-label">Feedback</span>
-                <div>
+                <div id="div-feedback">
                     <textarea name="txtFeedback" id="txtFeedback">
                     </textarea>
                 </div>                
@@ -74,6 +74,11 @@
                 <span class="aux-label">Perfil Profissional</span>
                 <div id="exps-profissionais">
                     
+                </div>
+                <div class="mt-5 ">
+                    <button type="button" class="btn btn-outline-success" id="btnContinuar">
+                        Continuar
+                    </button>
                 </div>
             </div>
         </div>

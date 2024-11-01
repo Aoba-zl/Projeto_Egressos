@@ -1,7 +1,22 @@
 @charset "UTF-8";
 
 @media only screen and (max-width: 768px) {
-    
+    #divImgPerfil img {
+        width: 92vw;
+        height: 90vw;
+        margin-bottom: 1em;
+        border-radius: 10px;
+    }
+
+    .egresso-contato{
+        display: block !important;
+        width: 90vw !important;
+    }
+
+    #btnContinuar{
+        margin-top: 0% !important;
+        width: 100%;
+    }
 }
 
 @media only screen and (max-width: 768px) and (max-height:500px){
