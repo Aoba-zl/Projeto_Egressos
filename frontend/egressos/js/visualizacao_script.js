@@ -25,6 +25,23 @@ async function init(){
 
         let fullName = document.getElementById("aluno-nome-completo");
         fullName.innerHTML = msg.name;
+
+        let status = document.createElement('p');
+        status.innerHTML = 'Status da conta: ' + getStatusDescription(msg.status);
+        console.log(msg.status)
+
+        if(msg.status != 1){
+            fullName.appendChild(status);
+
+            if(msg.status == '2'){
+                status.setAttribute("style","color:red;");
+            }
+
+            if(msg.status == '0'){
+                status.setAttribute("style","color:orange;");
+            }
+        }
+        
         
         let idade = document.getElementById("aluno-idade");
         let now = new Date();

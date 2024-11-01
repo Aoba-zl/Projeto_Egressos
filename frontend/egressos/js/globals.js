@@ -102,6 +102,26 @@ function criarOption(value,desc){
 function apagarDaTela(e){
   e.target.parentNode.remove();
 }
+
+function getStatusDescription(status) {
+  let stat = "";
+  switch (status) {
+    case '0':
+        stat = "Em análise"
+        break;
+    case '1':
+        stat = "Aprovado"
+        break;
+    case '2':
+        stat = "Reprovado"
+        break;
+    default:
+        stat = "___"
+        break;
+  }
+
+  return stat;
+}
 //----------------------- MODAL -----------------------------
 function exibirModal(modalId){
   $(modalId).modal('show');

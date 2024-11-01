@@ -45,7 +45,7 @@ function renderEgresses(egresses) {
         const egressElement = document.createElement('div');
 
         let src = serverUrl +'storage/'+ egress.image_path;
-        egressContainer.addEventListener("click",()=>{
+        egressElement.addEventListener("click",()=>{
             window.location.href = "./visualizarPerfil.html?profile="
                     +egress.user_id;
         });
@@ -118,15 +118,11 @@ function previousButtonGroup() {
 }
 
 // Adicionando eventos aos ícones de navegação
-    document.getElementById('rightIcon').addEventListener('click', () => nextButtonGroup());
-    document.getElementById('leftIcon').addEventListener('click', previousButtonGroup);
+document.getElementById('rightIcon').addEventListener('click', () => nextButtonGroup());
+document.getElementById('leftIcon').addEventListener('click', previousButtonGroup);
 
-    // Chamando a função para buscar e renderizar os egressos na página inicial
-    fetchEgresses(currentPage, limit);
-
-
-
-
+// Chamando a função para buscar e renderizar os egressos na página inicial
+fetchEgresses(currentPage, limit);
 
 //Get by name
 document.getElementById('btnBuscaAlunos').addEventListener('click', function() {
