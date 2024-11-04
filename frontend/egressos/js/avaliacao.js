@@ -1,4 +1,5 @@
 const egressId = new URLSearchParams(window.location.search).get('egress');
+var egressToEdit = 0;
 
 window.onload = function () {
     $("#header").load("./components/header.html");
@@ -15,6 +16,8 @@ document.getElementById("btnContinuar").addEventListener("click",()=>{
     avancarEtapa();
 });
 
+document.addEventListener("click",mudarBtnAcao);
+
 async function init(){    
     let endpoint = serverUrl + "egresses/moderator/"+egressId;
 
@@ -27,6 +30,7 @@ async function init(){
     .done(function(msg){
         let image = document.getElementById("divImgPerfil")
 
+        egressToEdit = msg.id;
         if(msg.image_path!=" " && msg.image_path!=""){
             let src = serverUrl +'storage/'+ msg.image_path;
             image.innerHTML = `<img src="${src}" alt="Foto do Perfil" srcset="">`
@@ -192,6 +196,29 @@ function marcarComoInválidos() {
     });
 }
 
+function mudarBtnAcao(){
+    let cbs = document.querySelectorAll(".cb");
+    let haReprovados = false;
+
+    cbs.forEach(element => {
+        if(element.checked){
+            haReprovados = true;
+        }
+    });
+
+    let btn = document.getElementById('btnContinuar');
+
+    if(haReprovados){
+        btn.innerHTML = "Continuar";
+        btn.classList.remove("btn-outline-success");
+        btn.classList.add("btn-outline-danger");        
+    }else{
+        btn.innerHTML = "Aprovar Perfil";
+        btn.classList.remove("btn-outline-danger");
+        btn.classList.add("btn-outline-success");
+    }
+}
+
 function avancarEtapa(){
     let cbs = document.querySelectorAll(".cb");
     let dadosReprovados = [];
@@ -242,21 +269,23 @@ function avancarEtapa(){
      });
 
     if(dadosReprovados.length == 0){
-        salvarAvaliacao("",1);
+        salvarAvaliacao("ok",1);
     }else{
-
+        
     }
 }
 
 function salvarAvaliacao(comentario,status) {
     let data = new Object();
     let avaliacao = new Object();
-    avaliacao.id_moderador_admi = getUserIdPosLogin();
-    avaliacao.id_egress = egressId;
+    avaliacao.id_moderator_admi = getUserIdPosLogin()+"";
+    avaliacao.id_egress = egressToEdit;
     avaliacao.comment = comentario;
 
-    data.status = status;
+    data.status = status+"";
     data.assessment = avaliacao;
+
+    console.log(JSON.stringify(data));
 
     $.ajax({
         //headers: {'X-CSRF-TOKEN': await getCsrfToken()},
@@ -266,9 +295,12 @@ function salvarAvaliacao(comentario,status) {
         data : JSON.stringify(data)
       })
       .done(function(msg){
-        console.log(msg);
+        alert(msg.message);
+        window.location.href = "homemoderador.html";
       })
       .fail(function(jqXHR, textStatus, msg){
           console.log(jqXHR);
+          console.log(textStatus);
+          console.log(msg);
       });
 }

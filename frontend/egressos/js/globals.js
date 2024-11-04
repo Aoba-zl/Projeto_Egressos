@@ -36,7 +36,7 @@ function getUserId(){
 
 function getUserIdPosLogin(){
   let user = JSON.parse(getStorage("user"));
-  return user.user_id;
+  return user.id;
 }
 
 function getEgressId(){

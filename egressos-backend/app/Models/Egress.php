@@ -283,7 +283,7 @@ class Egress extends Model
             ->paginate($perPage); // Paginação com 4 registros por página (ou customizável)
     }
 
-    public static function getEgressByNameAndStatus($name, $status, $perPage = 10)
+    public static function getEgressByNameAndStatus($name, $status, $perPage = 20)
     {
         return DB::table('users')
             ->join('egresses', 'egresses.user_id', '=', 'users.id')
@@ -348,6 +348,6 @@ class Egress extends Model
             ->join('courses','courses.id','=','academic_formation.id_course')
             ->where('egresses.status','0')
             ->orderBy('egresses.created_at','ASC')
-            ->paginate(10);
+            ->paginate(20);
     }
 }
