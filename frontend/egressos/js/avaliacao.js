@@ -272,6 +272,7 @@ function avancarEtapa(){
         salvarAvaliacao("ok",1);
     }else{
         
+        exibirModal("#av-modal");    
     }
 }
 
