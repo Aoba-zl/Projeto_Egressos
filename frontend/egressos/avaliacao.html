@@ -25,17 +25,31 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="modal-title">Modal title</h5>
+                    <h5 class="modal-title" id="modal-title">
+                        Rejeitar perfil de egresso
+                    </h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body" id="modal-body">
-                    <p>Modal body text goes here.</p>
+                    <form>
+                        <label for="txtDescricao">Descreva o motivo da rejeição do perfil: </label>
+                        <textarea class="form-control mb-3" id="txtDescricao">
+
+                        </textarea>
+
+                        <label for="txtDadosReprovados">
+                            Dados reprovados: 
+                        </label>
+                        <textarea class="form-control" id="txtDadosReprovados" disabled>
+                            
+                        </textarea>
+                    </form>
                 </div>
                 <div class="modal-footer" id="modal-footer">
-                    <button type="button" class="btn btn-primary">Save changes</button>
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" id="btnRejeitarPerfil" class="btn btn-danger">Rejeitar Perfil</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
                 </div>
             </div>
         </div>

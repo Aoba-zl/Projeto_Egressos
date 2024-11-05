@@ -131,7 +131,7 @@ async function saveUserContactsAndExperience(){
     if(!cpf || !foneOk || !dataNOk){
       alert("Preencha seus dados !");
     } else if (!image_file){
-      alert("Escola uma imagem!")
+      alert("Escolha uma imagem!");
     }else{
       alert("Escreva um feedback");
     }

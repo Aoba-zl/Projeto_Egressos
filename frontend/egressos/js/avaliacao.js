@@ -16,6 +16,10 @@ document.getElementById("btnContinuar").addEventListener("click",()=>{
     avancarEtapa();
 });
 
+document.getElementById("btnRejeitarPerfil").addEventListener("click",()=>{
+    rejeitarPerfil();
+});
+
 document.addEventListener("click",mudarBtnAcao);
 
 async function init(){    
@@ -271,8 +275,24 @@ function avancarEtapa(){
     if(dadosReprovados.length == 0){
         salvarAvaliacao("ok",1);
     }else{
-        
+        let reprovados = document.getElementById("txtDadosReprovados");
+        let value = "";
+        dadosReprovados.forEach(element => {
+            value += element+"\n";
+        });
+        reprovados.value = value;
         exibirModal("#av-modal");    
+    }
+}
+
+function rejeitarPerfil(){
+    let txt = document.getElementById("txtDescricao").value;
+    let dados = document.getElementById("txtDadosReprovados").value;
+
+    if(txt != null && txt.trim().length > 3){
+        salvarAvaliacao(txt + "\n\n" +dados,2);
+    }else{
+        alert("Escreva uma justificativa para a rejeição do perfil do egresso");
     }
 }
 

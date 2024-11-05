@@ -47,7 +47,7 @@ async function init(){
         let birthdate = new Date(msg.birthdate);
         let diferencaEmMilissegundos = now - birthdate;
         
-        const anos = Math.ceil(diferencaEmMilissegundos / (1000 * 60 * 60 * 24 * 365.25));
+        const anos = Math.floor(diferencaEmMilissegundos / (1000 * 60 * 60 * 24 * 365.25));
         idade.innerHTML = anos + " anos";
 
         let curso = document.getElementById("aluno-curso-nome");        
