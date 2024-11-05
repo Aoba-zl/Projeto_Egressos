@@ -1,8 +1,7 @@
 window.onload = function () {
     init();
 }
-var user = sessionStorage.getItem('user')
-var userData= JSON.parse(user)
+
 function init() {
    
 
@@ -13,7 +12,7 @@ function init() {
     if (token) {
         btnEntrar.classList.add("d-none"); 
         btnLoged.classList.remove("d-none"); 
-        document.getElementById('profileButton').textContent=userData.name.split(' ')[0];
+        document.getElementById('profileButton').textContent=user.name.split(' ')[0];
 
     }else{
         btnEntrar.classList.remove("d-none"); 
@@ -49,8 +48,9 @@ function isLoged() {
     });
 
     document.getElementById('myProfile').addEventListener('click',async function () {
-        window.location.href = "./visualizarPerfil.html?profile=" + userData.id;
+        window.location.href = "./visualizarPerfil.html?profile=" + user.id;
     })
+
 
 setTimeout(() => {
     isLoged()

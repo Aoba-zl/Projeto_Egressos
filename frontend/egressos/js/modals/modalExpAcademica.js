@@ -194,8 +194,9 @@ function criarExibicaoAcadExp(experienciaAcademica){
     let spanCurso = document.createElement("span");
     let spanAno = document.createElement("span");
 
-    spanInst.innerHTML = experienciaAcademica.institution.name;
-    spanCurso.innerHTML = experienciaAcademica.course.name;
+    spanInst.innerHTML =  experienciaAcademica.institution_name ? experienciaAcademica.institution_name : experienciaAcademica.institution.name;
+    spanCurso.innerHTML = experienciaAcademica.course_name ? experienciaAcademica.course_name :
+    experienciaAcademica.course.name;
     spanAno.innerHTML = experienciaAcademica.end_year;
 
     let lblExcluir = document.createElement("label");

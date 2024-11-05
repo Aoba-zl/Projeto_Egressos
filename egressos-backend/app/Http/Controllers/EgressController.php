@@ -68,6 +68,7 @@ class EgressController extends Controller
             'egress' => $egress,
         ]);
     }
+
     public function storeEgressInfos(Request $request,Egress $egress){
         foreach ($request->contacts as $contactData)
         // TODO: Validar se realmente criou
@@ -176,7 +177,6 @@ class EgressController extends Controller
     {
         //TODO
         // Como apagar dados antes de atualizar
-     
         DB::table('professional_profile')
             ->where('id_egress',$request->id)
             ->delete();

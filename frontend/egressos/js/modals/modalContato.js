@@ -136,7 +136,7 @@ function criarExibicaoContato(contato){
     spanId.classList.add("d-none");
 
     spanId.innerHTML = contato.id_platform;
-    spanPlataform.innerHTML = contato.plataform_name;
+    spanPlataform.innerHTML = contato.plataform_name ? contato.platform_name : contato.name;
     spanContato.innerHTML = contato.contact;
 
     let lblExcluir = document.createElement("label");

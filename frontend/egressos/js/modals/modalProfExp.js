@@ -12,13 +12,16 @@ function criarExibicaoProfExp(experienciaProfissional){
     let spanAnoFim = document.createElement("span");
 
     spanEmpresa.innerHTML = experienciaProfissional.name;
-    spanCargo.innerHTML = experienciaProfissional.area_activity;
-    let dataInicio = new Date(experienciaProfissional.begin_year)
+    spanCargo.innerHTML = experienciaProfissional.area ? experienciaProfissional.area : experienciaProfissional.area_activity
+;
+    let dataInicio = new Date(experienciaProfissional.initial_date ? experienciaProfissional.initial_date : experienciaProfissional.begin_year)
     spanAnoInicio.innerHTML = dataInicio.getFullYear();
 
-    if(experienciaProfissional.end_year != "" 
-        && experienciaProfissional.end_year != " "){
-        spanAnoFim.innerHTML = experienciaProfissional.end_year;
+    let end_year=experienciaProfissional.final_date ? experienciaProfissional.final_date : experienciaProfissional.end_year
+   
+    if(end_year != "" 
+        && end_year != " " && end_year != undefined){
+        spanAnoFim.innerHTML = end_year;
     }else{
         spanAnoFim.innerHTML = "Atual";
     }

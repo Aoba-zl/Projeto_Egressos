@@ -100,6 +100,7 @@ class Egress extends Model
             'egresses.id'
             ,'egresses.imagePath as image_path'
             ,'egresses.birthdate'
+            ,'egresses.cpf'
             ,'egresses.phone'
             ,'egresses.phone_is_public'
             ,'users.id AS user_id'
@@ -123,9 +124,6 @@ class Egress extends Model
 
             $egress->contacts->push($egressPhone);
         }
-
-        unset($egress->phone);
-        unset($egress->phone_is_public);
 
         $egressFeedback = Feedback::select('*')
             ->where('id_profile',$egress->id)
