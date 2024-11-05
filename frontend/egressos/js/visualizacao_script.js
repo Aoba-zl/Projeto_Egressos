@@ -110,6 +110,8 @@ async function init(){
 }
 
 async function abrirJustificativa() {
+    let url = serverUrl+"assessments";
+    /*
     await $.ajax({
         url : url,
         dataType: "json",
@@ -126,6 +128,7 @@ async function abrirJustificativa() {
         console.log(textStatus);  
         console.log(msg);
       });
+      */
     exibirModal("#motivo-rejeicao-modal");    
 }
 
