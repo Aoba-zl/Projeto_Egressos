@@ -15,6 +15,21 @@ main{
     border-radius: 10px;
 }
 
+#btnOpenJustificat{
+    cursor: pointer;
+    margin-right: 1em;
+    display: block;
+    margin-bottom: 1em;
+}
+
+#statusDescription{
+    font-size: .4em !important;
+}
+
+#statusDescription > textarea{
+    resize: none;
+}
+
 #divContatos{
     align-items: center;
 }

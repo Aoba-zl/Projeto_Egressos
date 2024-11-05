@@ -26,15 +26,26 @@ async function init(){
         let fullName = document.getElementById("aluno-nome-completo");
         fullName.innerHTML = msg.name;
 
-        let status = document.createElement('p');
-        status.innerHTML = 'Status da conta: ' + getStatusDescription(msg.status);
-        console.log(msg.status)
+        let status = document.createElement('div');
+        status.setAttribute("id","statusDescription");
+        status.innerHTML = '<span>Status da conta: ' + 
+            getStatusDescription(msg.status)+"</span>";
+        
+        let btnJustificativa = document.createElement("button");
+        btnJustificativa.innerHTML = "Ver justificativa";
+        btnJustificativa.setAttribute("id","btnOpenJustificat");
+        btnJustificativa.setAttribute("class","btn btn-secondary");
 
+
+        btnJustificativa.addEventListener("click",abrirJustificativa);
+        status.appendChild(btnJustificativa);
+        
         if(msg.status != 1){
             fullName.appendChild(status);
 
             if(msg.status == '2'){
                 status.setAttribute("style","color:red;");
+
             }
 
             if(msg.status == '0'){
@@ -96,6 +107,26 @@ async function init(){
     .fail(function(jqXHR, textStatus, msg){
         console.log(jqXHR);
     });
+}
+
+async function abrirJustificativa() {
+    await $.ajax({
+        url : url,
+        dataType: "json",
+        contentType: "application/json",
+        method : "GET",
+      })
+      .done(function(msg){
+          msg.data.forEach(element => {
+            container.appendChild(createEgressCard(element));
+          });
+      })
+      .fail(function(jqXHR, textStatus, msg){
+        console.log(jqXHR);
+        console.log(textStatus);  
+        console.log(msg);
+      });
+    exibirModal("#motivo-rejeicao-modal");    
 }
 
 function criarExibicaoProfExp(experienciaProfissional){
