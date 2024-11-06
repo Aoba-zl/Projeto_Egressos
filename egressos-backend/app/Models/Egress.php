@@ -317,6 +317,14 @@ class Egress extends Model
         ->join('courses','courses.id','=','academic_formation.id_course')
         ->where('egresses.status', '=', $status)
         ->whereNotIn('u.type_account', ['1', '2'])
+        ->whereRaw(
+            '
+                academic_formation.begin_year in (
+                select distinct max(begin_year) maxD
+                from academic_formation
+                group by id_profile)
+            '
+        )
         ->orderBy('egresses.created_at','ASC')
         ->paginate(20);
     }
@@ -347,6 +355,14 @@ class Egress extends Model
             ->join('academic_formation','egresses.id','=','academic_formation.id_profile')
             ->join('courses','courses.id','=','academic_formation.id_course')
             ->where('egresses.status','0')
+            ->whereRaw(
+                '
+                    academic_formation.begin_year in (
+                    select distinct max(begin_year) maxD
+                    from academic_formation
+                    group by id_profile)
+                '
+            )
             ->orderBy('egresses.created_at','ASC')
             ->paginate(20);
     }

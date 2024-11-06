@@ -4,9 +4,9 @@ window.onload = function () {
 
     init();
 }
+const profileId = new URLSearchParams(window.location.search).get('profile');
 
-async function init(){
-    const profileId = new URLSearchParams(window.location.search).get('profile');
+async function init(){   
     let endpoint = serverUrl + "egresses/"+profileId;
 
     await $.ajax({
@@ -31,21 +31,22 @@ async function init(){
         status.innerHTML = '<span>Status da conta: ' + 
             getStatusDescription(msg.status)+"</span>";
         
-        let btnJustificativa = document.createElement("button");
-        btnJustificativa.innerHTML = "Ver justificativa";
-        btnJustificativa.setAttribute("id","btnOpenJustificat");
-        btnJustificativa.setAttribute("class","btn btn-secondary");
-
-
-        btnJustificativa.addEventListener("click",abrirJustificativa);
-        status.appendChild(btnJustificativa);
-        
         if(msg.status != 1){
             fullName.appendChild(status);
 
             if(msg.status == '2'){
                 status.setAttribute("style","color:red;");
+                let eid = getUserIdPosLogin();
+                if(eid != undefined && eid == profileId){
+                    let btnJustificativa = document.createElement("button");
+                    btnJustificativa.innerHTML = "Ver justificativa";
+                    btnJustificativa.setAttribute("id","btnOpenJustificat");
+                    btnJustificativa.setAttribute("class","btn btn-secondary");
 
+                    btnJustificativa.addEventListener("click",abrirJustificativa);
+
+                    status.appendChild(btnJustificativa);
+                }
             }
 
             if(msg.status == '0'){
@@ -110,8 +111,8 @@ async function init(){
 }
 
 async function abrirJustificativa() {
-    let url = serverUrl+"assessments";
-    /*
+    let url = serverUrl + "assessment/" + getEgressId();
+    let tArea = document.getElementById("txtDescricao");
     await $.ajax({
         url : url,
         dataType: "json",
@@ -119,16 +120,14 @@ async function abrirJustificativa() {
         method : "GET",
       })
       .done(function(msg){
-          msg.data.forEach(element => {
-            container.appendChild(createEgressCard(element));
-          });
+        tArea.value = msg.comment;
       })
       .fail(function(jqXHR, textStatus, msg){
         console.log(jqXHR);
         console.log(textStatus);  
         console.log(msg);
       });
-      */
+      
     exibirModal("#motivo-rejeicao-modal");    
 }
 

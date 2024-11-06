@@ -45,6 +45,10 @@ main{
     margin-bottom: 1em;
 }
 
+#txtDescricao{
+    resize: none;
+    min-height: 400px;
+}
 /* --------------------------------*/
 /* ------------ Dados ------------*/
 #aluno-nome-completo{

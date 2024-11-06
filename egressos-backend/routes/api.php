@@ -102,6 +102,7 @@ Route::put('/user/{id}', [UserController::class, 'update']);
 
 //-----------------------------------------------------------------
 //-------------------ASSESSMENT------------------------------------
+Route::get('assessment/{id}',[AssessmentController::class,'show']);
 Route::post('saveAssessment',[AssessmentController::class,'store']);
 
 //----------------------- ADDRESSES -------------------------------
