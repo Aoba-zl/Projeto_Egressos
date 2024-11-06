@@ -37,7 +37,11 @@ document.getElementById("btnBuscaAlunos").addEventListener('click',async ()=>{
 });
 
 function init(){
-     loadEgresses();
+    if(getUser().type_account == 0){
+        window.location.href = './';
+    }
+
+    loadEgresses();
 }
 
 async function loadEgresses(status){

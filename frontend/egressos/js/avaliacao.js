@@ -25,6 +25,10 @@ document.addEventListener("click",mudarBtnAcao);
 async function init(){    
     let endpoint = serverUrl + "egresses/moderator/"+egressId;
 
+    if(getUser().type_account == 0){
+        window.location.href = './';
+    }
+    
     await $.ajax({
         url : endpoint,
         contentType: "application/json",
