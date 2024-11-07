@@ -31,7 +31,7 @@ async function generateHash(value) {
 /*  ============== USER ==================    */
 function getUserId(){
   let user = JSON.parse(getStorage("user"));
-  return user.user.id;
+  return user.id;
 }
 
 function getEgressId(){

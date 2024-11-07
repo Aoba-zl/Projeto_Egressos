@@ -5,6 +5,9 @@ document.getElementById("btnAddProfissionalExp").addEventListener("click",()=>{
 function criarExibicaoProfExp(experienciaProfissional){
     let div = document.createElement("div");
     div.classList.add("user-prof-exp-item");
+    console.log("fdggfh");
+    
+console.log(experienciaProfissional);
 
     let spanEmpresa = document.createElement("span");
     let spanCargo = document.createElement("span");
@@ -14,10 +17,10 @@ function criarExibicaoProfExp(experienciaProfissional){
     spanEmpresa.innerHTML = experienciaProfissional.name;
     spanCargo.innerHTML = experienciaProfissional.area ? experienciaProfissional.area : experienciaProfissional.area_activity
 ;
-    let dataInicio = new Date(experienciaProfissional.initial_date ? experienciaProfissional.initial_date : experienciaProfissional.begin_year)
+    let dataInicio = new Date(experienciaProfissional.initial_date)
     spanAnoInicio.innerHTML = dataInicio.getFullYear();
 
-    let end_year=experienciaProfissional.final_date ? experienciaProfissional.final_date : experienciaProfissional.end_year
+    let end_year=experienciaProfissional.final_date
    
     if(end_year != "" 
         && end_year != " " && end_year != undefined){
@@ -88,8 +91,8 @@ function adicionarExpProfissional(){
         let expProfissional = new Object();
         //expProfissional.empresa = empresa;
         expProfissional.area_activity = areaAtuacao;
-        expProfissional.begin_year = anoInicio;
-        expProfissional.end_year = anoFim;
+        expProfissional.initial_date = anoInicio;
+        expProfissional.final_date = anoFim;
         
         //-----------------------
         expProfissional.name = nomeEmpresa;

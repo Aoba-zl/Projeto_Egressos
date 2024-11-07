@@ -122,6 +122,7 @@ function adicionarContato(){
 }
 
 function criarExibicaoContato(contato){
+
     let divContatos = document.getElementById("user-contacts");
 
     let divNovoContato = document.createElement("div");
@@ -136,7 +137,7 @@ function criarExibicaoContato(contato){
     spanId.classList.add("d-none");
 
     spanId.innerHTML = contato.id_platform;
-    spanPlataform.innerHTML = contato.plataform_name ? contato.platform_name : contato.name;
+    spanPlataform.innerHTML = contato.plataform_name ? contato.plataform_name : contato.name_platform;
     spanContato.innerHTML = contato.contact;
 
     let lblExcluir = document.createElement("label");
@@ -152,6 +153,31 @@ function criarExibicaoContato(contato){
 
     divNovoContato.append(spanId,spanPlataform,spanContato,lblExcluir,spanData);
     divContatos.appendChild(divNovoContato);
+
+    //CASO SEJA EDIÇÃO DE DADOS
+    divContatos.addEventListener('click',()=>{
+        abrirModalCadContato();
+        setTimeout(()=>{},1000);
+
+        let selectPlataforma=document.getElementById('slcPlatforma')
+        let inputContato=document.getElementById('txtLinkContato')
+
+        let element=selectPlataforma.children[5]
+
+        console.log(element);
+
+
+        
+        
+      //  element.selected=true
+        //$("#slcPlataforma").s(contato.id_platform);
+        inputContato.value = contato.contact
+      console.log(contato.id_platform);
+      console.log(contato.contact);
+      
+      console.log(selectPlataforma);
+
+    });
 }
 
 function preencherSelectPlataforma(select){
@@ -164,11 +190,8 @@ function preencherSelectPlataforma(select){
       data : ""
     })
     .done(function(msg){
-        let contatos = document.getElementById("user-contacts").innerHTML;
-        msg.forEach(element => {
-            if(!contatos.includes(element.name)){
-                select.appendChild(criarOption(element.id,element.name));
-            }
+        msg.forEach(element => {           
+            select.appendChild(criarOption(element.id,element.name));            
         });
     })
     .fail(function(jqXHR, textStatus, msg){

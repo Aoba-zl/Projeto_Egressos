@@ -64,15 +64,24 @@ function preencheCampos(dados) {
     txtFeedback.value=dados.feedback.comment
     image.setAttribute("src",pathImage)
     image.setAttribute("alt","Foto do Perfil")
+console.log(dados);
 
     dados.contacts.forEach(contato => {
+      if (contato.name!='Telefone') {
         criarExibicaoContato(contato)
+      }
     });
     dados.academic_formation.forEach(formacao=>{
-        criarExibicaoAcadExp(formacao)
+       
+        criarExibicaoAcadExp( transformData(formacao))
     })
     dados.professional_experience.forEach(experiencia=>{
-        criarExibicaoProfExp(experiencia)
+      experiencia.area_activity=experiencia.area
+      let address=new Object()
+      address.cep=experiencia.cep
+      address.num_porta=experiencia.num_porta
+      experiencia.address=address
+      criarExibicaoProfExp(experiencia)
     })
 }
 async function init(){
@@ -83,8 +92,57 @@ async function init(){
     // formatar campos
     $('#txtCPF').mask('000.000.000-00');
 }
-document.getElementById('btnContinuarCadastro').addEventListener('click', saveUserContactsAndExperience)
+function transformData(data) {
+  
+    return {
+      institution: {
+        name: data.institution_name,
+        address:{
+          cep:"03694000",
+          num_porta:"2983"
+        }
+      },
+      course: {
+        name: data.course_name, // Pega "ADS"
+        type_formation: data.course_type_formation
+      },
+      begin_year: data.begin_year,  // Exemplo de conversão para 2008
+      end_year: data.end_year, // Exemplo de conversão para 2012
+      period: data.period
+    };
+  
+ 
+}
+document.getElementById('btnContinuarCadastro').addEventListener('click', ()=>{
+ saveUser()
+  saveUserContactsAndExperience()
+}
+)
+
 //----------------------- SAVE -----------------------------
+async function saveUser() {
+  let name=document.getElementById('txtName').value
+
+  await $.ajax({
+    url : serverUrl+'user/'+getUserId(),
+    dataType: "json",
+    processData: true,
+    contentType: 'application/json',
+    method : "PUT",
+    data : `{"name":"${name}"}`,
+})
+.done(async function(){
+  alert("Enviado para análise")
+  window.location.href='./visualizarPerfil.html?profile=' + user.id;
+})
+.fail(function(jqXHR, textStatus, msg){
+  console.log(jqXHR);
+  console.log(textStatus);  
+  console.log(msg);
+  alert(JSON.parse(jqXHR.responseText).message);
+});
+}
+
 async function saveUserContactsAndExperience(){
   let contacts = getDivData("user-contacts");
   let acadExperiences = getDivData("user-academic-exp");
@@ -101,14 +159,16 @@ async function saveUserContactsAndExperience(){
 
   let form_data_egress = new Object();
   form_data_egress.id=idEgresso+''
-  form_data_egress.cpf= cpf
+  form_data_egress.cpf=cpf;
   form_data_egress.phone= telefone
   form_data_egress.isPhonePublic= isTelefonePublico
   form_data_egress.birthdate= dataNasc
   form_data_egress.feedback=feedBack.trim()
 
   form_data_egress.contacts= JSON.parse("["+contacts+"]");
+
   form_data_egress.academic_formation= academic_formation;
+
   form_data_egress.professional_profile=JSON.parse("["+profExperiences+"]");
   //form_data_egress.append('image', image_file);
   
@@ -127,8 +187,8 @@ async function saveUserContactsAndExperience(){
       await $.ajax({
           url : endpoint,
           dataType: "json",
-          processData: false,
-          contentType: false,
+          processData: true,
+          contentType: 'application/json',
           method : "PUT",
           data : JSON.stringify(form_data_egress),
       })

@@ -98,8 +98,8 @@ class EgressController extends Controller
         (new ProfessionalProfileController)->store(
             new StoreProfessionalProfileRequest([
                 'id_profile'    => $egress->id,
-                'begin_year'    => $professionalProfileData['begin_year']   ,
-                'end_year'      => $professionalProfileData['end_year']     ,
+                'initial_date'    => $professionalProfileData['initial_date']   ,
+                'final_date'      => $professionalProfileData['final_date']     ,
                 'area_activity' => $professionalProfileData['area_activity'],
                 'name'          => $professionalProfileData['name']         ,
                 'phone'         => $professionalProfileData['phone']        ,

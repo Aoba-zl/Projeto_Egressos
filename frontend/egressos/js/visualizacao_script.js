@@ -17,8 +17,10 @@ async function init(){
     let profileValue = urlParams.get('profile');
     
     
-    if (user.id != profileValue && user.type_account!="0") {
-        $('#edit-profile').hide();
+    if (user.id != profileValue && user.type_account=="0") {
+console.log("edit button");
+
+       document.getElementById('editProfile').classList.add("d-none");
     }
     document.getElementById('editProfile').addEventListener('click', async function () {
         window.location.href = "./updateEgress.html?profile=" + user.id;
@@ -139,7 +141,7 @@ function criarExibicaoContato(contato){
     link.setAttribute("href",contato.contact);
     link.setAttribute("rel","external");
 
-    switch (contato.name.toUpperCase()) {
+    switch (contato.name_platform.toUpperCase()) {
         case "EMAIL":
             img.setAttribute('alt','ícone do email');
             img.setAttribute('src','./img/social-media-icons/email.svg');
