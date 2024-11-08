@@ -1,3 +1,7 @@
 #btnContinuarCadastro{
     margin-right: 6em;
 }
+
+#user-contact-item > *{
+    pointer-events: none;
+}

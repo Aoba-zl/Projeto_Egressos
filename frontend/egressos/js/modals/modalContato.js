@@ -2,7 +2,11 @@ document.getElementById("btnAddContato").addEventListener("click",()=>{
     abrirModalCadContato();
 });
 
-function abrirModalCadContato(){
+function abrirModalCadContato(e){
+    if(e!=undefined && e.target.classList.contains("btn-remove-item")){
+        return
+    }
+    
     let modalTitle = document.getElementById("modal-title");
     let modalBody = document.getElementById("modal-body");
     let modalFooter = document.getElementById("modal-footer");
@@ -52,7 +56,7 @@ function abrirModalCadContato(){
     btnAdicionar.innerHTML = "Adicionar"
 
     btnAdicionar.addEventListener("click",()=>{
-        adicionarContato();
+        adicionarContato(e);
     });
 
     let btnFechar = document.createElement("button");
@@ -68,7 +72,7 @@ function abrirModalCadContato(){
     exibirModal('#cad-modal');
 }
 
-function adicionarContato(){
+function adicionarContato(e){
     let plataformaId = document.getElementById("slcPlatforma").value;
 
     let plataforma = getSelectText("slcPlatforma");
@@ -112,6 +116,11 @@ function adicionarContato(){
         
         criarExibicaoContato(cont);
         closeModal('#cad-modal');
+        console.log(e);
+        
+        if (e != undefined) {
+            apagarDaTela(e)
+        }
     }else{
         if(platformOK){
             alert("Preencha os dados");
@@ -144,7 +153,7 @@ function criarExibicaoContato(contato){
     lblExcluir.innerHTML = "X"
     lblExcluir.classList.add("btn-remove-item");
     lblExcluir.addEventListener('click',(e)=>{
-        apagarDaTela(e);
+        btnApagarDaTela(e);
     });
 
     let spanData = document.createElement("span");
@@ -155,28 +164,18 @@ function criarExibicaoContato(contato){
     divContatos.appendChild(divNovoContato);
 
     //CASO SEJA EDIÇÃO DE DADOS
-    divContatos.addEventListener('click',()=>{
-        abrirModalCadContato();
-        setTimeout(()=>{},1000);
-
+    divNovoContato.addEventListener('click', (e)=>{
+        if(e.target.classList.contains("btn-remove-item")){
+            return
+        }
+        abrirModalCadContato(e);
         let selectPlataforma=document.getElementById('slcPlatforma')
         let inputContato=document.getElementById('txtLinkContato')
-
-        let element=selectPlataforma.children[5]
-
-        console.log(element);
-
-
-        
-        
-      //  element.selected=true
-        //$("#slcPlataforma").s(contato.id_platform);
+        selectPlataforma.innerHTML=''
+        selectPlataforma.appendChild(criarOption(contato.id_platform,
+        contato.name_platform ? contato.name_platform : contato.plataform_name));
+        selectPlataforma.setAttribute('disabled',true)
         inputContato.value = contato.contact
-      console.log(contato.id_platform);
-      console.log(contato.contact);
-      
-      console.log(selectPlataforma);
-
     });
 }
 

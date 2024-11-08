@@ -100,8 +100,16 @@ function criarOption(value,desc){
 }
 
 function apagarDaTela(e){
-  e.target.parentNode.remove();
+  e.target.remove();
 }
+function btnApagarDaTela(e){
+  let isDeleted=confirm("Deseja realmente excluir este item?")
+  if (isDeleted) {
+    e.target.parentNode.remove();
+  }
+  
+}
+
 //----------------------- MODAL -----------------------------
 function exibirModal(modalId){
   $(modalId).modal('show');

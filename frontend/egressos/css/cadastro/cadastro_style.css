@@ -4,6 +4,13 @@
     padding: 1em;
 }
 
+.user-contact-item > *{
+    pointer-events: none;
+}
+.user-prof-exp-item > *{
+    pointer-events: none;
+}
+
 .mark-red::after{
     content: "**Você precisa aceitar os termos de uso para prosseguir";
     display: block;
@@ -76,6 +83,10 @@ form > *{
     margin-bottom: .3em;
 }
 
+.user-acad-exp-item > *{
+    pointer-events: none;
+}
+
 .user-acad-exp-item > *::after{
     content: ", ";
 }
@@ -112,11 +123,13 @@ form > *{
     color: red;
     float: right;
     transform: translate(-10px,-150%);
+    pointer-events: all !important;
 }
 
 .btn-remove-item-exp{
     color: red;
     float: right;
+    pointer-events: all !important;
 }
 
 .btn-remove-item:hover{

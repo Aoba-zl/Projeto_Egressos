@@ -37,15 +37,35 @@ console.log(experienciaProfissional);
     lblExcluir.innerHTML = "X"
     lblExcluir.classList.add("btn-remove-item-exp");
     lblExcluir.addEventListener('click',(e)=>{
-        apagarDaTela(e);
+        btnApagarDaTela(e);
     });
 
     div.append(spanEmpresa,spanCargo,spanAnoInicio,spanAnoFim,lblExcluir,spanData);
 
     document.getElementById("user-profission-exp").appendChild(div);
+    //CASO SEJA EDIÇÃO DE DADOS
+    div.addEventListener('click', (e)=>{
+      if(e.target.classList.contains("btn-remove-item-exp")){
+        return
+    }
+      abrirModalCadExpProfissional(e)
+      let inputEmpresa = document.getElementById('txtEmpresa')
+      inputEmpresa.value=experienciaProfissional.name
+        loadCompanyData();
+      let inputArea=document.getElementById('txtAreaAtuacao')
+        inputArea.value=experienciaProfissional.area ? experienciaProfissional.area : experienciaProfissional.area_activity
+      let inputInitialDate=document.getElementById('txtAnoInicio')
+      inputInitialDate.value=experienciaProfissional.initial_date.split('T')[0]
+      let inputFinalDate=document.getElementById('txtAnoFim')
+      inputFinalDate.value=experienciaProfissional.final_date.split('T')[0]
+      
+  });
 }
 
-function adicionarExpProfissional(){
+function adicionarExpProfissional(e){
+  if(e!=undefined && e.target.classList.contains("btn-remove-item-exp")){
+    return
+}
     let nomeEmpresa = document.getElementById("txtEmpresa").value; 
     let telefoneEmpresa = document.getElementById("txtTelefone").value; 
     let emailEmpresa = document.getElementById("txtEmail").value;  
@@ -104,12 +124,15 @@ function adicionarExpProfissional(){
 
         criarExibicaoProfExp(expProfissional);
         closeModal('#cad-modal');
+        if (e != undefined) {
+          apagarDaTela(e)
+        }
     }else{
         alert("Preencha os dados acima");
     }
 }
 
-function abrirModalCadExpProfissional(){
+function abrirModalCadExpProfissional(e){
     let modalTitle = document.getElementById("modal-title");
     let modalBody = document.getElementById("modal-body");
     let modalFooter = document.getElementById("modal-footer");
@@ -273,7 +296,7 @@ function abrirModalCadExpProfissional(){
     btnAdicionar.innerHTML = "Adicionar";
 
     btnAdicionar.addEventListener("click",()=>{
-        adicionarExpProfissional();
+        adicionarExpProfissional(e);
     });
 
     let btnFechar = document.createElement("button");

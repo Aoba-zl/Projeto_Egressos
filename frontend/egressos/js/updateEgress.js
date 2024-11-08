@@ -24,9 +24,6 @@ document.getElementById("txtFone").addEventListener("change",()=>{
 
 });
 
-document.getElementById("btnContinuarCadastro").addEventListener("click",()=>{
-    saveUserContactsAndExperience();
-});
 //-------------- Functions -----------------------------
 
 async function carregaDados() {
@@ -132,8 +129,6 @@ async function saveUser() {
     data : `{"name":"${name}"}`,
 })
 .done(async function(){
-  alert("Enviado para análise")
-  window.location.href='./visualizarPerfil.html?profile=' + user.id;
 })
 .fail(function(jqXHR, textStatus, msg){
   console.log(jqXHR);
