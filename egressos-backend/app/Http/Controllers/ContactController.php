@@ -45,16 +45,17 @@ class ContactController extends Controller
      */
     public function update(string $id, Request $request)
     {
-        $contact = Contact::find($id);
-
-        if (!$contact)
-            return response()->json(['message' => 'Contact not found'], 404);
-
         $request->validate([
             'id_platform' => 'required|exists:platforms,id',
             'id_profile' => 'required|exists:egresses,id',
             'contact' => 'required|string|unique:contacts,contact'
         ]);
+        $contact = Contact::find($id);
+
+        if (!$contact)
+            return response()->json(['message' => 'Contact not found'], 404);
+
+
 
         $contact->contact = $request->contact;
         if (!$contact->save())
@@ -69,11 +70,11 @@ class ContactController extends Controller
      */
     public function destroy(string $id)
     {
-        $contact = Contact::find($id);
-
-        if (!$contact) {
-            return response()->json(['message' => 'Contact not found'], 404);
-        }
+        $request->validate([
+            'id_profile' => 'required|exists:contact,id_profile'
+        ]);
+        Contact::where('id_profile', $request->id)
+        ->delete();
 
         if (!$contact->delete())
             return response()->json(['message' => 'Contact delete failed'], 500);

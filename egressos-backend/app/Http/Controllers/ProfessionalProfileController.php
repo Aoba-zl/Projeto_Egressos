@@ -76,23 +76,15 @@ class ProfessionalProfileController extends Controller
     public function destroy(Request $request)
     {
         $request->validate([
-            'id_profile' => 'required',
-            'id_company' => 'required',
+            'id' => 'required|exists:professional_profile,id'
         ]);
 
-        $profile = ProfessionalProfile::where('id_egress', $request->id_profile)
-            ->where('id_company', $request->id_company)->first();
-
-        if ($profile == null)
-            return response()->json([
-                'message' => 'Professional profile not found',
-            ], 404);
-
-        ProfessionalProfile::where('id_egress', $request->id_profile)
-                                ->where('id_company', $request->id_company)->delete();
+        ProfessionalProfile::where('id', $request->id)
+        ->delete();
 
         return response()->json([
             'message' => 'Professional profile successfully deleted',
         ]);
     }
+
 }
