@@ -44,6 +44,24 @@ document.getElementById('entrar').addEventListener('click', async function () {
             sessionStorage.setItem('token', data.access_token);
             sessionStorage.setItem('user',JSON.stringify(data.user));
 
+           
+
+            // Save egress data in session
+            await $.ajax({
+                url : serverUrl + "egresses/" + data.user.id,
+                dataType: "json",
+                contentType: "application/json",
+                method : "GET"
+              })
+              .done(function(msg){
+                setStorage("egress",JSON.stringify(msg));
+              })
+              .fail(function(jqXHR, textStatus, msg){
+                console.log(jqXHR);
+                console.log(textStatus);  
+                console.log(msg);
+              });
+
             // Login successful
             showAlert('Login realizado com sucesso!', 'alert-success');
             window.location.href = "./visualizarPerfil.html?profile=" + data.user.id;

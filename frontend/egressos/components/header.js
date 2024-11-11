@@ -28,6 +28,7 @@ function isLoged() {
     let currentPath = window.location.pathname;
     currentPath = currentPath.replace("/projeto_egressos/frontend/egressos","");
 
+    //console.log(currentPath);
     let token = sessionStorage.getItem('token');
     //console.log(currentPath);
 

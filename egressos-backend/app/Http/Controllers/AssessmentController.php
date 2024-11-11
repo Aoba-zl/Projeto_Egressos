@@ -46,7 +46,11 @@ class AssessmentController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $assessment = Assessment::select('*')
+                        ->where('id_egress',$id)
+                        ->orderBy('created_at','DESC')
+                        ->first();
+        return response()->json($assessment);
     }
 
     /**

@@ -34,6 +34,11 @@ function getUserId(){
   return user.user.id;
 }
 
+function getUserIdPosLogin(){
+  let user = JSON.parse(getStorage("user"));
+  return user.id;
+}
+
 function getEgressId(){
   let egress = JSON.parse(getStorage("egress"));
   return egress.id;
@@ -101,6 +106,26 @@ function criarOption(value,desc){
 
 function apagarDaTela(e){
   e.target.parentNode.remove();
+}
+
+function getStatusDescription(status) {
+  let stat = "";
+  switch (status) {
+    case '0':
+        stat = "Em análise"
+        break;
+    case '1':
+        stat = "Aprovado"
+        break;
+    case '2':
+        stat = "Reprovado"
+        break;
+    default:
+        stat = "___"
+        break;
+  }
+
+  return stat;
 }
 //----------------------- MODAL -----------------------------
 function exibirModal(modalId){

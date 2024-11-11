@@ -90,9 +90,9 @@ class Egress extends Model
                 from professional_profile 
                 group by id_egress)
             ')
+            ->where('egresses.status','1')
             ->paginate($limit); // Pagina automaticamente conforme o limite informado
     }
-
 
     public static function getEgressWithCompanyAndFeedbackById($id)
     {
@@ -105,6 +105,7 @@ class Egress extends Model
             ,'users.id AS user_id'
             ,'users.email'
             ,'users.name'
+            ,'egresses.status as status'
             )
             ->join('users', 'users.id', '=', 'egresses.user_id')
             ->where('user_id',$id)
@@ -123,6 +124,70 @@ class Egress extends Model
 
             $egress->contacts->push($egressPhone);
         }
+
+        unset($egress->phone);
+        unset($egress->phone_is_public);
+
+        $egressFeedback = Feedback::select('*')
+            ->where('id_profile',$egress->id)
+            ->first();
+
+        $egress->feedback = $egressFeedback;
+
+        $egressExpAcad = AcademicFormation::
+            select(
+                'academic_formation.begin_year'
+                ,'academic_formation.end_year'
+                ,'academic_formation.period'
+                ,'institutions.name as institution_name'
+                ,'academic_formation.id_course AS course_id'
+                ,'courses.name as course_name'
+                ,'courses.type_formation as course_type_formation'
+                )
+            ->join('institutions', 'academic_formation.id_institution', '=', 'institutions.id')
+            ->join('courses', 'academic_formation.id_course', '=', 'courses.id')
+            ->where('id_profile',$egress->id)->get();
+        $egress->academic_formation = $egressExpAcad;
+
+        $egressExpProf = ProfessionalProfile::select('*')
+            ->join('companies', 'companies.id', '=', 'professional_profile.id_company')
+            ->where('id_egress',$egress->id)
+            ->get();
+        $egress->professional_experience = $egressExpProf;
+
+        return $egress;
+    }
+
+    public static function getEgressWithCompanyAndFeedbackByIdAdmin($id)
+    {
+        $egress = Egress::select(
+            'egresses.id'
+            ,'egresses.imagePath as image_path'
+            ,'egresses.birthdate'
+            ,'egresses.phone'
+            ,'egresses.cpf'
+            ,'egresses.phone_is_public'
+            ,'users.id AS user_id'
+            ,'users.email'
+            ,'users.name'
+            ,'egresses.status as status'
+            )
+            ->join('users', 'users.id', '=', 'egresses.user_id')
+            ->where('user_id',$id)
+            ->first();
+
+        $egressContacts = Contact::select('*')
+            ->join('platforms', 'contacts.id_platform', '=', 'platforms.id')
+            ->where('id_profile',$egress->id)
+            ->get();
+        $egress->contacts = $egressContacts;
+        
+        
+        $egressPhone = new stdClass();
+        $egressPhone->name = "Telefone";
+        $egressPhone->contact = $egress->phone;
+
+        $egress->contacts->push($egressPhone);
 
         unset($egress->phone);
         unset($egress->phone_is_public);
@@ -179,6 +244,7 @@ class Egress extends Model
                     group by id_profile)
                 '
             )
+            ->where('egresses.status','1')
             ->limit(3)
             ->get();
             return $egresses;
@@ -213,10 +279,57 @@ class Egress extends Model
                 from professional_profile 
                 group by id_egress)
             ')
+            ->where('egresses.status','1')
+            ->paginate($perPage); // Paginação com 4 registros por página (ou customizável)
+    }
+
+    public static function getEgressByNameAndStatus($name, $status, $perPage = 20)
+    {
+        return DB::table('users')
+            ->join('egresses', 'egresses.user_id', '=', 'users.id')
+            ->join('academic_formation','egresses.id','=','academic_formation.id_profile')
+            ->join('courses','courses.id','=','academic_formation.id_course')         
+            ->select(
+                'users.id as id'
+                ,'egresses.imagepath as image_path'
+                ,'users.name as name'
+                ,'courses.name as course'
+                ,'egresses.status as status'
+            )
+            ->where('users.name', 'LIKE', '%' . $name . '%') // Busca pelo nome, utilizando LIKE para parcial match
+            ->where('egresses.status',$status)
             ->paginate($perPage); // Paginação com 4 registros por página (ou customizável)
     }
 
     // Método para obter os egressos aprovados ou reprovados com base no status
+    public static function getApprovedReprovedEgresses($status)
+    {
+        return self::
+        select(
+            'u.id as id'
+            ,'egresses.imagepath as image_path'
+            ,'u.name as name'
+            ,'courses.name as course'
+            ,'egresses.status as status'
+        )
+        ->join('users as u', 'u.id', '=', 'egresses.user_id')
+        ->join('academic_formation','egresses.id','=','academic_formation.id_profile')
+        ->join('courses','courses.id','=','academic_formation.id_course')
+        ->where('egresses.status', '=', $status)
+        ->whereNotIn('u.type_account', ['1', '2'])
+        ->whereRaw(
+            '
+                academic_formation.begin_year in (
+                select distinct max(begin_year) maxD
+                from academic_formation
+                group by id_profile)
+            '
+        )
+        ->orderBy('egresses.created_at','ASC')
+        ->paginate(20);
+    }
+
+    /*
     public static function getApprovedReprovedEgresses($status)
     {
         return self::join('users as u', 'u.id', '=', 'egresses.user_id')
@@ -227,8 +340,30 @@ class Egress extends Model
             ->whereNotIn('u.type_account', ['1', '2'])
             ->get();
     }
+    */
 
     public static function getEgressesUnderAnalysis($perPage){
-        return DB::table('egresses')->where('egresses.status','0')->paginate($perPage);
+        return Egress::
+            select(
+                'users.id as id'
+                ,'egresses.imagepath as image_path'
+                ,'users.name as name'
+                ,'courses.name as course'
+                ,'egresses.status as status'
+            )
+            ->join('users','users.id','=','egresses.user_id')
+            ->join('academic_formation','egresses.id','=','academic_formation.id_profile')
+            ->join('courses','courses.id','=','academic_formation.id_course')
+            ->where('egresses.status','0')
+            ->whereRaw(
+                '
+                    academic_formation.begin_year in (
+                    select distinct max(begin_year) maxD
+                    from academic_formation
+                    group by id_profile)
+                '
+            )
+            ->orderBy('egresses.created_at','ASC')
+            ->paginate(20);
     }
 }
