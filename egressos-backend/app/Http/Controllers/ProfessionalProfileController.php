@@ -34,14 +34,14 @@ class ProfessionalProfileController extends Controller
         else
             $company_id = $company->id;
 
-        $end_year = $request->end_year;
-        if (empty($end_year))
-            $end_year = null;
+            $final_date = $request->final_date;
+        if (empty($final_date))
+        $final_date = null;
 
         $new_professional_profile = ProfessionalProfile::create([
             'id_egress' => $request->id_profile,
-            'initial_date' => $request->begin_year,
-            'final_date' => $end_year,
+            'initial_date' => $request->initial_date,
+            'final_date' => $final_date,
             'area' => $request->area_activity,
             'id_company' => $company_id,
         ]);

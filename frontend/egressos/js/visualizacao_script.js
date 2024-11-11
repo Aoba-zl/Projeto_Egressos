@@ -8,6 +8,24 @@ window.onload = function () {
 async function init(){
     const profileId = new URLSearchParams(window.location.search).get('profile');
     let endpoint = serverUrl + "egresses/"+profileId;
+    let queryString = window.location.search;
+
+    // Cria um objeto URLSearchParams para manipular a query string
+    let urlParams = new URLSearchParams(queryString);
+    
+    // Obtém o valor do parâmetro 'profile'
+    let profileValue = urlParams.get('profile');
+    
+    
+    if (user.id != profileValue && user.type_account=="0") {
+console.log("edit button");
+
+       document.getElementById('editProfile').classList.add("d-none");
+    }
+    document.getElementById('editProfile').addEventListener('click', async function () {
+        window.location.href = "./updateEgress.html?profile=" + user.id;
+    });
+    
 
     await $.ajax({
         url : endpoint,
@@ -24,6 +42,7 @@ async function init(){
         }
 
         let fullName = document.getElementById("aluno-nome-completo");
+        document.title="Egressos - Perfil de "+ msg.name.split(" ")[0];
         fullName.innerHTML = msg.name;
         
         let idade = document.getElementById("aluno-idade");
@@ -80,6 +99,8 @@ async function init(){
     .fail(function(jqXHR, textStatus, msg){
         console.log(jqXHR);
     });
+
+
 }
 
 function criarExibicaoProfExp(experienciaProfissional){
@@ -120,7 +141,7 @@ function criarExibicaoContato(contato){
     link.setAttribute("href",contato.contact);
     link.setAttribute("rel","external");
 
-    switch (contato.name.toUpperCase()) {
+    switch (contato.name_platform.toUpperCase()) {
         case "EMAIL":
             img.setAttribute('alt','ícone do email');
             img.setAttribute('src','./img/social-media-icons/email.svg');

@@ -100,6 +100,7 @@ class Egress extends Model
             'egresses.id'
             ,'egresses.imagePath as image_path'
             ,'egresses.birthdate'
+            ,'egresses.cpf'
             ,'egresses.phone'
             ,'egresses.phone_is_public'
             ,'users.id AS user_id'
@@ -110,7 +111,9 @@ class Egress extends Model
             ->where('user_id',$id)
             ->first();
 
-        $egressContacts = Contact::select('*')
+        $egressContacts = Contact::select([ 'platforms.id as id_platform',
+        'platforms.name as name_platform',
+        'contacts.contact as contact'])
             ->join('platforms', 'contacts.id_platform', '=', 'platforms.id')
             ->where('id_profile',$egress->id)
             ->get();
@@ -123,9 +126,6 @@ class Egress extends Model
 
             $egress->contacts->push($egressPhone);
         }
-
-        unset($egress->phone);
-        unset($egress->phone_is_public);
 
         $egressFeedback = Feedback::select('*')
             ->where('id_profile',$egress->id)
@@ -150,6 +150,7 @@ class Egress extends Model
 
         $egressExpProf = ProfessionalProfile::select('*')
             ->join('companies', 'companies.id', '=', 'professional_profile.id_company')
+            ->join('addresses','addresses.id','=','companies.id_address')
             ->where('id_egress',$egress->id)
             ->get();
         $egress->professional_experience = $egressExpProf;

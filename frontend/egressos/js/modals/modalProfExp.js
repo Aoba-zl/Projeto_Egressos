@@ -5,6 +5,9 @@ document.getElementById("btnAddProfissionalExp").addEventListener("click",()=>{
 function criarExibicaoProfExp(experienciaProfissional){
     let div = document.createElement("div");
     div.classList.add("user-prof-exp-item");
+    console.log("fdggfh");
+    
+console.log(experienciaProfissional);
 
     let spanEmpresa = document.createElement("span");
     let spanCargo = document.createElement("span");
@@ -12,13 +15,16 @@ function criarExibicaoProfExp(experienciaProfissional){
     let spanAnoFim = document.createElement("span");
 
     spanEmpresa.innerHTML = experienciaProfissional.name;
-    spanCargo.innerHTML = experienciaProfissional.area_activity;
-    let dataInicio = new Date(experienciaProfissional.begin_year)
+    spanCargo.innerHTML = experienciaProfissional.area ? experienciaProfissional.area : experienciaProfissional.area_activity
+;
+    let dataInicio = new Date(experienciaProfissional.initial_date)
     spanAnoInicio.innerHTML = dataInicio.getFullYear();
 
-    if(experienciaProfissional.end_year != "" 
-        && experienciaProfissional.end_year != " "){
-        spanAnoFim.innerHTML = experienciaProfissional.end_year;
+    let end_year=experienciaProfissional.final_date
+   
+    if(end_year != "" 
+        && end_year != " " && end_year != undefined){
+        spanAnoFim.innerHTML = end_year;
     }else{
         spanAnoFim.innerHTML = "Atual";
     }
@@ -31,15 +37,35 @@ function criarExibicaoProfExp(experienciaProfissional){
     lblExcluir.innerHTML = "X"
     lblExcluir.classList.add("btn-remove-item-exp");
     lblExcluir.addEventListener('click',(e)=>{
-        apagarDaTela(e);
+        btnApagarDaTela(e);
     });
 
     div.append(spanEmpresa,spanCargo,spanAnoInicio,spanAnoFim,lblExcluir,spanData);
 
     document.getElementById("user-profission-exp").appendChild(div);
+    //CASO SEJA EDIÇÃO DE DADOS
+    div.addEventListener('click', (e)=>{
+      if(e.target.classList.contains("btn-remove-item-exp")){
+        return
+    }
+      abrirModalCadExpProfissional(e)
+      let inputEmpresa = document.getElementById('txtEmpresa')
+      inputEmpresa.value=experienciaProfissional.name
+        loadCompanyData();
+      let inputArea=document.getElementById('txtAreaAtuacao')
+        inputArea.value=experienciaProfissional.area ? experienciaProfissional.area : experienciaProfissional.area_activity
+      let inputInitialDate=document.getElementById('txtAnoInicio')
+      inputInitialDate.value=experienciaProfissional.initial_date.split('T')[0]
+      let inputFinalDate=document.getElementById('txtAnoFim')
+      inputFinalDate.value=experienciaProfissional.final_date.split('T')[0]
+      
+  });
 }
 
-function adicionarExpProfissional(){
+function adicionarExpProfissional(e){
+  if(e!=undefined && e.target.classList.contains("btn-remove-item-exp")){
+    return
+}
     let nomeEmpresa = document.getElementById("txtEmpresa").value; 
     let telefoneEmpresa = document.getElementById("txtTelefone").value; 
     let emailEmpresa = document.getElementById("txtEmail").value;  
@@ -85,8 +111,8 @@ function adicionarExpProfissional(){
         let expProfissional = new Object();
         //expProfissional.empresa = empresa;
         expProfissional.area_activity = areaAtuacao;
-        expProfissional.begin_year = anoInicio;
-        expProfissional.end_year = anoFim;
+        expProfissional.initial_date = anoInicio;
+        expProfissional.final_date = anoFim;
         
         //-----------------------
         expProfissional.name = nomeEmpresa;
@@ -98,12 +124,15 @@ function adicionarExpProfissional(){
 
         criarExibicaoProfExp(expProfissional);
         closeModal('#cad-modal');
+        if (e != undefined) {
+          apagarDaTela(e)
+        }
     }else{
         alert("Preencha os dados acima");
     }
 }
 
-function abrirModalCadExpProfissional(){
+function abrirModalCadExpProfissional(e){
     let modalTitle = document.getElementById("modal-title");
     let modalBody = document.getElementById("modal-body");
     let modalFooter = document.getElementById("modal-footer");
@@ -267,7 +296,7 @@ function abrirModalCadExpProfissional(){
     btnAdicionar.innerHTML = "Adicionar";
 
     btnAdicionar.addEventListener("click",()=>{
-        adicionarExpProfissional();
+        adicionarExpProfissional(e);
     });
 
     let btnFechar = document.createElement("button");

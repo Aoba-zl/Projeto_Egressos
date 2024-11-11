@@ -1,7 +1,7 @@
 const baseURL = "http://localhost:8000/"
 const serverUrl = baseURL + "api/";
 const DATE = new Date();
-
+const user = JSON.parse(sessionStorage.getItem("user"))
 getCsrfToken();
 async function getCsrfToken() {
   if(getCookie('XSRF-TOKEN') == undefined){
@@ -31,7 +31,7 @@ async function generateHash(value) {
 /*  ============== USER ==================    */
 function getUserId(){
   let user = JSON.parse(getStorage("user"));
-  return user.user.id;
+  return user.id;
 }
 
 function getEgressId(){
@@ -100,8 +100,16 @@ function criarOption(value,desc){
 }
 
 function apagarDaTela(e){
-  e.target.parentNode.remove();
+  e.target.remove();
 }
+function btnApagarDaTela(e){
+  let isDeleted=confirm("Deseja realmente excluir este item?")
+  if (isDeleted) {
+    e.target.parentNode.remove();
+  }
+  
+}
+
 //----------------------- MODAL -----------------------------
 function exibirModal(modalId){
   $(modalId).modal('show');
