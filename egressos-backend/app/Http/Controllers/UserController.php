@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
 use App\Http\Requests\StoreUserRequest;
-
+use App\Http\Requests\UpdateUserRequest;
 class UserController extends Controller
 {
     // Exibir a lista de usuários
@@ -87,23 +87,16 @@ class UserController extends Controller
     }
 
     // Atualizar um usuário existente
-    public function update(StoreUserRequest  $request,$id)
+    public function update(UpdateUserRequest  $request,$id)
     {
         $user = User::find($id);
 
         if ($user) {
-            $validatedData = $request->validate([
-                'name' => 'sometimes|string|max:255',
-                'email' => 'sometimes|string|email|max:255|unique:users,email,' . $user->id,
-                'password' => 'sometimes|string|min:8',
-                'type_account' => 'sometimes|integer'
+
+            $user->update([
+                'name'=>$request->name,
+              
             ]);
-
-            if (isset($validatedData['password'])) {
-                $validatedData['password'] = bcrypt($validatedData['password']);
-            }
-
-            $user->update($validatedData);
             return response()->json($user);
         }
 

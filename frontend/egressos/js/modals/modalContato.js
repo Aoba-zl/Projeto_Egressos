@@ -2,7 +2,11 @@ document.getElementById("btnAddContato").addEventListener("click",()=>{
     abrirModalCadContato();
 });
 
-function abrirModalCadContato(){
+function abrirModalCadContato(e){
+    if(e!=undefined && e.target.classList.contains("btn-remove-item")){
+        return
+    }
+    
     let modalTitle = document.getElementById("modal-title");
     let modalBody = document.getElementById("modal-body");
     let modalFooter = document.getElementById("modal-footer");
@@ -52,7 +56,7 @@ function abrirModalCadContato(){
     btnAdicionar.innerHTML = "Adicionar"
 
     btnAdicionar.addEventListener("click",()=>{
-        adicionarContato();
+        adicionarContato(e);
     });
 
     let btnFechar = document.createElement("button");
@@ -68,7 +72,7 @@ function abrirModalCadContato(){
     exibirModal('#cad-modal');
 }
 
-function adicionarContato(){
+function adicionarContato(e){
     let plataformaId = document.getElementById("slcPlatforma").value;
 
     let plataforma = getSelectText("slcPlatforma");
@@ -112,6 +116,11 @@ function adicionarContato(){
         
         criarExibicaoContato(cont);
         closeModal('#cad-modal');
+        console.log(e);
+        
+        if (e != undefined) {
+            apagarDaTela(e)
+        }
     }else{
         if(platformOK){
             alert("Preencha os dados");
@@ -122,6 +131,7 @@ function adicionarContato(){
 }
 
 function criarExibicaoContato(contato){
+
     let divContatos = document.getElementById("user-contacts");
 
     let divNovoContato = document.createElement("div");
@@ -136,14 +146,14 @@ function criarExibicaoContato(contato){
     spanId.classList.add("d-none");
 
     spanId.innerHTML = contato.id_platform;
-    spanPlataform.innerHTML = contato.plataform_name;
+    spanPlataform.innerHTML = contato.plataform_name ? contato.plataform_name : contato.name_platform;
     spanContato.innerHTML = contato.contact;
 
     let lblExcluir = document.createElement("label");
     lblExcluir.innerHTML = "X"
     lblExcluir.classList.add("btn-remove-item");
     lblExcluir.addEventListener('click',(e)=>{
-        apagarDaTela(e);
+        btnApagarDaTela(e);
     });
 
     let spanData = document.createElement("span");
@@ -152,6 +162,21 @@ function criarExibicaoContato(contato){
 
     divNovoContato.append(spanId,spanPlataform,spanContato,lblExcluir,spanData);
     divContatos.appendChild(divNovoContato);
+
+    //CASO SEJA EDIÇÃO DE DADOS
+    divNovoContato.addEventListener('click', (e)=>{
+        if(e.target.classList.contains("btn-remove-item")){
+            return
+        }
+        abrirModalCadContato(e);
+        let selectPlataforma=document.getElementById('slcPlatforma')
+        let inputContato=document.getElementById('txtLinkContato')
+        selectPlataforma.innerHTML=''
+        selectPlataforma.appendChild(criarOption(contato.id_platform,
+        contato.name_platform ? contato.name_platform : contato.plataform_name));
+        selectPlataforma.setAttribute('disabled',true)
+        inputContato.value = contato.contact
+    });
 }
 
 function preencherSelectPlataforma(select){
@@ -164,11 +189,8 @@ function preencherSelectPlataforma(select){
       data : ""
     })
     .done(function(msg){
-        let contatos = document.getElementById("user-contacts").innerHTML;
-        msg.forEach(element => {
-            if(!contatos.includes(element.name)){
-                select.appendChild(criarOption(element.id,element.name));
-            }
+        msg.forEach(element => {           
+            select.appendChild(criarOption(element.id,element.name));            
         });
     })
     .fail(function(jqXHR, textStatus, msg){

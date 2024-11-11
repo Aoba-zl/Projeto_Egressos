@@ -45,7 +45,7 @@ Route::get('egresses/{id}', [EgressController::class, 'show']);
 Route::get('egresses/moderator/{id}', [EgressController::class, 'showAdmin']);
 Route::get('egresses-random', [EgressController::class, 'getRandom']);
 Route::post('/egresses', [EgressController::class , 'store']);
-Route::put('/egresses/{egress}', [EgressController::class , 'update']);
+Route::put('/egresses', [EgressController::class , 'update']);
 Route::delete('/egresses/{egress}', [EgressController::class , 'disable']);
 
 //---------------IMAGES---------------------------

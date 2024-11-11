@@ -26,8 +26,8 @@ class StoreProfessionalProfileRequest extends FormRequest
         return [
             'name'              => ['required', 'string'],
             'area_activity'     => ['required', 'string'],
-            'begin_year'        => ['required', 'date', 'before:' . now(), 'after:01/01/1900'],
-            'end_year'          => ['nullable', 'date', 'after:01/01/1900'],
+            'initial_date'        => ['required', 'date', 'before:' . now(), 'after:01/01/1900'],
+            'final_date'          => ['nullable', 'date', 'after:01/01/1900'],
             'phone'             => ['nullable', 'string' ,'min:10'],
             'email'             => ['nullable', 'email'],
             'site'              => ['nullable', 'string'],

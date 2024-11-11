@@ -2,7 +2,12 @@ document.getElementById("btnAddAcadExp").addEventListener("click",()=>{
     abrirModalCadExpAcademica();
 });
 
-function abrirModalCadExpAcademica(){
+function abrirModalCadExpAcademica(e){
+    if(e!=undefined && e.target.classList.contains("btn-remove-item-exp")){
+        return
+    }
+    console.log(e);
+    
     let modalTitle = document.getElementById("modal-title");
     let modalBody = document.getElementById("modal-body");
     let modalFooter = document.getElementById("modal-footer");
@@ -59,12 +64,12 @@ function abrirModalCadExpAcademica(){
 
     slcTipoFormacao.append(
         criarOption(0,"Escolha uma Formação: ")
-        ,criarOption(1,"Tecnólogo")
-        ,criarOption(2,"Bacharelado")
-        ,criarOption(3,"Mestrado")
-        ,criarOption(4,"Doutorado")
-		    ,criarOption(5,"MBA")
-		    ,criarOption(6,"Pós Doutorado")
+        ,criarOption("Tecnólogo","Tecnólogo")
+        ,criarOption("Bacharelado","Bacharelado")
+        ,criarOption("Mestrado","Mestrado")
+        ,criarOption("Doutorado","Doutorado")
+		    ,criarOption("MBA","MBA")
+		    ,criarOption("Pós Doutorado","Pós Doutorado")
     );
 
     divSelectTipoFormacao.append(lblTipoFormacao,slcTipoFormacao);
@@ -83,10 +88,10 @@ function abrirModalCadExpAcademica(){
 
     slcPeriodo.append(
         criarOption(0,"Escolha um Período: ")
-        ,criarOption(1,"Matutino")
-        ,criarOption(2,"Vespertino")
-        ,criarOption(3,"Noturno")
-        ,criarOption(4,"EAD")
+        ,criarOption("Matutino","Matutino")
+        ,criarOption("Vespertino","Vespertino")
+        ,criarOption("Noturno","Noturno")
+        ,criarOption("EAD","EAD")
     );
 
     divSelectPeriodo.append(lblPeriodo,slcPeriodo);
@@ -129,7 +134,7 @@ function abrirModalCadExpAcademica(){
     btnAdicionar.innerHTML = "Adicionar";
 
     btnAdicionar.addEventListener("click",()=>{
-        adicionarExpAcad();
+        adicionarExpAcad(e);
     });
 
     let btnFechar = document.createElement("button");
@@ -145,7 +150,7 @@ function abrirModalCadExpAcademica(){
     exibirModal('#cad-modal');
 }
 
-function adicionarExpAcad(){
+function adicionarExpAcad(e){
     let instituicao = document.getElementById("txtInstituicao").value;
     let curso = document.getElementById("txtCurso").value;
     let periodo = getSelectText("slcPeriodo");
@@ -181,6 +186,11 @@ function adicionarExpAcad(){
 
         criarExibicaoAcadExp(acadExp);
         closeModal('#cad-modal');
+        if (e!=undefined) {
+            console.log(e.target);
+            
+            apagarDaTela(e)
+        }
     }else{
         alert("Preencha os campos acima");
     }
@@ -194,15 +204,16 @@ function criarExibicaoAcadExp(experienciaAcademica){
     let spanCurso = document.createElement("span");
     let spanAno = document.createElement("span");
 
-    spanInst.innerHTML = experienciaAcademica.institution.name;
-    spanCurso.innerHTML = experienciaAcademica.course.name;
+    spanInst.innerHTML =  experienciaAcademica.institution_name ? experienciaAcademica.institution_name : experienciaAcademica.institution.name;
+    spanCurso.innerHTML = experienciaAcademica.course_name ? experienciaAcademica.course_name :
+    experienciaAcademica.course.name;
     spanAno.innerHTML = experienciaAcademica.end_year;
 
     let lblExcluir = document.createElement("label");
     lblExcluir.innerHTML = "X"
     lblExcluir.classList.add("btn-remove-item-exp");
     lblExcluir.addEventListener('click',(e)=>{
-        apagarDaTela(e);
+        btnApagarDaTela(e);
     });
 
     let lblData = document.createElement("label");
@@ -212,4 +223,21 @@ function criarExibicaoAcadExp(experienciaAcademica){
     div.append(spanInst,spanCurso,spanAno,lblExcluir,lblData);
 
     document.getElementById("user-academic-exp").appendChild(div);
+    //CASO SEJA EDIÇÃO DE DADOS
+    div.addEventListener('click', (e)=>{
+        if(e.target.classList.contains("btn-remove-item-exp")){
+            return
+        }
+       abrirModalCadExpAcademica(e)
+       let inputCurso=document.getElementById('txtCurso')
+       inputCurso.value=experienciaAcademica.course.name
+       let selectPeriod=document.getElementById('slcPeriodo')
+       selectPeriod.value=experienciaAcademica.period
+       let selectTypeFormation=document.getElementById('slcTipoFormacao')
+       selectTypeFormation.value=experienciaAcademica.course.type_formation
+       let inputAnoInicio=document.getElementById('txtAnoInicioFormacao')
+       inputAnoInicio.value=experienciaAcademica.begin_year
+       let inputAnoFim=document.getElementById('txtAnoFormacao')
+       inputAnoFim.value=experienciaAcademica.end_year   
+    });
 }
