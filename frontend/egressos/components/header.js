@@ -24,11 +24,12 @@ function init() {
 init()
 
 function isLoged() {
-    const publicPages = ['/', '/cadastro.html', '/login.html','/cadastro2.html','/visualizarPerfil.html','/buscaDeAlunos.html'];
+    const publicPages = ['/', '/cadastro.html', '/login.html','/cadastro2.html','/visualizarPerfil.html','/buscaDeAlunos.html','/redefinirSenha.html','/novaSenha.html'];
     let currentPath = window.location.pathname;
     currentPath = currentPath.replace("/projeto_egressos/frontend/egressos","");
 
     let token = sessionStorage.getItem('token');
+    //console.log(currentPath);
 
     // Redireciona para a página de login se o token não estiver presente
     // e a página atual não estiver na lista de páginas públicas
