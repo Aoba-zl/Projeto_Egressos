@@ -4,9 +4,9 @@ window.onload = function () {
 
     init();
 }
+const profileId = new URLSearchParams(window.location.search).get('profile');
 
-async function init(){
-    const profileId = new URLSearchParams(window.location.search).get('profile');
+async function init(){   
     let endpoint = serverUrl + "egresses/"+profileId;
     let queryString = window.location.search;
 
@@ -44,13 +44,41 @@ console.log("edit button");
         let fullName = document.getElementById("aluno-nome-completo");
         document.title="Egressos - Perfil de "+ msg.name.split(" ")[0];
         fullName.innerHTML = msg.name;
+
+        let status = document.createElement('div');
+        status.setAttribute("id","statusDescription");
+        status.innerHTML = '<span>Status da conta: ' + 
+            getStatusDescription(msg.status)+"</span>";
+        
+        if(msg.status != 1){
+            fullName.appendChild(status);
+
+            if(msg.status == '2'){
+                status.setAttribute("style","color:red;");
+                let eid = getUserIdPosLogin();
+                if(eid != undefined && eid == profileId){
+                    let btnJustificativa = document.createElement("button");
+                    btnJustificativa.innerHTML = "Ver justificativa";
+                    btnJustificativa.setAttribute("id","btnOpenJustificat");
+                    btnJustificativa.setAttribute("class","btn btn-secondary");
+
+                    btnJustificativa.addEventListener("click",abrirJustificativa);
+
+                    status.appendChild(btnJustificativa);
+                }
+            }
+
+            if(msg.status == '0'){
+                status.setAttribute("style","color:orange;");
+            }
+        }        
         
         let idade = document.getElementById("aluno-idade");
         let now = new Date();
         let birthdate = new Date(msg.birthdate);
         let diferencaEmMilissegundos = now - birthdate;
         
-        const anos = Math.ceil(diferencaEmMilissegundos / (1000 * 60 * 60 * 24 * 365.25));
+        const anos = Math.floor(diferencaEmMilissegundos / (1000 * 60 * 60 * 24 * 365.25));
         idade.innerHTML = anos + " anos";
 
         let curso = document.getElementById("aluno-curso-nome");        
@@ -101,6 +129,27 @@ console.log("edit button");
     });
 
 
+}
+
+async function abrirJustificativa() {
+    let url = serverUrl + "assessment/" + getEgressId();
+    let tArea = document.getElementById("txtDescricao");
+    await $.ajax({
+        url : url,
+        dataType: "json",
+        contentType: "application/json",
+        method : "GET",
+      })
+      .done(function(msg){
+        tArea.value = msg.comment;
+      })
+      .fail(function(jqXHR, textStatus, msg){
+        console.log(jqXHR);
+        console.log(textStatus);  
+        console.log(msg);
+      });
+      
+    exibirModal("#motivo-rejeicao-modal");    
 }
 
 function criarExibicaoProfExp(experienciaProfissional){

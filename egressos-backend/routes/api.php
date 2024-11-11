@@ -40,7 +40,9 @@ Route::get('egresses/aproved-reproved', [EgressController::class, 'getAprovedRep
 Route::get('all-egresses',[EgressController::class,'index']);
 Route::get('egresses/analysis',[EgressController::class,'getEgressesUnderAnalysis']);
 Route::get('egresses', [EgressController::class, 'searchByName']);
+Route::get('egresses/searchwithstatus', [EgressController::class, 'searchByNameAndStatus']);
 Route::get('egresses/{id}', [EgressController::class, 'show']);
+Route::get('egresses/moderator/{id}', [EgressController::class, 'showAdmin']);
 Route::get('egresses-random', [EgressController::class, 'getRandom']);
 Route::post('/egresses', [EgressController::class , 'store']);
 Route::put('/egresses', [EgressController::class , 'update']);
@@ -100,6 +102,7 @@ Route::put('/user/{id}', [UserController::class, 'update']);
 
 //-----------------------------------------------------------------
 //-------------------ASSESSMENT------------------------------------
+Route::get('assessment/{id}',[AssessmentController::class,'show']);
 Route::post('saveAssessment',[AssessmentController::class,'store']);
 
 //----------------------- ADDRESSES -------------------------------
