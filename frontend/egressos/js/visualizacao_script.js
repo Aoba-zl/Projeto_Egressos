@@ -112,9 +112,7 @@ console.log("edit button");
 
         let outrasExpsProf = document.getElementById("exps-profissionais");
         msg.professional_experience.forEach(element => {
-            if(element.final_date != null){
-                outrasExpsProf.appendChild(criarExibicaoProfExp(element));       
-            }
+            outrasExpsProf.appendChild(criarExibicaoProfExp(element));            
         });
 
         let contatos = document.getElementById("divContatos");

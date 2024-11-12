@@ -122,7 +122,7 @@ class Egress extends Model
         
         if($egress->phone_is_public){
             $egressPhone = new stdClass();
-            $egressPhone->name = "Telefone";
+            $egressPhone->name_platform = "Telefone";
             $egressPhone->contact = $egress->phone;
 
             $egress->contacts->push($egressPhone);
@@ -185,7 +185,7 @@ class Egress extends Model
         
         
         $egressPhone = new stdClass();
-        $egressPhone->name = "Telefone";
+        $egressPhone->name_platform = "Telefone";
         $egressPhone->contact = $egress->phone;
 
         $egress->contacts->push($egressPhone);
@@ -305,7 +305,7 @@ class Egress extends Model
     // Método para obter os egressos aprovados ou reprovados com base no status
     public static function getApprovedReprovedEgresses($status)
     {
-        return self::
+        return Egress::
         select(
             'u.id as id'
             ,'egresses.imagepath as image_path'
@@ -320,8 +320,8 @@ class Egress extends Model
         ->whereNotIn('u.type_account', ['1', '2'])
         ->whereRaw(
             '
-                academic_formation.begin_year in (
-                select distinct max(begin_year) maxD
+                academic_formation.created_at in (
+                select distinct max(created_at) maxD
                 from academic_formation
                 group by id_profile)
             '

@@ -104,7 +104,7 @@ function adicionarContato(e){
             platformOK = (contato.includes("https://x.com/"));
             break;    
         default:
-            platformOK = true;
+            platformOK = (contato.includes("https://") || contato.includes("http://"));
             break;
     }
 
