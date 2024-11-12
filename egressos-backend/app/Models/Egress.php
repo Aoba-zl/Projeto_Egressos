@@ -128,6 +128,9 @@ class Egress extends Model
             $egress->contacts->push($egressPhone);
         }
 
+        unset($egress->phone);
+        unset($egress->phone_is_public);
+
         $egressFeedback = Feedback::select('*')
             ->where('id_profile',$egress->id)
             ->first();
@@ -189,9 +192,6 @@ class Egress extends Model
         $egressPhone->contact = $egress->phone;
 
         $egress->contacts->push($egressPhone);
-
-        unset($egress->phone);
-        unset($egress->phone_is_public);
 
         $egressFeedback = Feedback::select('*')
             ->where('id_profile',$egress->id)

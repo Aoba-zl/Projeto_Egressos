@@ -29,7 +29,7 @@ document.getElementById("txtFone").addEventListener("change",()=>{
 async function carregaDados() {
     
     try {
-       const response = await fetch(serverUrl+"egresses/"+user.id)
+       const response = await fetch(serverUrl+"egresses/moderator/"+user.id)
        if (!response.ok) {
         throw new Error('Erro ao buscar dados');
     }
@@ -56,6 +56,13 @@ function preencheCampos(dados) {
     txtName.value = dados.name;
     txtCPF.value=dados.cpf
     txtPhone.value=dados.phone
+
+    if(document.getElementById("txtFone").value.length > 14){
+      $('#txtFone').mask('(00) 00000-0000');
+    }else{
+      $('#txtFone').mask('(00) 0000-0000');
+    }
+
     chkIsPhonePublic.checked=!dados.phone_is_public
     txtBirthDate.value=dados.birthdate.split("T")[0]
     txtFeedback.value=dados.feedback.comment
