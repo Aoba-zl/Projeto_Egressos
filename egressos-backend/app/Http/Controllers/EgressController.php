@@ -80,39 +80,39 @@ class EgressController extends Controller
             ])
         );
 
-    foreach ($request->academic_formation as $academicFormationData)
-        // TODO: Validar se realmente criou
-        (new AcademicFormationController)->store(
-            new StoreAcademicFormationRequest([
-                'id_profile'     => $egress->id,
-                'institution'    => $academicFormationData['institution'],
-                'course'         => $academicFormationData['course'],
-                'begin_year'     => $academicFormationData['begin_year'],
-                'end_year'       => $academicFormationData['end_year'],
-                'period'         => $academicFormationData['period']
-            ])
-        );
+        foreach ($request->academic_formation as $academicFormationData)
+            // TODO: Validar se realmente criou
+            (new AcademicFormationController)->store(
+                new StoreAcademicFormationRequest([
+                    'id_profile'     => $egress->id,
+                    'institution'    => $academicFormationData['institution'],
+                    'course'         => $academicFormationData['course'],
+                    'begin_year'     => $academicFormationData['begin_year'],
+                    'end_year'       => $academicFormationData['end_year'],
+                    'period'         => $academicFormationData['period']
+                ])
+            );
 
-    foreach ($request->professional_profile as $professionalProfileData)
-        // TODO: Validar se realmente criou
-        (new ProfessionalProfileController)->store(
-            new StoreProfessionalProfileRequest([
-                'id_profile'    => $egress->id,
-                'initial_date'    => $professionalProfileData['initial_date']   ,
-                'final_date'      => $professionalProfileData['final_date']     ,
-                'area_activity' => $professionalProfileData['area_activity'],
-                'name'          => $professionalProfileData['name']         ,
-                'phone'         => $professionalProfileData['phone']        ,
-                'site'           => $professionalProfileData['site']          ,
-                'email'         => $professionalProfileData['email']        ,
-                'address'       => $professionalProfileData['address']
-            ])
-        );
+        foreach ($request->professional_profile as $professionalProfileData)
+            // TODO: Validar se realmente criou
+            (new ProfessionalProfileController)->store(
+                new StoreProfessionalProfileRequest([
+                    'id_profile'    => $egress->id,
+                    'initial_date'    => $professionalProfileData['initial_date']   ,
+                    'final_date'      => $professionalProfileData['final_date']     ,
+                    'area_activity' => $professionalProfileData['area_activity'],
+                    'name'          => $professionalProfileData['name']         ,
+                    'phone'         => $professionalProfileData['phone']        ,
+                    'site'           => $professionalProfileData['site']          ,
+                    'email'         => $professionalProfileData['email']        ,
+                    'address'       => $professionalProfileData['address']
+                ])
+            );
 
-        //Salvar feedback
-        $storedFeedback = Feedback::create([
-            "id_profile"=>$egress->id
-            ,"comment"=>$request->feedback]);
+            //Salvar feedback
+            $storedFeedback = Feedback::create([
+                "id_profile"=>$egress->id
+                ,"comment"=>$request->feedback]);
     }
     /*
      * Validate that the request meet all classes
@@ -208,6 +208,12 @@ class EgressController extends Controller
             'phone_is_public'=>$request->isPhonePublic,
             'status'=>'0']);
         
+        foreach ($request->academic_formation as $academicFormationData)
+            Validator::make($academicFormationData, (new StoreAcademicFormationRequest())->rules())->validate();
+
+        foreach ($request->professional_profile as $professionalProfileData)
+            Validator::make($professionalProfileData, (new StoreProfessionalProfileRequest())->rules())->validate();
+            
         $result = $this->storeEgressInfos($request,$egress);
 
         return response()->json([
