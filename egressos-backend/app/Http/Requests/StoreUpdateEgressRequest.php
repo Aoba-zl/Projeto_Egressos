@@ -46,7 +46,7 @@ class StoreUpdateEgressRequest extends FormRequest
             'phone.min' => 'O número de telefone deve conter 10 dígitos.',
             'isPhonePublic.boolean' => 'Se o telefone for publico deve informar em true ou false',
             'birthdate.date' => 'A data de nascimento deve ser uma data válida.',
-            'birthdate.before' => 'A data de nascimento não deve ser desse ano.',
+            'birthdate.before' => 'Egresso deve ter ao menos 18 anos.',
             'birthdate.after' => 'Data de nascimento inválida.',
             'contacts.min' => 'Deve haver ao menos um contato',
             'academic_formation.min'=>'Deve haver ao menos uma formação',
