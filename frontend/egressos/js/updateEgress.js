@@ -63,7 +63,7 @@ function preencheCampos(dados) {
       $('#txtFone').mask('(00) 0000-0000');
     }
 
-    chkIsPhonePublic.checked=!dados.phone_is_public
+    chkIsPhonePublic.checked=dados.phone_is_public
     txtBirthDate.value=dados.birthdate.split("T")[0]
     txtFeedback.value=dados.feedback.comment
     image.setAttribute("src",pathImage)
@@ -71,8 +71,8 @@ function preencheCampos(dados) {
 console.log(dados);
 
     dados.contacts.forEach(contato => {
-      if (contato.name!='Telefone') {
-        criarExibicaoContato(contato)
+      if (contato.name_platform.toUpperCase() != 'TELEFONE') {
+        criarExibicaoContato(contato);
       }
     });
     dados.academic_formation.forEach(formacao=>{
