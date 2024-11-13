@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreAcademicFormationRequest;
+use App\Http\Requests\StoreContactRequest;
 use App\Models\Egress;
 use App\Http\Requests\StoreEgressRequest;
 use App\Http\Requests\StoreUpdateEgressRequest;
@@ -52,7 +53,7 @@ class EgressController extends Controller
         // Valida todos os dados antes de criar qualquer entrada no banco
         $this->validateRequest($request);
 
-        
+
         // TODO: Validar se realmente criou
         $user = (new UserController())->store(
             new StoreUserRequest($request->user)
@@ -73,7 +74,7 @@ class EgressController extends Controller
         foreach ($request->contacts as $contactData)
         // TODO: Validar se realmente criou
         (new ContactController)->store(
-            new Request([
+            new StoreContactRequest([
                 'id_profile'  => $egress->id,
                 'id_platform' => $contactData['id_platform'],
                 'contact'     => $contactData['contact'],
@@ -188,12 +189,12 @@ class EgressController extends Controller
         DB::table('contacts')
             ->where('id_profile',$request->id)
             ->delete();
-            
+
         DB::table('feedback')
             ->where('id_profile',$request->id)
             ->delete();
 
-        $egress = Egress::find($request->id);  
+        $egress = Egress::find($request->id);
         $egress->where('id',$egress->id)
         ->update([
             'cpf'=>$request->cpf,
@@ -201,7 +202,7 @@ class EgressController extends Controller
             'birthdate'=>$request->birthdate,
             'phone_is_public'=>$request->isPhonePublic,
             'status'=>'0']);
-        
+
         $result = $this->storeEgressInfos($request,$egress);
 
         return response()->json([
@@ -216,7 +217,7 @@ class EgressController extends Controller
     {
         //
     }
-  
+
     public function searchByName(Request $request)
     {
         $name = $request->input('name');
@@ -236,14 +237,14 @@ class EgressController extends Controller
 
          // Chama o método na model Egress para obter os dados
          $egresses = Egress::getApprovedReprovedEgresses($status);
-    
+
          return response()->json($egresses);
     }
 
     public function getEgressesUnderAnalysis(Request $request){
         $perPage = $request->input('limit', 4);
         $egresses = Egress::getEgressesUnderAnalysis($perPage);
-      
+
         return response()->json($egresses);
     }
 }

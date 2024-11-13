@@ -52,9 +52,15 @@ class StoreEgressRequest extends FormRequest
             'birthdate.required' => 'A data de nascimento é obrigatório..',
             'birthdate.date' => 'A data de nascimento deve ser uma data válida.',
             'birthdate.before' => 'A data de nascimento não deve ser desse ano.',
-            'birthdate.after' => 'Data de nascimento inválida.',
-            'status.required' => 'O status é obrigatório.',
-            'status.in' => 'O status deve ser 0, 1, 2 ou 3.',
+            'birthdate.after' => 'Data de nascimento é muito antiga, digite uma data mais recente.',
+            'contacts.required' => 'Deve ser fornecido ao menos 1 contato.',
+            'contacts.max' => 'Deve ser cadastrado no máximo 3 contatos por Egresso',
+            'academic_formation.required' => 'Deve ser fornecida ao menos 1 experiência acadêmica',
+            'academic_formation.max' => 'Deve ser cadastrado no máximo 3 experiências acadêmicas por Egresso',
+            'professional_profile.required' => 'Deve ser fornecido ao menos 1 experiência profissional',
+            'professional_profile.max' => 'Deve ser cadastrado no máximo 3 experiências profissionais',
+            'feedback.required' => 'Necessário cadastrar um feedback',
+            'feedback.string' => 'Feedback deve estar no formato string.'
         ];
     }
 }
