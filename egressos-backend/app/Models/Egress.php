@@ -242,14 +242,7 @@ class Egress extends Model
                 'courses.name as course_name',
                 'feedback.comment as feedback_comment'
             )
-            ->whereRaw(
-                '
-                    academic_formation.begin_year in (
-                    select distinct max(begin_year) maxD
-                    from academic_formation
-                    group by id_profile)
-                '
-            )
+            ->where('isFirst',1)
             ->where('egresses.status','1')
             ->limit(3)
             ->get();
@@ -279,12 +272,7 @@ class Egress extends Model
                 ,'egresses.imagePath as image_path'
             )
             ->where('users.name', 'LIKE', '%' . $name . '%') // Busca pelo nome, utilizando LIKE para parcial match
-            ->whereRaw('
-                professional_profile.initial_date in (
-                select distinct max(initial_date) maxD
-                from professional_profile 
-                group by id_egress)
-            ')
+            ->where('isFirst',1)
             ->where('egresses.status','1')
             ->paginate($perPage); // Paginação com 4 registros por página (ou customizável)
     }
@@ -304,6 +292,7 @@ class Egress extends Model
             )
             ->where('users.name', 'LIKE', '%' . $name . '%') // Busca pelo nome, utilizando LIKE para parcial match
             ->where('egresses.status',$status)
+            ->where('isFirst',1)
             ->paginate($perPage); // Paginação com 4 registros por página (ou customizável)
     }
 
@@ -323,14 +312,7 @@ class Egress extends Model
         ->join('courses','courses.id','=','academic_formation.id_course')
         ->where('egresses.status', '=', $status)
         ->whereNotIn('u.type_account', ['1', '2'])
-        ->whereRaw(
-            '
-                academic_formation.created_at in (
-                select distinct max(created_at) maxD
-                from academic_formation
-                group by id_profile)
-            '
-        )
+        ->where('isFirst',1)
         ->orderBy('egresses.created_at','ASC')
         ->paginate(20);
     }
@@ -369,6 +351,7 @@ class Egress extends Model
                     group by id_profile)
                 '
             )
+            ->where('isFirst',1)
             ->orderBy('egresses.created_at','ASC')
             ->paginate(20);
     }

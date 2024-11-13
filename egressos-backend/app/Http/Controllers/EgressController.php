@@ -79,19 +79,34 @@ class EgressController extends Controller
                 'contact'     => $contactData['contact'],
             ])
         );
-
+        $firstFormation = true;
         foreach ($request->academic_formation as $academicFormationData)
             // TODO: Validar se realmente criou
-            (new AcademicFormationController)->store(
-                new StoreAcademicFormationRequest([
-                    'id_profile'     => $egress->id,
-                    'institution'    => $academicFormationData['institution'],
-                    'course'         => $academicFormationData['course'],
-                    'begin_year'     => $academicFormationData['begin_year'],
-                    'end_year'       => $academicFormationData['end_year'],
-                    'period'         => $academicFormationData['period']
-                ])
-            );
+            if($firstFormation){
+                (new AcademicFormationController)->store(
+                    new StoreAcademicFormationRequest([
+                        'id_profile'     => $egress->id,
+                        'institution'    => $academicFormationData['institution'],
+                        'course'         => $academicFormationData['course'],
+                        'begin_year'     => $academicFormationData['begin_year'],
+                        'end_year'       => $academicFormationData['end_year'],
+                        'period'         => $academicFormationData['period'],
+                        'isFirst'        => '1'
+                    ])
+                );
+                $firstFormation = false;
+            }else{
+                (new AcademicFormationController)->store(
+                    new StoreAcademicFormationRequest([
+                        'id_profile'     => $egress->id,
+                        'institution'    => $academicFormationData['institution'],
+                        'course'         => $academicFormationData['course'],
+                        'begin_year'     => $academicFormationData['begin_year'],
+                        'end_year'       => $academicFormationData['end_year'],
+                        'period'         => $academicFormationData['period']
+                    ])
+                );
+            }
 
         foreach ($request->professional_profile as $professionalProfileData)
             // TODO: Validar se realmente criou
@@ -263,7 +278,7 @@ class EgressController extends Controller
     }
 
     public function getEgressesUnderAnalysis(Request $request){
-        $perPage = $request->input('limit', 4);
+        $perPage = $request->input('limit', 20);
         $egresses = Egress::getEgressesUnderAnalysis($perPage);
       
         return response()->json($egresses);

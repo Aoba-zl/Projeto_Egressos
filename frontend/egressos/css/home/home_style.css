@@ -52,8 +52,8 @@ body{
 
 /* ------- section depoimentos ------------- */
 .imgPerfil{
-    width: 150px;
-    height: 150px;
+    width: 200px;
+    height: 200px;
     border-radius: 10%;
     outline: 2px solid black;
     outline-offset: 3px;
@@ -62,6 +62,10 @@ body{
 .depoimento-card{
     cursor: pointer;
     transition: transform .5s;
+}
+
+.nomeAluno{
+    font-size: 1.5em;
 }
 
 .depoimento-card:hover{
