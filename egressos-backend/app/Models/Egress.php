@@ -91,6 +91,7 @@ class Egress extends Model
                 group by id_egress)
             ')
             ->where('egresses.status','1')
+            ->where('isFirst',1)
             ->paginate($limit); // Pagina automaticamente conforme o limite informado
     }
 
