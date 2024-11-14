@@ -15,7 +15,8 @@ class ProfessionalProfile extends Model
         'id_egress',
         'initial_date',
         'final_date',
-        'area'
+        'area',
+        'isFirst'
     ];
 
     // Relacionamento com Company

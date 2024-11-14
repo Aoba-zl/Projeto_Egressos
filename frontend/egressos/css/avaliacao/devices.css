@@ -1,21 +1,21 @@
 @charset "UTF-8";
 
 @media only screen and (max-width: 768px) {
-    #txtSearchAluno{
-        width: 55vw;
+    #divImgPerfil img {
+        width: 92vw;
+        height: 90vw;
+        margin-bottom: 1em;
+        border-radius: 10px;
     }
 
-    .aluno-card{
-        width: 87vw;
+    .egresso-contato{
+        display: block !important;
+        width: 90vw !important;
     }
 
-    .img-aluno-card img{
-        width: 20vw;
-        height: 20vw;
-    }
-
-    #divPaginacao{
-        display: block;
+    #btnContinuar{
+        margin-top: 0% !important;
+        width: 100%;
     }
 }
 
@@ -24,13 +24,9 @@
 }
 
 @media only screen and (max-width: 992px) and (min-width:768px){
-    .aluno-card{
-        width: 87vw;
-    }
+    
 }
 
 @media only screen and (min-width: 993px) and  (max-width: 1281px){
-    .aluno-card{
-        width: 87vw;
-    }
+   
 } 

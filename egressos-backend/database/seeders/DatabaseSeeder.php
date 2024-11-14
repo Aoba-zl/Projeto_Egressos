@@ -24,6 +24,7 @@ class DatabaseSeeder extends Seeder
             ,FeedbackTableSeeder::class
             ,CoursesSeeder::class
             ,AcademicFormationSeeder::class
+            ,AssessmentsSeeder::class
         ]);
     }
 }
