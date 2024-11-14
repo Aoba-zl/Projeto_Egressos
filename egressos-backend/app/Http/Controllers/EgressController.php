@@ -107,22 +107,40 @@ class EgressController extends Controller
                     ])
                 );
             }
-
+        $firstFormation = true;
         foreach ($request->professional_profile as $professionalProfileData)
             // TODO: Validar se realmente criou
-            (new ProfessionalProfileController)->store(
-                new StoreProfessionalProfileRequest([
-                    'id_profile'    => $egress->id,
-                    'initial_date'    => $professionalProfileData['initial_date']   ,
-                    'final_date'      => $professionalProfileData['final_date']     ,
-                    'area_activity' => $professionalProfileData['area_activity'],
-                    'name'          => $professionalProfileData['name']         ,
-                    'phone'         => $professionalProfileData['phone']        ,
-                    'site'           => $professionalProfileData['site']          ,
-                    'email'         => $professionalProfileData['email']        ,
-                    'address'       => $professionalProfileData['address']
-                ])
-            );
+            if($firstFormation){
+                (new ProfessionalProfileController)->store(
+                    new StoreProfessionalProfileRequest([
+                        'id_profile'    => $egress->id,
+                        'initial_date'    => $professionalProfileData['initial_date']   ,
+                        'final_date'      => $professionalProfileData['final_date']     ,
+                        'area_activity' => $professionalProfileData['area_activity'],
+                        'name'          => $professionalProfileData['name']         ,
+                        'phone'         => $professionalProfileData['phone']        ,
+                        'site'           => $professionalProfileData['site']          ,
+                        'email'         => $professionalProfileData['email']        ,
+                        'address'       => $professionalProfileData['address'],
+                        'isFirst'        => '1'
+                    ])
+                );
+                $firstFormation = false;
+            }else{
+                (new ProfessionalProfileController)->store(
+                    new StoreProfessionalProfileRequest([
+                        'id_profile'    => $egress->id,
+                        'initial_date'    => $professionalProfileData['initial_date']   ,
+                        'final_date'      => $professionalProfileData['final_date']     ,
+                        'area_activity' => $professionalProfileData['area_activity'],
+                        'name'          => $professionalProfileData['name']         ,
+                        'phone'         => $professionalProfileData['phone']        ,
+                        'site'           => $professionalProfileData['site']          ,
+                        'email'         => $professionalProfileData['email']        ,
+                        'address'       => $professionalProfileData['address']
+                    ])
+                );
+            }
 
             //Salvar feedback
             $storedFeedback = Feedback::create([
