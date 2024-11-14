@@ -94,7 +94,7 @@ function criarExibicaoContato(contato){
     let spanRede = document.createElement("span");
     let spanContato = document.createElement("span");
 
-    spanRede.innerHTML = contato.name;
+    spanRede.innerHTML = contato.name_platform;
     spanContato.innerHTML = contato.contact;
 
     div.append(spanRede,spanContato)
