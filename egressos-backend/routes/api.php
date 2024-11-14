@@ -89,10 +89,10 @@ Route::get('/course/search', [CourseController::class, 'searchByName']);
 
 //-----------------------------------------------------------------
 //------------------------Contact----------------------------------
-Route::get('/contact',[ContactController::class,'index']);
+Route::get('/contact/{user_id}',[ContactController::class,'index']);
 Route::post('/contact',[ContactController::class,'store']);
 Route::put('/contact',[ContactController::class,'update']);
-Route::delete('/contact',[ContactController::class,'destroy']);
+Route::delete('/contact/{id}',[ContactController::class,'destroy']);
 
 //-----------------------------------------------------------------
 //----------------------- USERS -----------------------------------

@@ -51,10 +51,11 @@ class StoreEgressRequest extends FormRequest
             'phone.digits' => 'O número de telefone deve conter 11 dígitos.',
             'birthdate.required' => 'A data de nascimento é obrigatório..',
             'birthdate.date' => 'A data de nascimento deve ser uma data válida.',
-            'birthdate.before' => 'A data de nascimento não deve ser desse ano.',
+            'birthdate.before' => 'Você deve ter no mínimo 18 anos',
             'birthdate.after' => 'Data de nascimento inválida.',
             'status.required' => 'O status é obrigatório.',
             'status.in' => 'O status deve ser 0, 1, 2 ou 3.',
+            'academic_formation.max' => 'Você só pode cadastrar 3 Experiências Acadêmicas'
         ];
     }
 }
