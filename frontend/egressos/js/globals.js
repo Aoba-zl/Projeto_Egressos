@@ -2,6 +2,8 @@ const baseURL = "http://localhost:8000/"
 const serverUrl = baseURL + "api/";
 const DATE = new Date();
 const user = JSON.parse(sessionStorage.getItem("user"))
+const limiteDoFeedback = 361;
+
 getCsrfToken();
 async function getCsrfToken() {
   if(getCookie('XSRF-TOKEN') == undefined){
