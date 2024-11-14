@@ -10,5 +10,7 @@ return [
     ,'STATUS_APROVED'        => '1'
     ,'STATUS_REPROVED'       => '2'
     ,'STATUS_INACTIVE'       => '3'
+    # URL Frond-end
+    , 'URL_FRONT' => 'http://localhost:5500'
 ];
 ?>
