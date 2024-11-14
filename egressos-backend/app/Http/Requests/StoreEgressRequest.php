@@ -58,7 +58,7 @@ class StoreEgressRequest extends FormRequest
             'professional_profile.required' => 'Deve ser fornecido ao menos 1 experiência profissional',
             'professional_profile.max' => 'Deve ser cadastrado no máximo 3 experiências profissionais',
             'feedback.required' => 'Necessário cadastrar um feedback',
-            'feedback.string' => 'Feedback deve estar no formato string.'
+            'feedback.string' => 'Feedback deve estar no formato string.',
             'birthdate.before' => 'Você deve ter no mínimo 18 anos',
             'birthdate.after' => 'Data de nascimento inválida.',
             'academic_formation.max' => 'Você só pode cadastrar 3 Experiências Acadêmicas'
