@@ -55,6 +55,8 @@ body{
     width: 200px;
     height: 200px;
     border-radius: 10%;
+    object-fit: cover;
+    object-position: center;
     outline: 2px solid black;
     outline-offset: 3px;
 }
