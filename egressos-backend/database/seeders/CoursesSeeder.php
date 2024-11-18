@@ -40,6 +40,12 @@ class CoursesSeeder extends Seeder
                 'updated_at' => now(),
             ]
             ,[
+                'name' => '[LOG] Logística',
+                'type_formation' => 'Tecnólogo',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]
+            ,[
                 'name' => '[RH] Gestão de Recursos Humanos',
                 'type_formation' => 'Tecnólogo',
                 'created_at' => now(),
@@ -47,12 +53,6 @@ class CoursesSeeder extends Seeder
             ]
             ,[
                 'name' => '[???] Gestão Empresarial',
-                'type_formation' => 'Tecnólogo',
-                'created_at' => now(),
-                'updated_at' => now(),
-            ]
-            ,[
-                'name' => '[LOG] Logística',
                 'type_formation' => 'Tecnólogo',
                 'created_at' => now(),
                 'updated_at' => now(),
