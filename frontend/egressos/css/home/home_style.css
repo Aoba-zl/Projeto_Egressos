@@ -126,13 +126,15 @@ body{
     border: 2px solid black;
     border-radius: 20px;
     display: inline-block;
-    padding: 1em 3em;
     margin: 2em;
     width: 20vw;
+    height: 12vw;
+    overflow: auto;
 }
 
 .event-card span{
     display: block;
     text-align: center;
     margin: .5em;
+    margin-bottom: .7em;
 }
