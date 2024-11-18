@@ -78,6 +78,16 @@ document.getElementById('entrar').addEventListener('click', async function () {
     }
 });
 
+document.getElementById("forgotPasswd").addEventListener("click", (e)=>{
+    e.preventDefault();
+    exibirModal("#redefinir-senha-modal");
+});
+
+document.getElementById("btnResetPasswd").addEventListener("click", (e)=>{
+    e.preventDefault();
+    alert("email enviado ????");
+});
+
 function showAlert(message, alertType) {
     const alertPlaceholder = document.createElement('div');
     alertPlaceholder.className = `alert ${alertType} mt-3`;
@@ -89,3 +99,5 @@ function showAlert(message, alertType) {
         alertPlaceholder.remove();
     }, 5000);
 }
+
+
