@@ -39,6 +39,9 @@ nav > *{
     border: 2px solid black;
 }
 
+.disp-none{
+    display: none !important;
+}
 footer{
     background-color: #ffffff;
     margin-bottom: 0;

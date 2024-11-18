@@ -91,6 +91,7 @@ class Egress extends Model
                 group by id_egress)
             ')
             ->where('egresses.status','1')
+            ->where('isFirst',1)
             ->paginate($limit); // Pagina automaticamente conforme o limite informado
     }
 
@@ -122,11 +123,14 @@ class Egress extends Model
         
         if($egress->phone_is_public){
             $egressPhone = new stdClass();
-            $egressPhone->name = "Telefone";
+            $egressPhone->name_platform = "Telefone";
             $egressPhone->contact = $egress->phone;
 
             $egress->contacts->push($egressPhone);
         }
+
+        unset($egress->phone);
+        unset($egress->phone_is_public);
 
         $egressFeedback = Feedback::select('*')
             ->where('id_profile',$egress->id)
@@ -177,7 +181,11 @@ class Egress extends Model
             ->where('user_id',$id)
             ->first();
 
-        $egressContacts = Contact::select('*')
+        $egressContacts = Contact::select([ 
+            'platforms.id as id_platform',
+            'platforms.name as name_platform',
+            'contacts.contact as contact'
+            ])
             ->join('platforms', 'contacts.id_platform', '=', 'platforms.id')
             ->where('id_profile',$egress->id)
             ->get();
@@ -185,13 +193,10 @@ class Egress extends Model
         
         
         $egressPhone = new stdClass();
-        $egressPhone->name = "Telefone";
+        $egressPhone->name_platform = "Telefone";
         $egressPhone->contact = $egress->phone;
 
         $egress->contacts->push($egressPhone);
-
-        unset($egress->phone);
-        unset($egress->phone_is_public);
 
         $egressFeedback = Feedback::select('*')
             ->where('id_profile',$egress->id)
@@ -216,6 +221,7 @@ class Egress extends Model
 
         $egressExpProf = ProfessionalProfile::select('*')
             ->join('companies', 'companies.id', '=', 'professional_profile.id_company')
+            ->join('addresses','addresses.id','=','companies.id_address')
             ->where('id_egress',$egress->id)
             ->get();
         $egress->professional_experience = $egressExpProf;
@@ -237,14 +243,7 @@ class Egress extends Model
                 'courses.name as course_name',
                 'feedback.comment as feedback_comment'
             )
-            ->whereRaw(
-                '
-                    academic_formation.begin_year in (
-                    select distinct max(begin_year) maxD
-                    from academic_formation
-                    group by id_profile)
-                '
-            )
+            ->where('isFirst',1)
             ->where('egresses.status','1')
             ->limit(3)
             ->get();
@@ -274,12 +273,7 @@ class Egress extends Model
                 ,'egresses.imagePath as image_path'
             )
             ->where('users.name', 'LIKE', '%' . $name . '%') // Busca pelo nome, utilizando LIKE para parcial match
-            ->whereRaw('
-                professional_profile.initial_date in (
-                select distinct max(initial_date) maxD
-                from professional_profile 
-                group by id_egress)
-            ')
+            ->where('isFirst',1)
             ->where('egresses.status','1')
             ->paginate($perPage); // Paginação com 4 registros por página (ou customizável)
     }
@@ -299,13 +293,14 @@ class Egress extends Model
             )
             ->where('users.name', 'LIKE', '%' . $name . '%') // Busca pelo nome, utilizando LIKE para parcial match
             ->where('egresses.status',$status)
+            ->where('isFirst',1)
             ->paginate($perPage); // Paginação com 4 registros por página (ou customizável)
     }
 
     // Método para obter os egressos aprovados ou reprovados com base no status
     public static function getApprovedReprovedEgresses($status)
     {
-        return self::
+        return Egress::
         select(
             'u.id as id'
             ,'egresses.imagepath as image_path'
@@ -318,14 +313,7 @@ class Egress extends Model
         ->join('courses','courses.id','=','academic_formation.id_course')
         ->where('egresses.status', '=', $status)
         ->whereNotIn('u.type_account', ['1', '2'])
-        ->whereRaw(
-            '
-                academic_formation.begin_year in (
-                select distinct max(begin_year) maxD
-                from academic_formation
-                group by id_profile)
-            '
-        )
+        ->where('isFirst',1)
         ->orderBy('egresses.created_at','ASC')
         ->paginate(20);
     }
@@ -364,6 +352,7 @@ class Egress extends Model
                     group by id_profile)
                 '
             )
+            ->where('isFirst',1)
             ->orderBy('egresses.created_at','ASC')
             ->paginate(20);
     }

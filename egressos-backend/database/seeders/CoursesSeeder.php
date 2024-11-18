@@ -46,7 +46,7 @@ class CoursesSeeder extends Seeder
                 'updated_at' => now(),
             ]
             ,[
-                'name' => '[???] Gestão Empresarial',
+                'name' => '[GE] Gestão Empresarial',
                 'type_formation' => 'Tecnólogo',
                 'created_at' => now(),
                 'updated_at' => now(),
@@ -58,11 +58,11 @@ class CoursesSeeder extends Seeder
                 'updated_at' => now(),
             ]
             ,[
-                'name' => '[???] Polímeros',
+                'name' => '[POLI] Polímeros',
                 'type_formation' => 'Tecnólogo',
                 'created_at' => now(),
                 'updated_at' => now(),
-            ]            
+            ]
         ]);
     }
 }

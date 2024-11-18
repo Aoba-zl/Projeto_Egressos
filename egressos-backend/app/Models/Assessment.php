@@ -24,13 +24,17 @@ class Assessment extends Model
             return $this->belongsTo(Egress::class, 'id_egress');
         }
         public static function saveAssessment($assessment,$status){
-            Assessment::create([
-                "id_moderator_admi" => $assessment['id_moderator_admi']
-                , "id_egress" => $assessment['id_egress']
-                , "comment" => $assessment['comment']
-            ]);
-            Egress::where('id', $assessment['id_egress'])
-            ->update(['status' => $status]);
-      
+            $admin = User::find($assessment['id_moderator_admi']);
+            if($admin->type_account){
+                Assessment::create([
+                    "id_moderator_admi" => $assessment['id_moderator_admi']
+                    , "id_egress" => $assessment['id_egress']
+                    , "comment" => $assessment['comment']
+                ]);
+                Egress::where('id', $assessment['id_egress'])
+                ->update(['status' => $status]);
+                return true;
+            }
+            return false;
         }
 }

@@ -64,7 +64,11 @@ document.getElementById('entrar').addEventListener('click', async function () {
 
             // Login successful
             showAlert('Login realizado com sucesso!', 'alert-success');
-            window.location.href = "./visualizarPerfil.html?profile=" + data.user.id;
+            if(data.user.type_account == 0){
+                window.location.href = "./visualizarPerfil.html?profile=" + data.user.id;
+            }else{
+                window.location.href = "./homemoderador.html";
+            }
         } else {
             // Login failed, show error message from the API
             showAlert(data.message || 'Falha ao realizar login', 'alert-danger');

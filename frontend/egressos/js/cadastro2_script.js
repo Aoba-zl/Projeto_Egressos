@@ -77,7 +77,7 @@ async function saveUserContactsAndExperience(){
   let cpfOk = cpf.length > 10;
   let foneOk = telefone.length > 8;
   let dataNOk = dataNasc.length > 8;
-  let feedBackOk = feedBack.trim().length > 2;
+  let feedBackOk = feedBack.trim().length > 2 && feedBack.trim().length < limiteDoFeedback;
 
   if(cpfOk && foneOk && dataNOk && feedBackOk && image_file){    
     let endpoint = serverUrl + "egresses";
@@ -133,7 +133,7 @@ async function saveUserContactsAndExperience(){
     } else if (!image_file){
       alert("Escolha uma imagem!");
     }else{
-      alert("Escreva um feedback");
+      alert("Escreva um feedback.\n O feedback deve ter até "+(limiteDoFeedback-1)+" caracteres, seu feedback tem "+feedBack.trim().length+" caracteres");
     }
   } 
 }

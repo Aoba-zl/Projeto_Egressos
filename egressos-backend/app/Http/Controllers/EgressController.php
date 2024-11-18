@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreAcademicFormationRequest;
+use App\Http\Requests\StoreContactRequest;
 use App\Models\Egress;
 use App\Http\Requests\StoreEgressRequest;
 use App\Http\Requests\StoreUpdateEgressRequest;
@@ -52,7 +53,7 @@ class EgressController extends Controller
         // Valida todos os dados antes de criar qualquer entrada no banco
         $this->validateRequest($request);
 
-        
+
         // TODO: Validar se realmente criou
         $user = (new UserController())->store(
             new StoreUserRequest($request->user)
@@ -73,46 +74,79 @@ class EgressController extends Controller
         foreach ($request->contacts as $contactData)
         // TODO: Validar se realmente criou
         (new ContactController)->store(
-            new Request([
+            new StoreContactRequest([
                 'id_profile'  => $egress->id,
                 'id_platform' => $contactData['id_platform'],
                 'contact'     => $contactData['contact'],
             ])
         );
+        $firstFormation = true;
+        foreach ($request->academic_formation as $academicFormationData)
+            // TODO: Validar se realmente criou
+            if($firstFormation){
+                (new AcademicFormationController)->store(
+                    new StoreAcademicFormationRequest([
+                        'id_profile'     => $egress->id,
+                        'institution'    => $academicFormationData['institution'],
+                        'course'         => $academicFormationData['course'],
+                        'begin_year'     => $academicFormationData['begin_year'],
+                        'end_year'       => $academicFormationData['end_year'],
+                        'period'         => $academicFormationData['period'],
+                        'isFirst'        => '1'
+                    ])
+                );
+                $firstFormation = false;
+            }else{
+                (new AcademicFormationController)->store(
+                    new StoreAcademicFormationRequest([
+                        'id_profile'     => $egress->id,
+                        'institution'    => $academicFormationData['institution'],
+                        'course'         => $academicFormationData['course'],
+                        'begin_year'     => $academicFormationData['begin_year'],
+                        'end_year'       => $academicFormationData['end_year'],
+                        'period'         => $academicFormationData['period']
+                    ])
+                );
+            }
+        $firstFormation = true;
+        foreach ($request->professional_profile as $professionalProfileData)
+            // TODO: Validar se realmente criou
+            if($firstFormation){
+                (new ProfessionalProfileController)->store(
+                    new StoreProfessionalProfileRequest([
+                        'id_profile'    => $egress->id,
+                        'initial_date'    => $professionalProfileData['initial_date']   ,
+                        'final_date'      => $professionalProfileData['final_date']     ,
+                        'area_activity' => $professionalProfileData['area_activity'],
+                        'name'          => $professionalProfileData['name']         ,
+                        'phone'         => $professionalProfileData['phone']        ,
+                        'site'           => $professionalProfileData['site']          ,
+                        'email'         => $professionalProfileData['email']        ,
+                        'address'       => $professionalProfileData['address'],
+                        'isFirst'        => '1'
+                    ])
+                );
+                $firstFormation = false;
+            }else{
+                (new ProfessionalProfileController)->store(
+                    new StoreProfessionalProfileRequest([
+                        'id_profile'    => $egress->id,
+                        'initial_date'    => $professionalProfileData['initial_date']   ,
+                        'final_date'      => $professionalProfileData['final_date']     ,
+                        'area_activity' => $professionalProfileData['area_activity'],
+                        'name'          => $professionalProfileData['name']         ,
+                        'phone'         => $professionalProfileData['phone']        ,
+                        'site'           => $professionalProfileData['site']          ,
+                        'email'         => $professionalProfileData['email']        ,
+                        'address'       => $professionalProfileData['address']
+                    ])
+                );
+            }
 
-    foreach ($request->academic_formation as $academicFormationData)
-        // TODO: Validar se realmente criou
-        (new AcademicFormationController)->store(
-            new StoreAcademicFormationRequest([
-                'id_profile'     => $egress->id,
-                'institution'    => $academicFormationData['institution'],
-                'course'         => $academicFormationData['course'],
-                'begin_year'     => $academicFormationData['begin_year'],
-                'end_year'       => $academicFormationData['end_year'],
-                'period'         => $academicFormationData['period']
-            ])
-        );
-
-    foreach ($request->professional_profile as $professionalProfileData)
-        // TODO: Validar se realmente criou
-        (new ProfessionalProfileController)->store(
-            new StoreProfessionalProfileRequest([
-                'id_profile'    => $egress->id,
-                'initial_date'    => $professionalProfileData['initial_date']   ,
-                'final_date'      => $professionalProfileData['final_date']     ,
-                'area_activity' => $professionalProfileData['area_activity'],
-                'name'          => $professionalProfileData['name']         ,
-                'phone'         => $professionalProfileData['phone']        ,
-                'site'           => $professionalProfileData['site']          ,
-                'email'         => $professionalProfileData['email']        ,
-                'address'       => $professionalProfileData['address']
-            ])
-        );
-
-        //Salvar feedback
-        $storedFeedback = Feedback::create([
-            "id_profile"=>$egress->id
-            ,"comment"=>$request->feedback]);
+            //Salvar feedback
+            $storedFeedback = Feedback::create([
+                "id_profile"=>$egress->id
+                ,"comment"=>$request->feedback]);
     }
     /*
      * Validate that the request meet all classes
@@ -194,12 +228,12 @@ class EgressController extends Controller
         DB::table('contacts')
             ->where('id_profile',$request->id)
             ->delete();
-            
+
         DB::table('feedback')
             ->where('id_profile',$request->id)
             ->delete();
 
-        $egress = Egress::find($request->id);  
+        $egress = Egress::find($request->id);
         $egress->where('id',$egress->id)
         ->update([
             'cpf'=>$request->cpf,
@@ -208,6 +242,12 @@ class EgressController extends Controller
             'phone_is_public'=>$request->isPhonePublic,
             'status'=>'0']);
         
+        foreach ($request->academic_formation as $academicFormationData)
+            Validator::make($academicFormationData, (new StoreAcademicFormationRequest())->rules())->validate();
+
+        foreach ($request->professional_profile as $professionalProfileData)
+            Validator::make($professionalProfileData, (new StoreProfessionalProfileRequest())->rules())->validate();
+
         $result = $this->storeEgressInfos($request,$egress);
 
         return response()->json([
@@ -222,7 +262,7 @@ class EgressController extends Controller
     {
         //
     }
-  
+
     public function searchByName(Request $request)
     {
         $name = $request->input('name');
@@ -252,14 +292,14 @@ class EgressController extends Controller
          
          // Chama o método na model Egress para obter os dados
          $egresses = Egress::getApprovedReprovedEgresses($status);
-    
+
          return response()->json($egresses);
     }
 
     public function getEgressesUnderAnalysis(Request $request){
-        $perPage = $request->input('limit', 4);
+        $perPage = $request->input('limit', 20);
         $egresses = Egress::getEgressesUnderAnalysis($perPage);
-      
+
         return response()->json($egresses);
     }
 }

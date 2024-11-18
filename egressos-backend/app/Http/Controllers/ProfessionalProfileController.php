@@ -38,12 +38,19 @@ class ProfessionalProfileController extends Controller
         if (empty($final_date))
         $final_date = null;
 
+        $isFirst = false;
+        
+        if($request->isFirst != null){
+            $isFirst = $request->isFirst;
+        }
+
         $new_professional_profile = ProfessionalProfile::create([
             'id_egress' => $request->id_profile,
             'initial_date' => $request->initial_date,
             'final_date' => $final_date,
             'area' => $request->area_activity,
             'id_company' => $company_id,
+            'isFirst' => $isFirst
         ]);
 
         return response()->json($new_professional_profile);
