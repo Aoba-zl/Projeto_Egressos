@@ -16,8 +16,8 @@ async function init(){
     // Obtém o valor do parâmetro 'profile'
     let profileValue = urlParams.get('profile');
     
-    if(user != undefined){
-        if (user.id != profileValue && user.type_account=="0") {
+    if(user != undefined && user != null){
+        if (user.id == profileValue && user.type_account=="0") {
             console.log("edit button");
             document.getElementById('editProfile').classList.remove("d-none");
         }
