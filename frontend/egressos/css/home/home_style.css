@@ -48,6 +48,11 @@ body{
     border: 2px solid black;
 }
 
+#imgConvite{
+    max-width: 50vw;
+    height: 300px;
+    margin-bottom: 2em;
+}
 /* ---------------------------- */
 
 /* ------- section depoimentos ------------- */
