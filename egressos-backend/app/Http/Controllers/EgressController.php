@@ -12,8 +12,10 @@ use App\Models\Course;
 use App\Models\Feedback;
 use App\Models\Institution;
 use App\Models\User;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
 class EgressController extends Controller
@@ -52,7 +54,7 @@ class EgressController extends Controller
         // Valida todos os dados antes de criar qualquer entrada no banco
         $this->validateRequest($request);
 
-        
+
         // TODO: Validar se realmente criou
         $user = (new UserController())->store(
             new StoreUserRequest($request->user)
@@ -173,9 +175,12 @@ class EgressController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(StoreUpdateEgressRequest $request)
+    public function update(Request $request)
     {
-        //TODO
+        $request = $this->decodeEgressRequest($request);
+
+        $request->validate((new StoreUpdateEgressRequest())->rules());
+
         // Como apagar dados antes de atualizar
         DB::table('professional_profile')
             ->where('id_egress',$request->id)
@@ -188,20 +193,41 @@ class EgressController extends Controller
         DB::table('contacts')
             ->where('id_profile',$request->id)
             ->delete();
-            
+
         DB::table('feedback')
             ->where('id_profile',$request->id)
             ->delete();
 
-        $egress = Egress::find($request->id);  
+        $egress = Egress::find($request->id);
+
+        // Salva a imagem no storage
+        $old_image_path = $egress->imagePath;
+
+        try
+        {
+            $new_image_path = Egress::saveImage($request->file('image'));
+        }
+        catch (Exception $e)
+        {
+            $new_image_path = Egress::saveImage(null);
+        }
+
+        // Atualiza o caminho na tabela do egresso
+
+        $isPhonePublic = ($request->input('isPhonePublic') === 'true'); //Evita o erro no formdata
+
         $egress->where('id',$egress->id)
         ->update([
             'cpf'=>$request->cpf,
+            'imagePath' =>$new_image_path,
             'phone'=>$request->phone,
             'birthdate'=>$request->birthdate,
-            'phone_is_public'=>$request->isPhonePublic,
+            'phone_is_public'=>$isPhonePublic,
             'status'=>'0']);
-        
+
+        // Apaga a imagem antiga do storage
+        Storage::delete($old_image_path);
+
         $result = $this->storeEgressInfos($request,$egress);
 
         return response()->json([
@@ -216,7 +242,7 @@ class EgressController extends Controller
     {
         //
     }
-  
+
     public function searchByName(Request $request)
     {
         $name = $request->input('name');
@@ -236,14 +262,14 @@ class EgressController extends Controller
 
          // Chama o método na model Egress para obter os dados
          $egresses = Egress::getApprovedReprovedEgresses($status);
-    
+
          return response()->json($egresses);
     }
 
     public function getEgressesUnderAnalysis(Request $request){
         $perPage = $request->input('limit', 4);
         $egresses = Egress::getEgressesUnderAnalysis($perPage);
-      
+
         return response()->json($egresses);
     }
 }
