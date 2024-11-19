@@ -92,8 +92,15 @@ function criarExibicaoContato(contato){
     div.setAttribute("class","egresso-contato");
 
     let spanRede = document.createElement("span");
-    let spanContato = document.createElement("span");
-
+    let spanContato = document.createElement("a");
+    if(contato.name_platform.toUpperCase() != "EMAIL" &&
+         contato.name_platform.toUpperCase() != "TELEFONE"){
+        spanContato.setAttribute("href",contato.contact);
+        spanContato.setAttribute("target","_blank");
+        spanContato.setAttribute("style","width:100%;");
+    }else{
+        spanContato = document.createElement("span");
+    }
     spanRede.innerHTML = contato.name_platform;
     spanContato.innerHTML = contato.contact;
 
