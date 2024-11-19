@@ -125,6 +125,8 @@ body{
 #proximosEventos{
     overflow-y: auto;
     overflow-x: hidden;
+    width: max-content;
+    margin: auto;
 }
 
 .event-card{
