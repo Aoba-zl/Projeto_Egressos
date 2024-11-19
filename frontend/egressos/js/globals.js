@@ -43,7 +43,12 @@ function getUserIdPosLogin(){
 
 function getEgressId(){
   let egress = JSON.parse(getStorage("egress"));
-  return egress.id;
+  
+  if(egress != null && egress != undefined){
+    return egress.id;
+  }else{
+    return null;
+  }
 }
 
 function getUser(){

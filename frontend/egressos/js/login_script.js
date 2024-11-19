@@ -57,6 +57,10 @@ document.getElementById('entrar').addEventListener('click', async function () {
                 setStorage("egress",JSON.stringify(msg));
               })
               .fail(function(jqXHR, textStatus, msg){
+                if(msg == "Not Found"){
+                    window.location.href = "./";
+                }
+
                 console.log(jqXHR);
                 console.log(textStatus);  
                 console.log(msg);
