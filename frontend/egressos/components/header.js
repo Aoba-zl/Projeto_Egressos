@@ -14,6 +14,11 @@ function init() {
             document.getElementById("sepModeracao").classList.remove("disp-none");
             document.getElementById("btnModeracao").classList.remove("disp-none");
         }
+        
+        let egressId = getEgressId();
+        if(egressId == undefined || egressId == null){
+            document.getElementById("myProfile").classList.add("disp-none");
+        }
     }
 
     if (token) {
