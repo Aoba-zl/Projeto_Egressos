@@ -43,10 +43,22 @@ class Egress extends Model
         return $this->belongsTo(User::class, 'user_email', 'email');
     }
 
+    public static function saveImage($image_file)
+    {
+        $image_path = 'uploads/default.jpg';
+
+        if ($image_file != null)
+        {
+            $image_name = rand(0, 9999999999) . $image_file->getClientOriginalName();
+            $image_path = $image_file->storeAs('uploads', $image_name);
+        }
+
+        return $image_path;
+    }
+
     public static function saveEgress(Request $request, $user_id)
     {
-        $image_name = rand(0, 9999999999) . $request->file('image')->getClientOriginalName();
-        $image_path = $request->file('image')->storeAs('uploads', $image_name);
+        $image_path = self::saveImage($request->file('image'));
 
         $isPhonePublic = ($request->input('isPhonePublic') === 'true');
 
@@ -87,7 +99,7 @@ class Egress extends Model
             ->whereRaw('
                 professional_profile.initial_date in (
                 select distinct max(initial_date) maxD
-                from professional_profile 
+                from professional_profile
                 group by id_egress)
             ')
             ->paginate($limit); // Pagina automaticamente conforme o limite informado
@@ -118,7 +130,7 @@ class Egress extends Model
             ->where('id_profile',$egress->id)
             ->get();
         $egress->contacts = $egressContacts;
-        
+
         if($egress->phone_is_public){
             $egressPhone = new stdClass();
             $egressPhone->name = "Telefone";
@@ -211,7 +223,7 @@ class Egress extends Model
             ->whereRaw('
                 professional_profile.initial_date in (
                 select distinct max(initial_date) maxD
-                from professional_profile 
+                from professional_profile
                 group by id_egress)
             ')
             ->paginate($perPage); // Paginação com 4 registros por página (ou customizável)

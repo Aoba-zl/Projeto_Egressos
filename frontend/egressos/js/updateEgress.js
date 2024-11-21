@@ -151,41 +151,40 @@ async function saveUserContactsAndExperience(){
   let academic_formation = JSON.parse("[" + acadExperiences + "]");
   let image_file = document.getElementById('inputImagemPerfil').files[0];
   
+  if (!image_file)
+    image_file = document.getElementById("exbImagemPerfil").src
 
-  let form_data_egress = new Object();
-  form_data_egress.id=idEgresso+''
-  form_data_egress.cpf=cpf;
-  form_data_egress.phone= telefone
-  form_data_egress.isPhonePublic= isTelefonePublico
-  form_data_egress.birthdate= dataNasc
-  form_data_egress.feedback=feedBack.trim()
-
-  form_data_egress.contacts= JSON.parse("["+contacts+"]");
-
-  form_data_egress.academic_formation= academic_formation;
-
-  form_data_egress.professional_profile=JSON.parse("["+profExperiences+"]");
-  //form_data_egress.append('image', image_file);
+  let form_data_egress = new FormData();
+  form_data_egress.append('_method', 'PUT')
+  form_data_egress.append('id', idEgresso + '')
+  form_data_egress.append('cpf', cpf)
+  form_data_egress.append('phone', telefone);
+  form_data_egress.append('isPhonePublic', isTelefonePublico);
+  form_data_egress.append('birthdate', dataNasc);
+  form_data_egress.append('feedback', feedBack.trim());
+  form_data_egress.append('contacts', JSON.stringify(JSON.parse("["+contacts+"]")));
+  form_data_egress.append('academic_formation', JSON.stringify(academic_formation));
+  form_data_egress.append('professional_profile', JSON.stringify(JSON.parse("["+profExperiences+"]")));
+  
+  form_data_egress.append('image', image_file);
   
   let cpfOk = cpf.length > 10;
   let foneOk = telefone.length > 8;
   let dataNOk = dataNasc.length > 8;
   let feedBackOk = feedBack.trim().length > 2;
 
-  if(cpfOk && foneOk && dataNOk && feedBackOk){    
+  if(cpfOk && foneOk && dataNOk && feedBackOk && image_file){    
     let endpoint = serverUrl + "egresses";
-    console.log(JSON.stringify(form_data_egress));
-    
    
     let cursos = JSON.stringify(academic_formation);
     if((cursos.includes("FATEC-ZL"))){
       await $.ajax({
           url : endpoint,
           dataType: "json",
-          processData: true,
-          contentType: 'application/json',
-          method : "PUT",
-          data : JSON.stringify(form_data_egress),
+          processData: false,
+          contentType: false,
+          method : "POST",
+          data : form_data_egress,
       })
       .done(async function(){
         alert("Enviado para análise")
