@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -28,33 +28,22 @@
 
             </div>
             <div class="col-sm-12 col-md-6 p-4">
-                <h2 class="text-center">Login</h2>
+                <h2 class="text-center">Redefinição de Senha</h2>
                 <form class="form-signin mt-5">
-                        <div class="form-group">
-                            <label for="txtEmail">Email:</label>
-                            <input type="email" class="form-control" id="txtEmail" placeholder="Digite seu email">
-                        </div>
-                        <div class="form-group mt-4">
-                            <label for="txtPassword">Senha:</label>
-                            <input type="password" class="form-control mb-4" id="txtPassword" placeholder="Digite sua senha">
-                            
-                            <a href="./redefinirSenha.html">
-                                <p id="forgotPasswd" class="text-end">
-                                    Esqueci minha senha
-                                </p>
-                            </a>
-                        </div>
-                
-                        <div class="mt-5 text-center">
-                            <button type="button" id="entrar" class="btn btn-primary">Entrar</button>
-                        </div>
+                    <div class="form-group">
+                        <label for="txtSenha">Senha:</label>
+                        <input type="password" class="form-control mb-4" id="txtSenha" placeholder="Digite sua nova senha">
+                    </div>
 
-                        <hr>
+                    <div class="form-group">
+                        <label for="txtConfirmacaoSenha">Confirme sua senha:</label>
+                        <input type="password" class="form-control mb-4" id="txtConfirmacaoSenha" placeholder="Confirme sua nova senha">
+                    </div>
 
-                        <div class="text-center">
-                            <p>Não possui conta? Cadastre-se agora!!!! :)</p>
-                            <a href="./cadastro.html"><button type="button" class="btn btn-light">Cadastre-se</button></a>
-                        </div>
+                    <div class="mt-5 text-center">
+                        <button type="button" id="btnResetPasswd" class="btn btn-success">
+                            Salvar nova senha
+                        </button>
                     </div>
                 </form>
             </div>
@@ -71,6 +60,6 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-    <script type="module" src="./js/login_script.js"></script>
+    <script type="module" src="./js/novaSenha.js"></script>
 </body>
 </html>

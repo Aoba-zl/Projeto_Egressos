@@ -35,10 +35,15 @@ class AssessmentController extends Controller
             return response()->json(['message' => 'Comentário deve ser obrigatório para reprovação'], 400);
         }       
 
-        Assessment::saveAssessment($assessment,$status);
-        return response()->json([
-            'message' => 'Avaliação feita com sucesso!',
-        ]);
+        if(Assessment::saveAssessment($assessment,$status)){
+            return response()->json([
+                'message' => 'Avaliação feita com sucesso!',
+            ]);
+        }else{
+            return response()->json([
+                'message' => 'Você não é um moderador',
+            ],401);
+        }
     }
 
     /**
@@ -46,7 +51,11 @@ class AssessmentController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $assessment = Assessment::select('*')
+                        ->where('id_egress',$id)
+                        ->orderBy('created_at','DESC')
+                        ->first();
+        return response()->json($assessment);
     }
 
     /**
