@@ -13,7 +13,7 @@ class EmailController extends Mailable
 {
     use Queueable, SerializesModels;
 
-    private $ulr_token;
+    private $token;
     private $mail_type;
 
     private $from_address;
@@ -21,9 +21,9 @@ class EmailController extends Mailable
 
     private $a;
 
-    public function __construct($ulr_token, $mail_type)
+    public function __construct($token, $mail_type)
     {
-        $this->ulr_token = $ulr_token;
+        $this->token = $token;
         $this->mail_type = $mail_type;
 
         $this->from_address = config('mail.from.address');
@@ -52,7 +52,7 @@ class EmailController extends Mailable
                     ->bcc($this->from_address, $this->from_name)
                     ->replyTo($this->from_address, $this->from_name)
                     ->subject("Redefinir Senha")
-                    ->with([ 'mail_url' => $this->ulr_token['url_token'] ]);
+                    ->with([ 'mail_token' => $this->token ]);
                     // ->with([ 'variavel no blade' => token ]);
                     // ->with([ 'test_message' => $this->ulr_token['url_token'] ]);
     }

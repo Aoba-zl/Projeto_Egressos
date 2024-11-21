@@ -110,7 +110,7 @@ Route::get('/address/{id}',[AddressController::class,'show']);
 
 //----------------------- ResetPassword -------------------------------
 Route::post('resetpasswd',[ResetPassword::class,'request_reset']);
-Route::get('validatetoken/{token}',[ResetPassword::class,'validate_token']);
+Route::post('validatetoken',[ResetPassword::class,'validate_token']);
 Route::delete('deletetoken',[ResetPassword::class,'delete_token']);
 
 /*

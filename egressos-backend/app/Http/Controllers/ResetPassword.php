@@ -20,11 +20,11 @@ class ResetPassword extends Controller
         $email = $request->email;
 
         // criar e armazenar um token
-        $key_token = Str::random(20);
+        $key_token = Str::random(10);
 
         try
         {
-            $token = Token_reset_password::upsert(
+            Token_reset_password::upsert(
                 ['email' => $email,
                 'token' => $key_token],
                 ['email'],
@@ -39,12 +39,10 @@ class ResetPassword extends Controller
             ]);
         }
 
-        $url = ['url_token' => config('constants.URL_FRONT').'/resetpasswd/'.$key_token];
-
         // enviar o email para o endereço
         try
         {
-            Mail::to($email)->send(new EmailController($url, 'reset_mail'));
+            Mail::to($email)->send(new EmailController($key_token, 'reset_mail'));
         } catch ( Exception $e )
         {
             return response()->json(
