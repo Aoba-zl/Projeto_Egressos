@@ -17,7 +17,8 @@ class AcademicFormation extends Model
         'id_course',
         'begin_year',
         'end_year',
-        'period'
+        'period',
+        'isFirst'
     ];
 
     // Relacionamento com Perfil_Egresso

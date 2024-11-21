@@ -29,6 +29,12 @@ class AcademicFormationController extends Controller
             new Request($request->all()['course'])
         )->original->id;
 
+        $isFirst = false;
+        
+        if($request->isFirst != null){
+            $isFirst = $request->isFirst;
+        }
+
         $acadFormation = AcademicFormation::create([
             'id_profile' => $request->id_profile,
             'id_institution' => $id_institution,
@@ -36,6 +42,7 @@ class AcademicFormationController extends Controller
             'begin_year' => $request->begin_year,
             'end_year' => $request->end_year,
             'period' => $request->period,
+            'isFirst' => $isFirst 
         ]);
 
         return response()->json($acadFormation);

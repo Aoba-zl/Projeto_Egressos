@@ -1,0 +1,62 @@
+#buscaDeAlunos > div{
+    width: 100vw;
+    align-content: center;
+    text-align: center;
+}
+
+#txtSearchAluno {
+    width: 65vw;
+}
+
+#slcFiltroStatus{
+    width: 15vw;
+    display: inline-block;
+}
+
+.form-control{
+    display: inline-block;
+}
+
+#btnBuscaAlunos{
+    transform: translateY(-2px);
+}
+
+/* ------- Cards ----------*/
+#card-list-container{
+    padding: 1em;
+    height: 400px;
+    overflow: hidden;
+    overflow-x: auto;
+    display: block;
+    white-space: nowrap;
+}
+
+.egrees-card{
+    border: 2px solid black;
+    border-radius: 5px;
+    width: 200px;
+    height: 320px;
+    padding: .5em;
+    transition: transform .3s ease;
+    margin: 5px;
+    display: inline-block;
+    cursor: pointer;
+    overflow: hidden;
+}
+
+.egrees-card:hover{
+    transform: scale(1.04);
+}
+
+.egrees-card > img{
+    width: 100%;
+    max-height: 180px;
+    
+    margin-bottom: 10px;
+}
+
+.egrees-card > span{
+    display: block;
+    text-align: center;
+    margin-bottom: 1em;
+}

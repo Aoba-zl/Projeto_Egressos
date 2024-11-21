@@ -86,9 +86,10 @@ function adicionarExpProfissional(e){
     let cepOk = (limparCEP(cepEmpresa).length == 8);
     let numPortaOk = (Number.isInteger(numPorta));
     let areaOK = (areaAtuacao != "" && areaAtuacao != " ");
-    let inicioOk = (anoInicio != " ");
+    let inicioOk = (anoInicio != " " && anoInicio != "");
     let fimOk = (true);
 
+    console.log(anoInicio);
     if(nomeOk && telefoneOK && emailOk 
         && siteOk && cepOk && numPortaOk
             &&areaOK && inicioOk && fimOk){
