@@ -125,53 +125,54 @@ class Egress extends Model
             ->where('user_id',$id)
             ->first();
 
-        $egressContacts = Contact::select([ 'platforms.id as id_platform',
-        'platforms.name as name_platform',
-        'contacts.contact as contact'])
-            ->join('platforms', 'contacts.id_platform', '=', 'platforms.id')
-            ->where('id_profile',$egress->id)
-            ->get();
-        $egress->contacts = $egressContacts;
+        if($egress != null){
+            $egressContacts = Contact::select([ 'platforms.id as id_platform',
+            'platforms.name as name_platform',
+            'contacts.contact as contact'])
+                ->join('platforms', 'contacts.id_platform', '=', 'platforms.id')
+                ->where('id_profile',$egress->id)
+                ->get();
+            $egress->contacts = $egressContacts;
 
-        if($egress->phone_is_public){
-            $egressPhone = new stdClass();
-            $egressPhone->name_platform = "Telefone";
-            $egressPhone->contact = $egress->phone;
+            if($egress->phone_is_public){
+                $egressPhone = new stdClass();
+                $egressPhone->name_platform = "Telefone";
+                $egressPhone->contact = $egress->phone;
 
-            $egress->contacts->push($egressPhone);
+                $egress->contacts->push($egressPhone);
+            }
+
+            unset($egress->phone);
+            unset($egress->phone_is_public);
+
+            $egressFeedback = Feedback::select('*')
+                ->where('id_profile',$egress->id)
+                ->first();
+
+            $egress->feedback = $egressFeedback;
+
+            $egressExpAcad = AcademicFormation::
+                select(
+                    'academic_formation.begin_year'
+                    ,'academic_formation.end_year'
+                    ,'academic_formation.period'
+                    ,'institutions.name as institution_name'
+                    ,'academic_formation.id_course AS course_id'
+                    ,'courses.name as course_name'
+                    ,'courses.type_formation as course_type_formation'
+                    )
+                ->join('institutions', 'academic_formation.id_institution', '=', 'institutions.id')
+                ->join('courses', 'academic_formation.id_course', '=', 'courses.id')
+                ->where('id_profile',$egress->id)->get();
+            $egress->academic_formation = $egressExpAcad;
+
+            $egressExpProf = ProfessionalProfile::select('*')
+                ->join('companies', 'companies.id', '=', 'professional_profile.id_company')
+                ->join('addresses','addresses.id','=','companies.id_address')
+                ->where('id_egress',$egress->id)
+                ->get();
+            $egress->professional_experience = $egressExpProf;
         }
-
-        unset($egress->phone);
-        unset($egress->phone_is_public);
-
-        $egressFeedback = Feedback::select('*')
-            ->where('id_profile',$egress->id)
-            ->first();
-
-        $egress->feedback = $egressFeedback;
-
-        $egressExpAcad = AcademicFormation::
-            select(
-                'academic_formation.begin_year'
-                ,'academic_formation.end_year'
-                ,'academic_formation.period'
-                ,'institutions.name as institution_name'
-                ,'academic_formation.id_course AS course_id'
-                ,'courses.name as course_name'
-                ,'courses.type_formation as course_type_formation'
-                )
-            ->join('institutions', 'academic_formation.id_institution', '=', 'institutions.id')
-            ->join('courses', 'academic_formation.id_course', '=', 'courses.id')
-            ->where('id_profile',$egress->id)->get();
-        $egress->academic_formation = $egressExpAcad;
-
-        $egressExpProf = ProfessionalProfile::select('*')
-            ->join('companies', 'companies.id', '=', 'professional_profile.id_company')
-            ->join('addresses','addresses.id','=','companies.id_address')
-            ->where('id_egress',$egress->id)
-            ->get();
-        $egress->professional_experience = $egressExpProf;
-
         return $egress;
     }
 

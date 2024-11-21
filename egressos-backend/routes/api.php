@@ -28,15 +28,15 @@ use App\Http\Controllers\AssessmentController;
 
 //-----------------------------------------------------------------
 //----------------------- Academic Formation ----------------------
+/*
 Route::post('/acad-formation',[AcademicFormationController::class,'store']);
 Route::get('/acad-formation',[AcademicFormationController::class,'index']);
 Route::get('/acad-formation/{id}',[AcademicFormationController::class,'show']);
 Route::put('/acad-formation/{id}',[AcademicFormationController::class,'update']);
-
+*/
 //-----------------------------------------------------------------
 //----------------------- EGRESSES -----------------------------------
 Route::get('egresses/aproved-reproved', [EgressController::class, 'getAprovedReprovedEgresses']);
-
 Route::get('all-egresses',[EgressController::class,'index']);
 Route::get('egresses/analysis',[EgressController::class,'getEgressesUnderAnalysis']);
 Route::get('egresses', [EgressController::class, 'searchByName']);
@@ -46,54 +46,62 @@ Route::get('egresses/moderator/{id}', [EgressController::class, 'showAdmin']);
 Route::get('egresses-random', [EgressController::class, 'getRandom']);
 Route::post('/egresses', [EgressController::class , 'store']);
 Route::put('/egresses', [EgressController::class , 'update']);
-Route::delete('/egresses/{egress}', [EgressController::class , 'disable']);
+//Route::delete('/egresses/{egress}', [EgressController::class , 'disable']);
 
 //---------------IMAGES---------------------------
 Route::get('/storage/uploads/{image_path}', [ImageController::class , 'image']);
 
 //-----------------------------------------------------------------
 //----------------------- FEEDBACK -----------------------------------
+/*
 Route::get('/feedback',[FeedbackController::class,'index'])->name('feedback.index');
 Route::post('/feedback',[FeedbackController::class,'store'])->name('feedback.store');
 Route::get('/feedback/{id}',[FeedbackController::class,'show'])->name('feedback.show');
 Route::put('/feedback',[FeedbackController::class,'update'])->name('feedback.update');
+*/
 //-------------------- Company ------------------------------------
 Route::get('/company/search', [CompanyController::class, 'searchByName']);
+/*
 Route::get('/company',[CompanyController::class,'index'])->name('company.index');
 Route::get('/company/{id}',[CompanyController::class,'show'])->name('company.show');
 Route::post('/company',[CompanyController::class,'store'])->name('company.store');
 Route::put('/company',[CompanyController::class,'update'])->name('company.update');
 Route::delete('/company',[CompanyController::class,'destroy'])->name('company.destroy');
-
+*/
 //-----------------------------------------------------------------
 //-------------------- Instituicao --------------------------------
+/*
 Route::get('/institution',[InstitutionController::class,'index'])->name('institution.index');
 Route::post('/institution',[InstitutionController::class,'store'])->name('institution.store');
 Route::put('/institution',[InstitutionController::class,'update'])->name('institution.update');
 Route::delete('/institution',[InstitutionController::class,'destroy'])->name('institution.delete');
 Route::get('/institution/search', [InstitutionController::class, 'searchByName']);
+*/
 //-----------------------------------------------------------------
 //-------------------- Platform -----------------------------------
-//                      !! Travar para apenas admin dps
 Route::get('/platform',[PlatformController::class,'index'])->name('platform.index');
+/*
 Route::post('/platform',[PlatformController::class,'store'])->name('platform.store');
 Route::put('/platform',[PlatformController::class,'update'])->name('platform.update');
 Route::delete('/platform',[PlatformController::class,'destroy'])->name('platform.destroy');
+*/
 //-----------------------------------------------------------------
 //--------------------- Courses -----------------------------------
+Route::get('/course/search', [CourseController::class, 'searchByName']);
+/*
 Route::get('/course',[CourseController::class,'index'])->name('course.index');
 Route::post('/course',[CourseController::class,'store'])->name('course.store');
 Route::put('/course',[CourseController::class,'update'])->name('course.update');
 Route::delete('/course',[CourseController::class,'destroy'])->name('course.delete');
-Route::get('/course/search', [CourseController::class, 'searchByName']);
-
+*/
 //-----------------------------------------------------------------
 //------------------------Contact----------------------------------
+/*
 Route::get('/contact/{user_id}',[ContactController::class,'index']);
 Route::post('/contact',[ContactController::class,'store']);
 Route::put('/contact',[ContactController::class,'update']);
 Route::delete('/contact/{id}',[ContactController::class,'destroy']);
-
+*/
 //-----------------------------------------------------------------
 //----------------------- USERS -----------------------------------
 Route::post('login',[UserController::class,'login']);
@@ -107,7 +115,6 @@ Route::post('saveAssessment',[AssessmentController::class,'store']);
 
 //----------------------- ADDRESSES -------------------------------
 Route::get('/address/{id}',[AddressController::class,'show']);
-
 
 /*
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {

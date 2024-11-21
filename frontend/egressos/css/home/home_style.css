@@ -48,6 +48,11 @@ body{
     border: 2px solid black;
 }
 
+#imgConvite{
+    max-width: 50vw;
+    height: 300px;
+    margin-bottom: 2em;
+}
 /* ---------------------------- */
 
 /* ------- section depoimentos ------------- */
@@ -55,6 +60,8 @@ body{
     width: 200px;
     height: 200px;
     border-radius: 10%;
+    object-fit: cover;
+    object-position: center;
     outline: 2px solid black;
     outline-offset: 3px;
 }
@@ -118,19 +125,23 @@ body{
 #proximosEventos{
     overflow-y: auto;
     overflow-x: hidden;
+    width: max-content;
+    margin: auto;
 }
 
 .event-card{
     border: 2px solid black;
     border-radius: 20px;
     display: inline-block;
-    padding: 1em 3em;
     margin: 2em;
     width: 20vw;
+    height: 12vw;
+    overflow: auto;
 }
 
 .event-card span{
     display: block;
     text-align: center;
     margin: .5em;
+    margin-bottom: .7em;
 }

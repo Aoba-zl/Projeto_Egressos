@@ -195,7 +195,11 @@ class EgressController extends Controller
     public function show(string $id)
     {
         $egress = Egress::getEgressWithCompanyAndFeedbackById($id);
-        return response()->json($egress);
+        if($egress != null){
+            return response()->json($egress);
+        }else{
+            return response()->json("not found",404);
+        }
     }
 
     public function showAdmin(string $id)

@@ -40,29 +40,29 @@ class CoursesSeeder extends Seeder
                 'updated_at' => now(),
             ]
             ,[
-                'name' => '[RH] Gestão de Recursos Humanos',
-                'type_formation' => 'Tecnólogo',
-                'created_at' => now(),
-                'updated_at' => now(),
-            ]
-            ,[
-                'name' => '[???] Gestão Empresarial',
-                'type_formation' => 'Tecnólogo',
-                'created_at' => now(),
-                'updated_at' => now(),
-            ]
-            ,[
                 'name' => '[LOG] Logística',
                 'type_formation' => 'Tecnólogo',
                 'created_at' => now(),
                 'updated_at' => now(),
             ]
             ,[
-                'name' => '[???] Polímeros',
+                'name' => '[RH] Gestão de Recursos Humanos',
                 'type_formation' => 'Tecnólogo',
                 'created_at' => now(),
                 'updated_at' => now(),
-            ]            
+            ]
+            ,[
+                'name' => '[GE] Gestão Empresarial',
+                'type_formation' => 'Tecnólogo',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]
+            ,[
+                'name' => '[POLI] Polímeros',
+                'type_formation' => 'Tecnólogo',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]
         ]);
     }
 }
