@@ -29,7 +29,8 @@ document.getElementById("txtFone").addEventListener("change",()=>{
 async function carregaDados() {
     
     try {
-       const response = await fetch(serverUrl+"egresses/moderator/"+user.id)
+       const response = await fetch(serverUrl+"egresses/moderator/"+user.id+ "/" + 
+        await getUserToken())
        if (!response.ok) {
         throw new Error('Erro ao buscar dados');
     }

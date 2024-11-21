@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreAssessmentRequest;
 use App\Models\Assessment;
+use App\Models\User;
+
 class AssessmentController extends Controller
 {
     /**
@@ -49,13 +51,18 @@ class AssessmentController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(string $id,$user_token)
     {
-        $assessment = Assessment::select('*')
-                        ->where('id_egress',$id)
-                        ->orderBy('created_at','DESC')
-                        ->first();
-        return response()->json($assessment);
+        $user = User::getUserByToken($user_token);
+        if($user != null && $user->id == $id){
+            $assessment = Assessment::select('*')
+                            ->where('id_egress',$id)
+                            ->orderBy('created_at','DESC')
+                            ->first();
+            return response()->json($assessment);
+        }else{
+            return response()->json(["message" => "Unauthorized"],403);
+        }
     }
 
     /**

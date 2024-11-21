@@ -23,8 +23,8 @@ document.getElementById("btnRejeitarPerfil").addEventListener("click",()=>{
 document.addEventListener("click",mudarBtnAcao);
 
 async function init(){    
-    let endpoint = serverUrl + "egresses/moderator/"+egressId;
-
+    let endpoint = serverUrl + "egresses/moderator/"+egressId+ "/" + 
+    await getUserToken();
     if(getUser().type_account == 0){
         window.location.href = './';
     }

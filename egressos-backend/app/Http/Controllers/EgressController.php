@@ -202,10 +202,15 @@ class EgressController extends Controller
         }
     }
 
-    public function showAdmin(string $id)
+    public function showAdmin(string $id,$user_token)
     {
-        $egress = Egress::getEgressWithCompanyAndFeedbackByIdAdmin($id);
-        return response()->json($egress);
+        $user = User::getUserByToken($user_token);
+        if($user != null && ($user->id == $id || $user->type_account != 0) ){
+            $egress = Egress::getEgressWithCompanyAndFeedbackByIdAdmin($id);
+            return response()->json($egress);
+        }else{
+            return response()->json(["message" => "Unauthorized"],403);
+        }
     }
 
     /**
