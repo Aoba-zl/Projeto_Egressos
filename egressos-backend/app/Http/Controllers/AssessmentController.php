@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreAssessmentRequest;
 use App\Models\Assessment;
+use App\Models\Egress;
 use App\Models\User;
 
 class AssessmentController extends Controller
@@ -61,9 +62,11 @@ class AssessmentController extends Controller
     public function show(string $id,$user_token)
     {
         $user = User::getUserByToken($user_token);
+
         if(User::isSameUser($id,$user)){
+            $egress = Egress::getEgressWithCompanyAndFeedbackById($id);
             $assessment = Assessment::select('*')
-                            ->where('id_egress',$id)
+                            ->where('id_egress',$egress->id)
                             ->orderBy('created_at','DESC')
                             ->first();
             return response()->json($assessment);
