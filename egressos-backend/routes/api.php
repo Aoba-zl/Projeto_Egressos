@@ -10,10 +10,10 @@ use App\Http\Controllers\CourseController;
 use App\Http\Controllers\PlatformController;
 use App\Http\Controllers\FeedbackController;
 use App\Http\Controllers\ImageController;
+use App\Http\Controllers\ResetPassword;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AssessmentController;
-
 
 /*
 |--------------------------------------------------------------------------
@@ -115,6 +115,11 @@ Route::post('saveAssessment',[AssessmentController::class,'store']);
 
 //----------------------- ADDRESSES -------------------------------
 Route::get('/address/{id}',[AddressController::class,'show']);
+
+//----------------------- ResetPassword -------------------------------
+Route::post('resetpasswd',[ResetPassword::class,'request_reset']);
+Route::post('validatetoken',[ResetPassword::class,'validate_token']);
+Route::delete('deletetoken',[ResetPassword::class,'delete_token']);
 
 /*
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
