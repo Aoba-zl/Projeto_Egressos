@@ -131,7 +131,7 @@ async function init(){
 }
 
 async function abrirJustificativa() {
-    let url = serverUrl + "assessment/" + getEgressId() + "/" + 
+    let url = serverUrl + "assessment/" + getUserId() + "/" +
     await getUserToken();
     let tArea = document.getElementById("txtDescricao");
     await $.ajax({

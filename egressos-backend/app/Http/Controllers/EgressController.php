@@ -205,7 +205,7 @@ class EgressController extends Controller
     public function showAdmin(string $id,$user_token)
     {
         $user = User::getUserByToken($user_token);
-        if($user != null && ($user->id == $id || $user->type_account != 0) ){
+        if(User::isSameUser($id,$user) || User::isAdmin($user)){
             $egress = Egress::getEgressWithCompanyAndFeedbackByIdAdmin($id);
             return response()->json($egress);
         }else{
@@ -229,6 +229,14 @@ class EgressController extends Controller
         $request = $this->decodeEgressRequest($request);
 
         $request->validate((new StoreUpdateEgressRequest())->rules());
+
+        $user = User::getUserByToken($request->input('user_token'));
+        
+        $egress = Egress::getEgressWithCompanyAndFeedbackById($user->id);
+
+        if(!User::isSameUser($egress->user_id,$user)){
+            return response()->json(["message"=>"Você não é o usuário que será editado"],403);
+        }
 
         // Como apagar dados antes de atualizar
         DB::table('professional_profile')
@@ -323,16 +331,40 @@ class EgressController extends Controller
     }
 
     public function getAprovedReprovedEgresses(Request $request){
-         // Captura o status do request
-         $status = $request->input('status');
+        $token = $request->input('token');
 
-         // Chama o método na model Egress para obter os dados
-         $egresses = Egress::getApprovedReprovedEgresses($status);
+        if($token == null){
+            return response()->json(["message" => "É necessario enviar o token do usuário"],400);
+        }
 
-         return response()->json($egresses);
+        $user = User::getUserByToken($request->token);
+        
+        if(!User::isAdmin($user)){
+            return response()->json(["message"=>"Você não é um moderador"],403);
+        }
+
+        // Captura o status do request
+        $status = $request->input('status');
+
+        // Chama o método na model Egress para obter os dados
+        $egresses = Egress::getApprovedReprovedEgresses($status);
+
+        return response()->json($egresses);
     }
 
     public function getEgressesUnderAnalysis(Request $request){
+        $token = $request->input('token');
+
+        if($token == null){
+            return response()->json(["message" => "É necessario enviar o token do usuário"],400);
+        }
+
+        $user = User::getUserByToken($request->token);
+        
+        if(!User::isAdmin($user)){
+            return response()->json(["message"=>"Você não é um moderador"],403);
+        }
+
         $perPage = $request->input('limit', 20);
         $egresses = Egress::getEgressesUnderAnalysis($perPage);
 

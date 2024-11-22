@@ -128,13 +128,17 @@ document.getElementById('btnContinuarCadastro').addEventListener('click', ()=>{
 async function saveUser() {
   let name=document.getElementById('txtName').value
 
+  let obj = new Object();
+  obj.name = name;
+  obj.user_token = await getUserToken();
+
   await $.ajax({
     url : serverUrl+'user/'+getUserId(),
     dataType: "json",
     processData: true,
     contentType: 'application/json',
     method : "PUT",
-    data : `{"name":"${name}"}`,
+    data : JSON.stringify(obj),
 })
 .done(async function(){
 })
@@ -169,6 +173,7 @@ async function saveUserContactsAndExperience(){
   form_data_egress.append('phone', telefone);
   form_data_egress.append('isPhonePublic', isTelefonePublico);
   form_data_egress.append('birthdate', dataNasc);
+  form_data_egress.append('user_token', await getUserToken());  
   form_data_egress.append('feedback', feedBack.trim());
   form_data_egress.append('contacts', JSON.stringify(JSON.parse("["+contacts+"]")));
   form_data_egress.append('academic_formation', JSON.stringify(academic_formation));

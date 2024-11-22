@@ -307,7 +307,7 @@ function rejeitarPerfil(){
     }
 }
 
-function salvarAvaliacao(comentario,status) {
+async function salvarAvaliacao(comentario,status) {
     let data = new Object();
     let avaliacao = new Object();
     avaliacao.id_moderator_admi = getUserIdPosLogin()+"";
@@ -316,8 +316,7 @@ function salvarAvaliacao(comentario,status) {
 
     data.status = status+"";
     data.assessment = avaliacao;
-
-    console.log(JSON.stringify(data));
+    data.user_token = await getUserToken();
 
     $.ajax({
         //headers: {'X-CSRF-TOKEN': await getCsrfToken()},

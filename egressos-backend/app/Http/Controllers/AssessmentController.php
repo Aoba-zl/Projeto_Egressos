@@ -28,23 +28,30 @@ class AssessmentController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store( StoreAssessmentRequest $request)
+    public function store(StoreAssessmentRequest $request)
     {
-        $assessment=$request->assessment;
-        $status = $request->status;
+        $user = User::getUserByToken($request->user_token);
+        if(User::isAdmin($user)){
+            $assessment=$request->assessment;
+            $status = $request->status;
 
-        if ($status == config('constants.STATUS_REPROVED') && $assessment['comment'] == '') {
-            return response()->json(['message' => 'Comentário deve ser obrigatório para reprovação'], 400);
-        }       
+            if ($status == config('constants.STATUS_REPROVED') && $assessment['comment'] == '') {
+                return response()->json(['message' => 'Comentário deve ser obrigatório para reprovação'], 400);
+            }       
 
-        if(Assessment::saveAssessment($assessment,$status)){
-            return response()->json([
-                'message' => 'Avaliação feita com sucesso!',
-            ]);
+            if(Assessment::saveAssessment($assessment,$status)){
+                return response()->json([
+                    'message' => 'Avaliação feita com sucesso!',
+                ]);
+            }else{
+                return response()->json([
+                    'message' => 'Você não é um moderador',
+                ],401);
+            }
         }else{
             return response()->json([
                 'message' => 'Você não é um moderador',
-            ],401);
+            ],403);
         }
     }
 
@@ -54,7 +61,7 @@ class AssessmentController extends Controller
     public function show(string $id,$user_token)
     {
         $user = User::getUserByToken($user_token);
-        if($user != null && $user->id == $id){
+        if(User::isSameUser($id,$user)){
             $assessment = Assessment::select('*')
                             ->where('id_egress',$id)
                             ->orderBy('created_at','DESC')

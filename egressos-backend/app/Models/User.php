@@ -49,4 +49,18 @@ class User extends Authenticatable
         
         return null;
     }
+
+    public static function isSameUser($user_id,$user){
+        if($user != null && ($user->id == $user_id) ){
+            return true;    
+        }
+        return false;
+    }
+
+    public static function isAdmin($user){
+        if($user != null && ($user->type_account != '0') ){
+            return true;    
+        }
+        return false;
+    }
 }
