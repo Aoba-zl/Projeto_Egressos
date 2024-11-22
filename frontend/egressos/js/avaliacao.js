@@ -23,8 +23,8 @@ document.getElementById("btnRejeitarPerfil").addEventListener("click",()=>{
 document.addEventListener("click",mudarBtnAcao);
 
 async function init(){    
-    let endpoint = serverUrl + "egresses/moderator/"+egressId;
-
+    let endpoint = serverUrl + "egresses/moderator/"+egressId+ "/" + 
+    await getUserToken();
     if(getUser().type_account == 0){
         window.location.href = './';
     }
@@ -239,7 +239,6 @@ function avancarEtapa(){
     let dadosReprovados = [];
     cbs.forEach(element => {
         if(element.checked){
-            console.log(element.parentNode);
             if(element.parentNode.id == "divImgPerfil"){
                 dadosReprovados.push("[ Foto de Perfil ]");
             }
@@ -278,8 +277,6 @@ function avancarEtapa(){
                     element.parentNode.children[0].innerHTML + " ]"
                 );
             }
-
-            console.log(dadosReprovados);
         }
      });
 
@@ -307,7 +304,7 @@ function rejeitarPerfil(){
     }
 }
 
-function salvarAvaliacao(comentario,status) {
+async function salvarAvaliacao(comentario,status) {
     let data = new Object();
     let avaliacao = new Object();
     avaliacao.id_moderator_admi = getUserIdPosLogin()+"";
@@ -316,8 +313,7 @@ function salvarAvaliacao(comentario,status) {
 
     data.status = status+"";
     data.assessment = avaliacao;
-
-    console.log(JSON.stringify(data));
+    data.user_token = await getUserToken();
 
     $.ajax({
         //headers: {'X-CSRF-TOKEN': await getCsrfToken()},

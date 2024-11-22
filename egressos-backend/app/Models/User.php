@@ -6,7 +6,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\DB;
 use Laravel\Sanctum\HasApiTokens;
+use Laravel\Sanctum\PersonalAccessToken;
 
 class User extends Authenticatable
 {
@@ -35,5 +37,30 @@ class User extends Authenticatable
     public function profilesEgresses()
     {
         return $this->hasMany(Egress::class, 'user_email', 'email');
+    }
+
+    public static function getUserByToken($token){
+        $token = PersonalAccessToken::findToken($token);
+
+        //dd($token);
+        if($token != null){
+            return User::select('id','type_account')->where('id',$token->tokenable_id)->first();
+        }
+        
+        return null;
+    }
+
+    public static function isSameUser($user_id,$user){
+        if($user != null && ($user->id == $user_id) ){
+            return true;    
+        }
+        return false;
+    }
+
+    public static function isAdmin($user){
+        if($user != null && ($user->type_account != '0') ){
+            return true;    
+        }
+        return false;
     }
 }

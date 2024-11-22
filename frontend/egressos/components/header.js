@@ -34,8 +34,8 @@ function init() {
 init();
 
 function isLoged() {
-    const publicPages = ['/', '/cadastro.html', '/login.html','/cadastro2.html','/visualizarPerfil.html','/buscaDeAlunos.html','/redefinirSenha.html','/novaSenha.html'];
-    let currentPath = window.location.pathname;
+    const publicPages = ['/', '/cadastro.html', '/login.html','/cadastro2.html','/visualizarperfil.html','/buscadealunos.html','/redefinirsenha.html','/novasenha.html'];
+    let currentPath = window.location.pathname.toLowerCase();
     currentPath = currentPath.replace("/projeto_egressos/frontend/egressos","");
 
     //console.log(currentPath);

@@ -52,9 +52,9 @@ async function loadEgresses(status){
     let url = serverUrl;
 
     if(status == 0){
-        url += "egresses/analysis";
+        url += "egresses/analysis?token="+await getUserToken();
     }else{
-        url += "egresses/aproved-reproved?status="+status;
+        url += "egresses/aproved-reproved?status="+status+"&token="+await getUserToken();
     }
 
     const container = document.getElementById("card-list-container");
