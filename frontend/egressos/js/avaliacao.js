@@ -239,7 +239,6 @@ function avancarEtapa(){
     let dadosReprovados = [];
     cbs.forEach(element => {
         if(element.checked){
-            console.log(element.parentNode);
             if(element.parentNode.id == "divImgPerfil"){
                 dadosReprovados.push("[ Foto de Perfil ]");
             }
@@ -278,8 +277,6 @@ function avancarEtapa(){
                     element.parentNode.children[0].innerHTML + " ]"
                 );
             }
-
-            console.log(dadosReprovados);
         }
      });
 

@@ -34,13 +34,11 @@ async function carregaDados() {
        if (!response.ok) {
         throw new Error('Erro ao buscar dados');
     }
-    const result = await response.json();    
-    console.log(result);
+    const result = await response.json();
     
     return result
     } catch (error) {
-        console.log(error);
-        
+        console.log(error);        
     }
 }
 function preencheCampos(dados) {
@@ -69,7 +67,6 @@ function preencheCampos(dados) {
     txtFeedback.value=dados.feedback.comment
     image.setAttribute("src",pathImage)
     image.setAttribute("alt","Foto do Perfil")
-console.log(dados);
 
     dados.contacts.forEach(contato => {
       if (contato.name_platform.toUpperCase() != 'TELEFONE') {
