@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Hash;
 
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
+use App\Models\Token_reset_password;
+
 class UserController extends Controller
 {
     // Exibir a lista de usuários
@@ -101,6 +103,26 @@ class UserController extends Controller
         }
 
         return response()->json(['message' => 'Usuário não encontrado'], 404);
+    }
+
+    public function update_password(Request $request)
+    {
+        // return response()->json($request);
+        $user = User::where('email', $request->email)->first();
+        $token = Token_reset_password::where('email', $request->email)->where('token', $request->token)->first();
+
+        if (!$token || !$token->is_valid) 
+            return response()->json(['error' => 'Código inválido! Valide o código recebido no e-mail, ou requisite outro!']);
+
+        if ($user) {
+
+            $user->update([
+                'password' => bcrypt($request->input('password'))
+            ]);
+            return response()->json(['success' => "Senha redefinida"]);
+        }
+
+        return response()->json(['error' => 'Usuário não encontrado']);
     }
 
     // Deletar um usuário
