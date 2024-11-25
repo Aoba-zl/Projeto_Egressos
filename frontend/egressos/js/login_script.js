@@ -87,11 +87,6 @@ document.getElementById("forgotPasswd").addEventListener("click", (e)=>{
     exibirModal("#redefinir-senha-modal");
 });
 
-document.getElementById("btnResetPasswd").addEventListener("click", (e)=>{
-    e.preventDefault();
-    alert("email enviado ????");
-});
-
 function showAlert(message, alertType) {
     const alertPlaceholder = document.createElement('div');
     alertPlaceholder.className = `alert ${alertType} mt-3`;

@@ -12,11 +12,19 @@ function init(){
 
 async function reset_password() 
 {
-    let email = document.getElementById('txtEmail').value
+    let elem_email = document.getElementById('txtEmailRedefinicao')
+    let email = elem_email.value
+
+    closeModal("#redefinir-senha-modal")
 
     if (!email)
+    {
         showAlert('Digite um e-mail', 'alert-danger')
+        return;
+    }
 
+    showAlert('Um e-mail com o código de validação será enviado.', 'alert-success')
+    
     try
     {
         let endpoint = serverUrl + "resetpasswd";
@@ -33,16 +41,24 @@ async function reset_password()
 
         if (response.ok)
         {
-            showAlert('E-mail com código de validação enviado', 'alert-success')
-            alert('E-mail com código de validação enviado')
-            window.location.href = "./index.html"
+            showAlert('E-mail enviado. Aguarde, você será redirecionado para página de Redefinição de senha!', 'alert-success')
+
+            setTimeout(() => {
+                // Armazena o email na sessão
+                sessionStorage.setItem('email', email);
+
+                window.location.href = "./novaSenha.html"
+            }, 2500);
         }
         else
-            showAlert("Erro ao enviar")
+            showAlert(data.error, 'alert-danger')
+
+        elem_email.value = '';
 
     }
     catch (error) {
-        console.log(error)
+        showAlert(data.error, 'alert-danger')
+        elem_email.value = '';
     }
     
 }
