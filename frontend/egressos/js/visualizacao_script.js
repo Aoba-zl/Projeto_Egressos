@@ -18,7 +18,6 @@ async function init(){
     
     if(user != undefined && user != null){
         if (user.id == profileValue && user.type_account=="0") {
-            console.log("edit button");
             document.getElementById('editProfile').classList.remove("d-none");
         }
     }
@@ -125,13 +124,16 @@ async function init(){
     })
     .fail(function(jqXHR, textStatus, msg){
         console.log(jqXHR);
+        console.log(textStatus);  
+        console.log(msg);
     });
 
 
 }
 
 async function abrirJustificativa() {
-    let url = serverUrl + "assessment/" + getEgressId();
+    let url = serverUrl + "assessment/" + getUserId() + "/" +
+    await getUserToken();
     let tArea = document.getElementById("txtDescricao");
     await $.ajax({
         url : url,

@@ -89,12 +89,17 @@ class UserController extends Controller
     }
 
     // Atualizar um usuário existente
-    public function update(UpdateUserRequest  $request,$id)
+    public function update(UpdateUserRequest $request,$id)
     {
         $user = User::find($id);
 
-        if ($user) {
+        $userT = User::getUserByToken($request->user_token);
 
+        if(!User::isSameUser($user->id,$userT)){
+            return response()->json(["message"=>"Você não é o usuário que será editado"],403);
+        }
+
+        if ($user) {
             $user->update([
                 'name'=>$request->name,
               

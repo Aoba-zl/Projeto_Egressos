@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreAssessmentRequest;
 use App\Models\Assessment;
+use App\Models\Egress;
+use App\Models\User;
+
 class AssessmentController extends Controller
 {
     /**
@@ -26,36 +29,50 @@ class AssessmentController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store( StoreAssessmentRequest $request)
+    public function store(StoreAssessmentRequest $request)
     {
-        $assessment=$request->assessment;
-        $status = $request->status;
+        $user = User::getUserByToken($request->user_token);
+        if(User::isAdmin($user)){
+            $assessment=$request->assessment;
+            $status = $request->status;
 
-        if ($status == config('constants.STATUS_REPROVED') && $assessment['comment'] == '') {
-            return response()->json(['message' => 'Comentário deve ser obrigatório para reprovação'], 400);
-        }       
+            if ($status == config('constants.STATUS_REPROVED') && $assessment['comment'] == '') {
+                return response()->json(['message' => 'Comentário deve ser obrigatório para reprovação'], 400);
+            }       
 
-        if(Assessment::saveAssessment($assessment,$status)){
-            return response()->json([
-                'message' => 'Avaliação feita com sucesso!',
-            ]);
+            if(Assessment::saveAssessment($assessment,$status)){
+                return response()->json([
+                    'message' => 'Avaliação feita com sucesso!',
+                ]);
+            }else{
+                return response()->json([
+                    'message' => 'Você não é um moderador',
+                ],401);
+            }
         }else{
             return response()->json([
                 'message' => 'Você não é um moderador',
-            ],401);
+            ],403);
         }
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(string $id,$user_token)
     {
-        $assessment = Assessment::select('*')
-                        ->where('id_egress',$id)
-                        ->orderBy('created_at','DESC')
-                        ->first();
-        return response()->json($assessment);
+        $user = User::getUserByToken($user_token);
+
+        if(User::isSameUser($id,$user)){
+            $egress = Egress::getEgressWithCompanyAndFeedbackById($id);
+            $assessment = Assessment::select('*')
+                            ->where('id_egress',$egress->id)
+                            ->orderBy('created_at','DESC')
+                            ->first();
+            return response()->json($assessment);
+        }else{
+            return response()->json(["message" => "Unauthorized"],403);
+        }
     }
 
     /**

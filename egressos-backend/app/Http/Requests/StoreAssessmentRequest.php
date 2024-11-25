@@ -24,7 +24,8 @@ class StoreAssessmentRequest extends FormRequest
         return [
             'assessment.id_moderator_admi' => ['required', 'exists:users,id'],
             'assessment.id_egress' => ['required', 'exists:egresses,id'],
-            'assessment.comment' => [ 'nullable','string']
+            'assessment.comment' => [ 'nullable','string'],
+            'user_token' => [ 'required','string']
         ];
     }
 
@@ -38,7 +39,8 @@ class StoreAssessmentRequest extends FormRequest
             'id_moderator_admi.exists' => 'Moderador não encontrado',
             'id_egress.required' => 'O id do egresso é obrigatório.',
             'id_egress.exists' => 'Egresso não encontrado.',
-            'comment.string' => 'O comentário deve estar no formato de texto.'
+            'comment.string' => 'O comentário deve estar no formato de texto.',
+            'user_token.required' => 'É necessario enviar o token do usuário'
         ];
     }
 }

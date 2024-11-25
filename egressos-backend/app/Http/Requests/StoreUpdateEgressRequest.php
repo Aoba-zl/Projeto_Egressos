@@ -30,7 +30,8 @@ class StoreUpdateEgressRequest extends FormRequest
             'contacts'             => [ 'array', 'min:1','max:3'],
             'academic_formation'   => [ 'array', 'min:1','max:3'],
             'professional_profile' => [ 'array', 'min:1','max:3'],
-            'feedback' => [ 'string']
+            'feedback' => [ 'string'],
+            'user_token' => [ 'required','string']
         ];
     }
 
@@ -51,7 +52,8 @@ class StoreUpdateEgressRequest extends FormRequest
             'contacts.min' => 'Deve haver ao menos um contato',
             'academic_formation.min'=>'Deve haver ao menos uma formação',
             'professional_profile.min'=>'Deve haver ao menos uma experiência profissional',
-            'academic_formation.max' => 'Você só pode cadastrar 3 Experiências Acadêmicas'
+            'academic_formation.max' => 'Você só pode cadastrar 3 Experiências Acadêmicas',
+            'user_token.required' => 'É necessario enviar o token do usuário'
         ];
     }
 }

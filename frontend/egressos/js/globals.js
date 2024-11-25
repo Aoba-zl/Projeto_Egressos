@@ -15,6 +15,10 @@ async function getCsrfToken() {
 
   return getCookie('XSRF-TOKEN');
 }
+
+async function getUserToken(){
+  return getStorage("token");
+}
 // consultar mdn docs
 async function generateHash(value) {
     value+="portalDeEgressosFatecZlSalt";
