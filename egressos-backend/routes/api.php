@@ -119,7 +119,7 @@ Route::get('/address/{id}',[AddressController::class,'show']);
 //----------------------- ResetPassword -------------------------------
 Route::post('resetpasswd',[ResetPassword::class,'request_reset']);
 Route::post('validatetoken',[ResetPassword::class,'validate_token']);
-Route::delete('deletetoken',[ResetPassword::class,'delete_token']);
+Route::put('resetpasswd-updatepasswd',[UserController::class, 'update_password']);
 
 /*
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
