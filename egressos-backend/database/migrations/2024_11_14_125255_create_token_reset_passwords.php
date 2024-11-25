@@ -6,27 +6,16 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
     public function up()
     {
         Schema::create('token_reset_passwords', function (Blueprint $table) {
-            $table->string('email', 255);
+            $table->id();
+            $table->string('email', 255)->unique();
             $table->string('token', 255);
+            $table->boolean('is_valid');
             $table->timestamps();
-
-            $table->primary(['email']);
         });
     }
-
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
     public function down()
     {
         Schema::dropIfExists('token_reset_passwords');

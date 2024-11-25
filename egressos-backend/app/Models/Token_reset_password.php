@@ -11,7 +11,8 @@ class Token_reset_password extends Model
 
     protected $fillable = [
         'email',
-        'token'
+        'token',
+        'is_valid'
     ];
 
 }
