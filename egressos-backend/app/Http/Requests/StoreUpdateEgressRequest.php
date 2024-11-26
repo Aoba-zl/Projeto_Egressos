@@ -52,6 +52,7 @@ class StoreUpdateEgressRequest extends FormRequest
             'contacts.min' => 'Deve haver ao menos um contato',
             'academic_formation.min'=>'Deve haver ao menos uma formação',
             'professional_profile.min'=>'Deve haver ao menos uma experiência profissional',
+            'professional_profile.max'=>'Você só pode cadastrar 3 Experiências Profissionais',
             'academic_formation.max' => 'Você só pode cadastrar 3 Experiências Acadêmicas',
             'user_token.required' => 'É necessario enviar o token do usuário'
         ];

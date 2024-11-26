@@ -35,8 +35,9 @@ class StoreProfessionalProfileRequest extends FormRequest
             'address.num_porta' => ['nullable', 'integer']
         ];
     }
+
     public function messages()
-{
+    {
     return [
         'name.required' => 'O nome da empresa é obrigatório.',
         'name.string' => 'O nome da empresa deve ser um texto.',
@@ -44,24 +45,24 @@ class StoreProfessionalProfileRequest extends FormRequest
         'area_activity.required' => 'A área de atividade é obrigatória.',
         'area_activity.string' => 'A área de atividade deve ser um texto.',
 
-        'initial_date.required' => 'A data de início é obrigatória.',
-        'initial_date.date' => 'A data de início deve ser uma data válida.',
-        'initial_date.before' => 'A data de início deve ser antes da data atual.',
-        'initial_date.after' => 'A data de início deve ser após 01/01/1900.',
+        'initial_date.required' => 'A data de início da experiencia profissional é obrigatória.',
+        'initial_date.date' => 'A data de início da experiencia profissional deve ser uma data válida.',
+        'initial_date.before' => 'A data de início da experiencia profissional deve ser antes da data atual.',
+        'initial_date.after' => 'A data de início da experiencia profissional deve ser após 01/01/1900.',
 
-        'final_date.date' => 'A data de término deve ser uma data válida.',
-        'final_date.after' => 'A data de término deve ser após 01/01/1900.',
+        'final_date.date' => 'A data de término da experiencia profissional deve ser uma data válida.',
+        'final_date.after' => 'A data de término da experiencia profissional deve ser após 01/01/1900.',
 
         'phone.string' => 'O telefone deve ser um texto.',
         'phone.min' => 'O telefone deve ter pelo menos 10 caracteres.',
 
-        'email.email' => 'O e-mail deve ser um e-mail válido.',
+        'email.email' => 'O e-mail da empresa deve ser um e-mail válido.',
 
-        'site.string' => 'O site deve ser um texto.',
+        'site.string' => 'O site da empresa deve ser um texto.',
 
-        'address.cep.digits' => 'O CEP deve ter exatamente 8 dígitos.',
+        'address.cep.digits' => 'O CEP da empresa deve ter exatamente 8 dígitos.',
 
-        'address.num_porta.integer' => 'O número da porta deve ser um número inteiro.'
+        'address.num_porta.integer' => 'O número da porta da empresa deve ser um número inteiro.'
     ];
 }
 
