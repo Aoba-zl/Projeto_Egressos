@@ -27,7 +27,7 @@ class StoreUpdateEgressRequest extends FormRequest
             'phone' => [ 'string','min:10'],
             'isPhonePublic' => 'required|string|in:true,false', //para envio de imagem é preciso ser formdata e o formdata é tudo string
             'birthdate' => [ 'date', 'before:01-01-' . (now()->year)-18, 'after:01/01/1900'],
-            'contacts'             => [ 'array', 'min:1','max:3'],
+            'contacts'             => [ 'array', 'min:1','max:5'],
             'academic_formation'   => [ 'array', 'min:1','max:3'],
             'professional_profile' => [ 'array', 'min:1','max:3'],
             'feedback' => [ 'string'],
