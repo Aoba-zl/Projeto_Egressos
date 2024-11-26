@@ -26,7 +26,7 @@ class StoreEgressRequest extends FormRequest
             'cpf' => ['required', 'cpf', 'digits:11', 'unique:egresses,cpf'],
             'phone' => ['required', 'string','min:10'],
             'birthdate' => ['required', 'date', 'before:01-01-' . (now()->year - 18), 'after:01/01/1900'],
-            'contacts'             => ['required', 'array', 'max:3'],
+            'contacts'             => ['required', 'array', 'max:5'],
             'academic_formation'   => ['required', 'array', 'max:3'],
             'professional_profile' => ['required', 'array', 'max:3'],
             'feedback' => ['required', 'string']
