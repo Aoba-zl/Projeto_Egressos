@@ -231,7 +231,7 @@ class EgressController extends Controller
         $request->validate((new StoreUpdateEgressRequest())->rules());
 
         $user = User::getUserByToken($request->input('user_token'));
-        
+
         $egress = Egress::getEgressWithCompanyAndFeedbackById($user->id);
 
         if(!User::isSameUser($egress->user_id,$user)){
@@ -257,16 +257,14 @@ class EgressController extends Controller
 
         $egress = Egress::find($request->id);
 
-        // Salva a imagem no storage
         $old_image_path = $egress->imagePath;
+        $new_image_path = $old_image_path;
 
-        try
+        if ($request->hasFile('image'))
         {
             $new_image_path = Egress::saveImage($request->file('image'));
-        }
-        catch (Exception $e)
-        {
-            $new_image_path = Egress::saveImage(null);
+            // Apaga a imagem antiga do storage
+            Storage::delete($old_image_path);
         }
 
         // Atualiza o caminho na tabela do egresso
@@ -287,10 +285,6 @@ class EgressController extends Controller
 
         foreach ($request->professional_profile as $professionalProfileData)
             Validator::make($professionalProfileData, (new StoreProfessionalProfileRequest())->rules())->validate();
-
-
-        // Apaga a imagem antiga do storage
-        Storage::delete($old_image_path);
 
         $result = $this->storeEgressInfos($request,$egress);
 
@@ -338,7 +332,7 @@ class EgressController extends Controller
         }
 
         $user = User::getUserByToken($request->token);
-        
+
         if(!User::isAdmin($user)){
             return response()->json(["message"=>"Você não é um moderador"],403);
         }
@@ -360,7 +354,7 @@ class EgressController extends Controller
         }
 
         $user = User::getUserByToken($request->token);
-        
+
         if(!User::isAdmin($user)){
             return response()->json(["message"=>"Você não é um moderador"],403);
         }

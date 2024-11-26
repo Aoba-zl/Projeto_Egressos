@@ -45,13 +45,8 @@ class Egress extends Model
 
     public static function saveImage($image_file)
     {
-        $image_path = 'uploads/default.jpg';
-
-        if ($image_file != null)
-        {
-            $image_name = rand(0, 9999999999) . $image_file->getClientOriginalName();
-            $image_path = $image_file->storeAs('uploads', $image_name);
-        }
+        $image_name = rand(0, 9999999999) . $image_file->getClientOriginalName();
+        $image_path = $image_file->storeAs('uploads', $image_name);
 
         return $image_path;
     }
