@@ -119,14 +119,21 @@ async function validate_token()
     }
 }
 
-
 modal_validar.on('hide.bs.modal', function(){
 
     if (!is_token_valide)
     {
-        alert('Sem um código não poderá redefinir a senha.')
+        let exit_modal = confirm("Sem um código não poderá redefinir a senha."+
+            " Clique em OK para validar o código."+
+            " Ou cancelar para retornar para página inicial.")
+        
         setTimeout(() => {
-            exibirModal("#validar-codigo-modal");
+            if (exit_modal){
+                exibirModal("#validar-codigo-modal");
+            }
+            else {
+                window.location.href = "./index.html"
+            }
         }, 200);
     }
 })
