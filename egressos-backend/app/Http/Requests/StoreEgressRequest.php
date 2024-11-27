@@ -52,7 +52,7 @@ class StoreEgressRequest extends FormRequest
             'birthdate.required' => 'A data de nascimento é obrigatório..',
             'birthdate.date' => 'A data de nascimento deve ser uma data válida.',
             'contacts.required' => 'Deve ser fornecido ao menos 1 contato.',
-            'contacts.max' => 'Deve ser cadastrado no máximo 3 contatos por Egresso',
+            'contacts.max' => 'Deve ser cadastrado no máximo 5 contatos por egresso',
             'academic_formation.required' => 'Deve ser fornecida ao menos 1 experiência acadêmica',
             'academic_formation.max' => 'Deve ser cadastrado no máximo 3 experiências acadêmicas por Egresso',
             'professional_profile.required' => 'Deve ser fornecido ao menos 1 experiência profissional',
