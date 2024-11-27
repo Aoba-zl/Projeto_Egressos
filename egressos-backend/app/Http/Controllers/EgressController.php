@@ -155,21 +155,20 @@ class EgressController extends Controller
      */
     private function validateRequest(Request $request)
     {
-        Validator::make($request->user, (new StoreUserRequest())->rules())->validate();
-        $request->validate((new StoreEgressRequest())->rules());
+        Validator::make($request->user, (new StoreUserRequest())->rules(), (new StoreUserRequest())->messages())->validate();
+        $request->validate((new StoreEgressRequest())->rules(), (new StoreEgressRequest())->messages());
 
-        $request->validate([
-            'contacts.*.contact' => 'required|string|unique:contacts,contact'
-        ]);
+        $request->validate(
+        ['contacts.*.contact' => 'required|string|unique:contacts,contact'],
+        ['contacts.*.contact.unique' => 'Um dos contatos informados já foi cadastrado, informe um novo.']);
 
         // TODO: Diferenciar a principal das demais
         foreach ($request->academic_formation as $academicFormationData)
-            Validator::make($academicFormationData, (new StoreAcademicFormationRequest())->rules())->validate();
+            Validator::make($academicFormationData, (new StoreAcademicFormationRequest())->rules(), (new StoreAcademicFormationRequest())->messages())->validate();
 
         // TODO: Diferenciar a principal das demais
         foreach ($request->professional_profile as $professionalProfileData)
-            Validator::make($professionalProfileData, (new StoreProfessionalProfileRequest())->rules())->validate();
-
+            Validator::make($professionalProfileData, (new StoreProfessionalProfileRequest())->rules(),(new StoreProfessionalProfileRequest())->messages())->validate();
     }
 
     private function decodeEgressRequest(Request $request)
@@ -228,7 +227,7 @@ class EgressController extends Controller
     {
         $request = $this->decodeEgressRequest($request);
 
-        $request->validate((new StoreUpdateEgressRequest())->rules());
+        $request->validate((new StoreUpdateEgressRequest())->rules(),(new StoreUpdateEgressRequest())->messages());
 
         $user = User::getUserByToken($request->input('user_token'));
 
@@ -281,10 +280,11 @@ class EgressController extends Controller
             'status'=>'0']);
 
         foreach ($request->academic_formation as $academicFormationData)
-            Validator::make($academicFormationData, (new StoreAcademicFormationRequest())->rules())->validate();
+            Validator::make($academicFormationData, (new StoreAcademicFormationRequest())->rules(), (new StoreAcademicFormationRequest())->messages())->validate();
 
+        // TODO: Diferenciar a principal das demais
         foreach ($request->professional_profile as $professionalProfileData)
-            Validator::make($professionalProfileData, (new StoreProfessionalProfileRequest())->rules())->validate();
+            Validator::make($professionalProfileData, (new StoreProfessionalProfileRequest())->rules(),(new StoreProfessionalProfileRequest())->messages())->validate();
 
         $result = $this->storeEgressInfos($request,$egress);
 
