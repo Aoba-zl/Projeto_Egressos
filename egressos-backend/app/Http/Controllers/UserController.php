@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Hash;
 
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
+use App\Models\Token_reset_password;
+
 class UserController extends Controller
 {
     // Exibir a lista de usuários
@@ -87,12 +89,17 @@ class UserController extends Controller
     }
 
     // Atualizar um usuário existente
-    public function update(UpdateUserRequest  $request,$id)
+    public function update(UpdateUserRequest $request,$id)
     {
         $user = User::find($id);
 
-        if ($user) {
+        $userT = User::getUserByToken($request->user_token);
 
+        if(!User::isSameUser($user->id,$userT)){
+            return response()->json(["message"=>"Você não é o usuário que será editado"],403);
+        }
+
+        if ($user) {
             $user->update([
                 'name'=>$request->name,
               
@@ -101,6 +108,26 @@ class UserController extends Controller
         }
 
         return response()->json(['message' => 'Usuário não encontrado'], 404);
+    }
+
+    public function update_password(Request $request)
+    {
+        // return response()->json($request);
+        $user = User::where('email', $request->email)->first();
+        $token = Token_reset_password::where('email', $request->email)->where('token', $request->token)->first();
+
+        if (!$token || !$token->is_valid) 
+            return response()->json(['error' => 'Código inválido! Valide o código recebido no e-mail, ou requisite outro!']);
+
+        if ($user) {
+
+            $user->update([
+                'password' => bcrypt($request->input('password'))
+            ]);
+            return response()->json(['success' => "Senha redefinida"]);
+        }
+
+        return response()->json(['error' => 'Usuário não encontrado']);
     }
 
     // Deletar um usuário

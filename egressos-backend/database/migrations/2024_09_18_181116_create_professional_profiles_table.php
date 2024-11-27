@@ -20,6 +20,7 @@ return new class extends Migration
             $table->date('initial_date');
             $table->date('final_date')->nullable();
             $table->string('area', 255);
+            $table->boolean('isFirst')->default(0);
 
             // Chaves estrangeiras
             $table->foreign('id_company')->references('id')->on('companies')->onDelete('cascade');

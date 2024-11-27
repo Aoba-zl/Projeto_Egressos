@@ -24,7 +24,8 @@ class UpdateUserRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => [ 'string', 'max:255', 'regex:/^[a-zA-ZÀ-ú\s]+$/'],   
+            'name' => [ 'string', 'max:255', 'regex:/^[a-zA-ZÀ-ú\s]+$/'],  
+            'user_token' => [ 'required','string'] 
         ];
     }
 
@@ -35,7 +36,8 @@ class UpdateUserRequest extends FormRequest
     {
         return [
 
-            'name.regex' => 'O nome deve conter apenas letras e espaços.'
+            'name.regex' => 'O nome deve conter apenas letras e espaços.',
+            'user_token.required' => 'É necessario enviar o token do usuário'
         ];
     }
 }

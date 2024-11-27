@@ -2,6 +2,8 @@ const baseURL = "http://localhost:8000/"
 const serverUrl = baseURL + "api/";
 const DATE = new Date();
 const user = JSON.parse(sessionStorage.getItem("user"))
+const limiteDoFeedback = 361;
+
 getCsrfToken();
 async function getCsrfToken() {
   if(getCookie('XSRF-TOKEN') == undefined){
@@ -12,6 +14,10 @@ async function getCsrfToken() {
   }
 
   return getCookie('XSRF-TOKEN');
+}
+
+async function getUserToken(){
+  return getStorage("token");
 }
 // consultar mdn docs
 async function generateHash(value) {
@@ -34,9 +40,19 @@ function getUserId(){
   return user.id;
 }
 
+function getUserIdPosLogin(){
+  let user = JSON.parse(getStorage("user"));
+  return user.id;
+}
+
 function getEgressId(){
   let egress = JSON.parse(getStorage("egress"));
-  return egress.id;
+  
+  if(egress != null && egress != undefined){
+    return egress.id;
+  }else{
+    return null;
+  }
 }
 
 function getUser(){
@@ -102,12 +118,33 @@ function criarOption(value,desc){
 function apagarDaTela(e){
   e.target.remove();
 }
+
 function btnApagarDaTela(e){
   let isDeleted=confirm("Deseja realmente excluir este item?")
   if (isDeleted) {
     e.target.parentNode.remove();
   }
   
+}
+
+function getStatusDescription(status) {
+  let stat = "";
+  switch (status) {
+    case '0':
+        stat = "Em análise"
+        break;
+    case '1':
+        stat = "Aprovado"
+        break;
+    case '2':
+        stat = "Reprovado"
+        break;
+    default:
+        stat = "___"
+        break;
+  }
+
+  return stat;
 }
 
 //----------------------- MODAL -----------------------------

@@ -1,7 +1,7 @@
 import { EventoController } from "./libs/eventos/controller/EventoController.js";
 import { Card } from "./libs/eventos/model/Card.js";
 
-const qttThemes = 8;
+const qttThemes = 5;
 var lastColor = Math.floor(Math.random()*qttThemes);
 var count = 1;
 

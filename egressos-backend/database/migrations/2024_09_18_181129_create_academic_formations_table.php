@@ -19,7 +19,7 @@ return new class extends Migration
             $table->integer('begin_year');
             $table->integer('end_year')->nullable();
             $table->string('period', 12);
-
+            $table->boolean('isFirst')->default(0);
             // Chave primária composta
             $table->primary(['id_profile', 'id_institution', 'id_course']);
 

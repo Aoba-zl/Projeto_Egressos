@@ -70,11 +70,7 @@ class ContactController extends Controller
      */
     public function destroy(string $id)
     {
-        $request->validate([
-            'id_profile' => 'required|exists:contact,id_profile'
-        ]);
-        Contact::where('id_profile', $request->id)
-        ->delete();
+        $contact = Contact::find($id);
 
         if (!$contact->delete())
             return response()->json(['message' => 'Contact delete failed'], 500);

@@ -29,17 +29,16 @@ document.getElementById("txtFone").addEventListener("change",()=>{
 async function carregaDados() {
     
     try {
-       const response = await fetch(serverUrl+"egresses/"+user.id)
+       const response = await fetch(serverUrl+"egresses/moderator/"+user.id+ "/" + 
+        await getUserToken())
        if (!response.ok) {
         throw new Error('Erro ao buscar dados');
     }
-    const result = await response.json();    
-    console.log(result);
+    const result = await response.json();
     
     return result
     } catch (error) {
-        console.log(error);
-        
+        console.log(error);        
     }
 }
 function preencheCampos(dados) {
@@ -56,16 +55,22 @@ function preencheCampos(dados) {
     txtName.value = dados.name;
     txtCPF.value=dados.cpf
     txtPhone.value=dados.phone
-    chkIsPhonePublic.checked=!dados.phone_is_public
+
+    if(document.getElementById("txtFone").value.length > 14){
+      $('#txtFone').mask('(00) 00000-0000');
+    }else{
+      $('#txtFone').mask('(00) 0000-0000');
+    }
+
+    chkIsPhonePublic.checked=dados.phone_is_public
     txtBirthDate.value=dados.birthdate.split("T")[0]
     txtFeedback.value=dados.feedback.comment
     image.setAttribute("src",pathImage)
     image.setAttribute("alt","Foto do Perfil")
-console.log(dados);
 
     dados.contacts.forEach(contato => {
-      if (contato.name!='Telefone') {
-        criarExibicaoContato(contato)
+      if (contato.name_platform.toUpperCase() != 'TELEFONE') {
+        criarExibicaoContato(contato);
       }
     });
     dados.academic_formation.forEach(formacao=>{
@@ -120,13 +125,17 @@ document.getElementById('btnContinuarCadastro').addEventListener('click', ()=>{
 async function saveUser() {
   let name=document.getElementById('txtName').value
 
+  let obj = new Object();
+  obj.name = name;
+  obj.user_token = await getUserToken();
+
   await $.ajax({
     url : serverUrl+'user/'+getUserId(),
     dataType: "json",
     processData: true,
     contentType: 'application/json',
     method : "PUT",
-    data : `{"name":"${name}"}`,
+    data : JSON.stringify(obj),
 })
 .done(async function(){
 })
@@ -151,41 +160,41 @@ async function saveUserContactsAndExperience(){
   let academic_formation = JSON.parse("[" + acadExperiences + "]");
   let image_file = document.getElementById('inputImagemPerfil').files[0];
   
+  if (!image_file)
+    image_file = document.getElementById("exbImagemPerfil").src
 
-  let form_data_egress = new Object();
-  form_data_egress.id=idEgresso+''
-  form_data_egress.cpf=cpf;
-  form_data_egress.phone= telefone
-  form_data_egress.isPhonePublic= isTelefonePublico
-  form_data_egress.birthdate= dataNasc
-  form_data_egress.feedback=feedBack.trim()
-
-  form_data_egress.contacts= JSON.parse("["+contacts+"]");
-
-  form_data_egress.academic_formation= academic_formation;
-
-  form_data_egress.professional_profile=JSON.parse("["+profExperiences+"]");
-  //form_data_egress.append('image', image_file);
+  let form_data_egress = new FormData();
+  form_data_egress.append('_method', 'PUT')
+  form_data_egress.append('id', idEgresso + '')
+  form_data_egress.append('cpf', cpf)
+  form_data_egress.append('phone', telefone);
+  form_data_egress.append('isPhonePublic', isTelefonePublico);
+  form_data_egress.append('birthdate', dataNasc);
+  form_data_egress.append('user_token', await getUserToken());  
+  form_data_egress.append('feedback', feedBack.trim());
+  form_data_egress.append('contacts', JSON.stringify(JSON.parse("["+contacts+"]")));
+  form_data_egress.append('academic_formation', JSON.stringify(academic_formation));
+  form_data_egress.append('professional_profile', JSON.stringify(JSON.parse("["+profExperiences+"]")));
+  
+  form_data_egress.append('image', image_file);
   
   let cpfOk = cpf.length > 10;
   let foneOk = telefone.length > 8;
   let dataNOk = dataNasc.length > 8;
-  let feedBackOk = feedBack.trim().length > 2;
+  let feedBackOk = feedBack.trim().length > 2 && feedBack.trim().length < limiteDoFeedback;
 
-  if(cpfOk && foneOk && dataNOk && feedBackOk){    
+  if(cpfOk && foneOk && dataNOk && feedBackOk && image_file){    
     let endpoint = serverUrl + "egresses";
-    console.log(JSON.stringify(form_data_egress));
-    
    
     let cursos = JSON.stringify(academic_formation);
     if((cursos.includes("FATEC-ZL"))){
       await $.ajax({
           url : endpoint,
           dataType: "json",
-          processData: true,
-          contentType: 'application/json',
-          method : "PUT",
-          data : JSON.stringify(form_data_egress),
+          processData: false,
+          contentType: false,
+          method : "POST",
+          data : form_data_egress,
       })
       .done(async function(){
         alert("Enviado para análise")
@@ -206,7 +215,7 @@ async function saveUserContactsAndExperience(){
     } else if (!image_file){
       alert("Escola uma imagem!")
     }else{
-      alert("Escreva um feedback");
+      alert("Escreva um feedback.\n O feedback deve ter até "+(limiteDoFeedback-1)+" caracteres, seu feedback tem "+feedBack.trim().length+" caracteres");
     }
   } 
 }

@@ -13,6 +13,23 @@ main{
     height: 20vw;
     margin-bottom: 1em;
     border-radius: 10px;
+    object-fit: cover;
+    object-position: center;
+}
+
+#btnOpenJustificat{
+    cursor: pointer;
+    margin-right: 1em;
+    display: block;
+    margin-bottom: 1em;
+}
+
+#statusDescription{
+    font-size: .4em !important;
+}
+
+#statusDescription > textarea{
+    resize: none;
 }
 
 #divContatos{
@@ -30,11 +47,20 @@ main{
     margin-bottom: 1em;
 }
 
+#txtDescricao{
+    resize: none;
+    min-height: 400px;
+}
 /* --------------------------------*/
 /* ------------ Dados ------------*/
 #aluno-nome-completo{
     text-transform: capitalize;
     font-size: 2.5em;
+}
+
+#aluno-nome-completo > p{
+    text-transform: none;
+    font-size: .4em;
 }
 
 .aux-label{

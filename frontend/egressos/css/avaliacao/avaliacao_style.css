@@ -1,0 +1,56 @@
+#aluno-nome-completo{
+    font-size: 1em;
+}
+
+textarea{
+    resize: none;
+    min-height: 200px !important;
+}
+
+.egresso-contato{
+    border: 1px solid black;
+    border-radius: 10px;
+    padding: .1em;
+    width: 20vw;
+    overflow: hidden;
+}
+
+.egresso-contato > *{
+    display: block;
+    width: 100%;
+    text-align: center;
+}
+
+#aluno-dados > *{
+    margin-bottom: .7em;
+}
+
+.cb-user-data{
+    float: right;
+    transform: translate(-10px,-200%);
+    display: block;
+}
+
+.cb-user-data-img{
+    float: inline-end;
+    
+
+}
+
+.cb-user-data-exp{
+    display: block;
+    margin: auto;
+    margin-top: 5px;
+}
+
+.cb-user-data-contato{
+    display: block;
+    width: 100%;
+    margin: auto;
+
+}
+
+#btnContinuar{
+    float: right;
+    margin-top: 50%;
+}

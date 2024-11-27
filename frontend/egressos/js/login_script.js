@@ -44,9 +44,35 @@ document.getElementById('entrar').addEventListener('click', async function () {
             sessionStorage.setItem('token', data.access_token);
             sessionStorage.setItem('user',JSON.stringify(data.user));
 
+           
+
+            // Save egress data in session
+            await $.ajax({
+                url : serverUrl + "egresses/" + data.user.id,
+                dataType: "json",
+                contentType: "application/json",
+                method : "GET"
+              })
+              .done(function(msg){
+                setStorage("egress",JSON.stringify(msg));
+              })
+              .fail(function(jqXHR, textStatus, msg){
+                if(msg == "Not Found"){
+                    window.location.href = "./";
+                }
+
+                console.log(jqXHR);
+                console.log(textStatus);  
+                console.log(msg);
+              });
+
             // Login successful
             showAlert('Login realizado com sucesso!', 'alert-success');
-            window.location.href = "./visualizarPerfil.html?profile=" + data.user.id;
+            if(data.user.type_account == 0){
+                window.location.href = "./visualizarPerfil.html?profile=" + data.user.id;
+            }else{
+                window.location.href = "./homemoderador.html";
+            }
         } else {
             // Login failed, show error message from the API
             showAlert(data.message || 'Falha ao realizar login', 'alert-danger');
@@ -54,6 +80,11 @@ document.getElementById('entrar').addEventListener('click', async function () {
     } catch (error) {
         showAlert('Erro ao conectar com o servidor', 'alert-danger');
     }
+});
+
+document.getElementById("forgotPasswd").addEventListener("click", (e)=>{
+    e.preventDefault();
+    exibirModal("#redefinir-senha-modal");
 });
 
 function showAlert(message, alertType) {
@@ -67,3 +98,5 @@ function showAlert(message, alertType) {
         alertPlaceholder.remove();
     }, 5000);
 }
+
+

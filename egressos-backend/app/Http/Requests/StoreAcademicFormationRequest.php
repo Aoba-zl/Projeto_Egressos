@@ -29,4 +29,14 @@ class StoreAcademicFormationRequest extends FormRequest
             'period' => 'required|string|max:255',
         ];
     }
+    public function messages()
+    {
+        return [
+            'begin_year.required' => 'Ano inicial da formação acadêmica deve ser informado',
+            'begin_year.integer' => 'Ano inicial deve ser no formato de número inteiro',
+            'end_year.integer' => 'Ano final deve ser em formato de número inteiro',
+            'period.required' => 'Período deve ser informado'
+        ];
+    }
+
 }

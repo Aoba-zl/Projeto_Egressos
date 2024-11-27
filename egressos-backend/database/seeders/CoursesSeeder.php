@@ -22,13 +22,7 @@ class CoursesSeeder extends Seeder
                 'updated_at' => now(),
             ]
             ,[
-                'name' => '[DSM] Desenvolvimento de Software Multiplataforma',
-                'type_formation' => 'Tecnólogo',
-                'created_at' => now(),
-                'updated_at' => now(),
-            ]            
-            ,[
-                'name' => '[INFO] Informática com ênfase em Gestão de Negócios',
+                'name' => '[COMEX] Comércio Exterior',
                 'type_formation' => 'Tecnólogo',
                 'created_at' => now(),
                 'updated_at' => now(),
@@ -40,13 +34,13 @@ class CoursesSeeder extends Seeder
                 'updated_at' => now(),
             ]
             ,[
-                'name' => '[DPP] Produção com ênfase em Plásticos',
+                'name' => '[DSM] Desenvolvimento de Software Multiplataforma',
                 'type_formation' => 'Tecnólogo',
                 'created_at' => now(),
                 'updated_at' => now(),
             ]
             ,[
-                'name' => '[COMEX] Comércio Exterior',
+                'name' => '[LOG] Logística',
                 'type_formation' => 'Tecnólogo',
                 'created_at' => now(),
                 'updated_at' => now(),
@@ -58,19 +52,13 @@ class CoursesSeeder extends Seeder
                 'updated_at' => now(),
             ]
             ,[
-                'name' => '[LOG] Logística com ênfase em Transportes',
+                'name' => '[GE] Gestão Empresarial',
                 'type_formation' => 'Tecnólogo',
                 'created_at' => now(),
                 'updated_at' => now(),
             ]
             ,[
-                'name' => '[LOG] Logística e Transportes',
-                'type_formation' => 'Tecnólogo',
-                'created_at' => now(),
-                'updated_at' => now(),
-            ]
-            ,[
-                'name' => '[EMP] Gestão empresarial',
+                'name' => '[POLI] Polímeros',
                 'type_formation' => 'Tecnólogo',
                 'created_at' => now(),
                 'updated_at' => now(),
