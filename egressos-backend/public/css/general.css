@@ -1,0 +1,93 @@
+:root{
+
+    --section-height: 30vh;
+    --primary-text:2em;
+    --secondary-text:1.5em;
+    --terciary-text:1em;
+
+    --color-1:#881717;
+    --color-2:#5E1F1F;
+    --color-3:#B30000;
+    --color-4:#331A1A;
+    --color-5:#332222;
+    
+    --black:#000000;
+
+    --quad-1:#5E1F1F;
+    --quad-2:#43545C;
+
+    --quad-3:#1F5E31;
+    --quad-4:#1F255E;
+    --quad-5:#5E511F;
+}
+
+*{
+    box-sizing: border-box;
+}
+
+body{
+    padding: 0;
+    margin: 0;
+    overflow-x: hidden;
+}
+
+nav > *{
+    width: fit-content;
+}
+
+.btn-light{
+    border: 2px solid black;
+}
+
+.disp-none{
+    display: none !important;
+}
+footer{
+    background-color: #ffffff;
+    margin-bottom: 0;
+    padding: 1rem 0rem;
+}
+/* ------- HEADER ------------- */
+#logoFatec{
+    width: 87px;
+    height: 50px;
+    margin-left:1em;
+    display: inline-block;
+}
+
+
+#tituloEgressos{
+    font-size: var(--primary-text);
+    display: inline-block;
+}
+
+#divLogin{
+    display: inline-block;
+}
+
+#sair{
+    color: red;
+}
+#sair > span{
+    transform: translateY(5px);
+}
+/* ---------------------------- */
+#btnEntrar{
+    transform: translateX(-.5rem);
+}
+/* ---------------------------- */
+.close{
+    margin-left: auto !important;
+    font-weight: bold;
+    border: 0px;
+    font-size: 1.1em;
+    border-radius: 5px;
+    width: 2rem;
+    height: 2rem;
+}
+
+.close:hover{
+    background-color: lightgrey;
+    color: red;
+
+}

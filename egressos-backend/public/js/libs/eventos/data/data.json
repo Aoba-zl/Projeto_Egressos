@@ -1,0 +1,47 @@
+[
+    {
+        "name":"Palestra: TV 3.0 e Perspectivas Futuras",
+        "acronym":"palestra",
+        "startdate":"14/11/2024",
+        "starttime":"18:15",
+        "enddate":"14/11/2024",
+        "endtime":"20:00",
+        "edition":"1"
+    },
+    {
+        "name":"Aula de Samba Rock, com o professor Nescau",
+        "acronym":"aula",
+        "startdate":"21/11/2024",
+        "starttime":"08:00",
+        "enddate":"21/11/2024",
+        "endtime":"09:00",
+        "edition":"1"
+    },
+    {
+        "name":"Slam Fatec Zona Leste",
+        "acronym":"slam",
+        "startdate":"21/11/2024",
+        "starttime":"09:30",
+        "enddate":"21/11/2024",
+        "endtime":"11:00",
+        "edition":"1"
+    },
+    {
+        "name":"Palestra: Me formei! E Agora ? Modernização das Relações do Trabalho",
+        "acronym":"palestra",
+        "startdate":"07/11/2024",
+        "starttime":"09:00",
+        "enddate":"07/11/2024",
+        "endtime":"11:00",
+        "edition":"1"
+    },
+    {
+        "name":"Engetec",
+        "acronym":"engetec",
+        "startdate":"05/12/2024",
+        "starttime":"18:00",
+        "enddate":"05/12/2024",
+        "endtime":"21:00",
+        "edition":"7"
+    }
+]

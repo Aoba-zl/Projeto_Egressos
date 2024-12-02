@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\File;
+
 class HomeController extends Controller
 {
     /**
@@ -9,6 +11,6 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view("welcome");
+        return File::get(public_path() . '/index.html');
     }
 }

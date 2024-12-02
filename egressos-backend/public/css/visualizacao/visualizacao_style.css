@@ -1,0 +1,142 @@
+
+main{
+    padding: 1em;
+}
+/* ------------ Profile ------------*/
+.icon-social{
+    width: 30px;
+    height: 30px;
+}
+
+#divImgPerfil img{
+    width: 20vw;
+    height: 20vw;
+    margin-bottom: 1em;
+    border-radius: 10px;
+    object-fit: cover;
+    object-position: center;
+}
+
+#btnOpenJustificat{
+    cursor: pointer;
+    margin-right: 1em;
+    display: block;
+    margin-bottom: 1em;
+}
+
+#statusDescription{
+    font-size: .4em !important;
+}
+
+#statusDescription > textarea{
+    resize: none;
+}
+
+#divContatos{
+    align-items: center;
+}
+
+#divContatos *{
+    margin-right: 5px;
+    margin-bottom: 10px;
+    display: inline-block;
+}
+
+#perfilName{
+    font-size: 3em;
+    margin-bottom: 1em;
+}
+
+#txtDescricao{
+    resize: none;
+    min-height: 400px;
+}
+/* --------------------------------*/
+/* ------------ Dados ------------*/
+#aluno-nome-completo{
+    text-transform: capitalize;
+    font-size: 2.5em;
+}
+
+#aluno-nome-completo > p{
+    text-transform: none;
+    font-size: .4em;
+}
+
+.aux-label{
+    text-decoration: underline;
+    font-size: 1.2em;
+    display: block;
+    margin-bottom: 5px;
+    margin-top: 30px;
+}
+
+#aluno-curso > *{
+    display: block;
+}
+
+#txtFeedback{
+    width: 100%;
+    min-height: 20vh;
+    resize: none;
+    border-style: dashed;
+}
+
+/* --------------------------------*/
+/* ------------ Experiencias ------------*/
+.exp{
+    border: 1px solid black;
+    border-radius: 10px;
+    padding: 1em 2em;
+    text-align: center;
+    margin-bottom: 5px;
+    
+}
+
+#exps-academicas{
+    margin-bottom: 4em;
+}
+
+.user-acad-exp-item{
+    border: 1px solid black;
+    padding: .3em;
+    border-radius: 10px;
+    text-align: center;
+    margin-bottom: .3em;
+}
+
+.user-acad-exp-item > *::after{
+    content: ", ";
+}
+
+.user-acad-exp-item > *:nth-child(4):after{
+    content: none;
+}
+
+.user-acad-exp-item > *:nth-child(5):after{
+    content: none;
+}
+
+.user-prof-exp-item{
+    border: 1px solid black;
+    padding: .3em;
+    border-radius: 10px;
+    text-align: center;
+    margin-bottom: .3em;
+}
+
+.user-prof-exp-item>:nth-child(1)::after{
+    content: ", ";
+}
+
+.user-prof-exp-item>:nth-child(2)::after{
+    content: ", ";
+}
+
+.user-prof-exp-item>:nth-child(3)::before{
+    content: " de ";
+}
+
+.user-prof-exp-item>:nth-child(3)::after{
+    content: " a ";
+}
