@@ -136,7 +136,8 @@ document.getElementById('btnBuscaAlunos').addEventListener('click', function() {
     }
 
     // Faz a requisição ao endpoint com o nome digitado
-    fetch(`http://localhost:8000/api/egresses?name=${encodeURIComponent(nomeAluno)}`)
+    let endpoint = serverUrl + `egresses?name=${encodeURIComponent(nomeAluno)}`;
+    fetch(endpoint)
         .then(response => {
             if (!response.ok) {
                 throw new Error('Erro ao buscar egressos');
