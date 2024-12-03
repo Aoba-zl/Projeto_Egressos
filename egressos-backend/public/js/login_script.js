@@ -44,32 +44,30 @@ document.getElementById('entrar').addEventListener('click', async function () {
 
             sessionStorage.setItem('token', data.access_token);
             sessionStorage.setItem('user',JSON.stringify(data.user));
-
-
-
-            // Save egress data in session
-            await $.ajax({
-                url : serverUrl + "egresses/" + data.user.id,
-                dataType: "json",
-                contentType: "application/json",
-                method : "GET"
-              })
-              .done(function(msg){
-                setStorage("egress",JSON.stringify(msg));
-              })
-              .fail(function(jqXHR, textStatus, msg){
-                if(msg == "Not Found"){
-                    window.location.href = "./";
-                }
-
-                console.log(jqXHR);
-                console.log(textStatus);
-                console.log(msg);
-              });
-
+            
             // Login successful
             showAlert('Login realizado com sucesso!', 'alert-success');
             if(data.user.type_account == 0){
+                // Save egress data in session
+                await $.ajax({
+                    url : serverUrl + "egresses/" + data.user.id,
+                    dataType: "json",
+                    contentType: "application/json",
+                    method : "GET"
+                })
+                .done(function(msg){
+                    setStorage("egress",JSON.stringify(msg));
+                })
+                .fail(function(jqXHR, textStatus, msg){
+                    if(msg == "Not Found"){
+                        window.location.href = "./";
+                    }
+
+                    console.log(jqXHR);
+                    console.log(textStatus);
+                    console.log(msg);
+                });
+
                 window.location.href = "./visualizarPerfil?profile=" + data.user.id;
             }else{
                 window.location.href = "./homemoderador";
