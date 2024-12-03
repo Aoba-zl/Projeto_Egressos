@@ -19,7 +19,7 @@ use App\Http\Controllers\ProfessionalProfileController;
 Route::get('/', [ViewsController::class , 'index'])->name('home');
 Route::get('index', [ViewsController::class, 'index'])->name('home');
 
-Route::get('homeModerador', [ViewsController::class, 'homeModerador'])->name('home_moderador');
+Route::get('homemoderador', [ViewsController::class, 'homeModerador'])->name('home_moderador');
 Route::get('visualizarPerfil', [ViewsController::class, 'visualizarPerfil'])->name('visualizarPerfil');
 
 Route::get('login', [ViewsController::class, 'login'])->name('login');
