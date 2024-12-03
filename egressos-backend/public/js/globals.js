@@ -47,7 +47,7 @@ function getUserIdPosLogin(){
 
 function getEgressId(){
   let egress = JSON.parse(getStorage("egress"));
-  
+
   if(egress != null && egress != undefined){
     return egress.id;
   }else{
@@ -73,9 +73,9 @@ function criarCampoDeTexto(name,placeholder,labelText){
   field.setAttribute('type',"text");
   field.setAttribute('class',"form-control");
   field.setAttribute('placeholder',placeholder);
-  
+
   div.append(label,field);
-  
+
   return div;
 }
 
@@ -124,7 +124,7 @@ function btnApagarDaTela(e){
   if (isDeleted) {
     e.target.parentNode.remove();
   }
-  
+
 }
 
 function getStatusDescription(status) {
@@ -150,7 +150,7 @@ function getStatusDescription(status) {
 //----------------------- MODAL -----------------------------
 function exibirModal(modalId){
   $(modalId).modal('show');
-} 
+}
 
 function closeModal(modalId) {
   $(modalId).modal('hide');
@@ -172,17 +172,17 @@ function getStorage(name) {
 async function getNamesToAutocomplete(entity,field) {
   try {
     const response = await fetch(`${serverUrl}${entity}/search?name=${field.value}`);
-    
+
     if (!response.ok) {
         throw new Error('Erro ao buscar cursos');
     }
 
     const result = await response.json();
-    
+
     const names = result.original.data.map((item)=>item.name);
-    
+
     autocomplete(field,names)
-    
+
 } catch (error) {
     console.error('Erro:', error);
 }
