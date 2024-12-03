@@ -54,7 +54,7 @@ document.getElementById("btnContinueCad").addEventListener("click",async ()=>{
                 if(!senhaOk){
                     alert("A senha deve ter no mínimo 8 caracteres,"
                         +" com letras maiúsculas, minúsculas, números e "
-                        +"ao menos um caracter especial $*&@)(!%?#"
+                        +"ao menos um destes caracteres especiais $*&@)(!%?#"
                     );
                 }
             }
