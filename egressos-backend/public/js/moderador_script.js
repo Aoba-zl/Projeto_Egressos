@@ -1,6 +1,6 @@
 window.onload = function () {
     $("#header").load("./components/header.html");
-    $("#footer").load("./components/footer.html"); 
+    $("#footer").load("./components/footer.html");
 
     init();
 }
@@ -31,7 +31,7 @@ document.getElementById("btnBuscaAlunos").addEventListener('click',async ()=>{
       })
       .fail(function(jqXHR, textStatus, msg){
         console.log(jqXHR);
-        console.log(textStatus);  
+        console.log(textStatus);
         console.log(msg);
       });
 });
@@ -73,7 +73,7 @@ async function loadEgresses(status){
       })
       .fail(function(jqXHR, textStatus, msg){
         console.log(jqXHR);
-        console.log(textStatus);  
+        console.log(textStatus);
         console.log(msg);
       });
 }
@@ -83,12 +83,12 @@ function createEgressCard(egress){
     card.setAttribute("class","egrees-card");
 
     card.addEventListener("click",()=>{
-        window.location.href = "./avaliacao.html?egress=" + egress.id;
+        window.location.href = "./avaliacao?egress=" + egress.id;
     });
 
     let img = document.createElement("img");
     img.setAttribute("alt","imagem do perfil");
-    
+
     let src = serverUrl +'storage/'+ egress.image_path;
 
     img.setAttribute("src",src);
@@ -100,11 +100,11 @@ function createEgressCard(egress){
     curso.innerHTML = egress.course;
 
     let status = document.createElement("span");
-    
+
     let stat = getStatusDescription(egress.status);
     status.innerHTML = stat;
 
     card.append(img,nome,curso,status);
-    
+
     return card;
 }

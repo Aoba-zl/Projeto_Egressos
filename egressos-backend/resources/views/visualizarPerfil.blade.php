@@ -40,18 +40,18 @@
                         <label for="txtDescricao">Motivo da rejeição do perfil: </label>
                         <textarea class="form-control mb-3" id="txtDescricao">
 
-                        </textarea>                         
+                        </textarea>
                     </form>
                 </div>
                 <div class="modal-footer" id="modal-footer">
-                    <button type="button" id="btnEditarPerfil" class="btn btn-warning" onclick="window.location.href = './updateegress.html'">Editar perfil agora</button>
+                    <button type="button" id="btnEditarPerfil" class="btn btn-warning" onclick="window.location.href = './updateegress'">Editar perfil agora</button>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
                 </div>
             </div>
         </div>
     </div>
-    <header id="header">       
-    
+    <header id="header">
+
     </header>
     <main>
         <div class="row">
@@ -61,7 +61,7 @@
                     <img src="./img/profile_picture.png" alt="Foto do Perfil" srcset="">
                 </div>
                 <div id="divContatos">
-                   
+
                 </div>
             </div>
             <div id="aluno-dados" class="col-sm-12 col-lg-5">
@@ -87,20 +87,20 @@
                 <div>
                     <textarea name="txtFeedback" id="txtFeedback">
                     </textarea>
-                </div>                
+                </div>
             </div>
             <div class="col-sm-12 col-lg-4">
                 <span class="aux-label">Outras Experiencias Acadêmicas</span>
                 <div id="exps-academicas">
-                
+
                 </div>
 
                 <span class="aux-label">Outras Experiencias Profissionais</span>
                 <div id="exps-profissionais">
-                   
+
                 </div>
-                
-                <div id="edit-profile" >     
+
+                <div id="edit-profile" >
                      <button class="btn btn-warning d-none" id="editProfile">Editar Dados</button>
                 </div>
             </div>
@@ -110,17 +110,17 @@
 
     </footer>
     <script src="./js/globals.js"></script>
-    
+
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>   
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
 
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
-    
+
     <script type="module" src="./js/visualizacao_script.js"></script>
 
 </body>

@@ -1,21 +1,21 @@
 window.onload = function () {
     $("#header").load("./components/header.html");
-    $("#footer").load("./components/footer.html"); 
+    $("#footer").load("./components/footer.html");
 
     init();
 }
 const profileId = new URLSearchParams(window.location.search).get('profile');
 
-async function init(){   
+async function init(){
     let endpoint = serverUrl + "egresses/"+profileId;
     let queryString = window.location.search;
 
     // Cria um objeto URLSearchParams para manipular a query string
     let urlParams = new URLSearchParams(queryString);
-    
+
     // Obtém o valor do parâmetro 'profile'
     let profileValue = urlParams.get('profile');
-    
+
     if(user != undefined && user != null){
         if (user.id == profileValue && user.type_account=="0") {
             document.getElementById('editProfile').classList.remove("d-none");
@@ -23,9 +23,9 @@ async function init(){
     }
 
     document.getElementById('editProfile').addEventListener('click', async function () {
-        window.location.href = "./updateEgress.html?profile=" + user.id;
+        window.location.href = "./updateEgress?profile=" + user.id;
     });
-    
+
 
     await $.ajax({
         url : endpoint,
@@ -47,9 +47,9 @@ async function init(){
 
         let status = document.createElement('div');
         status.setAttribute("id","statusDescription");
-        status.innerHTML = '<span>Status da conta: ' + 
+        status.innerHTML = '<span>Status da conta: ' +
             getStatusDescription(msg.status)+"</span>";
-        
+
         if(msg.status != 1){
             fullName.appendChild(status);
 
@@ -71,17 +71,17 @@ async function init(){
             if(msg.status == '0'){
                 status.setAttribute("style","color:orange;");
             }
-        }        
-        
+        }
+
         let idade = document.getElementById("aluno-idade");
         let now = new Date();
         let birthdate = new Date(msg.birthdate);
         let diferencaEmMilissegundos = now - birthdate;
-        
+
         const anos = Math.floor(diferencaEmMilissegundos / (1000 * 60 * 60 * 24 * 365.25));
         idade.innerHTML = anos + " anos";
 
-        let curso = document.getElementById("aluno-curso-nome");        
+        let curso = document.getElementById("aluno-curso-nome");
         let cursoAno = document.getElementById("aluno-curso-conclusao");
 
         msg.academic_formation.forEach(element => {
@@ -95,7 +95,7 @@ async function init(){
         msg.professional_experience.forEach(element => {
             if(element.final_date == null){
                 let dataIni = new Date(element.initial_date );
-                jobAtual.innerHTML = element.name + ", " 
+                jobAtual.innerHTML = element.name + ", "
                     + element.area + ", "
                     + "desde " + dataIni.getFullYear();
             }
@@ -107,12 +107,12 @@ async function init(){
 
         let outrasExpsAcad = document.getElementById("exps-academicas");
         msg.academic_formation.forEach(element => {
-            outrasExpsAcad.appendChild(criarExibicaoAcadExp(element));       
+            outrasExpsAcad.appendChild(criarExibicaoAcadExp(element));
         });
 
         let outrasExpsProf = document.getElementById("exps-profissionais");
         msg.professional_experience.forEach(element => {
-            outrasExpsProf.appendChild(criarExibicaoProfExp(element));            
+            outrasExpsProf.appendChild(criarExibicaoProfExp(element));
         });
 
         let contatos = document.getElementById("divContatos");
@@ -124,7 +124,7 @@ async function init(){
     })
     .fail(function(jqXHR, textStatus, msg){
         console.log(jqXHR);
-        console.log(textStatus);  
+        console.log(textStatus);
         console.log(msg);
     });
 
@@ -146,11 +146,11 @@ async function abrirJustificativa() {
       })
       .fail(function(jqXHR, textStatus, msg){
         console.log(jqXHR);
-        console.log(textStatus);  
+        console.log(textStatus);
         console.log(msg);
       });
-      
-    exibirModal("#motivo-rejeicao-modal");    
+
+    exibirModal("#motivo-rejeicao-modal");
 }
 
 function criarExibicaoProfExp(experienciaProfissional){
@@ -267,7 +267,7 @@ function criarExibicaoAcadExp(experienciaAcademica){
 
     return div;
 }
-    
+
 setTimeout(() => {
     let btnEntrar=document.getElementById("btnEntrar");
     btnEntrar.classList.add("d-none");

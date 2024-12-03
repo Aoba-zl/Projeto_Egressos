@@ -3,7 +3,7 @@ var egressToEdit = 0;
 
 window.onload = function () {
     $("#header").load("./components/header.html");
-    $("#footer").load("./components/footer.html"); 
+    $("#footer").load("./components/footer.html");
 
     init();
 }
@@ -22,13 +22,13 @@ document.getElementById("btnRejeitarPerfil").addEventListener("click",()=>{
 
 document.addEventListener("click",mudarBtnAcao);
 
-async function init(){    
-    let endpoint = serverUrl + "egresses/moderator/"+egressId+ "/" + 
+async function init(){
+    let endpoint = serverUrl + "egresses/moderator/"+egressId+ "/" +
     await getUserToken();
     if(getUser().type_account == 0){
         window.location.href = './';
     }
-    
+
     await $.ajax({
         url : endpoint,
         contentType: "application/json",
@@ -76,8 +76,8 @@ async function init(){
 
         let expsProfissionais = document.getElementById("exps-profissionais");
         expsProfissionais.innerHTML = "";
-        msg.professional_experience.forEach(element => {           
-            expsProfissionais.appendChild(criarExibicaoProfExp(element));       
+        msg.professional_experience.forEach(element => {
+            expsProfissionais.appendChild(criarExibicaoProfExp(element));
         });
 
         adicionarCheckbox();
@@ -174,12 +174,12 @@ function adicionarCheckbox(){
     nome.parentNode.appendChild(criarCb("cbNome"));
     cpf.parentNode.appendChild(criarCb("cbCpf"));
     dataNasc.parentNode.appendChild(criarCb("cbDataNasc"));
-    
+
     feedback.parentNode.appendChild(criarCb("cbFeedback"));
-    
+
     i = 1;
     perfilAcademico.childNodes.forEach(element => {
-       element.appendChild(criarCb("cb-acad-"+i,"cb-user-data-exp")); 
+       element.appendChild(criarCb("cb-acad-"+i,"cb-user-data-exp"));
        i++;
     });
 
@@ -207,7 +207,7 @@ function criarCb(cbId,classe){
 function marcarComoInválidos() {
     let cbs = document.querySelectorAll(".cb");
     cbs.forEach(element => {
-       element.setAttribute("checked",true); 
+       element.setAttribute("checked",true);
     });
 }
 
@@ -226,7 +226,7 @@ function mudarBtnAcao(){
     if(haReprovados){
         btn.innerHTML = "Continuar";
         btn.classList.remove("btn-outline-success");
-        btn.classList.add("btn-outline-danger");        
+        btn.classList.add("btn-outline-danger");
     }else{
         btn.innerHTML = "Aprovar Perfil";
         btn.classList.remove("btn-outline-danger");
@@ -244,7 +244,7 @@ function avancarEtapa(){
             }
 
             if(element.parentNode.classList.contains("egresso-contato")){
-                dadosReprovados.push("[ Contato: " 
+                dadosReprovados.push("[ Contato: "
                     + element.parentNode.firstChild.innerHTML + " ]");
             }
 
@@ -267,13 +267,13 @@ function avancarEtapa(){
             }
 
             if(element.parentNode.classList.contains("user-acad-exp-item")){
-                dadosReprovados.push("[ Formação: " +  
+                dadosReprovados.push("[ Formação: " +
                     element.parentNode.children[1].innerHTML + " ]"
                 );
             }
 
             if(element.parentNode.classList.contains("user-prof-exp-item")){
-                dadosReprovados.push("[ Experiência profissional:  " +  
+                dadosReprovados.push("[ Experiência profissional:  " +
                     element.parentNode.children[0].innerHTML + " ]"
                 );
             }
@@ -289,7 +289,7 @@ function avancarEtapa(){
             value += element+"\n";
         });
         reprovados.value = value;
-        exibirModal("#av-modal");    
+        exibirModal("#av-modal");
     }
 }
 
@@ -324,7 +324,7 @@ async function salvarAvaliacao(comentario,status) {
       })
       .done(function(msg){
         alert(msg.message);
-        window.location.href = "homemoderador.html";
+        window.location.href = "homemoderador";
       })
       .fail(function(jqXHR, textStatus, msg){
           console.log(jqXHR);

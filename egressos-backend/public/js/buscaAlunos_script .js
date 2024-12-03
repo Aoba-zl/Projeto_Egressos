@@ -1,6 +1,6 @@
 window.onload = function () {
     $("#header").load("./components/header.html");
-    $("#footer").load("./components/footer.html"); 
+    $("#footer").load("./components/footer.html");
 
     init();
 }
@@ -19,19 +19,19 @@ var totalItems=0
 async function fetchEgresses(page = 1, limit = 1) {
     try {
         const response = await fetch(`${serverUrl}all-egresses?page=${page}&limit=${limit}`);
-        
+
         if (!response.ok) {
             throw new Error('Erro ao buscar egressos');
         }
 
         const result = await response.json();
-        
+
         const egresses = result.data;
         totalItems = result.total;
 
         renderEgresses(egresses);
         renderPagination(totalItems, page, limit);
-        
+
     } catch (error) {
         console.error('Erro:', error);
     }
@@ -46,11 +46,11 @@ function renderEgresses(egresses) {
 
         let src = serverUrl +'storage/'+ egress.image_path;
         egressElement.addEventListener("click",()=>{
-            window.location.href = "./visualizarPerfil.html?profile="
+            window.location.href = "./visualizarPerfil?profile="
                     +egress.user_id;
         });
-        
-        egressElement.classList.add('aluno-card');        
+
+        egressElement.classList.add('aluno-card');
         egressElement.innerHTML = `
             <span class="d-none">${egress.user_id}</span>
             <div class="row">
@@ -75,9 +75,9 @@ function renderEgresses(egresses) {
 function renderPagination(totalItems, currentPage, limit) {
     totalPages = Math.ceil(totalItems / limit); // Armazena o total de páginas globalmente
     const paginationContainer = document.getElementById('pagination');
-    
+
     paginationContainer.innerHTML = '';
-    
+
     const totalButtonGroups = Math.ceil(totalPages / buttonsPerPage); // Quantos grupos de botões existem
     const startPage = (currentButtonGroup - 1) * buttonsPerPage + 1; // Primeira página do grupo atual
     const endPage = Math.min(startPage + buttonsPerPage - 1, totalPages); // Última página do grupo atual

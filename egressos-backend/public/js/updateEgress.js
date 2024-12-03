@@ -1,6 +1,6 @@
 window.onload = function () {
     $("#header").load("./components/header.html");
-    $("#footer").load("./components/footer.html"); 
+    $("#footer").load("./components/footer.html");
 
     init();
 }
@@ -15,7 +15,7 @@ document.getElementById("txtFone").addEventListener("focus",()=>{
 });
 
 document.getElementById("txtFone").addEventListener("change",()=>{
-  
+
   if(document.getElementById("txtFone").value.length > 14){
     $('#txtFone').mask('(00) 00000-0000');
   }else{
@@ -27,18 +27,18 @@ document.getElementById("txtFone").addEventListener("change",()=>{
 //-------------- Functions -----------------------------
 
 async function carregaDados() {
-    
+
     try {
-       const response = await fetch(serverUrl+"egresses/moderator/"+user.id+ "/" + 
+       const response = await fetch(serverUrl+"egresses/moderator/"+user.id+ "/" +
         await getUserToken())
        if (!response.ok) {
         throw new Error('Erro ao buscar dados');
     }
     const result = await response.json();
-    
+
     return result
     } catch (error) {
-        console.log(error);        
+        console.log(error);
     }
 }
 function preencheCampos(dados) {
@@ -50,7 +50,7 @@ function preencheCampos(dados) {
     let txtFeedback=document.getElementById("txtFeedback")
     let image = document.getElementById("exbImagemPerfil")
     let pathImage = serverUrl +'storage/'+ dados.image_path;
-            
+
     idEgresso=dados.id
     txtName.value = dados.name;
     txtCPF.value=dados.cpf
@@ -74,7 +74,7 @@ function preencheCampos(dados) {
       }
     });
     dados.academic_formation.forEach(formacao=>{
-       
+
         criarExibicaoAcadExp( transformData(formacao))
     })
     dados.professional_experience.forEach(experiencia=>{
@@ -95,7 +95,7 @@ async function init(){
     $('#txtCPF').mask('000.000.000-00');
 }
 function transformData(data) {
-  
+
     return {
       institution: {
         name: data.institution_name,
@@ -112,8 +112,8 @@ function transformData(data) {
       end_year: data.end_year, // Exemplo de conversão para 2012
       period: data.period
     };
-  
- 
+
+
 }
 document.getElementById('btnContinuarCadastro').addEventListener('click', ()=>{
  saveUser()
@@ -141,7 +141,7 @@ async function saveUser() {
 })
 .fail(function(jqXHR, textStatus, msg){
   console.log(jqXHR);
-  console.log(textStatus);  
+  console.log(textStatus);
   console.log(msg);
   alert(JSON.parse(jqXHR.responseText).message);
 });
@@ -159,7 +159,7 @@ async function saveUserContactsAndExperience(){
   let feedBack = document.getElementById("txtFeedback").value;
   let academic_formation = JSON.parse("[" + acadExperiences + "]");
   let image_file = document.getElementById('inputImagemPerfil').files[0];
-  
+
   if (!image_file)
     image_file = document.getElementById("exbImagemPerfil").src
 
@@ -170,22 +170,22 @@ async function saveUserContactsAndExperience(){
   form_data_egress.append('phone', telefone);
   form_data_egress.append('isPhonePublic', isTelefonePublico);
   form_data_egress.append('birthdate', dataNasc);
-  form_data_egress.append('user_token', await getUserToken());  
+  form_data_egress.append('user_token', await getUserToken());
   form_data_egress.append('feedback', feedBack.trim());
   form_data_egress.append('contacts', JSON.stringify(JSON.parse("["+contacts+"]")));
   form_data_egress.append('academic_formation', JSON.stringify(academic_formation));
   form_data_egress.append('professional_profile', JSON.stringify(JSON.parse("["+profExperiences+"]")));
-  
+
   form_data_egress.append('image', image_file);
-  
+
   let cpfOk = cpf.length > 10;
   let foneOk = telefone.length > 8;
   let dataNOk = dataNasc.length > 8;
   let feedBackOk = feedBack.trim().length > 2 && feedBack.trim().length < limiteDoFeedback;
 
-  if(cpfOk && foneOk && dataNOk && feedBackOk && image_file){    
+  if(cpfOk && foneOk && dataNOk && feedBackOk && image_file){
     let endpoint = serverUrl + "egresses";
-   
+
     let cursos = JSON.stringify(academic_formation);
     if((cursos.includes("FATEC-ZL"))){
       await $.ajax({
@@ -198,11 +198,11 @@ async function saveUserContactsAndExperience(){
       })
       .done(async function(){
         alert("Enviado para análise")
-        window.location.href='./visualizarPerfil.html?profile=' + user.id;
+        window.location.href='./visualizarPerfil?profile=' + user.id;
       })
       .fail(function(jqXHR, textStatus, msg){
         console.log(jqXHR);
-        console.log(textStatus);  
+        console.log(textStatus);
         console.log(msg);
         alert(JSON.parse(jqXHR.responseText).message);
       });
@@ -217,7 +217,7 @@ async function saveUserContactsAndExperience(){
     }else{
       alert("Escreva um feedback.\n O feedback deve ter até "+(limiteDoFeedback-1)+" caracteres, seu feedback tem "+feedBack.trim().length+" caracteres");
     }
-  } 
+  }
 }
 
 function getDivData(divId) {
@@ -225,8 +225,8 @@ function getDivData(divId) {
   let data = "";
 
   for (let i = 0; i < divData.children.length; i++) {
-    data += divData.children[i].lastChild.innerHTML; 
-    data += ",";   
+    data += divData.children[i].lastChild.innerHTML;
+    data += ",";
   }
 
   data = data.slice(0,-1);
@@ -258,7 +258,7 @@ function autocomplete(inp, arr) {
   var currentFocus = 0;
   /*execute a function when someone writes in the text field:*/
   inp.addEventListener("input", input);
-  
+
   function input(e) {
       var a, b, i, val = this.value;
       /*close any already open lists of autocompleted values*/
@@ -294,7 +294,7 @@ function autocomplete(inp, arr) {
         //}
       }
   };
- 
+
   function addActive(x) {
     /*a function to classify an item as "active":*/
     if (!x) return false;

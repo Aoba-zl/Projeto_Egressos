@@ -7,7 +7,7 @@ var count = 1;
 
 window.onload = function () {
     $("#header").load("./components/header.html");
-    $("#footer").load("./components/footer.html"); 
+    $("#footer").load("./components/footer.html");
 
     init();
 }
@@ -63,7 +63,7 @@ function createCardDepoimento(depoimento) {
     divCard.setAttribute("class","depoimento-card p-4 depoimento-theme-"+rand);
 
     divCard.addEventListener("click",()=>{
-        window.location.href = "./visualizarPerfil.html?profile="
+        window.location.href = "./visualizarPerfil?profile="
         +depoimento.user_id;
     });
 
@@ -118,7 +118,7 @@ function createCardDepoimento(depoimento) {
 
     row1.appendChild(col1);
     row1.appendChild(col10);
-    
+
     if(count%2 === 0){
         //TODO: logica para inverter ordem dos depoimentos pares
     }

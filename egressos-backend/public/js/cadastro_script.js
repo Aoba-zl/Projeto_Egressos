@@ -16,19 +16,19 @@ document.getElementById("btnContinueCad").addEventListener("click",async ()=>{
 
         let nameOk = (name != "" && name != " ");
         let emailOk = (email.includes("@") && email.includes("."));
-        let regex = 
+        let regex =
            /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[$*&@#])[0-9a-zA-Z$*&@#]{8,}$/;
         let senhaOk = (regex.test(password));
-        
+
         let cadastroNormal = true;
-        
+
         if(cadModerator != undefined && cadModerator != null){
             cadastroNormal = !cadModerator;
         }
 
         if(password === cpassword){
             if(nameOk && emailOk && senhaOk){
-            
+
                 let user = new Object();
 
                 user.name = name;
@@ -38,7 +38,7 @@ document.getElementById("btnContinueCad").addEventListener("click",async ()=>{
 
                 if(cadastroNormal){
                     setStorage("user",JSON.stringify(user));
-                    window.location.href = "./cadastro2.html"
+                    window.location.href = "./cadastro2"
                 }else{
                     cadastrarUser(user);
                 }
@@ -46,7 +46,7 @@ document.getElementById("btnContinueCad").addEventListener("click",async ()=>{
                 if(!nameOk){
                     alert("Digite o seu nome");
                 }
-                
+
                 if(!emailOk){
                     alert("Digite um email válido");
                 }
@@ -60,13 +60,13 @@ document.getElementById("btnContinueCad").addEventListener("click",async ()=>{
         }else{
             alert("As senhas não sao iguais");
         }
-        
+
 
     }else{
         cb.parentNode.classList.add("mark-red");
     }
 
-    
+
 });
 
 function getValueByID(field){
@@ -87,7 +87,7 @@ function cadastrarUser(user){
       })
       .fail(function(jqXHR, textStatus, msg){
         console.log(jqXHR);
-        console.log(textStatus);  
+        console.log(textStatus);
         console.log(msg);
       });
 }

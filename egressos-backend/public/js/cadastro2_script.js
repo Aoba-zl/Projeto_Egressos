@@ -1,6 +1,6 @@
 window.onload = function () {
     $("#header").load("./components/header.html");
-    $("#footer").load("./components/footer.html"); 
+    $("#footer").load("./components/footer.html");
 
     init();
 }
@@ -15,7 +15,7 @@ document.getElementById("txtFone").addEventListener("focus",()=>{
 });
 
 document.getElementById("txtFone").addEventListener("change",()=>{
-  
+
   if(document.getElementById("txtFone").value.length > 14){
     $('#txtFone').mask('(00) 00000-0000');
   }else{
@@ -38,10 +38,10 @@ function init(){
         txtName.value = user.name;
         txtName.setAttribute("disabled","true");
       }else{
-        window.location.href = "./cadastro.html";
+        window.location.href = "./cadastro";
       }
     }else{
-      window.location.href = "./cadastro.html";
+      window.location.href = "./cadastro";
     }
 
     // formatar campos
@@ -73,13 +73,13 @@ async function saveUserContactsAndExperience(){
   form_data_egress.append('academic_formation', JSON.stringify(academic_formation));
   form_data_egress.append('professional_profile', JSON.stringify(JSON.parse("["+profExperiences+"]")));
   form_data_egress.append('image', image_file);
-  
+
   let cpfOk = cpf.length > 10;
   let foneOk = telefone.length > 8;
   let dataNOk = dataNasc.length > 8;
   let feedBackOk = feedBack.trim().length > 2 && feedBack.trim().length < limiteDoFeedback;
 
-  if(cpfOk && foneOk && dataNOk && feedBackOk && image_file){    
+  if(cpfOk && foneOk && dataNOk && feedBackOk && image_file){
     let endpoint = serverUrl + "egresses";
 
     let cursos = JSON.stringify(academic_formation);
@@ -109,18 +109,18 @@ async function saveUserContactsAndExperience(){
               sessionStorage.setItem('token', msg.access_token);
               sessionStorage.setItem('user',JSON.stringify(msg.user));
 
-              window.location.href = "./visualizarPerfil.html?profile="
+              window.location.href = "./visualizarPerfil?profile="
               + msg.user.id;
           })
           .fail(function(jqXHR, textStatus, msg){
             console.log(jqXHR);
-            console.log(textStatus);  
+            console.log(textStatus);
             console.log(msg);
           });
       })
       .fail(function(jqXHR, textStatus, msg){
         console.log(jqXHR);
-        console.log(textStatus);  
+        console.log(textStatus);
         console.log(msg);
         alert(JSON.parse(jqXHR.responseText).message);
       });
@@ -135,7 +135,7 @@ async function saveUserContactsAndExperience(){
     }else{
       alert("Escreva um feedback.\n O feedback deve ter até "+(limiteDoFeedback-1)+" caracteres, seu feedback tem "+feedBack.trim().length+" caracteres");
     }
-  } 
+  }
 }
 
 function getDivData(divId) {
@@ -143,8 +143,8 @@ function getDivData(divId) {
   let data = "";
 
   for (let i = 0; i < divData.children.length; i++) {
-    data += divData.children[i].lastChild.innerHTML; 
-    data += ",";   
+    data += divData.children[i].lastChild.innerHTML;
+    data += ",";
   }
 
   data = data.slice(0,-1);
@@ -176,7 +176,7 @@ function autocomplete(inp, arr) {
   var currentFocus = 0;
   /*execute a function when someone writes in the text field:*/
   inp.addEventListener("input", input);
-  
+
   function input(e) {
       var a, b, i, val = this.value;
       /*close any already open lists of autocompleted values*/
@@ -215,7 +215,7 @@ function autocomplete(inp, arr) {
   /*execute a function presses a key on the keyboard:*/
 /*
     inp.addEventListener("keydown", keydown);
-    
+
     function keydown(e) {
       var x = document.getElementById(this.id + "autocomplete-list");
       if (x) x = x.getElementsByTagName("div");

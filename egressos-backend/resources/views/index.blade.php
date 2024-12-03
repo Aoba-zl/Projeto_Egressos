@@ -17,11 +17,11 @@
     <link rel="stylesheet" href="./css/general_devices.css">
     <link rel="stylesheet" href="./css/home/home_style.css">
     <link rel="stylesheet" href="./css/home/devices.css">
-    
+
 </head>
 <body>
-  <header id="header">       
-    
+  <header id="header">
+
   </header>
   <main>
       <section id="sec_apresentacao">
@@ -45,8 +45,8 @@
                     <source media="(max-width:600px)" srcset="./img/fatec_1_480.webp">
                     <img src="./img/fatec_1.webp" alt="First slide">
                   </picture>
-                </div>                  
-              </div>                
+                </div>
+              </div>
             </div>
 
             <div class="carousel-item">
@@ -62,8 +62,8 @@
                     <source media="(max-width:600px)" srcset="./img/fatec_2_480.webp">
                     <img src="./img/fatec_2.webp" alt="Second slide">
                   </picture>
-                </div>                  
-              </div>                
+                </div>
+              </div>
             </div>
 
             <div class="carousel-item">
@@ -79,8 +79,8 @@
                     <source media="(max-width:600px)" srcset="./img/fatec_3_480.webp">
                     <img src="./img/fatec_3.webp" alt="Third slide">
                   </picture>
-                </div>                  
-              </div>                
+                </div>
+              </div>
             </div>
           </div>
           <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev" aria-label="Voltar slide">
@@ -91,7 +91,7 @@
           </a>
         </div>
       </section>
-      
+
       <section id="sec_numeros" class="d-none">
         <div class="row">
           <p class="col-sm-12 col-lg-6">+20.000 <br>Graduados</p>
@@ -105,14 +105,14 @@
             <h2>Depoimentos</h2>
           </div>
           <div id="divDepoimentos">
-            
+
           </div>
           <div class="d-flex justify-content-center mb-3 mt-4">
-            <a href="./buscaDeAlunos.html">
+            <a href="./buscaDeAlunos">
               <button type="button" class="btn btn-success">Veja mais egressos</button>
             </a>
           </div>
-        </div> 
+        </div>
       </section>
 
       <section id="sec_convite">
@@ -127,17 +127,17 @@
               Deixe que contemos sua história!
             </h3>
             <p class="text-center">
-              Cadastre-se em nossa plataforma e 
-              divulgaremos seu sucesso profissional em 
-              nossas redes sociais, eventos e demais 
-              ocasiões para mostrarmos como ajudamos em 
-              sua jornada! 
+              Cadastre-se em nossa plataforma e
+              divulgaremos seu sucesso profissional em
+              nossas redes sociais, eventos e demais
+              ocasiões para mostrarmos como ajudamos em
+              sua jornada!
             </p>
             <p class="text-center">
-              Porquê o <strong>seu</strong> sucesso é o <strong>nosso</strong> sucesso! 
+              Porquê o <strong>seu</strong> sucesso é o <strong>nosso</strong> sucesso!
             </p>
             <div class="d-flex justify-content-center">
-              <a href="./cadastro.html"><button id="btnCadastrar" class="btn btn-light mb-4">Cadastre-se</button></a>
+              <a href="./cadastro"><button id="btnCadastrar" class="btn btn-light mb-4">Cadastre-se</button></a>
             </div>
           </div>
           <div class="col-sm-12 col-md-6 d-flex justify-content-center">
@@ -152,18 +152,18 @@
             <h2>Próximos Eventos</h2>
           </div>
           <div id="proximosEventos">
-            
+
           </div>
         </div>
       </section>
   </main>
-  
+
   <footer id="footer" class="">
-    
+
   </footer>
 
   <script src="./js/globals.js"></script>
-  
+
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>

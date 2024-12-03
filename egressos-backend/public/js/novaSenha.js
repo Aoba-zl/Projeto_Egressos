@@ -1,6 +1,6 @@
 window.onload = function () {
     $("#header").load("./components/header.html");
-    $("#footer").load("./components/footer.html"); 
+    $("#footer").load("./components/footer.html");
 
     init();
 }
@@ -12,11 +12,11 @@ async function salvarNovaSenha() {
 
     let password = document.getElementById("txtSenha").value;
     let cpassword = document.getElementById("txtConfirmacaoSenha").value;
-    
-    let regex = 
+
+    let regex =
            /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[$*&@#])[0-9a-zA-Z$*&@#]{8,}$/;
     let senhaOk = (regex.test(password));
-    
+
     if(password === cpassword && senhaOk){
         try
         {
@@ -25,14 +25,14 @@ async function salvarNovaSenha() {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ 
+                body: JSON.stringify({
                       email: sessionStorage.getItem('email')
                     , password: await generateHash(password)
                     , token: sessionStorage.getItem('reset_token') }),
             })
 
             const data = await response.json();
-        
+
             if (data.success)
             {
                 showAlert(data.success, 'alert-success')
@@ -42,8 +42,8 @@ async function salvarNovaSenha() {
                 setTimeout(() => {
                     sessionStorage.removeItem('email');
                     sessionStorage.removeItem('reset_token');
-    
-                    window.location.href = "./login.html"
+
+                    window.location.href = "./login"
                 }, 1000);
             }
             else
@@ -64,7 +64,7 @@ async function salvarNovaSenha() {
                     +" com letras maiúsculas, minúsculas e números"
                     , 'alert-danger');
             }
-        }        
+        }
     }
 }
 
@@ -81,7 +81,7 @@ var btn_resend_token = document.getElementById('btnReenviarCodigo')
 
 let is_token_valide = false
 
-async function validate_token() 
+async function validate_token()
 {
     var txt_token = document.getElementById('txtCodigoValidacao').value
     let endpoint = serverUrl + "validatetoken"
@@ -95,13 +95,13 @@ async function validate_token()
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ 
+            body: JSON.stringify({
                 email: sessionStorage.getItem('email')
                 ,token: txt_token }),
         })
-        
+
         const data = await response.json();
-        
+
         if (data.success)
         {
             is_token_valide = true
@@ -110,7 +110,7 @@ async function validate_token()
         }
         else
             alert(data.error)
-        
+
         txt_token = '';
     }
     catch (error) {
@@ -126,13 +126,13 @@ modal_validar.on('hide.bs.modal', function(){
         let exit_modal = confirm("Sem um código não poderá redefinir a senha."+
             " Clique em OK para validar o código."+
             " Ou cancelar para retornar para página inicial.")
-        
+
         setTimeout(() => {
             if (exit_modal){
                 exibirModal("#validar-codigo-modal");
             }
             else {
-                window.location.href = "./index.html"
+                window.location.href = "./"
             }
         }, 200);
     }

@@ -1,6 +1,6 @@
 window.onload = function () {
     $("#header").load("./components/header.html");
-    $("#footer").load("./components/footer.html"); 
+    $("#footer").load("./components/footer.html");
 
     init();
 }
@@ -10,7 +10,7 @@ function init(){
 }
 
 
-async function reset_password() 
+async function reset_password()
 {
     let elem_email = document.getElementById('txtEmailRedefinicao')
     let email = elem_email.value
@@ -24,7 +24,7 @@ async function reset_password()
     }
 
     showAlert('Um e-mail com o código de validação será enviado.', 'alert-success')
-    
+
     try
     {
         let endpoint = serverUrl + "resetpasswd";
@@ -47,7 +47,7 @@ async function reset_password()
                 // Armazena o email na sessão
                 sessionStorage.setItem('email', email);
 
-                window.location.href = "./novaSenha.html"
+                window.location.href = "./novaSenha"
             }, 2500);
         }
         else
@@ -60,7 +60,7 @@ async function reset_password()
         showAlert(data.error, 'alert-danger')
         elem_email.value = '';
     }
-    
+
 }
 
 function showAlert(message, alertType) {

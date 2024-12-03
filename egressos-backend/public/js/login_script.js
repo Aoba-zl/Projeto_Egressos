@@ -1,6 +1,6 @@
 window.onload = function () {
     $("#header").load("./components/header.html");
-    $("#footer").load("./components/footer.html"); 
+    $("#footer").load("./components/footer.html");
 
     init();
 }
@@ -9,8 +9,8 @@ function init(){
     setTimeout(() => {
         let btnEntrar=document.getElementById("btnEntrar");
         btnEntrar.classList.add("d-none");
-        
-    }, 100);    
+
+    }, 100);
 }
 
 document.getElementById('entrar').addEventListener('click', async function () {
@@ -21,7 +21,7 @@ document.getElementById('entrar').addEventListener('click', async function () {
         showAlert('Por favor, preencha ambos os campos de email e senha.', 'alert-danger');
         return;
     }
-    
+
     const payload = {
         email: email,
         password: await generateHash(password)
@@ -44,7 +44,7 @@ document.getElementById('entrar').addEventListener('click', async function () {
             sessionStorage.setItem('token', data.access_token);
             sessionStorage.setItem('user',JSON.stringify(data.user));
 
-           
+
 
             // Save egress data in session
             await $.ajax({
@@ -62,16 +62,16 @@ document.getElementById('entrar').addEventListener('click', async function () {
                 }
 
                 console.log(jqXHR);
-                console.log(textStatus);  
+                console.log(textStatus);
                 console.log(msg);
               });
 
             // Login successful
             showAlert('Login realizado com sucesso!', 'alert-success');
             if(data.user.type_account == 0){
-                window.location.href = "./visualizarPerfil.html?profile=" + data.user.id;
+                window.location.href = "./visualizarPerfil?profile=" + data.user.id;
             }else{
-                window.location.href = "./homemoderador.html";
+                window.location.href = "./homemoderador";
             }
         } else {
             // Login failed, show error message from the API
