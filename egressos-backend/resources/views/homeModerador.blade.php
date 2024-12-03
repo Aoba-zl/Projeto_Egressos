@@ -17,6 +17,9 @@
     <link rel="stylesheet" href="./css/general_devices.css">
     <link rel="stylesheet" href="./css/homeModerador/devices.css">
     <link rel="stylesheet" href="./css/homeModerador/moderador_style.css">
+
+    <!-- FAVICON -->
+    <link rel="shortcut icon" href="./favicon.ico" type="image/x-icon">
 </head>
 <body>
     <header id="header">

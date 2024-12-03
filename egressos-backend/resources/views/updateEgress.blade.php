@@ -21,6 +21,9 @@
 
     <!-- MATERIAL ICONS -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+
+    <!-- FAVICON -->
+    <link rel="shortcut icon" href="./favicon.ico" type="image/x-icon">
 </head>
 <body>
     <header id="header"></header>

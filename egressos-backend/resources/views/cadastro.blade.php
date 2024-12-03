@@ -18,6 +18,8 @@
     <link rel="stylesheet" href="./css/cadastro/cadastro_style.css">
     <link rel="stylesheet" href="./css/cadastro/devices.css">
 
+    <!-- FAVICON -->
+    <link rel="shortcut icon" href="./favicon.ico" type="image/x-icon">
 </head>
 <body>
     <header id="header"></header>

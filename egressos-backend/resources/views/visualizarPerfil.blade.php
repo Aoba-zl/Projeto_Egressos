@@ -22,6 +22,9 @@
     <link rel="stylesheet" href="./css/general_devices.css">
     <link rel="stylesheet" href="./css/visualizacao/visualizacao_style.css">
     <link rel="stylesheet" href="./css/visualizacao/devices.css">
+
+    <!-- FAVICON -->
+    <link rel="shortcut icon" href="./favicon.ico" type="image/x-icon">
 </head>
 <body>
     <div id="motivo-rejeicao-modal" class="modal modal-lg" tabindex="-1" role="dialog">

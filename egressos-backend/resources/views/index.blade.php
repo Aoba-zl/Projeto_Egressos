@@ -18,6 +18,8 @@
     <link rel="stylesheet" href="./css/home/home_style.css">
     <link rel="stylesheet" href="./css/home/devices.css">
 
+    <!-- FAVICON -->
+    <link rel="shortcut icon" href="./favicon.ico" type="image/x-icon">
 </head>
 <body>
   <header id="header">
