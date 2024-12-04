@@ -1,0 +1,11 @@
+@charset "UTF-8";
+
+@media only screen and (max-width: 768px) {
+    #txtSearchModerador{
+        width: 55vw;
+    }
+}
+
+@media only screen and (max-width: 768px) and (max-height:500px){
+   
+}

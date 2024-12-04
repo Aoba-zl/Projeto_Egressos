@@ -1,0 +1,24 @@
+.form-select{
+    display: inline;
+    width: auto;
+}
+
+.form-control{
+    display: inline;
+    width: auto;
+}
+
+#buscarModeradores > div{
+    width: 100vw;
+    align-content: center;
+    text-align: center;
+}
+
+#txtSearchModerador{
+    width: 65vw;
+}
+
+#btnBuscaModerador{
+    transform: translateY(-2px);
+}
+
