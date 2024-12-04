@@ -52,5 +52,9 @@ class ViewsController extends Controller
     {
         return view("visualizarPerfil");
     }
+    public function homeAdministrador()
+    {
+        return view("homeAdministrador");
+    }
 
 }

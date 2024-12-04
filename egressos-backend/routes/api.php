@@ -121,6 +121,13 @@ Route::post('resetpasswd',[ResetPassword::class,'request_reset']);
 Route::post('validatetoken',[ResetPassword::class,'validate_token']);
 Route::put('resetpasswd-updatepasswd',[UserController::class, 'update_password']);
 
+//----------------------- MODERATORS -------------------------------
+
+Route::get('moderators',[UserController::class,'get_moderators']);
+Route::get('search_users',[UserController::class,'search_users']);
+Route::put('toggle_moderator/{id}',[UserController::class,'toggle_moderator']);
+
+
 /*
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();

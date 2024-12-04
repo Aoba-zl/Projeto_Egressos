@@ -21,6 +21,7 @@ Route::get('index', [ViewsController::class, 'index'])->name('home');
 
 Route::get('homemoderador', [ViewsController::class, 'homeModerador'])->name('home_moderador');
 Route::get('visualizarPerfil', [ViewsController::class, 'visualizarPerfil'])->name('visualizarPerfil');
+Route::get('homeadministrador', [ViewsController::class, 'homeAdministrador'])->name('home_administrador');
 
 Route::get('login', [ViewsController::class, 'login'])->name('login');
 

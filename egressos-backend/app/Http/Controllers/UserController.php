@@ -28,7 +28,7 @@ class UserController extends Controller
         }
         return response()->json(['message' => 'Usuário não encontrado'], 404);
     }
-    
+
     public function login(Request $request)
     {
         // Validar os dados de entrada
@@ -60,7 +60,7 @@ class UserController extends Controller
     {
         $typeAccount = $request->input('type_account');
         $typeAccountLabel = '';
-        
+
         switch ($typeAccount) {
             case config('constants.TYPE_ACCOUNT_USER'):
                 $typeAccountLabel = 'Egresso'; // 0 -> Egresso
@@ -102,7 +102,7 @@ class UserController extends Controller
         if ($user) {
             $user->update([
                 'name'=>$request->name,
-              
+
             ]);
             return response()->json($user);
         }
@@ -116,7 +116,7 @@ class UserController extends Controller
         $user = User::where('email', $request->email)->first();
         $token = Token_reset_password::where('email', $request->email)->where('token', $request->token)->first();
 
-        if (!$token || !$token->is_valid) 
+        if (!$token || !$token->is_valid)
             return response()->json(['error' => 'Código inválido! Valide o código recebido no e-mail, ou requisite outro!']);
 
         if ($user) {
@@ -142,4 +142,46 @@ class UserController extends Controller
 
         return response()->json(['message' => 'Usuário não encontrado'], 404);
     }
+
+    public function get_moderators()
+    {
+        $moderators = User::where('type_account', '1')->get();
+
+        return response()->json($moderators);
+    }
+
+    public function search_users(Request $request)
+    {
+        // Pegar query de busca do request
+        $searchQuery = $request->input('query', '');
+
+        // Buscar usuários por nome ou email
+        $users = User::where('name', 'LIKE', "%$searchQuery%")
+                    ->orWhere('email', 'LIKE', "%$searchQuery%")
+                    ->get();
+
+        return response()->json($users);
+    }
+
+    public function toggle_moderator($id)
+    {
+        $user = User::find($id);
+
+        if (!$user){
+            return response()->json(['message' => 'Usuário não encontrado'], 404);
+        }
+
+        $msg = 'Usuário agora é um moderador';
+
+        if ($user->type_account == '1'){
+            $user->update(['type_account' => '0']);
+            $msg = 'Usuário agora é um egresso';
+        }
+        else
+            $user->update(['type_account' => '1']);
+
+        return response()->json(['message' => $msg]);
+    }
+
+
 }
