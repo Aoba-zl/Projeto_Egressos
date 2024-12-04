@@ -15,6 +15,11 @@ function init() {
             document.getElementById("btnModeracao").classList.remove("disp-none");
         }
 
+        if(user.type_account == 2){
+            document.getElementById("sepAdministracao").classList.remove("disp-none");
+            document.getElementById("btnAdministracao").classList.remove("disp-none");
+        }
+
         let egressId = getEgressId();
         if(egressId == undefined || egressId == null){
             document.getElementById("myProfile").classList.add("disp-none");
@@ -67,6 +72,10 @@ document.getElementById('myProfile').addEventListener('click',async function () 
 
 document.getElementById('btnModeracao').addEventListener('click',async function () {
     window.location.href = "./homemoderador"
+});
+
+document.getElementById('btnAdministracao').addEventListener('click',async function () {
+    window.location.href = "./homeadministrador"
 });
 
 setTimeout(() => {
