@@ -63,4 +63,11 @@ class User extends Authenticatable
         }
         return false;
     }
+
+    public static function isMasterAdmin($user){
+        if($user != null && ($user->type_account == '2') ){
+            return true;    
+        }
+        return false;
+    }
 }

@@ -211,7 +211,9 @@ async function handleMakeModerator(userId) {
         try {
             const searchInput = document.getElementById('txtSearchModerador');
             
-            const response = await fetch(`${serverUrl}toggle_moderator/${userId}`, {
+            const token = await getUserToken();
+
+            const response = await fetch(`${serverUrl}toggle_moderator/${userId}/${token}`, {
                 method: 'PUT',
             });
 
@@ -241,7 +243,9 @@ async function handleModeratorRemoval(userId) {
         try {
             const searchInput = document.getElementById('txtSearchModerador');
 
-            const response = await fetch(`${serverUrl}toggle_moderator/${userId}`, {
+            const token = await getUserToken();
+
+            const response = await fetch(`${serverUrl}toggle_moderator/${userId}/${token}`, {
                 method: 'PUT',
             });
 

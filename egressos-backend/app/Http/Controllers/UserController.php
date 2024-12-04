@@ -163,9 +163,15 @@ class UserController extends Controller
         return response()->json($users);
     }
 
-    public function toggle_moderator($id)
+    public function toggle_moderator($id,$user_token)
     {
         $user = User::find($id);
+
+        $admin = User::getUserByToken($user_token);
+
+        if (!User::isMasterAdmin($admin)){
+            return response()->json(['message' => 'Você não é um administrador do sistema'], 403);
+        }
 
         if (!$user){
             return response()->json(['message' => 'Usuário não encontrado'], 404);
