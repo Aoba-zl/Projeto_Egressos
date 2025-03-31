@@ -21,17 +21,6 @@ Este projeto é uma plataforma web desenvolvida para conectar ex-alunos da **Fac
 - 🛠️ **Painel Administrativo** – Área para gestão dos usuários e da plataforma  
 
 ## 🖼️ **Capturas de Tela**  
-<style>
-  .screenshot {
-    width: 150px;
-    border-radius: 10px;
-    margin: 5px;
-    transition: transform 0.2s;
-  }
-  .screenshot:hover {
-    transform: scale(1.1);
-  }
-</style>
 
 <div>
   <img src="src_readme/home.jpeg" alt="Página Principal" class="screenshot">
